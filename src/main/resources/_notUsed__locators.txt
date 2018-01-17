@@ -1,0 +1,9 @@
+
+#test values
+LoginPage.title=Login Page
+LoginPage.userNameInput=id=Login
+LoginPage.userPassInput=id=Password
+LoginPage.loginButton=css=input[value=Login]
+Grid.FieldFrom=xpath=.//input[contains(@placeholder,'From')]
+Grid.Datepicker=css=.datepicker
+HomePage.title=Games

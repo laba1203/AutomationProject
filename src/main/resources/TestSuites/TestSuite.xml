@@ -1,0 +1,17 @@
+<suite name="SuiteName1">
+    <test name="Testing1" preserve-order="true" >
+        <classes>
+            <class name="FirstTest">
+                <!--<methods>
+                    <include name="test1_login"/>
+                </methods>-->
+            </class>
+        </classes>
+
+        <!--<packages>
+            <package name="" />
+        </packages>-->
+
+    </test>
+
+</suite>
