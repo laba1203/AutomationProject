@@ -1,6 +1,7 @@
 package util.logging;
 
 import abstractObjects.AbstractElement;
+import abstractObjects.AbstractElementsContainer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -58,6 +59,12 @@ public class Log {
         System.out.println(msg);
         return msg;
 
+    }
+
+    public String popupIsNotOpenedMsg(AbstractElementsContainer popup){
+        String msg = popup.getClass().getName() + "is not opened";
+        System.out.println(msg);
+        return msg;
     }
 
 

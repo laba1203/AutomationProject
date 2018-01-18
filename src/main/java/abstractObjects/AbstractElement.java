@@ -12,12 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractElement implements DrivenElement{
+
     private WebElement webElement;
     private By locator;
     private Log log = new Log();
-//    private WebDriverWait wait = new DriverConfig().getExplicitWait();
-
-    protected WebDriver driver = new DriverConfig().getDriver();
+    private WebDriver driver = new DriverConfig().getDriver();
 
 
     public void setWebElement(By locator)
@@ -65,6 +64,10 @@ public abstract class AbstractElement implements DrivenElement{
 
         return webElement.isEnabled();
     }
+
+//    public Object createNewInstance(DrivenElement element) throws IllegalAccessException, InstantiationException {
+//        return element.getClass().newInstance();
+//    }
 
     /**To update below part
     *     Start:     ********/

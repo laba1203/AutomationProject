@@ -1,10 +1,11 @@
-package talkable.campaignNavigationMenu.elements;
+package talkable.launchCampaignPage.elements;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
 public class LaunchCampaignButton extends AbstractElement{
-    private static final By locator = By.linkText("Launch Campaign");
+
+    private static final By locator = By.cssSelector("input[name='commit']");
 
     public LaunchCampaignButton(){
         setWebElement(locator);

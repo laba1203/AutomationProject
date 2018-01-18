@@ -1,22 +1,28 @@
 package talkable.campaignNavigationMenu;
 
+import abstractObjects.AbstractElementsContainer;
 import abstractObjects.DrivenElement;
+import org.openqa.selenium.NoSuchElementException;
 import talkable.campaignNavigationMenu.elements.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+public class CampaignNavigationMenu extends AbstractElementsContainer{
 
-public class CampaignNavigationMenu {
-
-    private DetailsButton detailsButton;
-    private RulesButton rulesButton;
-    private PreviewButton previewButton;
-    private EditorButton editorButton;
+    public DetailsButton detailsButton;
+    public RulesButton rulesButton;
+    public PreviewButton previewButton;
+    public EditorButton editorButton;
     private CampaignStatusField campaignStatusField;
-    private LaunchCampaignButton launchCampaignButton;
+    public LaunchCampaignButton launchCampaignButton;
+    public DeactivateCampaignButton deactivateCampaignButton;
 
-    DrivenElement[] elements = new DrivenElement[]{detailsButton};
+//    private DrivenElement[] elements = new DrivenElement[]{
+//            detailsButton,
+//            rulesButton,
+//            previewButton,
+//            editorButton,
+//            campaignStatusField,
+//            launchCampaignButton
+//    };
 
 
 
@@ -24,14 +30,26 @@ public class CampaignNavigationMenu {
     public CampaignNavigationMenu(){
 
 //        initialization of elements:
+//        initiateVisibleElements(elements);
         detailsButton = new DetailsButton();
         rulesButton = new RulesButton();
         previewButton = new PreviewButton();
         editorButton = new EditorButton();
         campaignStatusField = new CampaignStatusField();
-        launchCampaignButton = new LaunchCampaignButton();
+        try{
+            launchCampaignButton = new LaunchCampaignButton();
+        }
+        catch (NoSuchElementException e ){
+            System.out.println(e);
+            deactivateCampaignButton = new DeactivateCampaignButton();
+        }
+    }
+
+    public String getCampaignStatus(){
+        return campaignStatusField.getText();
 
     }
+
 
 
 

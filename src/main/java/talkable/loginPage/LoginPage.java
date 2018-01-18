@@ -34,7 +34,7 @@ public class LoginPage extends AbstractElementsContainer {
 
 
 
-    public void populateLoginForm(String email, String password){
+    public void submitLoginForm(String email, String password){
         //fill Email
         emailInput.sendKeys(email);
         passwordInput.sendKeys(password);
