@@ -2,17 +2,20 @@ package common.cases;
 
 import org.testng.Assert;
 import talkable.addYourSitePage.AddSitePage;
-import talkable.campaignNavigationMenu.CampaignNavigationMenu;
+import talkable.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.headerFrame.Header;
 import talkable.homePage.HomePage;
-import talkable.launchCampaignPage.LaunchCampaignPage;
+import talkable.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.loginPage.LoginPage;
-import talkable.menuFrame.MenuFrame;
+import talkable.headerFrame.elements.menuFrame.MenuFrame;
 
 /*Class to allocate common scenarios in Talkable.
  * */
 public class CommonScenarios {
+
+    private static final String liveStatusActive = "Status: Live";
+    private static final String liveStatusTest = "Status: Test";
 
     /***
      *Scenario to login into Talkable
@@ -45,11 +48,9 @@ public class CommonScenarios {
         Assert.assertEquals(header.siteSelectButton.getText(), siteName);
     }
 
-
-
     /***
      * Scenario to initiate campaign creation.
-     * Precondition: Header should be available
+     * Precondition: Header should be available. Site should not have any active campaign with the selected campaignType/placementType
      * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
      * */
     public void initiateCampaignCreation(CreateNewCampaignPage.CampaignType campaignType, CreateNewCampaignPage.PlacementType placementType){
@@ -60,6 +61,8 @@ public class CommonScenarios {
         //Create New Campaign page:
         CreateNewCampaignPage createNewCampaignPage = new CreateNewCampaignPage();
         createNewCampaignPage.createCampaign(campaignType, placementType);
+        //check Campaign Status
+        Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), liveStatusTest);
     }
 
     /***
@@ -68,12 +71,12 @@ public class CommonScenarios {
      * Post-condition: Campaign  status changed to Active. Campaign Details page is opened*/
     public void launchCampaign(){
         CampaignNavigationMenu campaignNavigationMenu = new CampaignNavigationMenu();
-        campaignNavigationMenu.launchCampaignButton.click();
+        campaignNavigationMenu.launchDeactivateCampaignButton.click();
         //Launch Campaign Page is opened
         LaunchCampaignPage launchCampaignPage = new LaunchCampaignPage();
         launchCampaignPage.launchCampaign();
-
-        Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), "Status: Live");
+        //check Campaign Status
+        Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), liveStatusActive);
     }
 
 }

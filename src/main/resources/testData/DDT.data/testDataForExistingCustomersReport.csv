@@ -1,0 +1,4 @@
+FileName,Progress,EmailsUploaded,Status
+test1.csv,100%,1,Completed
+test1.csv,100%,0,Completed
+test2.csv,100%,0,Completed

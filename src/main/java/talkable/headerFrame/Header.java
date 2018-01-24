@@ -6,11 +6,11 @@ public class Header {
 
     //Elements:
     public SelectedSiteElement siteSelectButton;
-    SearchSiteInput searchSiteInput;
-    CustomerServicesButton customerServicesButton;
-    DashboardButton dashboardButton;
-    CampaignsButton campaignsButton;
-    ReportsButton reportsButton;
+    public SearchSiteInput searchSiteInput;
+    public CustomerServicesButton customerServicesButton;
+    public DashboardButton dashboardButton;
+    public CampaignsButton campaignsButton;
+    public ReportsButton reportsButton;
     public MenuButton menuButton;
     public SiteSelect siteSelect;
 

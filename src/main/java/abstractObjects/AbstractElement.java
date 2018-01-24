@@ -23,7 +23,6 @@ public abstract class AbstractElement implements DrivenElement{
     {
         webElement = driver.findElement(locator);
         this.locator = locator;
-
     }
 
     public void setWebElement(WebElement webElement){
@@ -65,35 +64,9 @@ public abstract class AbstractElement implements DrivenElement{
         return webElement.isEnabled();
     }
 
-//    public Object createNewInstance(DrivenElement element) throws IllegalAccessException, InstantiationException {
-//        return element.getClass().newInstance();
-//    }
-
-    /**To update below part
-    *     Start:     ********/
-//    protected WebElement getActiveElement(List<WebElement> elements){
-//        ArrayList<WebElement> activeElements = (ArrayList<WebElement>) getListOfActiveElements(elements);
-//        verifyCountOfElements(activeElements, 1);
-//        return activeElements.get(0);
-//
-//    }
-//
-//    private void verifyCountOfElements(List<WebElement> elements, int expectedCount){
-//        Assert.assertEquals(elements.size(), expectedCount, log.incorrectCountOFWebElementsMsg());
-//    }
-//
-//    private List<WebElement> getListOfActiveElements(List<WebElement> allElements){
-//        ArrayList<WebElement> activeElements = new ArrayList<WebElement>();
-//
-//        for (WebElement element: allElements) {
-//            if(element.isEnabled()){
-//                activeElements.add(element);
-//            }
-//        }
-//        return activeElements;
-//    }
-//
-//    //**** End ******//
+    public ArrayList<WebElement> getWebElements(By locator){
+        return (ArrayList<WebElement>) driver.findElements(locator);
+    }
 
     public WebElement getWebElement() {
         return webElement;
@@ -101,6 +74,10 @@ public abstract class AbstractElement implements DrivenElement{
 
     public By getLocator(){
         return this.locator;
+    }
+
+    protected WebDriver getDriver(){
+        return this.driver;
     }
 
 
