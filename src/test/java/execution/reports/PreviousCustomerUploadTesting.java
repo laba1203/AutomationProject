@@ -28,6 +28,7 @@ public class PreviousCustomerUploadTesting extends ReportsScenarios{
         header.reportsButton.click();
         ReportsPage reportsPage = new ReportsPage();
         reportsPage.previousCustomersButton.click();
+
     }
 
 
