@@ -30,6 +30,8 @@ public class CommonScenarios {
         loginPage.submitLoginForm(email, password);
     }
 
+//    Object
+
 
     /***
      * Common scenario to create new campaign with default values

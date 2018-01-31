@@ -1,0 +1,6 @@
+positiveTest1@test.com, additionalColumn
+negativeTest1, additionalColumn
+ ,additionalColumn
+--#$((*(, additionalColumn
+positiveTest2@test.com, additionalColumn
+

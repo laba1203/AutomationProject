@@ -1,8 +1,11 @@
 package talkable.headerFrame;
 
+import abstractObjects.AbstractElementsContainer;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.headerFrame.elements.*;
+import talkable.headerFrame.elements.siteSelectContainer.SiteSelectContainer;
 
-public class Header {
+public class Header extends AbstractElementsContainer{
 
     //Elements:
     public SelectedSiteElement siteSelectButton;
@@ -32,14 +35,10 @@ public class Header {
     }
 
     public void switchSiteTo(String siteName){
-        siteSelect.selectByVisibleText(siteName);
-//        siteSelectButton.click();
-//        searchSiteInput = new SiteSelectDropDown();
-//        searchSiteInput.sendKeys(siteName);
-
-//        searchSiteInput.click();
-//        siteSelectDropDown.enterTextAndClickENTER(siteName);
-
+        siteSelectButton.click();
+        SiteSelectContainer siteSelect = new SiteSelectContainer();
+        siteSelect.selectSiteByText(siteName);
+        wait.until(ExpectedConditions.textToBePresentInElement(siteSelectButton.getWebElement(), siteName));
     }
 
     public void openMenu(){

@@ -20,6 +20,19 @@ public class UploadedCSVListsTable extends AbstractElementsContainer{
         return values;
     }
 
+    public void waitTillProgressPopulated(String text){
+        new Row(1).waitTillProgressPopulated(text);
+    }
+
+    public void waitTillProgressUnpopulated(String text){
+        new Row(1).waitTillTextDisappearedInProgress(text);
+    }
+
+    public ColumnProgress getProgressElement(int rowNumber){
+        return new Row(rowNumber).progress;
+    }
+
+
     public String getFileName(int rowNumber){
         return new Row(rowNumber).fileName.getText();
     }

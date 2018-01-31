@@ -2,12 +2,14 @@ package talkable.reports.previousCustomersReport;
 
 import abstractObjects.AbstractElementsContainer;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 import talkable.reports.previousCustomersReport.elements.DropZoneInput;
 import talkable.reports.previousCustomersReport.elements.TotalCustomersLists;
 import talkable.reports.previousCustomersReport.elements.UploadNewCSVButton;
 import talkable.reports.previousCustomersReport.elements.ClosePopupButton;
 import talkable.reports.previousCustomersReport.uploadedCSVListsTable.UploadedCSVListsTable;
 import util.TestArtifactsProvider;
+import util.logging.Log;
 
 import java.util.ArrayList;
 
@@ -37,6 +39,31 @@ public class PreviousCustomersReportPage extends AbstractElementsContainer {
         dropZone.sendKeys(TestArtifactsProvider.getPreviousCustomerFilePath(fileName));
         wait.until(ExpectedConditions.invisibilityOf(closePopupButton.getWebElement()));
         uploadedCSVLists = new UploadedCSVListsTable();
+    }
+
+//    public void waitTillFileProcessed(){
+//        uploadedCSVLists.waitTillProgressUnpopulated("In progress");
+//    }
+
+    public void waitTillFileProcessed(){
+        int waiter = 0;
+        while(!isFileProcessed()){
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            waiter++;
+            if(waiter==6){
+                Assert.fail(Log.fileIsNotProcessedMsg());
+                break;
+            }
+        }
+    }
+
+    private boolean isFileProcessed(){
+//        ArrayList values = uploadedCSVLists.getRowValues(1);
+        return !new UploadedCSVListsTable().getProgress(1).equals("In progress");
     }
 
     /*Returns values of the row in array:

@@ -13,20 +13,23 @@ import util.TestDataConverter;
 import java.io.IOException;
 
 public class PreviousCustomerUploadTesting extends ReportsScenarios{
-    private String fileName = "testDataForExistingCustomersReport.csv";
+    private static final String userEmail = "maxim.laba@talkable.com";
+    private static final String userPassword = "Password@1";
+    private static final String fileName = "testDataForExistingCustomersReport.csv";
 
 
     @BeforeClass
     public void setup(){
         WebDriver driver = new DriverConfig().getDriver();
         driver.navigate().to("https://void.talkable.com");
-        login("maxim.laba@talkable.com", "Password@1");
+        login(userEmail, userPassword);
         //Navigate to Existing Customers Report
         Header header = new Header();
         header.reportsButton.click();
         ReportsPage reportsPage = new ReportsPage();
         reportsPage.previousCustomersButton.click();
     }
+
 
     @Test(dataProvider = "getTestData")
     public void testing(String fileName, String expectedProgress, String expectedUploadedEmails, String expectedStatus){

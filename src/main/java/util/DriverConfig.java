@@ -54,6 +54,7 @@ public class DriverConfig {
 
     private void setImplicitlyWait(){
         driver.manage().timeouts().implicitlyWait(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
 
     }
 

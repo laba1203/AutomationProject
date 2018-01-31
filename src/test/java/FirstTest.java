@@ -3,12 +3,14 @@ import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import talkable.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.headerFrame.Header;
 import talkable.loginPage.LoginPage;
 import talkable.headerFrame.elements.menuFrame.MenuFrame;
 import talkable.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.reports.reportsPage.ReportsPage;
+import talkable.siteDashboardPage.SiteDashboardPage;
 import util.DriverConfig;
 
 
@@ -44,7 +46,34 @@ public class FirstTest {
     @Test
     public void test2(){
         Header header = new Header();
-        driver.navigate().to("https://admin.void.talkable.com/sites/test1101/");
+        header.switchSiteTo("automationSite");
+//        header.switchSiteTo("automationSite");
+//        driver.navigate().to("https://admin.void.talkable.com/sites/test1101/");
+    }
+
+    @Test
+    public void test3(){
+        IntegrationInstructionPage integrationInstructionPage = new IntegrationInstructionPage();
+        integrationInstructionPage.dontShowItAgain();
+    }
+
+    @Test
+    public void test4(){
+        SiteDashboardPage siteDashboard = new SiteDashboardPage();
+        siteDashboard.verifySiteName("automationSite");
+    }
+
+    @Test
+    public void test5(){
+        SiteDashboardPage siteDashboard = new SiteDashboardPage();
+        new Header().switchSiteTo("automationSite");
+    }
+
+    @Test
+    public void test6(){
+
+        Header header = new Header();
+
     }
 
 //    @Test
@@ -67,31 +96,16 @@ public class FirstTest {
 //
 //    }
 
-    @Test
-    public void test3(){
-        Header header = new Header();
-        header.reportsButton.click();
-        ReportsPage reportsPage = new ReportsPage();
-        reportsPage.previousCustomersButton.click();
-        PreviousCustomersReportPage previousCustomersReport = new PreviousCustomersReportPage();
-        previousCustomersReport.uploadFile("existingCustomers.csv");
-    }
+//    @Test
+//    public void test3(){
+//        Header header = new Header();
+//        header.reportsButton.click();
+//        ReportsPage reportsPage = new ReportsPage();
+//        reportsPage.previousCustomersButton.click();
+//        PreviousCustomersReportPage previousCustomersReport = new PreviousCustomersReportPage();
+//        previousCustomersReport.uploadFile("existingCustomers.csv");
+//    }
 
-    @Test
-    public void test4(){
-        PreviousCustomersReportPage previousCustomersReport = new PreviousCustomersReportPage();
-        System.out.println("Count: <" + previousCustomersReport.getUploadedListsCount() + ">");
-        System.out.println("-----------------");
-        System.out.println(previousCustomersReport.getFirstRowValuesFromUploadedCSVLists().toString());
-        System.out.println("-----------------");
-        System.out.println(previousCustomersReport.getUploadedCSVListsTable().getFileName(1));
-        System.out.println("-----------------");
-        System.out.println(previousCustomersReport.getUploadedCSVListsTable().getProgress(1));
-        System.out.println("-----------------");
-        System.out.println(previousCustomersReport.getUploadedCSVListsTable().getEmailsUploaded(1));
-        System.out.println("-----------------");
-        System.out.println(previousCustomersReport.getUploadedCSVListsTable().getStatus(1));
-    }
 
 
 //    @Test

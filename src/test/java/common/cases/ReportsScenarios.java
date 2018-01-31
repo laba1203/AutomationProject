@@ -18,6 +18,7 @@ public class ReportsScenarios extends CommonScenarios{
     public void previousCustomerUploadTesting(String fileName, String expectedProgress,String expectedUploadedEmails, String expectedStatus){
         PreviousCustomersReportPage previousCustomersReport = new PreviousCustomersReportPage();
         previousCustomersReport.uploadFile(fileName);
+        previousCustomersReport.waitTillFileProcessed();
         ArrayList<String> actualRowValues = previousCustomersReport.getFirstRowValuesFromUploadedCSVLists();
         //compare values:
         String actualFileName = actualRowValues.get(0);
@@ -25,10 +26,11 @@ public class ReportsScenarios extends CommonScenarios{
         String actualUploadedEmails = actualRowValues.get(2);
         String actualStatus = actualRowValues.get(3);
 
-        Assert.assertEquals(actualFileName, fileName);
-        Assert.assertEquals(actualProgress, expectedProgress);
-        Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails);
-        Assert.assertEquals(actualStatus, expectedStatus);
+        Assert.assertEquals(actualFileName, fileName, "Incorrect FileName");
+        Assert.assertEquals(actualProgress, expectedProgress, "Incorrect Progress");
+        Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails, "Incorrect UploadedEmails");
+        Assert.assertEquals(actualStatus, expectedStatus, "Incorrect Status");
+
 
     }
 }

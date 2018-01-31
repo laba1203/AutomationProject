@@ -2,6 +2,7 @@ package util.logging;
 
 import abstractObjects.AbstractElement;
 import abstractObjects.AbstractElementsContainer;
+import abstractObjects.AbstractTalkableFrame;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -69,6 +70,30 @@ public class Log {
 
     public static String fileUploadedMsg(String fileName, AbstractElement target){
         String msg = "File: '" +fileName+ "' uploaded to element " + target.getClass().getName();
+        System.out.println(msg);
+        return msg;
+    }
+
+    public static String fileIsNotProcessedMsg(){
+        String msg = "File is not processed";
+        System.out.println(msg);
+        return msg;
+    }
+
+    public static String moveMouseOverMsg(AbstractElement element){
+        String msg = "Mouse moved over the element: " +  element.getClass().getName();
+        System.out.println(msg);
+        return msg;
+    }
+
+    public static String frameSwitchedMsg(AbstractTalkableFrame frame){
+        String msg = "Switched to iFrame " + frame.getClass().getName();
+        System.out.println(msg);
+        return msg;
+    }
+
+    public static String frameSwitchedMsg(){
+        String msg = "Frame switched";
         System.out.println(msg);
         return msg;
     }

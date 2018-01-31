@@ -4,6 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import util.DriverConfig;
 import util.logging.Log;
@@ -15,8 +18,8 @@ public abstract class AbstractElement implements DrivenElement{
 
     private WebElement webElement;
     private By locator;
-    private Log log = new Log();
     private WebDriver driver = new DriverConfig().getDriver();
+    protected WebDriverWait wait = new DriverConfig().getExplicitWait();
 
 
     public void setWebElement(By locator)
@@ -29,17 +32,16 @@ public abstract class AbstractElement implements DrivenElement{
         this.webElement = webElement;
     }
 
-
     public void click()
     {
         this.webElement.click();
-        log.clickMsg(this);
+        Log.clickMsg(this);
     }
 
     public void sendKeys(String value)
     {
         this.webElement.sendKeys(value);
-        log.enterValueMsg(value, this);
+        Log.enterValueMsg(value, this);
     }
 
     private boolean isElementPresent()
@@ -49,7 +51,7 @@ public abstract class AbstractElement implements DrivenElement{
 
     public void enterTextAndClickENTER(String value){
         this.webElement.sendKeys(value + Keys.RETURN);
-        log.enterValueAndClickEnterMsg(value, this);
+        Log.enterValueAndClickEnterMsg(value, this);
     }
 
     public String getText(){
@@ -58,7 +60,7 @@ public abstract class AbstractElement implements DrivenElement{
 
     public boolean isEnabled(){
         if(!webElement.isEnabled()){
-            log.webElementIsNotActiveMsg(this);
+            Log.webElementIsNotActiveMsg(this);
         }
 
         return webElement.isEnabled();
@@ -78,6 +80,20 @@ public abstract class AbstractElement implements DrivenElement{
 
     protected WebDriver getDriver(){
         return this.driver;
+    }
+
+    public void waitTillElementPopulatedByText(String text){
+        wait.until(ExpectedConditions.textToBePresentInElement(this.webElement, text));
+    }
+
+    public void waitElementWithTextDisappeared(String text){
+        wait.until(ExpectedConditions.invisibilityOfElementWithText(this.locator, text));
+    }
+
+    public void moveMouseOver(){
+        Actions builder = new Actions(driver);
+        builder.moveToElement(webElement).build().perform();
+        Log.moveMouseOverMsg(this);
     }
 
 

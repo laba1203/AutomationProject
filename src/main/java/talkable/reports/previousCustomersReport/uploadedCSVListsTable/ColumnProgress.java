@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 class ColumnProgress extends AbstractElement{
 //    private By locator = By.cssSelector("tbody>tr:nth-child(1)>.datagrid-file-name>div");
 
-    public ColumnProgress(int rowNumber){
+    ColumnProgress(int rowNumber){
         setWebElement(By.cssSelector("tbody>tr:nth-child(" + rowNumber + ")>.datagrid-progress>div"));
     }
 }

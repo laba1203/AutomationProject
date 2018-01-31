@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import util.logging.Log;
 
-public class AbstractSelectElement extends AbstractElement{
+public abstract class AbstractSelectElement extends AbstractElement{
 
-    Select dropdown;
-    Log log = new Log();
+    protected Select dropdown;
+
 
     @Override
     public void setWebElement(By locator) {
@@ -17,17 +17,17 @@ public class AbstractSelectElement extends AbstractElement{
 
     public void selectByVisibleText(String text){
         dropdown.selectByVisibleText(text);
-        log.selectFromDropDownLogMsg(text, dropdown);
+        Log.selectFromDropDownLogMsg(text, dropdown);
     }
 
     public void selectByValue(String value){
         dropdown.selectByValue(value);
-        log.selectFromDropDownLogMsg(value, dropdown);
+        Log.selectFromDropDownLogMsg(value, dropdown);
     }
 
     public void selectByIndex(int index){
         dropdown.selectByIndex(index);
-        log.selectFromDropDownLogMsg(String.valueOf(index), dropdown);
+        Log.selectFromDropDownLogMsg(String.valueOf(index), dropdown);
     }
 
 

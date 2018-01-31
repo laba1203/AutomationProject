@@ -1,4 +1,7 @@
 FileName,Progress,EmailsUploaded,Status
-test1.csv,100%,1,Completed
-test1.csv,100%,0,Completed
-test2.csv,100%,0,Completed
+01_positiveSet.csv,100%,13,Completed
+02_positiveSetForDuplicatedRecordsTesting.csv,100%,1,Completed
+03_positiveWithDuplicates.csv,100%,3,Completed
+04_positiveAndNegative.csv,100%,2,Completed
+05_negativeWithMultipleTests.csv,0%,0,Failed
+08_zipTest.csv.zip,100%,8,Completed
