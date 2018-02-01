@@ -27,5 +27,5 @@ public class SiteTest {
         AdvocateSignupPage advocateSignupPage = new AdvocateSignupPage();
         advocateSignupPage.submitForm("Test_Name", "email@t.com");
     }
-    
+
 }

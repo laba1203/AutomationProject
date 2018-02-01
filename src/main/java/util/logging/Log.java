@@ -6,6 +6,7 @@ import abstractObjects.AbstractTalkableFrame;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 
 public class Log {
 //    for elements:
@@ -94,6 +95,12 @@ public class Log {
 
     public static String frameSwitchedMsg(){
         String msg = "Frame switched";
+        System.out.println(msg);
+        return msg;
+    }
+
+    public static String platformTypeSelectedMsg(ChosePlatformPage.PlatformType platformType){
+        String msg = "The following platform is selected: " + platformType.toString();
         System.out.println(msg);
         return msg;
     }

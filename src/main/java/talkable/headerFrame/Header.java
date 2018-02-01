@@ -3,6 +3,7 @@ package talkable.headerFrame;
 import abstractObjects.AbstractElementsContainer;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.headerFrame.elements.*;
+import talkable.headerFrame.elements.menuFrame.MenuFrame;
 import talkable.headerFrame.elements.siteSelectContainer.SiteSelectContainer;
 
 public class Header extends AbstractElementsContainer{
@@ -41,7 +42,8 @@ public class Header extends AbstractElementsContainer{
         wait.until(ExpectedConditions.textToBePresentInElement(siteSelectButton.getWebElement(), siteName));
     }
 
-    public void openMenu(){
-
+    public MenuFrame openMenu(){
+        menuButton.click();
+        return new MenuFrame();
     }
 }
