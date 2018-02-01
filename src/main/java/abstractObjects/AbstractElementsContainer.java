@@ -42,6 +42,10 @@ public abstract class AbstractElementsContainer
         driver.navigate().refresh();
     }
 
+    public boolean isElementPresent(AbstractElement element){
+        return driver.findElements(element.getLocator()).size() > 0;
+    }
+
 
 
 }

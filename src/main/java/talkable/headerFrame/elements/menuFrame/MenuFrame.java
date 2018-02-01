@@ -16,21 +16,18 @@ public class MenuFrame extends AbstractElementsContainer {
     public CreateNewSiteButton createNewSiteButton;
 
 
-
     public MenuFrame(){
         verifyIfMenuIsOpened();
 
 //        Initialize elements
         createNewCampaignButton = new CreateNewCampaignButton();
         createNewSiteButton = new CreateNewSiteButton();
-
     }
-
 
 
     private void verifyIfMenuIsOpened(){
         if(driver.findElements(menuIsOpenedElement).size() == 0){
-            Assert.assertTrue(false, "Menu popup is not opened");
+            Assert.fail ("Menu popup is not opened");
         }
         System.out.println("Menu drop down is opened");
     }
