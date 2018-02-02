@@ -46,7 +46,7 @@ public class CreateAccountPage extends AbstractElementsContainer{
         confirmPasswordInput.sendKeys(passwordConfirmation);
         siteNameInput.sendKeys(siteName);
         siteUrlInput.sendKeys(siteUrl);
-        currencySelect.selectByValue(currency);
+        currencySelect.selectByVisibleText(currency);
     }
 
     public void clickCreateAccountButton(){
