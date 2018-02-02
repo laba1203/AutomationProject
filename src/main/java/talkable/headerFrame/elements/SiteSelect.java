@@ -12,10 +12,10 @@ public class SiteSelect extends AbstractSelectElement{
         setWebElement(locator);
     }
 
-    @Override
-    public void selectByValue(String value){
-        dropdown.selectByValue(value);
-        Log.selectFromDropDownLogMsg(value, dropdown);
-    }
+//    @Override
+//    public void selectByValue(String value){
+//        dropdown.selectByValue(value);
+//        Log.selectFromDropDownLogMsg(value, dropdown);
+//    }
 
 }

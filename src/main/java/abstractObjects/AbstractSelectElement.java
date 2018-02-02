@@ -1,34 +1,82 @@
 package abstractObjects;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import util.logging.Log;
+
+import java.util.List;
 
 public abstract class AbstractSelectElement extends AbstractElement{
 
-    protected Select dropdown;
+    private WebDriver driver = getDriver();
+
+    private String searchFieldLocator;
+    private String selectedItemLocator;
+    private String allItemsLocator;
+    private String buttonLocator;
+
+    private WebElement button;
+    private WebElement selectedItem;
 
 
-    @Override
-    public void setWebElement(By locator) {
-        super.setWebElement(locator);
-        dropdown = new Select(super.getWebElement());
+    public void setWebElement(String xpathOfSelectElement){
+        setLocatorsFromSelectXpath(xpathOfSelectElement);
+        button = driver.findElement(By.xpath(buttonLocator));
     }
+
+    private void setLocatorsFromSelectXpath(String xpathLocator){
+        buttonLocator = xpathLocator + "/../div/a";
+        selectedItemLocator = buttonLocator + "/span";
+        searchFieldLocator = xpathLocator + " /../div/div[@class='chosen-drop']//input";
+        allItemsLocator = xpathLocator + "/..//ul/child::li";
+    }
+
 
     public void selectByVisibleText(String text){
-        dropdown.selectByVisibleText(text);
-        Log.selectFromDropDownLogMsg(text, dropdown);
+        button.click();
+//        driver.findElement(By.xpath(searchFieldLocator));
+        clickByText(text);
+        //Verify that text is selected
+        selectedItem = driver.findElement(By.xpath(selectedItemLocator));
+        Assert.assertEquals(selectedItem.getText(), text);
     }
 
-    public void selectByValue(String value){
-        dropdown.selectByValue(value);
-        Log.selectFromDropDownLogMsg(value, dropdown);
+    public void searchByText(String text){
+        button.click();
+        WebElement searchField = driver.findElement(By.xpath(searchFieldLocator));
+        searchField.sendKeys(text);
     }
 
-    public void selectByIndex(int index){
-        dropdown.selectByIndex(index);
-        Log.selectFromDropDownLogMsg(String.valueOf(index), dropdown);
+    public void searchAndSelect(String text){
+        button.click();
+        WebElement searchField = driver.findElement(By.xpath(searchFieldLocator));
+        searchField.sendKeys(text);
+        WebElement firstItem = driver.findElement(By.xpath(allItemsLocator + "[1]"));
+        firstItem.click();
+        //Verify that text is selected
+        selectedItem = driver.findElement(By.xpath(selectedItemLocator));
+        Assert.assertEquals(selectedItem.getText(), text);
     }
+
+    private void clickByText(String text){
+        List<WebElement> items= driver.findElements(By.xpath(allItemsLocator));
+        for (WebElement li : items) {
+            if(li.getText().equals(text)){
+                li.click();
+            }
+        }
+    }
+
+    @Override
+    public void click() {
+        button.click();
+    }
+
+    //    private
+
+
 
 
 
