@@ -6,10 +6,11 @@ import util.logging.Log;
 
 public class SiteSelect extends AbstractSelectElement{
 
-    private static final By locator = By.className("js-sites-select");
+//    private static final By locator = By.className("js-sites-select");
+    private static final String xpathToSelect = "//select[contains(@class,'js-sites-select')]";
 
     public SiteSelect(){
-        setWebElement(locator);
+        setWebElement(xpathToSelect);
     }
 
 //    @Override

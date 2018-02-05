@@ -1,0 +1,13 @@
+name, testRetest//@t.com,someColumn
+name,test$%@t.com,someColumn
+name,test__@t.com,someColumn
+name,test1@t.com,someColumn
+name,  testUPPER@t.com,someColumn
+name,test%@t.com,someColumn
+name,test^@t.com,someColumn
+name,test()@t.com,someColumn
+name,test{}@t.com,someColumn
+name,test{!}@t.com,someColumn
+name,test[]@t.com,someColumn
+name,test<br>@t.com,someColumn
+name,test`@t.com,someColumn

@@ -60,6 +60,11 @@ public abstract class AbstractSelectElement extends AbstractElement{
         Assert.assertEquals(selectedItem.getText(), text);
     }
 
+    public String getSelectedItemText(){
+        selectedItem = driver.findElement(By.xpath(selectedItemLocator));
+        return selectedItem.getText();
+    }
+
     private void clickByText(String text){
         List<WebElement> items= driver.findElements(By.xpath(allItemsLocator));
         for (WebElement li : items) {
@@ -68,6 +73,8 @@ public abstract class AbstractSelectElement extends AbstractElement{
             }
         }
     }
+
+
 
     @Override
     public void click() {

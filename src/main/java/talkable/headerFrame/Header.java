@@ -42,6 +42,10 @@ public class Header extends AbstractElementsContainer{
         wait.until(ExpectedConditions.textToBePresentInElement(siteSelectButton.getWebElement(), siteName));
     }
 
+    public String getSiteName(){
+        return siteSelect.getSelectedItemText();
+    }
+
     public MenuFrame openMenu(){
         menuButton.click();
         return new MenuFrame();

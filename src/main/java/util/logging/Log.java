@@ -105,5 +105,17 @@ public class Log {
         return msg;
     }
 
+    public static String userRegisteredMsg(String userName){
+        String msg = "The following user is registered: " + userName;
+        System.out.println(msg);
+        return msg;
+    }
+
+    public static String userAndSiteCreatedMsg(String userName, String siteName){
+        String msg = "The following user successfully registered: " + userName + "\r\nThe following site created for the above user: " + siteName + "\r\n*****";
+        System.out.println(msg);
+        return msg;
+    }
+
 
 }

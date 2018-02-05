@@ -1,12 +1,16 @@
 package talkable.IntegrationInstructionPage;
 
+import talkable.headerFrame.Header;
+
 public class IntegrationInstructionPage {
 
-    ElmntDontShowItAgain dontShowItAgainButton;
-    ElmntCreateCampaignButton createCampaignButton;
-    ElmntIntegrateTalkableButton integrateTalkableButton;
+    public Header header;
+    private ElmntDontShowItAgain dontShowItAgainButton;
+    private ElmntCreateCampaignButton createCampaignButton;
+    private ElmntIntegrateTalkableButton integrateTalkableButton;
 
     public IntegrationInstructionPage(){
+        header = new Header();
         dontShowItAgainButton = new ElmntDontShowItAgain();
         createCampaignButton = new ElmntCreateCampaignButton();
         integrateTalkableButton = new ElmntIntegrateTalkableButton();
