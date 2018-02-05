@@ -15,7 +15,7 @@ public class DriverConfig {
     private static WebDriver driver;
     private static WebDriverWait wait;
 
-    private static final long DEFAULT_TIME_OUT = 10;
+    private static final long DEFAULT_TIME_OUT = 20;
 
     @Parameters
     private WebDriver setNewDriver()

@@ -1,6 +1,7 @@
 package common.cases;
 
 import org.testng.Assert;
+import talkable.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
 import talkable.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.createNewCampaignPage.CreateNewCampaignPage;
@@ -9,6 +10,11 @@ import talkable.homePage.HomePage;
 import talkable.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.loginPage.LoginPage;
 import talkable.headerFrame.elements.menuFrame.MenuFrame;
+import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
+import talkable.userRegistration.createAccountPage.CreateAccountPage;
+import util.logging.Log;
+
+import static talkable.userRegistration.chosePlatformPage.ChosePlatformPage.PlatformType.OTHER;
 
 /*Class to allocate common scenarios in Talkable.
  * */
@@ -22,12 +28,14 @@ public class CommonScenarios {
      * Precondition: Talkable home page should be opened
      * 1. Click 'Login' button --> Login page is opened
      * 2. Populate login and password and click Login
-     * Post-condition: User logged to Talkable. Header should be available for further actions*/
+     * Post-condition: User logged to Talkable. Header should be available for further actions
+     * */
     public void login(String email, String password){
         HomePage homePage = new HomePage();
         homePage.loginButton.click();
         LoginPage loginPage = new LoginPage();
         loginPage.submitLoginForm(email, password);
+        Header header = new Header();
     }
 
 //    Object
@@ -36,7 +44,8 @@ public class CommonScenarios {
     /***
      * Common scenario to create new campaign with default values
      * Precondition: Any page with header frame (class = Header()) should be opened
-     * Post-condition: Site created. Site details page is opened*/
+     * Post-condition: Site created. Site details page is opened
+     * */
     public void createNewSite(String siteName, String url){
         Header header = new Header();
         header.menuButton.click();
@@ -70,8 +79,10 @@ public class CommonScenarios {
     /***
      * Scenario to launch campaign
      * Precondition: initateCampaignCreation() should be already executed OR Page with Launch Button should be displayed
-     * Post-condition: Campaign  status changed to Active. Campaign Details page is opened*/
-    public void launchCampaign(){
+     * Post-condition: Campaign  status changed to Active. Campaign Details page is opened
+     * */
+    public void launchCampaign()
+    {
         CampaignNavigationMenu campaignNavigationMenu = new CampaignNavigationMenu();
         campaignNavigationMenu.launchDeactivateCampaignButton.click();
         //Launch Campaign Page is opened
@@ -79,6 +90,27 @@ public class CommonScenarios {
         launchCampaignPage.launchCampaign();
         //check Campaign Status
         Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), liveStatusActive);
+    }
+
+    /***
+     * Scenario to register new User and create new Site
+     * Precondition: Register page should be opened(...talkable.com/register?object_or_array)
+     * 1. Chose platform
+     * 2. Populate registration form
+     * 3. Verify that site is created.
+     * Post-condition: IntegrationInstructionPage is opened.
+     * Returns: user email.
+     * */
+    public String registerNewUserWithSite(String email, String password, String siteName, String siteUrl, ChosePlatformPage.PlatformType platformType)
+    {
+        new ChosePlatformPage().selectPlatform(platformType);
+        new CreateAccountPage().populateAndSubmitForm(email, password, siteName, siteUrl);
+//        Verify that site is created:
+        IntegrationInstructionPage integrationInstructionPage = new IntegrationInstructionPage();
+        Assert.assertEquals(integrationInstructionPage.header.getSiteName(), siteName);
+        Log.userAndSiteCreatedMsg(email, siteName);
+
+        return email;
     }
 
 }
