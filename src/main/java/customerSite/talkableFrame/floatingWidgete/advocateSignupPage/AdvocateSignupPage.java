@@ -1,6 +1,7 @@
 package customerSite.talkableFrame.floatingWidgete.advocateSignupPage;
 
 import abstractObjects.AbstractTalkableFrame;
+import customerSite.talkableFrame.floatingWidgete.advocateSharePage.AdvocateSharePage;
 import org.openqa.selenium.By;
 
 public class AdvocateSignupPage extends AbstractTalkableFrame{
@@ -21,11 +22,13 @@ public class AdvocateSignupPage extends AbstractTalkableFrame{
         closePopup = new ClosePopupButton();
     }
 
-    public void submitForm(String firstName, String email){
+    public AdvocateSharePage submitForm(String firstName, String email){
         firstNameInput.sendKeys(firstName);
         this.email.sendKeys(email);
         inviteFriendsButton.click();
         switchToParentFrame();
+        return new AdvocateSharePage();
+
     }
 
     public void closePopup(){
