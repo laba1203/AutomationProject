@@ -5,25 +5,23 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.headerFrame.elements.*;
 import talkable.headerFrame.elements.menuFrame.MenuFrame;
 import talkable.headerFrame.elements.siteSelectContainer.SiteSelectContainer;
+import talkable.reports.reportsPage.ReportsPage;
 
 public class Header extends AbstractElementsContainer{
 
     //Elements:
-    public SelectedSiteElement siteSelectButton;
-    public SearchSiteInput searchSiteInput;
-    public CustomerServicesButton customerServicesButton;
-    public DashboardButton dashboardButton;
-    public CampaignsButton campaignsButton;
-    public ReportsButton reportsButton;
-    public MenuButton menuButton;
-    public SiteSelect siteSelect;
-
-
-
+//    public SelectedSiteElement siteSelectButton;
+//    public SearchSiteInput searchSiteInput;
+    private CustomerServicesButton customerServicesButton;
+    private DashboardButton dashboardButton;
+    private CampaignsButton campaignsButton;
+    private ReportsButton reportsButton;
+    private MenuButton menuButton;
+    private SiteSelect siteSelect;
 
 
     public Header(){
-        siteSelectButton = new SelectedSiteElement();
+//        siteSelectButton = new SelectedSiteElement();
         customerServicesButton = new CustomerServicesButton();
         dashboardButton = new DashboardButton();
         campaignsButton = new CampaignsButton();
@@ -36,10 +34,11 @@ public class Header extends AbstractElementsContainer{
     }
 
     public void switchSiteTo(String siteName){
-        siteSelectButton.click();
-        SiteSelectContainer siteSelect = new SiteSelectContainer();
-        siteSelect.selectSiteByText(siteName);
-        wait.until(ExpectedConditions.textToBePresentInElement(siteSelectButton.getWebElement(), siteName));
+        siteSelect.searchAndSelect(siteName);
+//        siteSelectButton.click();
+//        SiteSelectContainer siteSelect = new SiteSelectContainer();
+//        siteSelect.selectSiteByText(siteName);
+//        wait.until(ExpectedConditions.textToBePresentInElement(siteSelectButton.getWebElement(), siteName));
     }
 
     public String getSiteName(){
@@ -50,4 +49,11 @@ public class Header extends AbstractElementsContainer{
         menuButton.click();
         return new MenuFrame();
     }
+
+    public ReportsPage clickReportsButton(){
+        reportsButton.click();
+        return new ReportsPage();
+    }
+
+
 }

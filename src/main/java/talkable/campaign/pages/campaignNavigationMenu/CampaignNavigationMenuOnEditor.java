@@ -1,20 +1,21 @@
 package talkable.campaign.pages.campaignNavigationMenu;
 
 import abstractObjects.AbstractElementsContainer;
+import talkable.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
+import talkable.campaign.pages.campaignEditorPage.EditorPage;
 import talkable.campaign.pages.campaignNavigationMenu.elements.*;
 
 public class CampaignNavigationMenuOnEditor extends AbstractElementsContainer{
 
-    public DetailsButton detailsButton;
-    public RulesButton rulesButton;
-    public PreviewButton previewButton;
-    public EditorButton editorButton;
+    private DetailsButton detailsButton;
+    private RulesButton rulesButton;
+    private PreviewButton previewButton;
+    private EditorButton editorButton;
     private CampaignStatusField campaignStatusField;
 
     public CampaignNavigationMenuOnEditor(){
-
-//        initialization of elements:
-//        initiateVisibleElements(elements);
+//        initialization of containers:
+//        initiateVisibleElements(containers);
         detailsButton = new DetailsButton();
         rulesButton = new RulesButton();
         previewButton = new PreviewButton();
@@ -24,10 +25,17 @@ public class CampaignNavigationMenuOnEditor extends AbstractElementsContainer{
 
     public String getCampaignStatus(){
         return campaignStatusField.getText();
-
     }
 
+    public EditorPage openEditorPage(){
+        editorButton.click();
+        return new EditorPage();
+    }
 
+    public CampaignDetailsPage openDetailsPage(){
+        detailsButton.click();
+        return new CampaignDetailsPage();
+    }
 
 
 }

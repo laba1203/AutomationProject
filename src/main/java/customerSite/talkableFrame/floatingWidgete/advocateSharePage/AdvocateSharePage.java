@@ -13,7 +13,7 @@ public class AdvocateSharePage extends AbstractTalkableFrame{
     private ElmntShareViaEmailButton shareViaEmailButton;
     private ElmntShareByLinkButton shareByLinkButton;
     private ElmntShareViaFacebookButton shareViaFacebookButton;
-    //Not visible elements:
+    //Not visible containers:
     private ElmntShareLink shareLinkField;
     private ElmntFriendEmailInput friendEmailInput;
     private ElmntSubmitEmailButton submitEmailButton;

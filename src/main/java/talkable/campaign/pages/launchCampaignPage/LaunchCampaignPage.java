@@ -2,14 +2,13 @@ package talkable.campaign.pages.launchCampaignPage;
 
 import abstractObjects.AbstractElementsContainer;
 import org.openqa.selenium.NoSuchElementException;
+import talkable.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.campaign.pages.launchCampaignPage.elements.CancelButton;
 import talkable.campaign.pages.launchCampaignPage.elements.LaunchCampaignButton;
 import talkable.campaign.pages.launchCampaignPage.noIntegrationFoundPopup.NoIntegrationFoundPopup;
 import util.logging.Log;
 
 public class LaunchCampaignPage extends AbstractElementsContainer {
-
-    private Log log = new Log();
 
     private LaunchCampaignButton launchCampaignButton;
     private NoIntegrationFoundPopup noIntegrationFoundPopup;
@@ -22,7 +21,7 @@ public class LaunchCampaignPage extends AbstractElementsContainer {
 
     }
 
-    public void launchCampaign(){
+    public CampaignDetailsPage launchCampaign(){
         launchCampaignButton.click();
         try{
             noIntegrationFoundPopup = new NoIntegrationFoundPopup();
@@ -30,9 +29,11 @@ public class LaunchCampaignPage extends AbstractElementsContainer {
         }
         catch (NoSuchElementException e ){
 
-            log.popupIsNotOpenedMsg(noIntegrationFoundPopup);
+            Log.popupIsNotOpenedMsg(noIntegrationFoundPopup);
             System.out.println(e);
         }
+
+        return new CampaignDetailsPage();
     }
 
     public void cancel(){

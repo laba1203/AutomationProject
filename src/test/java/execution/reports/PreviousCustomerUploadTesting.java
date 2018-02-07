@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import talkable.headerFrame.Header;
+import talkable.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.reports.reportsPage.ReportsPage;
 import util.DriverConfig;
 import util.TestDataConverter;
@@ -25,9 +26,9 @@ public class PreviousCustomerUploadTesting extends ReportsScenarios{
         login(userEmail, userPassword);
         //Navigate to Existing Customers Report
         Header header = new Header();
-        header.reportsButton.click();
-        ReportsPage reportsPage = new ReportsPage();
-        reportsPage.previousCustomersButton.click();
+//        header.reportsButton.click();
+        ReportsPage reportsPage = header.clickReportsButton();
+        PreviousCustomersReportPage previousCustomersReportPage = reportsPage.openExistingCustomerReport();
 
     }
 

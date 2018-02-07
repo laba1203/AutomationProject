@@ -25,7 +25,7 @@ public class LoginPage extends AbstractElementsContainer {
         isPageOpened(title);
 
 
-        //initiate web elements
+        //initiate web containers
         emailInput = new EmailInput();
         passwordInput = new PasswordInput();
         loginButton = new LoginButton();

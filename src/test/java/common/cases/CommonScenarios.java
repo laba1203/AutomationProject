@@ -3,6 +3,7 @@ package common.cases;
 import org.testng.Assert;
 import talkable.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
+import talkable.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.headerFrame.Header;
@@ -13,8 +14,6 @@ import talkable.headerFrame.elements.menuFrame.MenuFrame;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.logging.Log;
-
-import static talkable.userRegistration.chosePlatformPage.ChosePlatformPage.PlatformType.OTHER;
 
 /*Class to allocate common scenarios in Talkable.
  * */
@@ -32,13 +31,12 @@ public class CommonScenarios {
      * */
     public void login(String email, String password){
         HomePage homePage = new HomePage();
-        homePage.loginButton.click();
-        LoginPage loginPage = new LoginPage();
+//        homePage.loginButton.click();
+//        LoginPage loginPage = new LoginPage();
+        LoginPage loginPage = homePage.clickLoginButton();
         loginPage.submitLoginForm(email, password);
         Header header = new Header();
     }
-
-//    Object
 
 
     /***
@@ -48,15 +46,15 @@ public class CommonScenarios {
      * */
     public void createNewSite(String siteName, String url){
         Header header = new Header();
-        header.menuButton.click();
+//        header.menuButton.click();
+        AddSitePage addSitePage = header.openMenu().clickCreateNewSiteButton();
 
-        MenuFrame menuFrame = new MenuFrame();
-        menuFrame.createNewSiteButton.click();
+//        MenuFrame menuFrame = new MenuFrame();
+//        menuFrame.createNewSiteButton.click();
+//        AddSitePage addSitePage = new AddSitePage();
 
-        AddSitePage addSitePage = new AddSitePage();
-        addSitePage.populateForm(siteName, url);
-
-        Assert.assertEquals(header.siteSelectButton.getText(), siteName);
+        IntegrationInstructionPage integrationInstructionPage = addSitePage.submitForm(siteName, url);
+        Assert.assertEquals(integrationInstructionPage.header.getSiteName(), siteName);
     }
 
     /***
@@ -66,15 +64,19 @@ public class CommonScenarios {
      * */
     public void initiateCampaignCreation(CreateNewCampaignPage.CampaignType campaignType, CreateNewCampaignPage.PlacementType placementType){
         Header header = new Header();
-        header.menuButton.click();
-        MenuFrame menuFrame = new MenuFrame();
-        menuFrame.createNewCampaignButton.click();
+        CreateNewCampaignPage createNewCampaignPage = header.openMenu().clickCreateNewCampaignButton();
+
+//        header.menuButton.click();
+//        MenuFrame menuFrame = new MenuFrame();
+//        menuFrame.createNewCampaignButton.click();
+
         //Create New Campaign page:
-        CreateNewCampaignPage createNewCampaignPage = new CreateNewCampaignPage();
+//        CreateNewCampaignPage createNewCampaignPage = new CreateNewCampaignPage();
         createNewCampaignPage.createCampaign(campaignType, placementType);
         //check Campaign Status
         Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), liveStatusTest);
     }
+
 
     /***
      * Scenario to launch campaign
@@ -84,13 +86,16 @@ public class CommonScenarios {
     public void launchCampaign()
     {
         CampaignNavigationMenu campaignNavigationMenu = new CampaignNavigationMenu();
-        campaignNavigationMenu.launchDeactivateCampaignButton.click();
+//        campaignNavigationMenu.launchDeactivateCampaignButton.click();
+        LaunchCampaignPage launchCampaignPage = campaignNavigationMenu.launchCampaign();
+
         //Launch Campaign Page is opened
-        LaunchCampaignPage launchCampaignPage = new LaunchCampaignPage();
-        launchCampaignPage.launchCampaign();
+//        LaunchCampaignPage launchCampaignPage = new LaunchCampaignPage();
+        CampaignDetailsPage campaignDetailsPage = launchCampaignPage.launchCampaign();
         //check Campaign Status
-        Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), liveStatusActive);
+        Assert.assertEquals(campaignDetailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusActive);
     }
+
 
     /***
      * Scenario to register new User and create new Site
@@ -103,10 +108,10 @@ public class CommonScenarios {
      * */
     public String registerNewUserWithSite(String email, String password, String siteName, String siteUrl, ChosePlatformPage.PlatformType platformType)
     {
-        new ChosePlatformPage().selectPlatform(platformType);
-        new CreateAccountPage().populateAndSubmitForm(email, password, siteName, siteUrl);
+        CreateAccountPage createAccountPage =  new ChosePlatformPage().selectPlatform(platformType);
+        IntegrationInstructionPage integrationInstructionPage = createAccountPage.populateAndSubmitForm(email, password, siteName, siteUrl);
 //        Verify that site is created:
-        IntegrationInstructionPage integrationInstructionPage = new IntegrationInstructionPage();
+//        IntegrationInstructionPage integrationInstructionPage = new IntegrationInstructionPage();
         Assert.assertEquals(integrationInstructionPage.header.getSiteName(), siteName);
         Log.userAndSiteCreatedMsg(email, siteName);
 

@@ -1,6 +1,7 @@
 package talkable.reports.reportsPage;
 
 import abstractObjects.AbstractElementsContainer;
+import talkable.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.reports.reportsPage.elements.PeopleButton;
 import talkable.reports.reportsPage.elements.PreviousCustomersButton;
 import talkable.reports.reportsPage.elements.ReferralsButton;
@@ -9,9 +10,9 @@ public class ReportsPage extends AbstractElementsContainer{
 
     private static final String title = "Support & Reports | Talkable";
 
-    public PreviousCustomersButton previousCustomersButton;
-    public PeopleButton peopleButton;
-    public ReferralsButton referralsButton;
+    private PreviousCustomersButton previousCustomersButton;
+    private PeopleButton peopleButton;
+    private ReferralsButton referralsButton;
 
 
 
@@ -22,5 +23,10 @@ public class ReportsPage extends AbstractElementsContainer{
         peopleButton = new PeopleButton();
         referralsButton = new ReferralsButton();
 
+    }
+
+    public PreviousCustomersReportPage openExistingCustomerReport(){
+        previousCustomersButton.click();
+        return new PreviousCustomersReportPage();
     }
 }

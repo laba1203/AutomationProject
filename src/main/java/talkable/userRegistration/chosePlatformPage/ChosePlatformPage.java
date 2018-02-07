@@ -2,6 +2,7 @@ package talkable.userRegistration.chosePlatformPage;
 
 import abstractObjects.AbstractElementsContainer;
 import abstractObjects.DrivenElement;
+import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.logging.Log;
 
 public class ChosePlatformPage extends AbstractElementsContainer{
@@ -22,9 +23,10 @@ public class ChosePlatformPage extends AbstractElementsContainer{
         otherButton = new ElmntOtherButton();
     }
 
-    public void selectPlatform(PlatformType platformType){
+    public CreateAccountPage selectPlatform(PlatformType platformType){
         getButton(platformType).click();
-        Log.pageNotOpenedMsg(platformType);
+        Log.platformTypeSelectedMsg(platformType);
+        return new CreateAccountPage();
     }
 
 
