@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Parameters;
+import util.logging.Log;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -36,8 +37,6 @@ public class DriverConfig {
     }
 
 
-
-
     public WebDriver getDriver(){
         if (driver == null){
             driver = new DriverConfig().setNewDriver();
@@ -61,6 +60,32 @@ public class DriverConfig {
     public void cleanWebDriver(){
         driver = null;
     }
+
+    public static String switchToUnknownWindow(String parentHandle){
+        String switchedChildHandle = null;
+        for(String childHandle : driver.getWindowHandles()){
+            switchToUnknownWindow(parentHandle, childHandle);
+            switchedChildHandle = childHandle;
+        }
+        return switchedChildHandle;
+    }
+
+    private static void switchToUnknownWindow(String parentHandle, String childHandle){
+
+        if (!childHandle.equals(parentHandle)){
+            driver.switchTo().window(childHandle);
+            Log.switchedToWindowMsg(childHandle);
+        }
+
+    }
+
+    public static void switchToWindow(String windowHandle){
+        driver.switchTo().window(windowHandle);
+        Log.switchedToWindowMsg(windowHandle);
+    }
+
+
+
 
 
 }

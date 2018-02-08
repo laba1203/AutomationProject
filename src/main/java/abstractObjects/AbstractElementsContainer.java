@@ -13,6 +13,7 @@ public abstract class AbstractElementsContainer
     protected WebDriver driver = new DriverConfig().getDriver();
     private Screenshot screenshot;
     protected WebDriverWait wait = new DriverConfig().getExplicitWait();
+    protected String windowHandle;
 
 
     public void isPageOpened(String title){
@@ -44,6 +45,11 @@ public abstract class AbstractElementsContainer
 
     public boolean isElementPresent(AbstractElement element){
         return driver.findElements(element.getLocator()).size() > 0;
+    }
+
+    public String getWindowHandle(){
+        windowHandle = driver.getWindowHandle();
+        return windowHandle;
     }
 
 
