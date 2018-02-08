@@ -3,6 +3,7 @@ package talkable.campaign.pages.campaignDetailsPage;
 import abstractObjects.AbstractElementsContainer;
 import talkable.campaign.pages.campaignDetailsPage.containers.copyCampaignPopup.CopyCampaignPopup;
 import talkable.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
+import talkable.campaign.pages.createNewPurchasePage.CreateNewPurchasePage;
 
 public class CampaignDetailsPage extends AbstractElementsContainer {
 
@@ -37,6 +38,11 @@ public class CampaignDetailsPage extends AbstractElementsContainer {
 
     public String getCampaignType(){
         return campaignNavigationMenu.getCampaignType();
+    }
+
+    public CreateNewPurchasePage clickCreateTestOffer(){
+        createTestOfferButton.click();
+        return new CreateNewPurchasePage();
     }
 
 

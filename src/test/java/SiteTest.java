@@ -9,6 +9,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import talkable.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
+import talkable.campaign.pages.createNewPurchasePage.CreateNewPurchasePage;
+import talkable.reports.advocateOffersReport.advocateOfferDetailsPage.AdvocateOfferDetailsPage;
+import talkable.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.DriverConfig;
@@ -39,10 +42,17 @@ public class SiteTest {
     @Test
     public void test2(){
         CampaignDetailsPage detailsPage = new CampaignDetailsPage();
-        CampaignDetailsPage secondCampaign = detailsPage.copyCampaign();
-        System.out.println("Campaign Name: " + secondCampaign.getCampaignName());
-        System.out.println("Campaign Type: " + secondCampaign.getCampaignType());
-        secondCampaign.copyCampaign("Third_campaign");
+
+        CreateNewPurchasePage createNewPurchasePage = detailsPage.clickCreateTestOffer();
+        detailsPage = createNewPurchasePage.createOfferAndSwitchToCampaign();
+        CreateNewPurchasePage secondPurchase = detailsPage.clickCreateTestOffer();
+        AdvocateOfferDetailsPage advocateOfferDetails = secondPurchase.createOfferWithAllValues("test@m.com", "12345", "50", "Test", "176.38.40.141.");
+
+
+//        CampaignDetailsPage secondCampaign = detailsPage.copyCampaign();
+//        System.out.println("Campaign Name: " + secondCampaign.getCampaignName());
+//        System.out.println("Campaign Type: " + secondCampaign.getCampaignType());
+//        secondCampaign.copyCampaign("Third_campaign");
     }
 
 }

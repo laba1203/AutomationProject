@@ -123,5 +123,11 @@ public class Log {
         return msg;
     }
 
+    public static String switchedToWindowMsg(String windowHandle){
+        String msg = "Switched to Window: " + windowHandle;
+        System.out.println(msg);
+        return msg;
+    }
+
 
 }
