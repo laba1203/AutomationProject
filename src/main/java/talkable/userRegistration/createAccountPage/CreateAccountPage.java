@@ -1,6 +1,8 @@
 package talkable.userRegistration.createAccountPage;
 
 import abstractObjects.AbstractElementsContainer;
+import talkable.IntegrationInstructionPage.IntegrationInstructionPage;
+import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 
 public class CreateAccountPage extends AbstractElementsContainer{
 
@@ -28,13 +30,16 @@ public class CreateAccountPage extends AbstractElementsContainer{
 
     /*Populate and submit Create Account Form
     * */
-    public void populateAndSubmitForm(String email, String password, String siteName, String siteUrl){
+    public IntegrationInstructionPage populateAndSubmitForm(String email, String password, String siteName, String siteUrl){
         emailInput.sendKeys(email);
         passwordInput.sendKeys(password);
         confirmPasswordInput.sendKeys(password);
         siteNameInput.sendKeys(siteName);
         siteUrlInput.sendKeys(siteUrl);
         createAccountButton.click();
+
+        return new IntegrationInstructionPage();
+
     }
 
     /*Only populate Create Account Form
@@ -53,8 +58,9 @@ public class CreateAccountPage extends AbstractElementsContainer{
         createAccountButton.click();
     }
 
-    public void setGoBack(){
+    public ChosePlatformPage setGoBack(){
         goBackButton.click();
+        return new ChosePlatformPage();
     }
 
    /* Set of Methods to get validation error messages displayed after each field:

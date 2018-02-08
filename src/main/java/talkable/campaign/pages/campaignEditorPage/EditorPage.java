@@ -9,7 +9,7 @@ import talkable.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEd
 public class EditorPage extends AbstractElementsContainer{
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu;
-    public LocalizationSidebar localizationSidebar;
+    private LocalizationSidebar localizationSidebar;
 
     private SelectedViewField selectedViewField;
     private ViewRecordsContainer viewRecords;

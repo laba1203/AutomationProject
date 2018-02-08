@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 
 public class Log {
-//    for elements:
+//    for containers:
     private static final String clickMsg = "Click to ";
     private static final String enterValueMsg = "Enter value: '";
     private static final String screenshotMsg = "Screenshot is available by the following path: ";
@@ -113,6 +113,12 @@ public class Log {
 
     public static String userAndSiteCreatedMsg(String userName, String siteName){
         String msg = "The following user successfully registered: " + userName + "\r\nThe following site created for the above user: " + siteName + "\r\n*****";
+        System.out.println(msg);
+        return msg;
+    }
+
+    public static String elementClearedMsg(AbstractElement element){
+        String msg = "Text is cleared in element: " + element.getClass().getName();
         System.out.println(msg);
         return msg;
     }

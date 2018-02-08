@@ -96,6 +96,13 @@ public abstract class AbstractElement implements DrivenElement{
         Log.moveMouseOverMsg(this);
     }
 
+    public void clear(){
+        webElement.clear();
+        Log.elementClearedMsg(this);
+    }
+
+
+
 
 }
 

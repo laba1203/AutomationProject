@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import talkable.IntegrationInstructionPage.IntegrationInstructionPage;
+import talkable.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.DriverConfig;
@@ -21,25 +22,27 @@ public class SiteTest {
 
     WebDriver driver;
     String shareLink;
+    CommonScenarios commonScenarios = new CommonScenarios();
 
     @BeforeClass
     public void setup(){
         driver = new DriverConfig().getDriver();
-        driver.navigate().to("http://learn.talkable.com/QA-Max/void/email-test/home.html");
+        driver.navigate().to("https://void.talkable.com/");
     }
 
     @Test
-    public void test1(){
-        shareLink = ClientSiteScenarios.completeAdvocateOfferForFloatingWidget("testName", "test@test.com");
-
+    public void test1_login(){
+        commonScenarios.login("maxim.laba@talkable.com", "Password@1");
+        driver.navigate().to("https://admin.void.talkable.com/sites/email-test/campaigns/45400#/");
     }
 
     @Test
     public void test2(){
-        driver = ClientSiteScenarios.setupDriverWithCleanCookies(driver);
-        driver.navigate().to(shareLink);
+        CampaignDetailsPage detailsPage = new CampaignDetailsPage();
+        CampaignDetailsPage secondCampaign = detailsPage.copyCampaign();
+        System.out.println("Campaign Name: " + secondCampaign.getCampaignName());
+        System.out.println("Campaign Type: " + secondCampaign.getCampaignType());
+        secondCampaign.copyCampaign("Third_campaign");
     }
-
-
 
 }
