@@ -4,6 +4,7 @@ import abstractObjects.AbstractElementsContainer;
 import talkable.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.campaign.pages.campaignEditorPage.EditorPage;
 import talkable.campaign.pages.campaignNavigationMenu.elements.*;
+import talkable.campaign.pages.campaignRulesPage.CampaignRulesPage;
 
 public class CampaignNavigationMenuOnEditor extends AbstractElementsContainer{
 
@@ -35,6 +36,11 @@ public class CampaignNavigationMenuOnEditor extends AbstractElementsContainer{
     public CampaignDetailsPage openDetailsPage(){
         detailsButton.click();
         return new CampaignDetailsPage();
+    }
+
+    public CampaignRulesPage openRulesPage(){
+        rulesButton.click();
+        return new CampaignRulesPage();
     }
 
 

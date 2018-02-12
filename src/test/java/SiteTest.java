@@ -3,13 +3,18 @@ import common.cases.CommonScenarios;
 import customerSite.talkableFrame.floatingWidgete.advocateSharePage.AdvocateSharePage;
 import customerSite.talkableFrame.floatingWidgete.advocateSignupPage.AdvocateSignupPage;
 import customerSite.talkableFrame.floatingWidgete.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import talkable.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
+import talkable.campaign.pages.campaignRulesPage.CampaignRulesPage;
 import talkable.campaign.pages.createNewPurchasePage.CreateNewPurchasePage;
+import talkable.homePage.HomePage;
+import talkable.loginPage.LoginPage;
 import talkable.reports.advocateOffersReport.advocateOfferDetailsPage.AdvocateOfferDetailsPage;
 import talkable.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
@@ -17,6 +22,7 @@ import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.DriverConfig;
 import util.logging.Log;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import static talkable.userRegistration.chosePlatformPage.ChosePlatformPage.PlatformType.OTHER;
@@ -36,23 +42,31 @@ public class SiteTest {
     @Test
     public void test1_login(){
         commonScenarios.login("maxim.laba@talkable.com", "Password@1");
-        driver.navigate().to("https://admin.void.talkable.com/sites/email-test/campaigns/45400#/");
+        driver.navigate().to("https://admin.void.talkable.com/sites/test1-617/campaigns/45360/edit#/incentives");
     }
 
     @Test
     public void test2(){
-        CampaignDetailsPage detailsPage = new CampaignDetailsPage();
+        CampaignRulesPage rulesPage = new CampaignRulesPage();
+        rulesPage.createNewAdvocateIncentive();
+        ArrayList<WebElement> elements = (ArrayList<WebElement>) driver.findElements(By.cssSelector(".Rules-incentives-dropdown a>div:nth-of-type(1)"));
 
-        CreateNewPurchasePage createNewPurchasePage = detailsPage.clickCreateTestOffer();
-        detailsPage = createNewPurchasePage.createOfferAndSwitchToCampaign();
-        CreateNewPurchasePage secondPurchase = detailsPage.clickCreateTestOffer();
-        AdvocateOfferDetailsPage advocateOfferDetails = secondPurchase.createOfferWithAllValues("test@m.com", "12345", "50", "Test", "176.38.40.141.");
+        System.out.println(elements.size());
 
+        for (WebElement element: elements) {
+            System.out.println("Text <" + element.getText() + ">");
+        }
 
-//        CampaignDetailsPage secondCampaign = detailsPage.copyCampaign();
-//        System.out.println("Campaign Name: " + secondCampaign.getCampaignName());
-//        System.out.println("Campaign Type: " + secondCampaign.getCampaignType());
-//        secondCampaign.copyCampaign("Third_campaign");
     }
+
+    @Test
+    public void t(){
+        HomePage homePage = new HomePage();
+        LoginPage loginPage = homePage.clickLoginButton();
+        loginPage.submitLoginForm("", "");
+
+    }
+
+
 
 }
