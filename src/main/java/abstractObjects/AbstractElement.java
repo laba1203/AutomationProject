@@ -20,9 +20,10 @@ public abstract class AbstractElement implements DrivenElement{
     private By locator;
     private WebDriver driver = new DriverConfig().getDriver();
     protected WebDriverWait wait = new DriverConfig().getExplicitWait();
+    private Actions actions = new Actions(driver);
 
 
-    public void setWebElement(By locator)
+    protected void setWebElement(By locator)
     {
         webElement = driver.findElement(locator);
         this.locator = locator;
@@ -34,6 +35,10 @@ public abstract class AbstractElement implements DrivenElement{
 
     public void click()
     {
+        //Newly added part for CampaignRulesPage. To be tested
+        actions.moveToElement(this.webElement).perform();
+        //end
+
         this.webElement.click();
         Log.clickMsg(this);
     }

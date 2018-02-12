@@ -21,7 +21,7 @@ public abstract class AbstractSelectElement extends AbstractElement{
     private WebElement selectedItem;
 
 
-    public void setWebElement(String xpathOfSelectElement){
+    protected void setWebElement(String xpathOfSelectElement){
         setLocatorsFromSelectXpath(xpathOfSelectElement);
         button = driver.findElement(By.xpath(buttonLocator));
     }

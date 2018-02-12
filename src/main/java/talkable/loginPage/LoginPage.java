@@ -2,6 +2,7 @@ package talkable.loginPage;
 
 
 import abstractObjects.AbstractElementsContainer;
+import talkable.headerFrame.Header;
 import talkable.loginPage.elements.EmailInput;
 import talkable.loginPage.elements.LoginButton;
 import talkable.loginPage.elements.PasswordInput;
@@ -34,11 +35,12 @@ public class LoginPage extends AbstractElementsContainer {
 
 
 
-    public void submitLoginForm(String email, String password){
+    public Header submitLoginForm(String email, String password){
         //fill Email
         emailInput.sendKeys(email);
         passwordInput.sendKeys(password);
         loginButton.click();
+        return new Header();
     }
 
 

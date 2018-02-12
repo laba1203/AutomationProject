@@ -5,6 +5,7 @@ import talkable.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
 import talkable.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
+import talkable.campaign.pages.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.headerFrame.Header;
 import talkable.homePage.HomePage;
@@ -34,10 +35,8 @@ public class CommonScenarios {
 //        homePage.loginButton.click();
 //        LoginPage loginPage = new LoginPage();
         LoginPage loginPage = homePage.clickLoginButton();
-        loginPage.submitLoginForm(email, password);
-        Header header = new Header();
+        Header header = loginPage.submitLoginForm(email, password);
     }
-
 
     /***
      * Common scenario to create new campaign with default values
@@ -117,5 +116,20 @@ public class CommonScenarios {
 
         return email;
     }
+
+    /*Scenarios to create Test Offer for campaign.
+    * Precondition: Campaign Details page should be opened.
+    * 1. Click Create Test Offer button
+    * 2. Click Create Origin button with default values on Create Test Offer page
+    * 3. Switch back to Campaign Details page
+    * Returns: Campaign Details Page for parent campaign.
+    * */
+    public CampaignDetailsPage createTestOffer() {
+        CampaignDetailsPage detailsPage = new CampaignDetailsPage();
+
+        CreateNewPurchasePage createNewPurchasePage = detailsPage.clickCreateTestOffer();
+        return createNewPurchasePage.createOfferAndSwitchToCampaign();
+    }
+
 
 }
