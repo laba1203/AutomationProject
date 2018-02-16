@@ -12,7 +12,6 @@ import util.DriverConfig;
 import util.logging.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class AbstractElement implements DrivenElement{
 
@@ -73,6 +72,22 @@ public abstract class AbstractElement implements DrivenElement{
 
     public ArrayList<WebElement> getWebElements(By locator){
         return (ArrayList<WebElement>) driver.findElements(locator);
+    }
+
+    public ArrayList<DrivenElement> getElements(){
+        ArrayList<DrivenElement> output = new ArrayList<>();
+        for (WebElement element:
+                driver.findElements(locator)) {
+            try {
+                AbstractElement abstractElement = this.getClass().newInstance();
+                abstractElement.setWebElement(element);
+                output.add(abstractElement);
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+                Assert.fail();
+            }
+        }
+        return output;
     }
 
     public WebElement getWebElement() {

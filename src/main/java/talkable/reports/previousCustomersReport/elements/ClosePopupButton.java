@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class ClosePopupButton extends AbstractElement{
 //    private static final By locator = By.cssSelector(".base-modal-close");
-    private static final By locator = By.cssSelector(".popup-close");
+    private static final By locator = By.cssSelector(".base-modal-close");
 
     public ClosePopupButton(){
         setWebElement(locator);

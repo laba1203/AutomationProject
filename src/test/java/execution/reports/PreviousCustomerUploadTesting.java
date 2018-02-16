@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import talkable.addYourSitePage.AddSitePage;
 import talkable.headerFrame.Header;
 import talkable.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.reports.reportsPage.ReportsPage;
@@ -22,10 +23,10 @@ public class PreviousCustomerUploadTesting extends ReportsScenarios{
     @BeforeClass
     public void setup(){
         WebDriver driver = new DriverConfig().getDriver();
-        driver.navigate().to("https://void.talkable.com");
-        login(userEmail, userPassword);
+        driver.navigate().to("https://talkable.com"); //"https://void.talkable.com"
+        Header header = login(userEmail, userPassword);
         //Navigate to Existing Customers Report
-        Header header = new Header();
+//        Header header = new Header();
 //        header.reportsButton.click();
         ReportsPage reportsPage = header.clickReportsButton();
         PreviousCustomersReportPage previousCustomersReportPage = reportsPage.openExistingCustomerReport();

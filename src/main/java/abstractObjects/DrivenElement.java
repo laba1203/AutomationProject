@@ -10,6 +10,8 @@ public interface DrivenElement {
 
     WebElement getWebElement();
 
+    String getText();
+
 //    DrivenElement createNewInstance() throws IllegalAccessException, InstantiationException;
 
 }
