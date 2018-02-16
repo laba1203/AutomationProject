@@ -62,8 +62,10 @@ public class PreviousCustomersReportPage extends AbstractElementsContainer {
     }
 
     private boolean isFileProcessed(){
-//        ArrayList values = uploadedCSVLists.getRowValues(1);
-        return !new UploadedCSVListsTable().getProgress(1).equals("In progress");
+        String progress = new UploadedCSVListsTable().getProgress(1);
+        return !(progress.equals("Pending") || progress.equals("In progress"));
+
+//        return !new UploadedCSVListsTable().getProgress(1).equals("Pending", "In progress");
     }
 
     /*Returns values of the row in array:

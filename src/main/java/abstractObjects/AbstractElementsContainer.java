@@ -2,11 +2,14 @@ package abstractObjects;
 
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import util.DriverConfig;
 import util.Screenshot;
 import util.logging.Log;
+
+import java.util.ArrayList;
 
 public abstract class AbstractElementsContainer
 {
@@ -52,6 +55,13 @@ public abstract class AbstractElementsContainer
         return windowHandle;
     }
 
+    protected void selectByText(String text, ArrayList<DrivenElement> items){
+        for (DrivenElement li : items) {
+            if(li.getText().equals(text)){
+                li.click();
+            }
+        }
+    }
 
 
 }

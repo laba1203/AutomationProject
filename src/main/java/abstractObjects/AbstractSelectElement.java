@@ -75,17 +75,11 @@ public abstract class AbstractSelectElement extends AbstractElement{
     }
 
 
-
-    @Override
-    public void click() {
+    public void clickButton() {
         button.click();
     }
 
     //    private
-
-
-
-
 
 
 }

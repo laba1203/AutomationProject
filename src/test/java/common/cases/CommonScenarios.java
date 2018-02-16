@@ -30,12 +30,13 @@ public class CommonScenarios {
      * 2. Populate login and password and click Login
      * Post-condition: User logged to Talkable. Header should be available for further actions
      * */
-    public void login(String email, String password){
+    public Header login(String email, String password){
         HomePage homePage = new HomePage();
 //        homePage.loginButton.click();
 //        LoginPage loginPage = new LoginPage();
         LoginPage loginPage = homePage.clickLoginButton();
         Header header = loginPage.submitLoginForm(email, password);
+        return header;
     }
 
     /***
