@@ -13,6 +13,10 @@ class PopupIncentive extends AbstractElementsContainer implements PopupIncentive
     private ElmntSingleUseRadiobutton singleUseRadiobutton;
     private ElmntMultiUseCouponCodeInput multiUseCouponCodeInput;
 
+    PopupIncentive(){
+        createIncentiveButton = new ElmntCreateIncentiveButton();
+    }
+
 
     void setDiscountType(PageCampaignRules.DiscountType discountType){
         percentageDiscountTypeRadiobutton = new ElmntPercentageDiscountTypeRadiobutton();
@@ -40,7 +44,7 @@ class PopupIncentive extends AbstractElementsContainer implements PopupIncentive
         singleUseRadiobutton = new ElmntSingleUseRadiobutton();
         switch (couponCodeType){
             case MultiUse:
-                multiUseRadiobutton.clear();
+                multiUseRadiobutton.click();
                 multiUseCouponCodeInput = new ElmntMultiUseCouponCodeInput();
                 multiUseCouponCodeInput.sendKeys("DEFAULT_COUPON_CODE");
                 break;
