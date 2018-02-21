@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 class ElmntLaunchDeactivateCampaignButton extends AbstractElement{
 //    private static final By locator = By.linkText("Launch Campaign");
-    private static final By locator = By.cssSelector(".subnav-actions .btn-success" );
+    private static final By locator = By.cssSelector(".subnav-actions .btn" );
 
     ElmntLaunchDeactivateCampaignButton(){
         setWebElement(locator);

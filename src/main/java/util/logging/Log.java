@@ -63,8 +63,8 @@ public class Log {
 
     }
 
-    public static String popupIsNotOpenedMsg(AbstractElementsContainer popup){
-        String msg = popup.getClass().getName() + "is not opened";
+    public static String popupIsNotOpenedMsg(){
+        String msg = "Popup is not opened";
         System.out.println(msg);
         return msg;
     }
