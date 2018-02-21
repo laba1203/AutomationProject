@@ -1,12 +1,12 @@
-package talkable.campaign.pages.campaignNavigationMenu.elements;
+package talkable.campaign.pages.campaignNavigationMenu;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class EditorButton extends AbstractElement{
+class ElmntEditorButton extends AbstractElement{
     private static final By locator = By.linkText("Editor");
 
-    public EditorButton(){
+    ElmntEditorButton(){
         setWebElement(locator);
     }
 }
