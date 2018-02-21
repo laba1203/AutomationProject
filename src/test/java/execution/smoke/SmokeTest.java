@@ -126,13 +126,16 @@ public class SmokeTest {
     }
 
 // 12. Create test offer.
-    @Test
+//    @Test
+    //!!! The Test works incorrectly !!!
+    /*
     public void test09_createTestOffer() {
         CampaignDetailsPage detailsPage = new CampaignDetailsPage();
         CreateNewPurchasePage newPurchasePage = detailsPage.clickCreateTestOffer();
         detailsPage = newPurchasePage.createOfferAndSwitchToCampaign();
         Assert.assertEquals(detailsPage.getAdvocateOffersTotalCount(), "Total: 1", "FAILED: Incorrect Offers count");
     }
+    */
 
     /*
     To be added:
