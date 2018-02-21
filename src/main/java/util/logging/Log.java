@@ -135,5 +135,12 @@ public class Log {
         return msg;
     }
 
+    public static String changesAreSaved(){
+        String msg = "Changes have been saved";
+        System.out.println(msg);
+        return msg;
+    }
+
+
 
 }

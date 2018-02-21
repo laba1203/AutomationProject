@@ -1,9 +1,11 @@
 import common.cases.CommonScenarios;
+import execution.smoke.SmokeTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import talkable.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.campaign.pages.campaignRulesPage.PageCampaignRules;
 import util.DriverConfig;
 
@@ -29,23 +31,21 @@ public class SiteTest {
     @Test
     public void test1_login(){
         commonScenarios.login("maxim.laba@talkable.com", "Password@1");
-        driver.navigate().to("https://admin.void.talkable.com/sites/test1-617/campaigns/45360/edit#/incentives");
+        driver.navigate().to("https://admin.void.talkable.com/sites/automation-smoke-test/campaigns/45475#/");
     }
 
     @Test
     public void test2(){
-        PageCampaignRules rulesPage = new PageCampaignRules();
-        rulesPage.createNewIncentive(AdvocateSignupIncentive, 5, Percentage, MultiUse);
-        ArrayList<WebElement> elements = (ArrayList<WebElement>) driver.findElements(By.cssSelector(".Rules-incentives-dropdown a>div:nth-of-type(1)"));
+        CampaignDetailsPage detailsPage = new CampaignDetailsPage();
+        PageCampaignRules rules = detailsPage.campaignNavigationMenu.openRulesPage();
+        rules.setCampaignName("test");
 
-        System.out.println(elements.size());
+//        new SmokeTest().test04_setCampaignNameOnRulesPage();
 
-        for (WebElement element: elements) {
-            System.out.println("Text <" + element.getText() + ">");
-        }
     }
 
 
-
-
 }
+
+
+

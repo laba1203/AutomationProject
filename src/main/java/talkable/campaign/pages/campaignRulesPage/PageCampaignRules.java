@@ -2,9 +2,11 @@ package talkable.campaign.pages.campaignRulesPage;
 
 import abstractObjects.AbstractElementsContainer;
 import abstractObjects.DrivenElement;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
+import util.logging.Log;
 
 import java.util.ArrayList;
 
@@ -58,7 +60,11 @@ public class PageCampaignRules extends AbstractElementsContainer{
 
     private PageCampaignRules saveChanges(){
         saveChangesButton.click();
+        wait.until(ExpectedConditions.invisibilityOfElementWithText(saveChangesButton.getLocator(), "Saving..."));
+        saveChangesButton = new ElmntSaveButton();
         wait.until(ExpectedConditions.textToBePresentInElement(saveChangesButton.getWebElement(), "Save changes"));
+        Log.changesAreSaved();
+
         return new PageCampaignRules();
     }
 
@@ -124,7 +130,7 @@ public class PageCampaignRules extends AbstractElementsContainer{
     }
 
     public PageCampaignRules setDeadlineDates(String advocateOfferDeadlineDate, String adEndTime, String friendOfferDeadlineDate, String frEndTime) {
-        return setDeadlineDates(advocateOfferDeadlineDate, adEndTime.substring(0,1), adEndTime.substring(3), friendOfferDeadlineDate, frEndTime.substring(0,1), frEndTime.substring(3));
+        return setDeadlineDates(advocateOfferDeadlineDate, adEndTime.substring(0,2), adEndTime.substring(3), friendOfferDeadlineDate, frEndTime.substring(0,2), frEndTime.substring(3));
     }
 
     private PopupIncentiveFactory selectIncentive(IncentiveType incentiveType){

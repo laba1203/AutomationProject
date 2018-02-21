@@ -35,7 +35,7 @@ public class CampaignNavigationMenu extends CampaignNavigationMenuOnEditor{
         return new CampaignNavigationMenu();
     }
 
-    private boolean isCampaignActive(){
+    public boolean isCampaignActive(){
         return getCampaignStatus().equals("Status: Live");
     }
 

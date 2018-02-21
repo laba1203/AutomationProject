@@ -72,7 +72,10 @@ public class SmokeTest {
     @Test
     public void test04_setCampaignNameOnRulesPage() {
         String name = campaignName;
-        PageCampaignRules rulesPage = (new CampaignDetailsPage()).campaignNavigationMenu.openRulesPage();
+        CampaignDetailsPage detailsPage =  new CampaignDetailsPage();
+
+        PageCampaignRules rulesPage = detailsPage.campaignNavigationMenu.openRulesPage();
+
         rulesPage = rulesPage.setCampaignName(name);
         Assert.assertEquals(rulesPage.getCampaignName(), name, "FAILED: Campaign Name is not updated");
     }
