@@ -1,13 +1,13 @@
-package talkable.campaign.pages.campaignNavigationMenu.elements;
+package talkable.campaign.pages.campaignNavigationMenu;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class LaunchDeactivateCampaignButton extends AbstractElement{
+class ElmntLaunchDeactivateCampaignButton extends AbstractElement{
 //    private static final By locator = By.linkText("Launch Campaign");
     private static final By locator = By.cssSelector(".subnav-actions .btn-success" );
 
-    public LaunchDeactivateCampaignButton(){
+    ElmntLaunchDeactivateCampaignButton(){
         setWebElement(locator);
     }
 }

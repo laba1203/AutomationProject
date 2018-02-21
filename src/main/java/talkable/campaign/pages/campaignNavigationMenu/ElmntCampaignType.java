@@ -1,12 +1,12 @@
-package talkable.campaign.pages.campaignNavigationMenu.elements;
+package talkable.campaign.pages.campaignNavigationMenu;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class ElmntCampaignType extends AbstractElement{
+class ElmntCampaignType extends AbstractElement{
     private static final By locator = By.cssSelector(".campaign-type>span");
 
-    public ElmntCampaignType(){
+    ElmntCampaignType(){
         setWebElement(locator);
     }
 }

@@ -2,19 +2,18 @@ package talkable.campaign.pages.campaignNavigationMenu;
 
 
 import org.testng.Assert;
-import talkable.campaign.pages.campaignNavigationMenu.elements.*;
 import talkable.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 
 public class CampaignNavigationMenu extends CampaignNavigationMenuOnEditor{
 
-    private LaunchDeactivateCampaignButton launchDeactivateCampaignButton;
+    private ElmntLaunchDeactivateCampaignButton elmntLaunchDeactivateCampaignButton;
     private ElmntCampaignName campaignName;
     private ElmntCampaignType campaignType;
 
     public CampaignNavigationMenu(){
         //        initialization of containers:
         super();
-        launchDeactivateCampaignButton = new LaunchDeactivateCampaignButton();
+        elmntLaunchDeactivateCampaignButton = new ElmntLaunchDeactivateCampaignButton();
         campaignName = new ElmntCampaignName();
         campaignType = new ElmntCampaignType();
     }
@@ -23,7 +22,7 @@ public class CampaignNavigationMenu extends CampaignNavigationMenuOnEditor{
         if(isCampaignActive()){
             Assert.fail("You can not launch this campaign. It is already active. ");
         }
-        launchDeactivateCampaignButton.click();
+        elmntLaunchDeactivateCampaignButton.click();
         return new LaunchCampaignPage();
 
     }
@@ -32,7 +31,7 @@ public class CampaignNavigationMenu extends CampaignNavigationMenuOnEditor{
         if(!isCampaignActive()){
             Assert.fail("You can not deactivate this campaign. It is not active.");
         }
-        launchDeactivateCampaignButton.click();
+        elmntLaunchDeactivateCampaignButton.click();
         return new CampaignNavigationMenu();
     }
 

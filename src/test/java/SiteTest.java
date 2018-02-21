@@ -35,7 +35,7 @@ public class SiteTest {
     @Test
     public void test2(){
         PageCampaignRules rulesPage = new PageCampaignRules();
-        rulesPage.createNewAdvocateIncentive(AdvocateSignupIncentive, 5, Percentage, MultiUse);
+        rulesPage.createNewIncentive(AdvocateSignupIncentive, 5, Percentage, MultiUse);
         ArrayList<WebElement> elements = (ArrayList<WebElement>) driver.findElements(By.cssSelector(".Rules-incentives-dropdown a>div:nth-of-type(1)"));
 
         System.out.println(elements.size());
