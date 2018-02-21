@@ -129,5 +129,11 @@ public class Log {
         return msg;
     }
 
+    public static String rowIsNotFound(String campaignName){
+        String msg = "Row is not found for " + campaignName;
+        System.out.println(msg);
+        return msg;
+    }
+
 
 }

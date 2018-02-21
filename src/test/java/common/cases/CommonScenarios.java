@@ -30,7 +30,7 @@ public class CommonScenarios {
      * 2. Populate login and password and click Login
      * Post-condition: User logged to Talkable. Header should be available for further actions
      * */
-    public Header login(String email, String password){
+    public static Header login(String email, String password){
         HomePage homePage = new HomePage();
 //        homePage.loginButton.click();
 //        LoginPage loginPage = new LoginPage();
@@ -62,7 +62,7 @@ public class CommonScenarios {
      * Precondition: Header should be available. Site should not have any active campaign with the selected campaignType/placementType
      * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
      * */
-    public void initiateCampaignCreation(CreateNewCampaignPage.CampaignType campaignType, CreateNewCampaignPage.PlacementType placementType){
+    public static CampaignDetailsPage initiateCampaignCreation(CreateNewCampaignPage.CampaignType campaignType, CreateNewCampaignPage.PlacementType placementType){
         Header header = new Header();
         CreateNewCampaignPage createNewCampaignPage = header.openMenu().clickCreateNewCampaignButton();
 
@@ -75,6 +75,7 @@ public class CommonScenarios {
         createNewCampaignPage.createCampaign(campaignType, placementType);
         //check Campaign Status
         Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), liveStatusTest);
+        return new CampaignDetailsPage();
     }
 
 
@@ -83,7 +84,7 @@ public class CommonScenarios {
      * Precondition: initateCampaignCreation() should be already executed OR Page with Launch Button should be displayed
      * Post-condition: Campaign  status changed to Active. Campaign Details page is opened
      * */
-    public void launchCampaign()
+    public static CampaignDetailsPage launchCampaign()
     {
         CampaignNavigationMenu campaignNavigationMenu = new CampaignNavigationMenu();
 //        campaignNavigationMenu.launchDeactivateCampaignButton.click();
@@ -94,6 +95,7 @@ public class CommonScenarios {
         CampaignDetailsPage campaignDetailsPage = launchCampaignPage.launchCampaign();
         //check Campaign Status
         Assert.assertEquals(campaignDetailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusActive);
+        return new CampaignDetailsPage();
     }
 
 

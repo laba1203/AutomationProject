@@ -2,6 +2,7 @@ package talkable.headerFrame;
 
 import abstractObjects.AbstractElementsContainer;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import talkable.campaignsPage.PageCampaigns;
 import talkable.headerFrame.elements.*;
 import talkable.headerFrame.elements.menuFrame.MenuFrame;
 import talkable.headerFrame.elements.siteSelectContainer.SiteSelectContainer;
@@ -53,6 +54,11 @@ public class Header extends AbstractElementsContainer{
     public ReportsPage clickReportsButton(){
         reportsButton.click();
         return new ReportsPage();
+    }
+
+    public PageCampaigns clickCampaignsPage(){
+        campaignsButton.click();
+        return new PageCampaigns();
     }
 
 

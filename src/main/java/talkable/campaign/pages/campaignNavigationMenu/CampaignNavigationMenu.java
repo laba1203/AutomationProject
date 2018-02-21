@@ -28,6 +28,14 @@ public class CampaignNavigationMenu extends CampaignNavigationMenuOnEditor{
 
     }
 
+    public CampaignNavigationMenu deactivateCampaign(){
+        if(!isCampaignActive()){
+            Assert.fail("You can not deactivate this campaign. It is not active.");
+        }
+        launchDeactivateCampaignButton.click();
+        return new CampaignNavigationMenu();
+    }
+
     private boolean isCampaignActive(){
         return getCampaignStatus().equals("Status: Live");
     }
