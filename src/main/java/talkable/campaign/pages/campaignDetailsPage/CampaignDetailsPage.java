@@ -12,6 +12,7 @@ public class CampaignDetailsPage extends AbstractElementsContainer {
     public Header header;
     private ElmntCopyButton copyButton;
     private ElmntCreateTestOfferButton createTestOfferButton;
+    private ElmntAdvocateOffersCount advocateOffers;
 
     private ElmntDeleteButton deleteButton;//should be initialised ONLY inside of the relevant method()
 
@@ -33,6 +34,17 @@ public class CampaignDetailsPage extends AbstractElementsContainer {
         copyButton.click();
         CopyCampaignPopup copyCampaignPopup = new CopyCampaignPopup();
         return copyCampaignPopup.copyCampaign();
+    }
+
+    public String getAdvocateOffersTotalCount(){
+        if (isElementPresent(advocateOffers)) {
+            advocateOffers = new ElmntAdvocateOffersCount();
+            return advocateOffers.getText();
+        }
+        else{
+            System.out.println("Advocate Offer Count is empty");
+            return "Total: 0";
+        }
     }
 
     public String getCampaignName(){

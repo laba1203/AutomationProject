@@ -81,6 +81,24 @@ public class PageCampaignRules extends AbstractElementsContainer{
         return saveChanges();
     }
 
+    /*returns time in format "00:00"*/
+    public String getAdvocateDeadlineTime(){
+        return adOfferDeadlineHours.getSelectedItemText() + ":" + adOfferDeadlineMinutes.getSelectedItemText();
+    }
+
+    /*returns time in format "00:00"*/
+    public String getFriendDeadlineTime(){
+        return frOfferDeadlineHours.getSelectedItemText() + ":" + frOfferDeadlineMinutes.getSelectedItemText();
+    }
+
+    public String getAdvocateDeadlineDate(){
+        return advocateOfferDeadlineDate.getText();
+    }
+
+    public String getFriendDeadlineDate(){
+        return friendOfferDeadlineDate.getText();
+    }
+
     //Not completed yet !!!!!
     public PageCampaignRules createNewIncentive(IncentiveType incentiveType, int rewardAmount, DiscountType discountType, CouponCodeType couponCodeType){
         createNewIncentiveButton = new ElmntCreateNewIncentiveButton();

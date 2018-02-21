@@ -93,12 +93,12 @@ public class SmokeTest {
         String friendDeadline = "10/21/2020";
         PageCampaignRules rulesPage = new PageCampaignRules();
         rulesPage = rulesPage.setDeadlineDates(advocateOfferDeadlineDate, endTime, friendDeadline, endTime);
-//        Assert.assertEquals(advocateOfferDeadlineDate, (String)rulesPage.getAdvocateDeadlineDateAndTime().get(0));
-//        Assert.assertEquals(endTime.substring(0, 1), (String)rulesPage.getAdvocateDeadlineDateAndTime().get(1));
-//        Assert.assertEquals(endTime.substring(3), (String)rulesPage.getAdvocateDeadlineDateAndTime().get(2));
-//        Assert.assertEquals(friendDeadline, (String)rulesPage.getFriendDeadlineDateAndTime().get(0));
-//        Assert.assertEquals(endTime.substring(0, 1), (String)rulesPage.getFriendDeadlineDateAndTime().get(1));
-//        Assert.assertEquals(endTime.substring(3), (String)rulesPage.getFriendDeadlineDateAndTime().get(2));
+
+        Assert.assertEquals(advocateOfferDeadlineDate, rulesPage.getAdvocateDeadlineDate(), "FAILED: Incorrect Advocate Deadline Date");
+        Assert.assertEquals(endTime, rulesPage.getAdvocateDeadlineTime(), "FAILED: Incorrect Advocate Deadline Time");
+
+        Assert.assertEquals(friendDeadline, rulesPage.getFriendDeadlineDate(), "FAILED: Incorrect Friend Deadline Date");
+        Assert.assertEquals(endTime, rulesPage.getFriendDeadlineTime(), "FAILED: Incorrect Friend Deadline Time");
     }
 
 // 8. Add incentive (Type = Sign Up)
@@ -127,7 +127,7 @@ public class SmokeTest {
         CampaignDetailsPage detailsPage = new CampaignDetailsPage();
         CreateNewPurchasePage newPurchasePage = detailsPage.clickCreateTestOffer();
         detailsPage = newPurchasePage.createOfferAndSwitchToCampaign();
-//        Assert.assertEquals(detailsPage.getAdvocateOffersTotalCount(), "Total: 1", "FAILED: Incorrect Offers count");
+        Assert.assertEquals(detailsPage.getAdvocateOffersTotalCount(), "Total: 1", "FAILED: Incorrect Offers count");
     }
 
     /*
