@@ -5,6 +5,7 @@ package execution.smoke;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import common.cases.CommonScenarios;
 import customerSite.talkableFrame.floatingWidgete.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -165,7 +166,7 @@ public class SmokeTest {
             this.driverFactory.getDriver().navigate().to("http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html");
             new AdvocateTriggerWidgetFrame();
             Assert.fail("FAILED: Floating Widget is displayed. Test Failed");
-        } catch (ElementNotFoundException var2) {
+        } catch (NoSuchElementException e) {
             System.out.println("PASSED: Floating Widget is not displayed");
         }
 
