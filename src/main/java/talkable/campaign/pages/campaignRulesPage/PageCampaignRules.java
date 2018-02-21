@@ -2,9 +2,11 @@ package talkable.campaign.pages.campaignRulesPage;
 
 import abstractObjects.AbstractElementsContainer;
 import abstractObjects.DrivenElement;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
+import util.logging.Log;
 
 import java.util.ArrayList;
 
@@ -58,14 +60,26 @@ public class PageCampaignRules extends AbstractElementsContainer{
 
     private PageCampaignRules saveChanges(){
         saveChangesButton.click();
+        wait.until(ExpectedConditions.invisibilityOfElementWithText(saveChangesButton.getLocator(), "Saving..."));
+        saveChangesButton = new ElmntSaveButton();
         wait.until(ExpectedConditions.textToBePresentInElement(saveChangesButton.getWebElement(), "Save changes"));
+        Log.changesAreSaved();
+
         return new PageCampaignRules();
     }
 
-    public PageCampaignRules updateCampaignName(String newName){
+    public PageCampaignRules setCampaignName(String newName){
         campaignNameInput.clear();
         campaignNameInput.sendKeys(newName);
         return saveChanges();
+    }
+
+    public String getCampaignName(){
+        return campaignNameInput.getText();
+    }
+
+    public String getCampaignDescription(){
+        return campaignDescription.getText();
     }
 
     public PageCampaignRules setCampaignDescription(String text){
@@ -73,8 +87,26 @@ public class PageCampaignRules extends AbstractElementsContainer{
         return saveChanges();
     }
 
+    /*returns time in format "00:00"*/
+    public String getAdvocateDeadlineTime(){
+        return adOfferDeadlineHours.getSelectedItemText() + ":" + adOfferDeadlineMinutes.getSelectedItemText();
+    }
+
+    /*returns time in format "00:00"*/
+    public String getFriendDeadlineTime(){
+        return frOfferDeadlineHours.getSelectedItemText() + ":" + frOfferDeadlineMinutes.getSelectedItemText();
+    }
+
+    public String getAdvocateDeadlineDate(){
+        return advocateOfferDeadlineDate.getText();
+    }
+
+    public String getFriendDeadlineDate(){
+        return friendOfferDeadlineDate.getText();
+    }
+
     //Not completed yet !!!!!
-    public PageCampaignRules createNewAdvocateIncentive(IncentiveType incentiveType, int rewardAmount, DiscountType discountType, CouponCodeType couponCodeType){
+    public PageCampaignRules createNewIncentive(IncentiveType incentiveType, int rewardAmount, DiscountType discountType, CouponCodeType couponCodeType){
         createNewIncentiveButton = new ElmntCreateNewIncentiveButton();
         createNewIncentiveButton.click();
         PopupIncentiveFactory incentivePopup = selectIncentive(incentiveType);
@@ -95,6 +127,10 @@ public class PageCampaignRules extends AbstractElementsContainer{
         frOfferDeadlineMinutes.searchAndSelect(adMinute);
         //save changes:
         return saveChanges();
+    }
+
+    public PageCampaignRules setDeadlineDates(String advocateOfferDeadlineDate, String adEndTime, String friendOfferDeadlineDate, String frEndTime) {
+        return setDeadlineDates(advocateOfferDeadlineDate, adEndTime.substring(0,2), adEndTime.substring(3), friendOfferDeadlineDate, frEndTime.substring(0,2), frEndTime.substring(3));
     }
 
     private PopupIncentiveFactory selectIncentive(IncentiveType incentiveType){

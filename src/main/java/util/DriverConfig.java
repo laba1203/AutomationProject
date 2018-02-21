@@ -46,7 +46,7 @@ public class DriverConfig {
 
     public WebDriverWait getExplicitWait(){
         if(wait == null){
-            wait = new WebDriverWait(driver, 2, 500);
+            wait = new WebDriverWait(driver, 10, 500);
         }
         return wait;
     }

@@ -1,11 +1,15 @@
 <suite name="SuiteName1">
     <test name="Testing1" preserve-order="true" >
         <classes>
-            <class name="FirstTest">
+            <class name="execution.smoke.SmokeTest">
                 <!--<methods>
                     <include name="test1_login"/>
                 </methods>-->
             </class>
+            <!--
+            <class name="SiteTest">
+            </class>
+            -->
         </classes>
 
         <!--<packages>

@@ -1,9 +1,6 @@
 package abstractObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,8 +21,14 @@ public abstract class AbstractElement implements DrivenElement{
 
     protected void setWebElement(By locator)
     {
-        webElement = driver.findElement(locator);
-        this.locator = locator;
+        try {
+            webElement = driver.findElement(locator);
+            this.locator = locator;
+        }
+        catch (NoSuchElementException e){
+            System.out.println("FAILED: " + e.getMessage());
+            Assert.fail("FAILED Assert:" + e.getMessage());
+        }
     }
 
     public void setWebElement(WebElement webElement){

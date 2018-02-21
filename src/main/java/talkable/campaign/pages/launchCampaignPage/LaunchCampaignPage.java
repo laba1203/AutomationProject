@@ -29,7 +29,7 @@ public class LaunchCampaignPage extends AbstractElementsContainer {
         }
         catch (NoSuchElementException e ){
 
-            Log.popupIsNotOpenedMsg(noIntegrationFoundPopup);
+            Log.popupIsNotOpenedMsg();
             System.out.println(e);
         }
 
