@@ -46,23 +46,28 @@ public class SmokeTest {
         this.driver.navigate().to("https://void.talkable.com");
     }
 
+// 1. Login to Talkable.
     @Test
     public void test01_login() {
         CommonScenarios.login("maxim.laba+automation.smoke.test@talkable.com", "Password@1");
     }
 
+// 2. Verify site Name
     @Test
     public void test02_verifySiteName() {
         Header header = new Header();
         Assert.assertEquals(header.getSiteName(), "automation-smoke-test", "FAILED: Incorrect site name");
     }
 
+// 3. Add new Campaign (Type = FW )
     @Test
     public void test03_createNewCampaign() {
         CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(CampaignType.Invite, PlacementType.FloatingWidget);
         Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), "Status: Test", "FAILED: Incorrect campaign status");
     }
 
+// 4. Navigate to Rules page
+// 5. Modify Campaign name
     @Test
     public void test04_setCampaignNameOnRulesPage() {
         String name = campaignName;
@@ -71,6 +76,7 @@ public class SmokeTest {
         Assert.assertEquals(rulesPage.getCampaignName(), name, "FAILED: Campaign Name is not updated");
     }
 
+// 6. Modify Campaign description
     @Test
     public void test05_setCampaignDescription() {
         String description = "Campaign for smoke test";
@@ -79,6 +85,7 @@ public class SmokeTest {
         Assert.assertEquals(rulesPage.getCampaignDescription(), description, "FAILED: Campaign description is not updated");
     }
 
+// 7. Set Advocate/Friend Offer deadline
     @Test
     public void test06_setDeadlineDates() {
         String advocateOfferDeadlineDate = "10/18/2020";
@@ -94,6 +101,7 @@ public class SmokeTest {
 //        Assert.assertEquals(endTime.substring(3), (String)rulesPage.getFriendDeadlineDateAndTime().get(2));
     }
 
+// 8. Add incentive (Type = Sign Up)
     @Test
     public void test07_addIncentive() {
         PageCampaignRules rulesPage = new PageCampaignRules();
@@ -101,12 +109,19 @@ public class SmokeTest {
         rulesPage = rulesPage.createNewIncentive(IncentiveType.FriendIncentive_NewCustomer, 10, DiscountType.Percentage, CouponCodeType.MultiUse);
     }
 
+     /* To be added:
+     9. Modify campaign in Editor
+     10. Modify campaign placement
+     */
+
+// 11. Launch Campaign
     @Test
     public void test08_launchCampaign() {
         CampaignDetailsPage detailsPage = CommonScenarios.launchCampaign();
         Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), "Status: Live", "FAILED: Campaign is not activated");
     }
 
+// 12. Create test offer.
     @Test
     public void test09_createTestOffer() {
         CampaignDetailsPage detailsPage = new CampaignDetailsPage();
@@ -115,6 +130,13 @@ public class SmokeTest {
 //        Assert.assertEquals(detailsPage.getAdvocateOffersTotalCount(), "Total: 1", "FAILED: Incorrect Offers count");
     }
 
+    /*
+    To be added:
+    13. Verify that offer available in report.
+    */
+
+
+// 14. Verify FW on client site
     @Test
     public void test10_verifyCampaignOnSite() {
         this.driverFactory.getDriver().navigate().to("http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html");
@@ -127,6 +149,7 @@ public class SmokeTest {
         this.driver.navigate().to("https://admin.void.talkable.com");
     }
 
+// 15. Deactivate campaign.
     @Test
     public void test12_deactivateCampaign() {
         PageCampaigns campaignsPage = (new Header()).clickCampaignsPage();
@@ -135,6 +158,7 @@ public class SmokeTest {
         Assert.assertEquals(menu.getCampaignStatus(), "Status: Disabled", "FAILED: Campaign is not deactivated");
     }
 
+// 16. Check on the site that FW is not shown
     @Test
     public void test13_verifyFwOnSite() {
         try {
