@@ -2,8 +2,7 @@ package customerSite.talkableFrame.floatingWidgete.advocateSharePage;
 
 import abstractObjects.AbstractTalkableFrame;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import talkable.reports.previousCustomersReport.elements.ClosePopupButton;
+import talkable.talkableSite.reports.previousCustomersReport.elements.ClosePopupButton;
 
 public class AdvocateSharePage extends AbstractTalkableFrame{
 

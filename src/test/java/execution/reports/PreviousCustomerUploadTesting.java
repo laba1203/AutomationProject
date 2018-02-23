@@ -5,10 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import talkable.addYourSitePage.AddSitePage;
-import talkable.headerFrame.Header;
-import talkable.reports.previousCustomersReport.PreviousCustomersReportPage;
-import talkable.reports.reportsPage.ReportsPage;
+import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
+import talkable.talkableSite.reports.reportsPage.ReportsPage;
 import util.DriverConfig;
 import util.TestDataConverter;
 

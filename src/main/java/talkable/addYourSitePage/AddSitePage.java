@@ -1,7 +1,7 @@
 package talkable.addYourSitePage;
 
 import abstractObjects.AbstractElementsContainer;
-import talkable.IntegrationInstructionPage.IntegrationInstructionPage;
+import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.elements.*;
 
 public class AddSitePage extends AbstractElementsContainer {

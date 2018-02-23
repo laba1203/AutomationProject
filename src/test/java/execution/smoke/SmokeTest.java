@@ -2,7 +2,6 @@
 
 package execution.smoke;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import common.cases.CommonScenarios;
 import customerSite.talkableFrame.floatingWidgete.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,17 +9,16 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import talkable.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
-import talkable.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
-import talkable.campaign.pages.campaignRulesPage.PageCampaignRules;
-import talkable.campaign.pages.campaignRulesPage.PageCampaignRules.CouponCodeType;
-import talkable.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType;
-import talkable.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType;
-import talkable.campaign.pages.createNewPurchasePage.CreateNewPurchasePage;
-import talkable.campaignsPage.PageCampaigns;
-import talkable.createNewCampaignPage.CreateNewCampaignPage.CampaignType;
-import talkable.createNewCampaignPage.CreateNewCampaignPage.PlacementType;
-import talkable.headerFrame.Header;
+import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
+import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
+import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
+import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.CouponCodeType;
+import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType;
+import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType;
+import talkable.talkableSite.campaignsPage.PageCampaigns;
+import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage.CampaignType;
+import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage.PlacementType;
+import talkable.talkableSite.headerFrame.Header;
 import util.DriverConfig;
 
 public class SmokeTest {
