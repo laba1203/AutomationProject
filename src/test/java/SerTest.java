@@ -19,7 +19,7 @@ public class SerTest {
         driver = new DriverConfig().getDriver();
         driver.navigate().to("https://void.talkable.com/");
     }
-//qweq123
+//qweq123123
     @Test
     public void test1(){
             commonScenarios.login("hutornoy@talkable.com", "organ_Telo23");
