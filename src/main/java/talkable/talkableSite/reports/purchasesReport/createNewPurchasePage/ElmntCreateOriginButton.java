@@ -1,4 +1,4 @@
-package talkable.talkableSite.campaign.pages.createNewPurchasePage;
+package talkable.talkableSite.reports.purchasesReport.createNewPurchasePage;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;

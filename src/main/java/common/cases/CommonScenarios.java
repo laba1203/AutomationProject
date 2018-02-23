@@ -5,7 +5,7 @@ import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPa
 import talkable.addYourSitePage.AddSitePage;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
-import talkable.talkableSite.campaign.pages.createNewPurchasePage.CreateNewPurchasePage;
+import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.homePage.HomePage;

@@ -1,15 +1,13 @@
 package talkable.talkableSite.campaign.pages.campaignDetailsPage;
 
-import abstractObjects.AbstractElementsContainer;
-import talkable.talkableSite.campaign.pages.createNewPurchasePage.CreateNewPurchasePage;
+import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
+import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.containers.copyCampaignPopup.CopyCampaignPopup;
-import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
-import talkable.talkableSite.headerFrame.Header;
 
-public class CampaignDetailsPage extends AbstractElementsContainer {
+public class CampaignDetailsPage extends AbstractCampaignPage {
 
-    public CampaignNavigationMenu campaignNavigationMenu;
-    public Header header;
+//    public CampaignNavigationMenu campaignNavigationMenu;
+//    public Header header;
     private ElmntCopyButton copyButton;
     private ElmntCreateTestOfferButton createTestOfferButton;
     private ElmntAdvocateOffersCount advocateOffers;
@@ -18,8 +16,8 @@ public class CampaignDetailsPage extends AbstractElementsContainer {
 
 
     public CampaignDetailsPage(){
-        header = new Header();
-        campaignNavigationMenu = new CampaignNavigationMenu();
+//        header = new Header();
+//        campaignNavigationMenu = new CampaignNavigationMenu();
         copyButton = new ElmntCopyButton();
         createTestOfferButton = new ElmntCreateTestOfferButton();
     }

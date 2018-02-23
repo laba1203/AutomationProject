@@ -1,8 +1,8 @@
 package talkable.talkableSite.reports.advocateOffersReport.advocateOfferDetailsPage;
 
-import abstractObjects.AbstractElementsContainer;
+import talkable.talkableSite.AbstractTalkableSitePage;
 
-public class AdvocateOfferDetailsPage extends AbstractElementsContainer{
+public class AdvocateOfferDetailsPage extends AbstractTalkableSitePage{
 
     private ElmntAdvocateField advocateField;
 

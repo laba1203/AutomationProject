@@ -4,10 +4,11 @@ import abstractObjects.AbstractElementsContainer;
 import abstractObjects.DrivenElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.createNewCampaignPage.elements.*;
 import util.DriverConfig;
 
-public class CreateNewCampaignPage extends AbstractElementsContainer {
+public class CreateNewCampaignPage extends AbstractTalkableSitePage {
 
     WebDriverWait wait = new DriverConfig().getExplicitWait();
     private static final String title = "Choose New Campaign To Select | Talkable";

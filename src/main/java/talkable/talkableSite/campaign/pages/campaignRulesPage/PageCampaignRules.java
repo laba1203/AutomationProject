@@ -4,14 +4,15 @@ import abstractObjects.AbstractElementsContainer;
 import abstractObjects.DrivenElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import util.logging.Log;
 
 import java.util.ArrayList;
 
-public class PageCampaignRules extends AbstractElementsContainer{
+public class PageCampaignRules extends AbstractCampaignPage{
 
-    public CampaignNavigationMenu navigationMenu;
+//    public CampaignNavigationMenu navigationMenu;
     private ElmntSaveButton saveChangesButton;
     private ElmntCampaignNameInput campaignNameInput;
     private ElmntCampaignDescriptionInput campaignDescription;
@@ -43,7 +44,7 @@ public class PageCampaignRules extends AbstractElementsContainer{
 
 
     public PageCampaignRules(){
-        navigationMenu = new CampaignNavigationMenu();
+//        navigationMenu = new CampaignNavigationMenu();
         saveChangesButton = new ElmntSaveButton();
         campaignNameInput = new ElmntCampaignNameInput();
         campaignDescription = new ElmntCampaignDescriptionInput();

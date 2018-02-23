@@ -1,16 +1,15 @@
 package talkable.talkableSite.siteDashboardPage;
 
-import abstractObjects.AbstractElementsContainer;
 import org.testng.Assert;
-import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.siteDashboardPage.elements.SiteNameField;
 
-public class SiteDashboardPage extends AbstractElementsContainer{
+public class SiteDashboardPage extends AbstractTalkableSitePage{
     private SiteNameField siteName;
-    public Header header;
+//    public Header header;
 
     public SiteDashboardPage(){
-        header = new Header();
+//        header = new Header();
         siteName = new SiteNameField();
     }
 

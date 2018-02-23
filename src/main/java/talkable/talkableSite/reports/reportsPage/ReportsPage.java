@@ -1,13 +1,13 @@
 package talkable.talkableSite.reports.reportsPage;
 
-import abstractObjects.AbstractElementsContainer;
+import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.referralsReport.PageReferralsReport;
 import talkable.talkableSite.reports.reportsPage.elements.PeopleButton;
 import talkable.talkableSite.reports.reportsPage.elements.PreviousCustomersButton;
 import talkable.talkableSite.reports.reportsPage.elements.ReferralsButton;
 
-public class ReportsPage extends AbstractElementsContainer{
+public class ReportsPage extends AbstractTalkableSitePage{
 
     private static final String title = "Support & Reports | Talkable";
 

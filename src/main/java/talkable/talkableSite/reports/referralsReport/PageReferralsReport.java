@@ -1,17 +1,16 @@
 package talkable.talkableSite.reports.referralsReport;
 
-import abstractObjects.AbstractElementsContainer;
+import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.customerService.createReferral.PageCreateReferral;
-import talkable.talkableSite.headerFrame.Header;
 
-public class PageReferralsReport extends AbstractElementsContainer{
+public class PageReferralsReport extends AbstractTalkableSitePage{
 
-    public Header header;
+//    public Header header;
     private ElmntCreateReferralManual createReferralManual;
 
     public PageReferralsReport(){
 
-        header = new Header();
+//        header = new Header();
         createReferralManual = new ElmntCreateReferralManual();
 
 

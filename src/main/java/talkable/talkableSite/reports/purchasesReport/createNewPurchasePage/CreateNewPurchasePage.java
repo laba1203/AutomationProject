@@ -1,11 +1,11 @@
-package talkable.talkableSite.campaign.pages.createNewPurchasePage;
+package talkable.talkableSite.reports.purchasesReport.createNewPurchasePage;
 
-import abstractObjects.AbstractElementsContainer;
+import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.talkableSite.reports.advocateOffersReport.advocateOfferDetailsPage.AdvocateOfferDetailsPage;
 import util.DriverConfig;
 
-public class CreateNewPurchasePage extends AbstractElementsContainer{
+public class CreateNewPurchasePage extends AbstractTalkableSitePage{
     String parentHandle;
     String childHandle;
 

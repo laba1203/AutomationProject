@@ -1,8 +1,8 @@
 package talkable.talkableSite.reports.previousCustomersReport;
 
-import abstractObjects.AbstractElementsContainer;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.reports.previousCustomersReport.elements.DropZoneInput;
 import talkable.talkableSite.reports.previousCustomersReport.elements.TotalCustomersLists;
 import talkable.talkableSite.reports.previousCustomersReport.elements.UploadNewCSVButton;
@@ -13,7 +13,7 @@ import util.logging.Log;
 
 import java.util.ArrayList;
 
-public class PreviousCustomersReportPage extends AbstractElementsContainer {
+public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
 
     private final static String title = "Existing Customers Lists | Talkable";
 

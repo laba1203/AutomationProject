@@ -1,16 +1,17 @@
 package talkable.talkableSite.IntegrationInstructionPage;
 
+import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.headerFrame.Header;
 
-public class IntegrationInstructionPage {
+public class IntegrationInstructionPage extends AbstractTalkableSitePage {
 
-    public Header header;
+//    public Header header;
     private ElmntDontShowItAgain dontShowItAgainButton;
     private ElmntCreateCampaignButton createCampaignButton;
     private ElmntIntegrateTalkableButton integrateTalkableButton;
 
     public IntegrationInstructionPage(){
-        header = new Header();
+//        header = new Header();
         dontShowItAgainButton = new ElmntDontShowItAgain();
         createCampaignButton = new ElmntCreateCampaignButton();
         integrateTalkableButton = new ElmntIntegrateTalkableButton();

@@ -1,8 +1,8 @@
 package talkable.talkableSite.customerService.createReferral;
 
-import abstractObjects.AbstractElementsContainer;
+import talkable.talkableSite.AbstractTalkableSitePage;
 
-public class PageCreateReferral extends AbstractElementsContainer{
+public class PageCreateReferral extends AbstractTalkableSitePage{
     private ElmntRadioBtnNewOrder radioBtnNewOrder;
 
     public PageCreateReferral(){
