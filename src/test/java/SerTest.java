@@ -4,10 +4,10 @@ import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import talkable.customerService.createReferral.PageCreateReferral;
-import talkable.headerFrame.Header;
-import talkable.reports.referralsReport.PageReferralsReport;
-import talkable.reports.reportsPage.ReportsPage;
+import talkable.talkableSite.customerService.createReferral.PageCreateReferral;
+import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.reports.referralsReport.PageReferralsReport;
+import talkable.talkableSite.reports.reportsPage.ReportsPage;
 import util.DriverConfig;
 
 public class SerTest {

@@ -1,7 +1,7 @@
 package talkable.userRegistration.createAccountPage;
 
 import abstractObjects.AbstractElementsContainer;
-import talkable.IntegrationInstructionPage.IntegrationInstructionPage;
+import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 
 public class CreateAccountPage extends AbstractElementsContainer{
