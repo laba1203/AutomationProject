@@ -16,11 +16,6 @@ public class FirstTest {
 
     CommonScenarios commonScenarios = new CommonScenarios();
 
-//    LoginPage loginPage;
-//    Header header;
-//    MenuFrame menuFrame;
-//    CreateNewCampaignPage createNewCampaignPage;
-
     private String siteName = "automationSite";
 
     @BeforeClass
