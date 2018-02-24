@@ -35,7 +35,8 @@ class IncentiveGroup extends AbstractElementsContainer{
     public IncentiveTile getIncentive(String value, String couponCode){
         for (IncentiveTile incentive :
                 incentives) {
-            
+
+            //filter should be added
         }
 
         return null;
