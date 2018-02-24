@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class PageCampaignRules extends AbstractCampaignPage{
 
 //    public CampaignNavigationMenu navigationMenu;
-    private ElmntSaveButton saveChangesButton;
-    private ElmntCampaignNameInput campaignNameInput;
-    private ElmntCampaignDescriptionInput campaignDescription;
-    private ElmntAdvocateOfferDeadlineDate advocateOfferDeadlineDate;
-    private ElmntFriendOfferDeadlineDate friendOfferDeadlineDate;
+    private ElmntSaveButton saveChangesButton = new ElmntSaveButton();
+    private ElmntCampaignNameInput campaignNameInput = new ElmntCampaignNameInput();;
+    private ElmntCampaignDescriptionInput campaignDescription = new ElmntCampaignDescriptionInput();;
+    private ElmntAdvocateOfferDeadlineDate advocateOfferDeadlineDate = new ElmntAdvocateOfferDeadlineDate();
+    private ElmntFriendOfferDeadlineDate friendOfferDeadlineDate = new ElmntFriendOfferDeadlineDate();
     private ElmntAdOfferDeadlineHours adOfferDeadlineHours;
     private ElmntAdOfferDeadlineMinutes adOfferDeadlineMinutes;
     private ElmntFrOfferDeadlineHours frOfferDeadlineHours;
@@ -44,12 +44,12 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
 
     public PageCampaignRules(){
-//        navigationMenu = new CampaignNavigationMenu();
-        saveChangesButton = new ElmntSaveButton();
-        campaignNameInput = new ElmntCampaignNameInput();
-        campaignDescription = new ElmntCampaignDescriptionInput();
-        advocateOfferDeadlineDate = new ElmntAdvocateOfferDeadlineDate();
-        friendOfferDeadlineDate = new ElmntFriendOfferDeadlineDate();
+
+//        saveChangesButton = new ElmntSaveButton();
+//        campaignNameInput = new ElmntCampaignNameInput();
+//        campaignDescription = new ElmntCampaignDescriptionInput();
+//        advocateOfferDeadlineDate = new ElmntAdvocateOfferDeadlineDate();
+//        friendOfferDeadlineDate = new ElmntFriendOfferDeadlineDate();
         adOfferDeadlineHours = new ElmntAdOfferDeadlineHours();
         adOfferDeadlineMinutes = new ElmntAdOfferDeadlineMinutes();
         frOfferDeadlineHours = new ElmntFrOfferDeadlineHours();
@@ -145,6 +145,11 @@ public class PageCampaignRules extends AbstractCampaignPage{
             return new PopupIncentive();
         }
 
+    }
+
+    //not completed
+    private IncentiveTile getIncentive(IncentiveType incentiveType, String value){
+//        To be described incentive tile
 
 
     }
@@ -190,6 +195,8 @@ public class PageCampaignRules extends AbstractCampaignPage{
         }
         return name;
     }
+
+
 
 
 
