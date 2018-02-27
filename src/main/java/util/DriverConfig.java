@@ -32,7 +32,7 @@ public class DriverConfig {
     }
 
     private String getOS(){
-        System.out.println("Test is running on" + System.getProperty("os.name"));
+        System.out.println("Test is running on " + System.getProperty("os.name"));
         return System.getProperty("os.name").toLowerCase().substring(0,3);
     }
 
@@ -60,6 +60,8 @@ public class DriverConfig {
     public void cleanWebDriver(){
         driver = null;
     }
+
+    //to be refactored
 
     public static String switchToUnknownWindow(String parentHandle){
         String switchedChildHandle = null;

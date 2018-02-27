@@ -1,11 +1,9 @@
 package talkable.talkableSite.campaign.pages.campaignRulesPage;
 
-import abstractObjects.AbstractElementsContainer;
 import abstractObjects.DrivenElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
-import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import util.logging.Log;
 
 import java.util.ArrayList;
@@ -105,7 +103,7 @@ public class PageCampaignRules extends AbstractCampaignPage{
         return friendOfferDeadlineDate.getText();
     }
 
-    //Not completed yet !!!!!
+
     public PageCampaignRules createNewIncentive(IncentiveType incentiveType, int rewardAmount, DiscountType discountType, CouponCodeType couponCodeType){
         createNewIncentiveButton = new ElmntCreateNewIncentiveButton();
         createNewIncentiveButton.click();
@@ -138,23 +136,30 @@ public class PageCampaignRules extends AbstractCampaignPage{
         String incentiveName = getIncentiveTypeName(incentiveType);
         selectByText(incentiveName, incentiveTypeItems);
 
+        return getIncentivePopup(incentiveType);
+
+    }
+
+    static PopupIncentiveFactory getIncentivePopup(IncentiveType incentiveType){
         if(incentiveType == IncentiveType.AdvocateReferralIncentive || incentiveType == IncentiveType.AdvocateSharingIncentive){
             return new PopupExtendedIncentive();
         }
         else {
             return new PopupIncentive();
         }
-
     }
 
-    //not completed
-    private IncentiveTile getIncentive(IncentiveType incentiveType, String value){
-//        To be described incentive tile
-
-
+    private IncentiveTile getIncentiveTile(IncentiveType incentiveType, String value){
+        return new IncentiveGroup(incentiveType).getIncentive(value);
     }
 
-    private String getIncentiveTypeName(IncentiveType incentiveType){
+    public PageCampaignRules deleteIncentive(IncentiveType incentiveType, String value){
+        IncentiveTile incentive = getIncentiveTile(incentiveType, value);
+        return incentive.delete();
+    }
+
+
+    static String getIncentiveTypeName(IncentiveType incentiveType){
         String name;
         switch (incentiveType){
             case AdvocateSignupIncentive:

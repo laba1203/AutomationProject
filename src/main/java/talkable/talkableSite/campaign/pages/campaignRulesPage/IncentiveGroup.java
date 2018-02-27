@@ -3,6 +3,7 @@ package talkable.talkableSite.campaign.pages.campaignRulesPage;
 import abstractObjects.AbstractElementsContainer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,38 +11,40 @@ import java.util.List;
 class IncentiveGroup extends AbstractElementsContainer{
     private WebElement groupContainer;
     private ArrayList<IncentiveTile> incentives = new ArrayList<>();
+    private PageCampaignRules.IncentiveType incentiveType;
 
-    IncentiveGroup(String incentiveType) {
-        groupContainer = driver.findElement(By.xpath(".//*[text()='" + incentiveType + "']/following-sibling::div"));
+    IncentiveGroup(PageCampaignRules.IncentiveType incentiveType) {
+        this.incentiveType = incentiveType;
+        groupContainer = driver.findElement(By.xpath(".//*[text()='" + PageCampaignRules.getIncentiveTypeName(incentiveType) + "']/following-sibling::div"));
         setIncentiveTilesList();
 
     }
 
 
 
-    private ArrayList<IncentiveTile> setIncentiveTilesList(){
-//        ArrayList<IncentiveTile> incentives = new ArrayList<>();
-
+    private ArrayList<IncentiveTile> setIncentiveTilesList()
+    {
         List<WebElement> webElements = groupContainer.findElements(By.xpath(".//div[@class = 'incentive-container']"));
         for (WebElement webElement :
                 webElements) {
-            incentives.add(new IncentiveTile(webElement));
+            incentives.add(new IncentiveTile(webElement, incentiveType));
         }
         return incentives;
     }
 
 
-    //To be completed
-    public IncentiveTile getIncentive(String value, String couponCode){
+    public IncentiveTile getIncentive(String value){
         for (IncentiveTile incentive :
                 incentives) {
-
-            //filter should be added
+            if(value.equals(incentive.getValue())){
+                return incentive;
+            }
         }
-
+        Assert.fail("Incentive with value: <" + value + "> is not found");
         return null;
-
     }
+
+
 
 
 }
