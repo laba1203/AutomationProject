@@ -6,6 +6,7 @@ import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -55,12 +56,14 @@ public class IncentiveTile extends AbstractElementsContainer {
     public PageCampaignRules delete(){
         try{
             deleteButton = new Element(containerElement.findElement(By.xpath(".//*[text()='Delete']")));
+
         }
         catch (NoSuchElementException e){
             System.out.println("FAILED: " + e.getMessage());
             Assert.fail("FAILED Assert:" + e.getMessage());
         }
 
+        wait.until(ExpectedConditions.elementToBeClickable(deleteButton.getWebElement()));
         deleteButton.click();
         PopupWarning warningPopup = new PopupWarning();
 
