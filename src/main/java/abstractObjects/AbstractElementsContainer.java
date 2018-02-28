@@ -26,17 +26,6 @@ public abstract class AbstractElementsContainer
         Assert.assertEquals(title, driver.getTitle(), Log.pageNotOpenedMsg(this));
     }
 
-//    public void initiateVisibleElements(DrivenElement[] containers) {
-//        for (DrivenElement element: containers) {
-//            try {
-//                DrivenElement obj = element.createNewInstance();
-////                element = obj;
-//            } catch (IllegalAccessException | InstantiationException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
-//    }
 
     private boolean verifyPageTitle(String title){
         return driver.getTitle().equals(title);

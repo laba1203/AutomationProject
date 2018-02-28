@@ -41,19 +41,24 @@ public class PageCampaigns extends AbstractTalkableSitePage {
     }
 
     public CampaignDetailsPage clickCampaignByName(String campaignName) {
-        ArrayList<Element> row = this.getLiveCampaignsTable().getRowByCampaignName(campaignName);
-        if (row == null) {
-            row = this.getTestCampaignsTable().getRowByCampaignName(campaignName);
-            if (row == null) {
-                row = this.getDisabledCampaignsTable().getRowByCampaignName(campaignName);
-            }
-        }
+        Table liveCampaigns = getLiveCampaignsTable();
+        Table.Row campaignRow = liveCampaigns.getRowByCampaignName(campaignName);
+        campaignRow.name.click();
 
-        if (row == null) {
-            Assert.fail(Log.rowIsNotFound(campaignName));
-        }
 
-        ((Element)row.get(1)).click();
+//        ArrayList<Element> row = this.getLiveCampaignsTable().getRowByCampaignName(campaignName);
+//        if (row == null) {
+//            row = this.getTestCampaignsTable().getRowByCampaignName(campaignName);
+//            if (row == null) {
+//                row = this.getDisabledCampaignsTable().getRowByCampaignName(campaignName);
+//            }
+//        }
+//
+//        if (row == null) {
+//            Assert.fail(Log.rowIsNotFound(campaignName));
+//        }
+
+//        ((Element)row.get(1)).click();
         return new CampaignDetailsPage();
     }
 }

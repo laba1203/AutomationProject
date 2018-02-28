@@ -1,11 +1,9 @@
 package talkable.talkableSite.campaign.pages.campaignRulesPage;
 
-import abstractObjects.AbstractElementsContainer;
 import abstractObjects.DrivenElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
-import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import util.logging.Log;
 
 import java.util.ArrayList;
@@ -13,11 +11,11 @@ import java.util.ArrayList;
 public class PageCampaignRules extends AbstractCampaignPage{
 
 //    public CampaignNavigationMenu navigationMenu;
-    private ElmntSaveButton saveChangesButton;
-    private ElmntCampaignNameInput campaignNameInput;
-    private ElmntCampaignDescriptionInput campaignDescription;
-    private ElmntAdvocateOfferDeadlineDate advocateOfferDeadlineDate;
-    private ElmntFriendOfferDeadlineDate friendOfferDeadlineDate;
+    private ElmntSaveButton saveChangesButton = new ElmntSaveButton();
+    private ElmntCampaignNameInput campaignNameInput = new ElmntCampaignNameInput();;
+    private ElmntCampaignDescriptionInput campaignDescription = new ElmntCampaignDescriptionInput();;
+    private ElmntAdvocateOfferDeadlineDate advocateOfferDeadlineDate = new ElmntAdvocateOfferDeadlineDate();
+    private ElmntFriendOfferDeadlineDate friendOfferDeadlineDate = new ElmntFriendOfferDeadlineDate();
     private ElmntAdOfferDeadlineHours adOfferDeadlineHours;
     private ElmntAdOfferDeadlineMinutes adOfferDeadlineMinutes;
     private ElmntFrOfferDeadlineHours frOfferDeadlineHours;
@@ -44,12 +42,12 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
 
     public PageCampaignRules(){
-//        navigationMenu = new CampaignNavigationMenu();
-        saveChangesButton = new ElmntSaveButton();
-        campaignNameInput = new ElmntCampaignNameInput();
-        campaignDescription = new ElmntCampaignDescriptionInput();
-        advocateOfferDeadlineDate = new ElmntAdvocateOfferDeadlineDate();
-        friendOfferDeadlineDate = new ElmntFriendOfferDeadlineDate();
+
+//        saveChangesButton = new ElmntSaveButton();
+//        campaignNameInput = new ElmntCampaignNameInput();
+//        campaignDescription = new ElmntCampaignDescriptionInput();
+//        advocateOfferDeadlineDate = new ElmntAdvocateOfferDeadlineDate();
+//        friendOfferDeadlineDate = new ElmntFriendOfferDeadlineDate();
         adOfferDeadlineHours = new ElmntAdOfferDeadlineHours();
         adOfferDeadlineMinutes = new ElmntAdOfferDeadlineMinutes();
         frOfferDeadlineHours = new ElmntFrOfferDeadlineHours();
@@ -105,7 +103,7 @@ public class PageCampaignRules extends AbstractCampaignPage{
         return friendOfferDeadlineDate.getText();
     }
 
-    //Not completed yet !!!!!
+
     public PageCampaignRules createNewIncentive(IncentiveType incentiveType, int rewardAmount, DiscountType discountType, CouponCodeType couponCodeType){
         createNewIncentiveButton = new ElmntCreateNewIncentiveButton();
         createNewIncentiveButton.click();
@@ -138,18 +136,30 @@ public class PageCampaignRules extends AbstractCampaignPage{
         String incentiveName = getIncentiveTypeName(incentiveType);
         selectByText(incentiveName, incentiveTypeItems);
 
+        return getIncentivePopup(incentiveType);
+
+    }
+
+    static PopupIncentiveFactory getIncentivePopup(IncentiveType incentiveType){
         if(incentiveType == IncentiveType.AdvocateReferralIncentive || incentiveType == IncentiveType.AdvocateSharingIncentive){
             return new PopupExtendedIncentive();
         }
         else {
             return new PopupIncentive();
         }
-
-
-
     }
 
-    private String getIncentiveTypeName(IncentiveType incentiveType){
+    public IncentiveTile getIncentiveTile(IncentiveType incentiveType, String value){
+        return new IncentiveGroup(incentiveType).getIncentive(value);
+    }
+
+    public PageCampaignRules deleteIncentive(IncentiveType incentiveType, String value){
+        IncentiveTile incentive = getIncentiveTile(incentiveType, value);
+        return incentive.delete();
+    }
+
+
+    static String getIncentiveTypeName(IncentiveType incentiveType){
         String name;
         switch (incentiveType){
             case AdvocateSignupIncentive:
@@ -190,6 +200,8 @@ public class PageCampaignRules extends AbstractCampaignPage{
         }
         return name;
     }
+
+
 
 
 

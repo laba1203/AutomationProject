@@ -35,6 +35,8 @@ public class SmokeTest {
     private static final String expectedAdvocateOffersCount = "Total: 1";
     private static final String campaignName = "AUTO_TEST_" + System.currentTimeMillis();
 
+    /*Link to test scenario: https://drive.google.com/open?id=1rnq3vo9qQ25vtTwPF7hwXRt7zMBiK28VuAyPc50_X7s
+    * */
     public SmokeTest() {
     }
 
