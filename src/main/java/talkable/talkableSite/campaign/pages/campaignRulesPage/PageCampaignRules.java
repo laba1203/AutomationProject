@@ -149,7 +149,7 @@ public class PageCampaignRules extends AbstractCampaignPage{
         }
     }
 
-    private IncentiveTile getIncentiveTile(IncentiveType incentiveType, String value){
+    public IncentiveTile getIncentiveTile(IncentiveType incentiveType, String value){
         return new IncentiveGroup(incentiveType).getIncentive(value);
     }
 

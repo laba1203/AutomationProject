@@ -11,7 +11,7 @@ import org.testng.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
-class IncentiveTile extends AbstractElementsContainer {
+public class IncentiveTile extends AbstractElementsContainer {
 
     private PageCampaignRules.IncentiveType incentiveType;
     private WebElement containerElement;
