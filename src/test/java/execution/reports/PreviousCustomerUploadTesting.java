@@ -25,8 +25,6 @@ public class PreviousCustomerUploadTesting extends ReportsScenarios{
         driver.navigate().to("https://talkable.com"); //"https://void.talkable.com"
         Header header = login(userEmail, userPassword);
         //Navigate to Existing Customers Report
-//        Header header = new Header();
-//        header.reportsButton.click();
         ReportsPage reportsPage = header.clickReportsButton();
         PreviousCustomersReportPage previousCustomersReportPage = reportsPage.openExistingCustomerReport();
 

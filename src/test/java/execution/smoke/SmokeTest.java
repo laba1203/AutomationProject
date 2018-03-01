@@ -98,11 +98,11 @@ public class SmokeTest {
         PageCampaignRules rulesPage = new PageCampaignRules();
         rulesPage = rulesPage.setDeadlineDates(advocateOfferDeadlineDate, endTime, friendDeadline, endTime);
 
-        Assert.assertEquals(advocateOfferDeadlineDate, rulesPage.getAdvocateDeadlineDate(), "FAILED: Incorrect Advocate Deadline Date");
-        Assert.assertEquals(endTime, rulesPage.getAdvocateDeadlineTime(), "FAILED: Incorrect Advocate Deadline Time");
+        Assert.assertEquals(rulesPage.getAdvocateDeadlineDate(), advocateOfferDeadlineDate, "FAILED: Incorrect Advocate Deadline Date");
+        Assert.assertEquals(rulesPage.getAdvocateDeadlineTime(), endTime, "FAILED: Incorrect Advocate Deadline Time");
 
-        Assert.assertEquals(friendDeadline, rulesPage.getFriendDeadlineDate(), "FAILED: Incorrect Friend Deadline Date");
-        Assert.assertEquals(endTime, rulesPage.getFriendDeadlineTime(), "FAILED: Incorrect Friend Deadline Time");
+        Assert.assertEquals(rulesPage.getFriendDeadlineDate(), friendDeadline, "FAILED: Incorrect Friend Deadline Date");
+        Assert.assertEquals(rulesPage.getFriendDeadlineTime(), endTime,  "FAILED: Incorrect Friend Deadline Time");
     }
 
 // 8. Add incentive (Type = Sign Up)
@@ -126,16 +126,12 @@ public class SmokeTest {
     }
 
 // 12. Create test offer.
-//    @Test
-    //!!! The Test works incorrectly !!!
-    /*
+    //!!! To be tested!! Doesn't work properly.
+    @Test
     public void test09_createTestOffer() {
-        CampaignDetailsPage detailsPage = new CampaignDetailsPage();
-        CreateNewPurchasePage newPurchasePage = detailsPage.clickCreateTestOffer();
-        detailsPage = newPurchasePage.createOfferAndSwitchToCampaign();
+        CampaignDetailsPage detailsPage = CommonScenarios.createTestOfferForNonPostPurchase("test" + System.currentTimeMillis() + "@test.com");
         Assert.assertEquals(detailsPage.getAdvocateOffersTotalCount(), "Total: 1", "FAILED: Incorrect Offers count");
     }
-    */
 
     /*
     To be added:
