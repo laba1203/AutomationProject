@@ -15,16 +15,20 @@ public class ReportsScenarios extends CommonScenarios{
     * @expectedUploadedEmails - count of emails which are expected to be uploaded in the file
     * @expectedStatus - expected status of the processing
     * */
-    public void previousCustomerUploadTesting(String fileName, String expectedProgress,String expectedUploadedEmails, String expectedStatus){
+    protected void previousCustomerUploadTesting(String fileName, String expectedProgress,String expectedUploadedEmails, String expectedStatus){
         PreviousCustomersReportPage previousCustomersReport = new PreviousCustomersReportPage();
         previousCustomersReport.uploadFile(fileName);
         previousCustomersReport.waitTillFileProcessed();
-        ArrayList<String> actualRowValues = previousCustomersReport.getFirstRowValuesFromUploadedCSVLists();
+//        ArrayList<String> actualRowValues = previousCustomersReport.getFirstRowValuesFromUploadedCSVLists();
         //compare values:
-        String actualFileName = actualRowValues.get(0);
-        String actualProgress = actualRowValues.get(1);
-        String actualUploadedEmails = actualRowValues.get(2);
-        String actualStatus = actualRowValues.get(3);
+//        String actualFileName = actualRowValues.get(0);
+//        String actualProgress = actualRowValues.get(1);
+//        String actualUploadedEmails = actualRowValues.get(2);
+//        String actualStatus = actualRowValues.get(3);
+        String actualFileName = previousCustomersReport.getRowWithCsv(1).getFileName();
+        String actualProgress = previousCustomersReport.getRowWithCsv(1).getProgress();
+        String actualUploadedEmails = previousCustomersReport.getRowWithCsv(1).getEmailsUploaded();
+        String actualStatus = previousCustomersReport.getRowWithCsv(1).getStatus();
 
         Assert.assertEquals(actualFileName, fileName, "Incorrect FileName");
         Assert.assertEquals(actualProgress, expectedProgress, "Incorrect Progress");
