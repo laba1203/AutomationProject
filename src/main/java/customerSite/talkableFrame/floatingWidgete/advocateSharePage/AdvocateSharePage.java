@@ -2,13 +2,12 @@ package customerSite.talkableFrame.floatingWidgete.advocateSharePage;
 
 import abstractObjects.AbstractTalkableFrame;
 import org.openqa.selenium.By;
-import talkable.talkableSite.reports.previousCustomersReport.elements.ClosePopupButton;
 
 public class AdvocateSharePage extends AbstractTalkableFrame{
 
     private By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe-overlay']");
 
-    private ClosePopupButton closePopupButton;
+//    private ElmntClosePopupButton elmntClosePopupButton;
     private ElmntShareViaEmailButton shareViaEmailButton;
     private ElmntShareByLinkButton shareByLinkButton;
     private ElmntShareViaFacebookButton shareViaFacebookButton;
@@ -21,9 +20,7 @@ public class AdvocateSharePage extends AbstractTalkableFrame{
 
         setWebElement(frameLocator);
         switchToThisFrame();
-//        closePopupButton = new ClosePopupButton();
-//        wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector(".ac-share-via-link"), 1));
-//        System.out.println("Size: " + driver.findElements(By.cssSelector(".ac-share-via-email")).size());
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {

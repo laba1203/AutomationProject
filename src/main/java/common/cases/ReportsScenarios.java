@@ -19,12 +19,7 @@ public class ReportsScenarios extends CommonScenarios{
         PreviousCustomersReportPage previousCustomersReport = new PreviousCustomersReportPage();
         previousCustomersReport.uploadFile(fileName);
         previousCustomersReport.waitTillFileProcessed();
-//        ArrayList<String> actualRowValues = previousCustomersReport.getFirstRowValuesFromUploadedCSVLists();
-        //compare values:
-//        String actualFileName = actualRowValues.get(0);
-//        String actualProgress = actualRowValues.get(1);
-//        String actualUploadedEmails = actualRowValues.get(2);
-//        String actualStatus = actualRowValues.get(3);
+
         String actualFileName = previousCustomersReport.getRowWithCsv(1).getFileName();
         String actualProgress = previousCustomersReport.getRowWithCsv(1).getProgress();
         String actualUploadedEmails = previousCustomersReport.getRowWithCsv(1).getEmailsUploaded();

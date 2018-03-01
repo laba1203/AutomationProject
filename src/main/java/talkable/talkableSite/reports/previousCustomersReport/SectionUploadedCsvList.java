@@ -9,13 +9,13 @@ import talkable.talkableSite.campaignsPage.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UploadedFilesTable extends AbstractElementsContainer{
+public class SectionUploadedCsvList extends AbstractElementsContainer{
 
     private Element sectionElement = new Element(By.xpath("//*[@class='App-container-inner']/*[contains(@class, 'App-layout-container')][1]"));
     private Element tableElemnt = new Element(sectionElement.getWebElement().findElement(By.xpath(".//table")));
     private ArrayList<Row> table = new ArrayList<>();
 
-    UploadedFilesTable(){
+    SectionUploadedCsvList(){
         List<WebElement> allRows = tableElemnt.getWebElement().findElements(By.xpath("./tbody/tr"));
 
         //initialize all Rows in the table

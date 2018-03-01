@@ -3,48 +3,35 @@ package talkable.talkableSite.reports.previousCustomersReport;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
-import talkable.talkableSite.reports.previousCustomersReport.elements.DropZoneInput;
-import talkable.talkableSite.reports.previousCustomersReport.elements.TotalCustomersLists;
-import talkable.talkableSite.reports.previousCustomersReport.elements.UploadNewCSVButton;
-import talkable.talkableSite.reports.previousCustomersReport.elements.ClosePopupButton;
 import util.TestArtifactsProvider;
 import util.logging.Log;
-
-import java.util.ArrayList;
 
 public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
 
     private final static String title = "Existing Customers Lists | Talkable";
 
 //    private UploadedCSVListsTable uploadedCSVLists;
-    private UploadNewCSVButton uploadNewCSVButton;
-    private TotalCustomersLists totalCustomersLists;
-    private UploadedFilesTable uploadedCsvList;
+    private ElmntUploadNewCSVButton elmntUploadNewCSVButton = new ElmntUploadNewCSVButton();
+    private ElmntTotalCustomersLists elmntTotalCustomersLists = new ElmntTotalCustomersLists();
+    private SectionUploadedCsvList uploadedCsvList;
 
-    private DropZoneInput dropZone;
+    private ElmntDropZoneInput dropZone;
 
 
     public PreviousCustomersReportPage() {
-//        isPageOpened(title);
-
-//        uploadedCSVLists = new UploadedCSVListsTable();
-        uploadNewCSVButton = new UploadNewCSVButton();
-        totalCustomersLists = new TotalCustomersLists();
+//        elmntUploadNewCSVButton = new ElmntUploadNewCSVButton();
+//        elmntTotalCustomersLists = new ElmntTotalCustomersLists();
     }
 
     public void uploadFile(String fileName){
-        uploadNewCSVButton.click();
-        dropZone = new DropZoneInput();
-        ClosePopupButton closePopupButton = new ClosePopupButton();
+        elmntUploadNewCSVButton.click();
+        dropZone = new ElmntDropZoneInput();
+        ElmntClosePopupButton elmntClosePopupButton = new ElmntClosePopupButton();
         dropZone.sendKeys(TestArtifactsProvider.getPreviousCustomerFilePath(fileName));
-        wait.until(ExpectedConditions.invisibilityOf(closePopupButton.getWebElement()));
-        uploadedCsvList = new UploadedFilesTable();
-//        uploadedCSVLists = new UploadedCSVListsTable();
+        wait.until(ExpectedConditions.invisibilityOf(elmntClosePopupButton.getWebElement()));
+        uploadedCsvList = new SectionUploadedCsvList();
     }
 
-//    public void waitTillFileProcessed(){
-//        uploadedCSVLists.waitTillProgressUnpopulated("In progress");
-//    }
 
     public void waitTillFileProcessed(){
         int waiter = 0;
@@ -62,44 +49,20 @@ public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
         }
     }
 
-    private boolean isFileProcessed(){
-        String progress = new UploadedFilesTable().getUploadedFileRow(1).getStatus();
-//        String progress = new UploadedCSVListsTable().getProgress(1);
-        return !(progress.equals("Pending") || progress.equals("In progress"));
 
-//        return !new UploadedCSVListsTable().getProgress(1).equals("Pending", "In progress");
+    private boolean isFileProcessed(){
+        String progress = new SectionUploadedCsvList().getUploadedFileRow(1).getStatus();
+        return !(progress.equals("Pending") || progress.equals("In progress"));
     }
 
-    /*Returns values of the row in array:
-     * 0 - File Name
-     * 1 - Progress
-     * 2 - Emails Uploaded
-     * 3 - Status*/
-//    public ArrayList getUploadedCSVListsRowValues(int rowNumber){
-////        this.refresh();
-//        uploadedCSVLists = new UploadedCSVListsTable();
-//        return uploadedCSVLists.getRowValues(rowNumber);
-//    }
 
-
-     /*Returns values of the first row in array:
-     * 0 - File Name
-     * 1 - Progress
-     * 2 - Emails Uploaded
-     * 3 - Status*/
-//    public ArrayList<String> getFirstRowValuesFromUploadedCSVLists(){
-////        this.refresh();
-//        uploadedCSVLists = new UploadedCSVListsTable();
-//        return uploadedCSVLists.getRowValues(1);
-//    }
-
-    public UploadedFilesTable.Row getRowWithCsv(int rowNumber){
-        return new UploadedFilesTable().getUploadedFileRow(1);
+    public SectionUploadedCsvList.Row getRowWithCsv(int rowNumber){
+        return new SectionUploadedCsvList().getUploadedFileRow(1);
     }
 
 
     public String getUploadedListsCount(){
-        String value = totalCustomersLists.getText();
+        String value = elmntTotalCustomersLists.getText();
 
         if(value.equals("Not found")) {
             return value;
@@ -108,10 +71,6 @@ public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
         return value.substring(0, end);
 
     }
-
-//    public UploadedCSVListsTable getUploadedCSVListsTable(){
-//        return uploadedCSVLists;
-//    }
 
 
 }
