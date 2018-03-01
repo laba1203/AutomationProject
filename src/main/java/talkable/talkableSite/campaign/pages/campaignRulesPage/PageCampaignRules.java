@@ -48,6 +48,7 @@ public class PageCampaignRules extends AbstractCampaignPage{
 //        campaignDescription = new ElmntCampaignDescriptionInput();
 //        advocateOfferDeadlineDate = new ElmntAdvocateOfferDeadlineDate();
 //        friendOfferDeadlineDate = new ElmntFriendOfferDeadlineDate();
+        firstLoading();
         adOfferDeadlineHours = new ElmntAdOfferDeadlineHours();
         adOfferDeadlineMinutes = new ElmntAdOfferDeadlineMinutes();
         frOfferDeadlineHours = new ElmntFrOfferDeadlineHours();
@@ -58,6 +59,7 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
     private PageCampaignRules saveChanges(){
         saveChangesButton.click();
+        waitLoading();
         wait.until(ExpectedConditions.invisibilityOfElementWithText(saveChangesButton.getLocator(), "Saving..."));
         saveChangesButton = new ElmntSaveButton();
         wait.until(ExpectedConditions.textToBePresentInElement(saveChangesButton.getWebElement(), "Save changes"));
@@ -108,7 +110,10 @@ public class PageCampaignRules extends AbstractCampaignPage{
         createNewIncentiveButton = new ElmntCreateNewIncentiveButton();
         createNewIncentiveButton.click();
         PopupIncentiveFactory incentivePopup = selectIncentive(incentiveType);
-        return incentivePopup.createIncentive(rewardAmount, discountType, couponCodeType);
+        incentivePopup.createIncentive(rewardAmount, discountType, couponCodeType);
+
+
+        return waitLoading();
     }
 
    /*Note: Format of dates should be MM/DD/YYYY,
@@ -155,7 +160,33 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
     public PageCampaignRules deleteIncentive(IncentiveType incentiveType, String value){
         IncentiveTile incentive = getIncentiveTile(incentiveType, value);
-        return incentive.delete();
+        incentive.delete();
+//        ElmntLoadingMessage loadingMsg = new ElmntLoadingMessage();
+        wait.until(ExpectedConditions.visibilityOf(new ElmntLoadingMessage().getWebElement()));
+        return waitLoading();
+    }
+
+    private PageCampaignRules waitLoading(){
+//        ElmntLoadingMessage loadingMessage = new ElmntLoadingMessage();
+//        wait.until(ExpectedConditions.visibilityOf(loadingMessage.getWebElement()));
+//        wait.until(ExpectedConditions.invisibilityOf(loadingMessage.getWebElement()));
+        firstLoading();
+        return new PageCampaignRules();
+    }
+
+    private void firstLoading(){
+        ElmntLoadingMessage loadingMessage = new ElmntLoadingMessage();
+//        wait.until(ExpectedConditions.visibilityOf(loadingMessage.getWebElement()));
+        wait.until(ExpectedConditions.invisibilityOf(loadingMessage.getWebElement()));
+        System.out.println("Page is loaded");
+    }
+
+    private PageCampaignRules waitSaving(){
+        ElmntChangesSavedNotification notification = new ElmntChangesSavedNotification();
+        wait.until(ExpectedConditions.visibilityOf(notification.getWebElement()));
+        wait.until(ExpectedConditions.invisibilityOf(notification.getWebElement()));
+
+        return new PageCampaignRules();
     }
 
 

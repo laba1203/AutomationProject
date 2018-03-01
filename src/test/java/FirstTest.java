@@ -29,21 +29,18 @@ public class FirstTest {
     @Test
     public void test1_login(){
         commonScenarios.login("maxim.laba@talkable.com", "Password@1");
-        driver.navigate().to("https://admin.void.talkable.com/sites/custom2501/campaigns");
+        driver.navigate().to("https://admin.void.talkable.com/sites/custom2501/campaigns/45519/edit#/incentives");
+
     }
-
-
 
     @Test
     public void test2(){
-        PageCampaigns campaignsPage = new PageCampaigns();
-        campaignsPage.clickCampaignByName("Invite Floating Widget");
-//        PageCampaignRules campaignRules = new PageCampaignRules();
-//        campaignRules.createNewIncentive(PageCampaignRules.IncentiveType.AdvocateReferralIncentive, 25, PageCampaignRules.DiscountType.Percentage, PageCampaignRules.CouponCodeType.MultiUse);
-//        IncentiveTile incentive = campaignRules.getIncentiveTile(PageCampaignRules.IncentiveType.AdvocateReferralIncentive, "25% multi-use coupon code");
-//        System.out.println(incentive.getValue());
-//        System.out.println(incentive.getIdentifier());
-//        incentive.delete();
+        PageCampaignRules campaignRules = new PageCampaignRules();
+        campaignRules.createNewIncentive(PageCampaignRules.IncentiveType.AdvocateReferralIncentive, 1, PageCampaignRules.DiscountType.Percentage, PageCampaignRules.CouponCodeType.MultiUse);
+        IncentiveTile incentive = campaignRules.getIncentiveTile(PageCampaignRules.IncentiveType.AdvocateReferralIncentive, "1% multi-use coupon code");
+        System.out.println(incentive.getValue());
+        System.out.println(incentive.getIdentifier());
+        incentive.delete();
     }
 
 

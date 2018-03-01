@@ -2,6 +2,7 @@ package talkable.talkableSite.campaign.pages.campaignNavigationMenu;
 
 
 import org.testng.Assert;
+import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 
 public class CampaignNavigationMenu extends CampaignNavigationMenuOnEditor{
@@ -43,9 +44,32 @@ public class CampaignNavigationMenu extends CampaignNavigationMenuOnEditor{
         return campaignName.getText();
     }
 
-    public String getCampaignType(){
-        return campaignType.getText();
+    public CampaignPlacement getCampaignPlacement(){
+        String campaignPlacement = campaignType.getText();
+        CampaignPlacement placement;
+
+        switch (campaignPlacement){
+            case "FW":
+                placement = CampaignPlacement.FloatingWidget;
+                break;
+            case "PP":
+                placement = CampaignPlacement.PostPurchase;
+                break;
+            case "SA":
+                placement = CampaignPlacement.Standalone;
+                break;
+            case "GR":
+                placement = CampaignPlacement.Gleam;
+                break;
+            default:
+                Assert.fail("FAILED: Placement is not defined for String value: <" + campaignPlacement + ">");
+                placement = null;
+                break;
+        }
+        return placement;
     }
+
+
 
 
 
