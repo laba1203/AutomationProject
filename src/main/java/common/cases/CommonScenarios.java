@@ -5,6 +5,7 @@ import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPa
 import talkable.addYourSitePage.AddSitePage;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
+import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.headerFrame.Header;
@@ -107,7 +108,7 @@ public class CommonScenarios {
      * Post-condition: IntegrationInstructionPage is opened.
      * Returns: user email.
      * */
-    public String registerNewUserWithSite(String email, String password, String siteName, String siteUrl, ChosePlatformPage.PlatformType platformType)
+    public static String registerNewUserWithSite(String email, String password, String siteName, String siteUrl, ChosePlatformPage.PlatformType platformType)
     {
         CreateAccountPage createAccountPage =  new ChosePlatformPage().selectPlatform(platformType);
         IntegrationInstructionPage integrationInstructionPage = createAccountPage.populateAndSubmitForm(email, password, siteName, siteUrl);
@@ -119,18 +120,33 @@ public class CommonScenarios {
         return email;
     }
 
-    /*Scenarios to create Test Offer for campaign.
+    /*Scenarios to create Test Offer for campaign with Post Purchase placement.
     * Precondition: Campaign Details page should be opened.
     * 1. Click Create Test Offer button
     * 2. Click Create Origin button with default values on Create Test Offer page
     * 3. Switch back to Campaign Details page
     * Returns: Campaign Details Page for parent campaign.
     * */
-    public CampaignDetailsPage createTestOffer() {
+    public static CampaignDetailsPage createTestOfferForPostPurchase() {
         CampaignDetailsPage detailsPage = new CampaignDetailsPage();
 
-        CreateNewPurchasePage createNewPurchasePage = detailsPage.clickCreateTestOffer();
+        CreateNewPurchasePage createNewPurchasePage = detailsPage.clickCreateTestOfferForPostPurchase();
         return createNewPurchasePage.createOfferAndSwitchToCampaign();
+    }
+
+    /*Scenarios to create Test Offer for campaign with non Post Purchase placement (FW, SA, GR).
+     * Precondition: Campaign Details page should be opened.
+     * 1. Click Create Test Offer button
+     * 2. Populate email on New Affiliated Member page
+     * 3. Click Create Origin button
+     * 4. Switch back to Campaign Details page
+     * Returns: Campaign Details Page for parent campaign.
+     * */
+    public static CampaignDetailsPage createTestOfferForNonPostPurchase(String newAffiliatedMemberEmail){
+        CampaignDetailsPage detailsPage = new CampaignDetailsPage();
+        PageNewAffiliateMember newAffiliateMember = detailsPage.clickCreateTestOfferForNonPostPurchase();
+
+        return newAffiliateMember.createMemberAndSwitchToCampaign(newAffiliatedMemberEmail);
     }
 
 

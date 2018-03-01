@@ -14,7 +14,6 @@ public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
     private ElmntUploadNewCSVButton elmntUploadNewCSVButton = new ElmntUploadNewCSVButton();
     private ElmntTotalCustomersLists elmntTotalCustomersLists = new ElmntTotalCustomersLists();
     private SectionUploadedCsvList uploadedCsvList;
-
     private ElmntDropZoneInput dropZone;
 
 
