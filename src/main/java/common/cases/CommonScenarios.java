@@ -3,6 +3,7 @@ package common.cases;
 import org.testng.Assert;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
+import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
@@ -62,7 +63,7 @@ public class CommonScenarios {
      * Precondition: Header should be available. Site should not have any active campaign with the selected campaignType/placementType
      * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
      * */
-    public static CampaignDetailsPage initiateCampaignCreation(CreateNewCampaignPage.CampaignType campaignType, CreateNewCampaignPage.PlacementType placementType){
+    public static CampaignDetailsPage initiateCampaignCreation(CreateNewCampaignPage.CampaignType campaignType, CampaignPlacement placementType){
         Header header = new Header();
         CreateNewCampaignPage createNewCampaignPage = header.openMenu().clickCreateNewCampaignButton();
 

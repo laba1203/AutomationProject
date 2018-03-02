@@ -1,10 +1,11 @@
 package talkable.talkableSite.createNewCampaignPage;
 
-import abstractObjects.AbstractElementsContainer;
 import abstractObjects.DrivenElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
+import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.createNewCampaignPage.elements.*;
 import util.DriverConfig;
 
@@ -24,7 +25,8 @@ public class CreateNewCampaignPage extends AbstractTalkableSitePage {
     private CreatePostPurchaseButton createPostPurchaseButton;
     private CreateStandaloneButton createStandaloneButton;
 
-    public enum PlacementType{PostPurchase, FloatingWidget, Standalone}
+//    public enum PlacementType{PostPurchase, FloatingWidget, Standalone}
+//    private CampaignPlacement placementType;
     public enum CampaignType{Invite, AdvocateDashboard, RewardGleam}
 
     public CreateNewCampaignPage(){
@@ -36,7 +38,7 @@ public class CreateNewCampaignPage extends AbstractTalkableSitePage {
         selectRewardGleamButton = new SelectRewardGleamButton();
     }
 
-    public void createCampaign(CampaignType campaignType,PlacementType placementType){
+    public void createCampaign(CampaignType campaignType,CampaignPlacement placementType){
         DrivenElement campaignButton = getSelectCampaignButton(campaignType);
         campaignButton.click();
         DrivenElement createButton = getPlacementButton(placementType);
@@ -45,7 +47,7 @@ public class CreateNewCampaignPage extends AbstractTalkableSitePage {
     }
 
 
-    private DrivenElement getPlacementButton(PlacementType placementType){
+    private DrivenElement getPlacementButton(CampaignPlacement placementType){
         DrivenElement createButton = null;
         switch (placementType){
             case PostPurchase:
@@ -61,6 +63,11 @@ public class CreateNewCampaignPage extends AbstractTalkableSitePage {
             case Standalone:
                 createStandaloneButton = new CreateStandaloneButton();
                 createButton =  createStandaloneButton;
+                break;
+
+            case Gleam:
+                //to be described
+                Assert.fail("!!!    FAILED: Gleam button is not yet defined in CreateNewCampaignPage() !!!!!!!");
                 break;
         }
         return createButton;

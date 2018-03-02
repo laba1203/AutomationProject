@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
@@ -18,7 +19,6 @@ import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage.CampaignType;
-import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage.PlacementType;
 import talkable.talkableSite.headerFrame.Header;
 import util.DriverConfig;
 
@@ -64,7 +64,7 @@ public class SmokeTest {
 // 3. Add new Campaign (Type = FW )
     @Test
     public void test03_createNewCampaign() {
-        CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(CampaignType.Invite, PlacementType.FloatingWidget);
+        CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(CampaignType.Invite, CampaignPlacement.FloatingWidget);
         Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), "Status: Test", "FAILED: Incorrect campaign status");
     }
 
