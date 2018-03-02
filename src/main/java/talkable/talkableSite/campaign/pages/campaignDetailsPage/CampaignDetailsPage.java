@@ -36,13 +36,22 @@ public class CampaignDetailsPage extends AbstractCampaignPage {
     }
 
     public String getAdvocateOffersTotalCount() {
-        if (isElementPresent(advocateOffers)) {
+        if (isElementPresent(ElmntAdvocateOffersCount.getStaticLocator())) {
             advocateOffers = new ElmntAdvocateOffersCount();
             return advocateOffers.getText();
         } else {
             System.out.println("Advocate Offer Count is empty");
             return "Total: 0";
         }
+
+//        try{
+//            advocateOffers = new ElmntAdvocateOffersCount();
+//            return advocateOffers.getText();
+//        }
+//        catch (NullPointerException e){
+//            System.out.println("Advocate Offer Count is empty. Element with Offers count is not found");
+//            return "Total: 0";
+//        }
     }
 
 

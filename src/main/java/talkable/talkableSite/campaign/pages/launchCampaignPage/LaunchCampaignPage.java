@@ -16,6 +16,7 @@ public class LaunchCampaignPage extends AbstractTalkableSitePage {
     private LaunchCampaignButton launchCampaignButton= new LaunchCampaignButton();
     private NoIntegrationFoundPopup noIntegrationFoundPopup;
     private CancelButton cancelButton = new CancelButton();
+    private ElmntAlertIntegrationMsg alertIntegrationMsg;
 
 
     public LaunchCampaignPage(){
@@ -24,18 +25,30 @@ public class LaunchCampaignPage extends AbstractTalkableSitePage {
     }
 
     public CampaignDetailsPage launchCampaign(){
-        launchCampaignButton.click();
-        try{
+        if(!isIntegrated()){
+            launchCampaignButton.click();
+            System.out.println("DEBUG: No Integration message is displayed present");
             noIntegrationFoundPopup = new NoIntegrationFoundPopup();
             noIntegrationFoundPopup.launchNowButton.click();
         }
-        catch (NoSuchElementException e ){
-
-            Log.popupIsNotOpenedMsg();
-            System.out.println(e);
+        else{
+            launchCampaignButton.click();
         }
+//        try{
+//            noIntegrationFoundPopup = new NoIntegrationFoundPopup();
+//            noIntegrationFoundPopup.launchNowButton.click();
+//        }
+//        catch (NoSuchElementException e ){
+//
+//            Log.popupIsNotOpenedMsg();
+//            System.out.println(e);
+//        }
 
         return new CampaignDetailsPage();
+    }
+
+    private boolean isIntegrated(){
+        return !isElementPresent(ElmntAlertIntegrationMsg.getStaticLocator());
     }
 
     public void cancel(){

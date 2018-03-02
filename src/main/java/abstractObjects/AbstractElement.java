@@ -124,6 +124,10 @@ public abstract class AbstractElement implements DrivenElement{
         Log.elementClearedMsg(this);
     }
 
+    public String getAttribute(String attributeName){
+        return this.webElement.getAttribute(attributeName);
+    }
+
 
 
 

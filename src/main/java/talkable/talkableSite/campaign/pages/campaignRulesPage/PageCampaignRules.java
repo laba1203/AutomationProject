@@ -75,7 +75,8 @@ public class PageCampaignRules extends AbstractCampaignPage{
     }
 
     public String getCampaignName(){
-        return campaignNameInput.getText();
+//        return campaignNameInput.getText();
+        return campaignNameInput.getAttribute("value");
     }
 
     public String getCampaignDescription(){
@@ -98,11 +99,11 @@ public class PageCampaignRules extends AbstractCampaignPage{
     }
 
     public String getAdvocateDeadlineDate(){
-        return advocateOfferDeadlineDate.getText();
+        return advocateOfferDeadlineDate.getAttribute("value");
     }
 
     public String getFriendDeadlineDate(){
-        return friendOfferDeadlineDate.getText();
+        return friendOfferDeadlineDate.getAttribute("value");
     }
 
 

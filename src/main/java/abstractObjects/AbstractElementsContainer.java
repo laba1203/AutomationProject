@@ -1,6 +1,7 @@
 package abstractObjects;
 
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -31,12 +32,20 @@ public abstract class AbstractElementsContainer
         return driver.getTitle().equals(title);
     }
 
-    public void refresh(){
+    public Object refresh(){
         driver.navigate().refresh();
+        try {
+            return this.getClass().newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+//            e.printStackTrace();
+            Assert.fail("FAILED: " + e.getMessage());
+            return null;
+        }
     }
 
-    public boolean isElementPresent(AbstractElement element){
-        return driver.findElements(element.getLocator()).size() > 0;
+    public boolean isElementPresent(By locator){
+        System.out.println("DEBAG: Elements count: " + driver.findElements(locator).size());
+        return driver.findElements(locator).size() > 0;
     }
 
     public String getWindowHandle(){

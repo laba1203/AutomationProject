@@ -10,13 +10,16 @@ public class PageNewAffiliateMember extends AbstractTalkableSitePage{
     private String parentHandle;
     private String childHandle;
 
-    private ElmntEmailInput emailInput = new ElmntEmailInput();
-    private ElmntCreateOriginButton createOriginButton = new ElmntCreateOriginButton();
+    private ElmntEmailInput emailInput;
+    private ElmntCreateOriginButton createOriginButton;
 
 
     public PageNewAffiliateMember() {
         parentHandle = driver.getWindowHandle();
         childHandle = DriverConfig.switchToUnknownWindow(parentHandle);
+
+        emailInput = new ElmntEmailInput();
+        createOriginButton = new ElmntCreateOriginButton();
     }
 
     public AdvocateOfferDetailsPage create(String email){
@@ -30,7 +33,9 @@ public class PageNewAffiliateMember extends AbstractTalkableSitePage{
         create(email);
         driver.close();
         DriverConfig.switchToWindow(parentHandle);
-        return new CampaignDetailsPage();
+        CampaignDetailsPage campaignDetailsPage = new CampaignDetailsPage();
+
+        return (CampaignDetailsPage) campaignDetailsPage.refresh();
     }
 
 }
