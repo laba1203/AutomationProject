@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
+import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.IncentiveTile;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
@@ -29,27 +30,14 @@ public class FirstTest {
     @Test
     public void test1_login(){
         commonScenarios.login("maxim.laba@talkable.com", "Password@1");
-        driver.navigate().to("https://admin.void.talkable.com/sites/custom2501/campaigns/45519/edit#/incentives");
-
+        driver.navigate().to("https://admin.void.talkable.com/sites/custom2501/campaigns/45519#/");
     }
 
     @Test
     public void test2(){
-        PageCampaignRules campaignRules = new PageCampaignRules();
-        campaignRules.createNewIncentive(PageCampaignRules.IncentiveType.AdvocateReferralIncentive, 1, PageCampaignRules.DiscountType.Percentage, PageCampaignRules.CouponCodeType.MultiUse);
-        IncentiveTile incentive = campaignRules.getIncentiveTile(PageCampaignRules.IncentiveType.AdvocateReferralIncentive, "1% multi-use coupon code");
-        System.out.println(incentive.getValue());
-        System.out.println(incentive.getIdentifier());
-        incentive.delete();
-    }
-
-    @Test
-    public void test3(){
+        CampaignDetailsPage detailsPage = CommonScenarios.createTestOfferForNonPostPurchase("test@test.com");
 
     }
-
-
-
 
 
 

@@ -10,4 +10,8 @@ class ElmntAdvocateOffersCount extends AbstractElement{
         setWebElement(locator);
     }
 
+    static By getStaticLocator(){
+        return locator;
+    }
+
 }

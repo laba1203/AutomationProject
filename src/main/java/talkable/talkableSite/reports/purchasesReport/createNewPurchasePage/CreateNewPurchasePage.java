@@ -6,8 +6,8 @@ import talkable.talkableSite.reports.advocateOffersReport.advocateOfferDetailsPa
 import util.DriverConfig;
 
 public class CreateNewPurchasePage extends AbstractTalkableSitePage{
-    String parentHandle;
-    String childHandle;
+    private String parentHandle;
+    private String childHandle;
 
     private ElmntEmailInput emailField;
     private ElmntOrderNumberInput orderNumberField;
@@ -59,7 +59,9 @@ public class CreateNewPurchasePage extends AbstractTalkableSitePage{
         createOfferWithDefaultValues();
         driver.close();
         DriverConfig.switchToWindow(parentHandle);
-        return new CampaignDetailsPage();
+        CampaignDetailsPage campaignDetailsPage = new CampaignDetailsPage();
+
+        return (CampaignDetailsPage) campaignDetailsPage.refresh();
     }
 
 

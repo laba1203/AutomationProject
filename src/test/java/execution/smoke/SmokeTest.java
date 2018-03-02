@@ -7,6 +7,7 @@ import customerSite.talkableFrame.floatingWidgete.advocateTrigerWidget.AdvocateT
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
@@ -115,6 +116,7 @@ public class SmokeTest {
 
      /* To be added:
      9. Modify campaign in Editor
+
      10. Modify campaign placement
      */
 
@@ -172,6 +174,17 @@ public class SmokeTest {
             System.out.println("PASSED: Floating Widget is not displayed");
         }
 
+    }
+
+
+
+
+
+
+//    @AfterClass
+    public void quit(){
+        driver.quit();
+        driverFactory.cleanWebDriver();
     }
 }
 

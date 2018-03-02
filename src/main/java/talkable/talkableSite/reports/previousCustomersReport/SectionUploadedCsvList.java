@@ -29,26 +29,6 @@ public class SectionUploadedCsvList extends AbstractElementsContainer{
         return table.get(rowNumber - 1);
     }
 
-//    public String getFileName(int rowNumber){
-//        return getUploadedFileRow(rowNumber).fileName.getText();
-//    }
-//
-//    public String getProgress(int rowNumber){
-//        return getUploadedFileRow(rowNumber).progress.getText();
-//    }
-//    public String getEmailsUploaded(int rowNumber){
-//        return getUploadedFileRow(rowNumber).emailsUploaded.getText();
-//    }
-//
-//    public String getStatus(int rowNumber){
-//        return getUploadedFileRow(rowNumber).status.getText();
-//    }
-//
-//    public String getErrorMsg(int rowNumber){
-//        return getUploadedFileRow(rowNumber).errorMessage.getText();
-//    }
-
-
     public class Row {
         Element fileName;
         Element progress;
