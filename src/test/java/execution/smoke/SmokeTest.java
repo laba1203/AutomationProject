@@ -178,10 +178,7 @@ public class SmokeTest {
 
 
 
-
-
-
-//    @AfterClass
+    @AfterClass
     public void quit(){
         driver.quit();
         driverFactory.cleanWebDriver();
