@@ -182,16 +182,17 @@ public class PageCampaignRules extends AbstractCampaignPage{
         System.out.println("Page is loaded");
     }
 
-    private PageCampaignRules waitSaving(){
-        ElmntChangesSavedNotification notification = new ElmntChangesSavedNotification();
-        wait.until(ExpectedConditions.visibilityOf(notification.getWebElement()));
-        wait.until(ExpectedConditions.invisibilityOf(notification.getWebElement()));
-
-        return new PageCampaignRules();
-    }
+//    private PageCampaignRules waitSaving(){
+//        ElmntChangesSavedNotification notification = new ElmntChangesSavedNotification();
+//        wait.until(ExpectedConditions.visibilityOf(notification.getWebElement()));
+//        wait.until(ExpectedConditions.invisibilityOf(notification.getWebElement()));
+//
+//        return new PageCampaignRules();
+//    }
 
 
     static String getIncentiveTypeName(IncentiveType incentiveType){
+
         String name;
         switch (incentiveType){
             case AdvocateSignupIncentive:

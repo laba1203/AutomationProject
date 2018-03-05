@@ -47,6 +47,8 @@ public class PlacementTile extends AbstractElementsContainer{
     private PageCampaignPlacements delete(){
         actionButton.click();
         new ActionMenu(tileElmnt).deleteBtn.click();
+        new PageCampaignPlacements().waitSaving();
+
         return new PageCampaignPlacements();
     }
 

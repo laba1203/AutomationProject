@@ -12,4 +12,5 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
     public PlacementTile standaloneSection = new PlacementTile(Standalone);
     public PlacementTile gleamSection = new PlacementTile(Gleam);
 
+
 }
