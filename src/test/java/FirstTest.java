@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
+import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.IncentiveTile;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
@@ -52,6 +53,8 @@ public class FirstTest {
                 hiddenOn) {
             System.out.println(el.getText());
         }
+        campaignPlacements = campaignPlacements.standaloneSection.addInclusion(false, "autotest.html");
+        campaignPlacements.floatingWidgetSection.addExclusion(false, "/test/autotest.html");
 
     }
 

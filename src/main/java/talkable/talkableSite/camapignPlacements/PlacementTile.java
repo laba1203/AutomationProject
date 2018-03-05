@@ -29,6 +29,14 @@ public class PlacementTile extends AbstractElementsContainer{
 
     }
 
+    public PageCampaignPlacements addExclusion(boolean regex, String exclusionText){
+        return edit().add(false, regex, exclusionText);
+    }
+
+    public PageCampaignPlacements addInclusion(boolean regex, String inclusionText){
+        return edit().add(true, regex, inclusionText);
+    }
+
     public ArrayList<Element> getShownOn() {
         return shownOn;
     }
@@ -43,7 +51,7 @@ public class PlacementTile extends AbstractElementsContainer{
 //    }
 
 
-    public PopupEditPlacement edit(){
+    private PopupEditPlacement edit(){
         actionButton.click();
         new ActionMenu(tileElmnt).editBtn.click();
         return new PopupEditPlacement();
