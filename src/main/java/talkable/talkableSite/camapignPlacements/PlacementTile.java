@@ -23,8 +23,7 @@ public class PlacementTile extends AbstractElementsContainer{
         header = new Element(driver.findElement(By.xpath("//h1[contains(text(), '" + getPlacementName(placement) + "')]")));
 
         tileElmnt = new Element(header.getWebElement().findElement(By.xpath("./../../..")));
-//        tileElmnt = new Element(By.xpath("//h1[contains(text(), '" + getPlacementName(placement) + "')]/../../.."));
-        actionButton = new Element(tileElmnt.getWebElement().findElement(By.xpath("./*[contains(@data-toggle, 'dropdown')]")));
+        actionButton = new Element(tileElmnt.getWebElement().findElement(By.xpath(".//*[contains(@data-toggle, 'dropdown')]")));
         shownOn = setList(".//*[contains(@class, 'is-on')]/following-sibling::div//div[contains(@class, 'Routes-form-row')]");
         hiddenOn = setList(".//*[contains(@class, 'is-off')]/following-sibling::div//div[contains(@class, 'Routes-form-row')]");
 
@@ -36,6 +35,19 @@ public class PlacementTile extends AbstractElementsContainer{
 
     public ArrayList<Element> getHiddenOn() {
         return hiddenOn;
+    }
+
+
+    private PopupEditPlacement edit(){
+        actionButton.click();
+        new ActionMenu(tileElmnt).editBtn.click();
+        return new PopupEditPlacement();
+    }
+
+    private PageCampaignPlacements delete(){
+        actionButton.click();
+        new ActionMenu(tileElmnt).deleteBtn.click();
+        return new PageCampaignPlacements();
     }
 
 

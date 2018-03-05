@@ -1,4 +1,5 @@
 
+import abstractObjects.Element;
 import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
@@ -12,6 +13,8 @@ import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.DriverConfig;
+
+import java.util.ArrayList;
 
 
 public class FirstTest {
@@ -37,9 +40,18 @@ public class FirstTest {
     @Test
     public void test2(){
         PageCampaignPlacements campaignPlacements = new PageCampaignPlacements();
-        System.out.println(campaignPlacements.standaloneSection.getShownOn().toString());
+        ArrayList<Element> shownOn = campaignPlacements.standaloneSection.getShownOn();
+        for (Element el :
+                shownOn) {
+            System.out.println(el.getText());
+        }
         System.out.println("***************");
-        System.out.println(campaignPlacements.standaloneSection.getHiddenOn().toString());
+
+        ArrayList<Element> hiddenOn = campaignPlacements.standaloneSection.getHiddenOn();
+        for (Element el :
+                hiddenOn) {
+            System.out.println(el.getText());
+        }
 
     }
 
