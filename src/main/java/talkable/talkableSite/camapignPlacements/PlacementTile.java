@@ -37,14 +37,19 @@ public class PlacementTile extends AbstractElementsContainer{
         return hiddenOn;
     }
 
+//    PageCampaignPlacements addInclusion(boolean isInclusion, boolean regex, String text){
+//        isI
+//
+//    }
 
-    private PopupEditPlacement edit(){
+
+    public PopupEditPlacement edit(){
         actionButton.click();
         new ActionMenu(tileElmnt).editBtn.click();
         return new PopupEditPlacement();
     }
 
-    private PageCampaignPlacements delete(){
+    public PageCampaignPlacements delete(){
         actionButton.click();
         new ActionMenu(tileElmnt).deleteBtn.click();
         new PageCampaignPlacements().waitSaving();
