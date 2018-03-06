@@ -12,10 +12,13 @@ import java.util.List;
 
 public class PlacementTile extends AbstractElementsContainer{
 
+
     private Element tileElmnt;
     private Element header;
-    private ArrayList<Element> shownOn;
-    private ArrayList<Element> hiddenOn;
+    private static final String showOnXpath = ".//*[contains(@class, 'is-on')]/following-sibling::div//div[contains(@class, 'Routes-form-row')]";
+    private static final String hiddenOnXpath = ".//*[contains(@class, 'is-off')]/following-sibling::div//div[contains(@class, 'Routes-form-row')]";
+    private ArrayList<PlacementRowElement> shownOn;
+    private ArrayList<PlacementRowElement> hiddenOn;
     private Element actionButton;
 
     PlacementTile(CampaignPlacement placement){
@@ -24,8 +27,8 @@ public class PlacementTile extends AbstractElementsContainer{
 
         tileElmnt = new Element(header.getWebElement().findElement(By.xpath("./../../..")));
         actionButton = new Element(tileElmnt.getWebElement().findElement(By.xpath(".//*[contains(@data-toggle, 'dropdown')]")));
-        shownOn = setList(".//*[contains(@class, 'is-on')]/following-sibling::div//div[contains(@class, 'Routes-form-row')]");
-        hiddenOn = setList(".//*[contains(@class, 'is-off')]/following-sibling::div//div[contains(@class, 'Routes-form-row')]");
+        shownOn = setList(showOnXpath);
+        hiddenOn = setList(hiddenOnXpath);
 
     }
 
@@ -37,18 +40,13 @@ public class PlacementTile extends AbstractElementsContainer{
         return edit().add(true, regex, inclusionText);
     }
 
-    public ArrayList<Element> getShownOn() {
+    public ArrayList<PlacementRowElement> getShownOnList() {
         return shownOn;
     }
 
-    public ArrayList<Element> getHiddenOn() {
+    public ArrayList<PlacementRowElement> getHiddenOnList() {
         return hiddenOn;
     }
-
-//    PageCampaignPlacements addInclusion(boolean isInclusion, boolean regex, String text){
-//        isI
-//
-//    }
 
 
     private PopupEditPlacement edit(){
@@ -66,14 +64,13 @@ public class PlacementTile extends AbstractElementsContainer{
     }
 
 
-
-    private ArrayList<Element> setList(String xpath){
-        ArrayList<Element> elements = new ArrayList<>();
+    private ArrayList<PlacementRowElement> setList(String xpath){
+        ArrayList<PlacementRowElement> elements = new ArrayList<>();
         List<WebElement> webElements = tileElmnt.getWebElement().findElements(By.xpath(xpath));
 
         for (WebElement webElement :
                 webElements) {
-            elements.add(new Element(webElement));
+            elements.add(new PlacementRowElement(webElement));
         }
         return elements;
     }

@@ -4,16 +4,10 @@ import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
-import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
-import talkable.talkableSite.campaign.pages.campaignRulesPage.IncentiveTile;
-import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
-import talkable.talkableSite.campaignsPage.PageCampaigns;
-import talkable.talkableSite.headerFrame.Header;
-import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
+import talkable.talkableSite.camapignPlacements.PlacementRowElement;
 import util.DriverConfig;
+import util.Util;
 
 import java.util.ArrayList;
 
@@ -41,24 +35,22 @@ public class FirstTest {
     @Test
     public void test2(){
         PageCampaignPlacements campaignPlacements = new PageCampaignPlacements();
-        ArrayList<Element> shownOn = campaignPlacements.standaloneSection.getShownOn();
-        for (Element el :
+        ArrayList<PlacementRowElement> shownOn = campaignPlacements.standaloneSection.getShownOnList();
+        for (PlacementRowElement el :
                 shownOn) {
             System.out.println(el.getText());
         }
         System.out.println("***************");
 
-        ArrayList<Element> hiddenOn = campaignPlacements.standaloneSection.getHiddenOn();
-        for (Element el :
+        ArrayList<PlacementRowElement> hiddenOn = campaignPlacements.standaloneSection.getHiddenOnList();
+        for (PlacementRowElement el :
                 hiddenOn) {
             System.out.println(el.getText());
         }
         campaignPlacements = campaignPlacements.standaloneSection.addInclusion(false, "autotest.html");
-        campaignPlacements.floatingWidgetSection.addExclusion(false, "/test/autotest.html");
+        campaignPlacements.floatingWidgetSection.addExclusion(true, "/test/autotest.html");
 
     }
-
-
 
 
 

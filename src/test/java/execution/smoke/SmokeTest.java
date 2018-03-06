@@ -18,23 +18,25 @@ import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
-import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage.CampaignType;
 import talkable.talkableSite.headerFrame.Header;
 import util.DriverConfig;
+import util.EnvFactory;
+import util.TestDataGenerator;
+
+import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
 
 public class SmokeTest {
-    DriverConfig driverFactory;
-    WebDriver driver;
+    private DriverConfig driverFactory;
+    private WebDriver driver;
     private static final String siteUrl = "http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html";
     private static final String talkableUrl = "https://void.talkable.com";
-    private static final String user = "maxim.laba+automation.smoke.test@talkable.com";
-    private static final String password = "Password@1";
+
     private static final String siteName = "automation-smoke-test";
     private static final String liveStatusActive = "Status: Live";
     private static final String liveStatusTest = "Status: Test";
     private static final String liveStatusDisabled = "Status: Disabled";
     private static final String expectedAdvocateOffersCount = "Total: 1";
-    private static final String campaignName = "AUTO_TEST_" + System.currentTimeMillis();
+    private static final String campaignName = "AUTO_TEST_" + TestDataGenerator.getRandomId();
 
     /*Link to test scenario: https://drive.google.com/open?id=1rnq3vo9qQ25vtTwPF7hwXRt7zMBiK28VuAyPc50_X7s
     * */
@@ -45,13 +47,13 @@ public class SmokeTest {
     public void setup() {
         this.driverFactory = new DriverConfig();
         this.driver = this.driverFactory.getDriver();
-        this.driver.navigate().to("https://void.talkable.com");
+        this.driver.navigate().to(EnvFactory.getEnvUrl());
     }
 
 // 1. Login to Talkable.
     @Test
     public void test01_login() {
-        CommonScenarios.login("maxim.laba+automation.smoke.test@talkable.com", "Password@1");
+        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
     }
 
 // 2. Verify site Name
@@ -64,7 +66,7 @@ public class SmokeTest {
 // 3. Add new Campaign (Type = FW )
     @Test
     public void test03_createNewCampaign() {
-        CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(CampaignType.Invite, CampaignPlacement.FloatingWidget);
+        CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(Invite, CampaignPlacement.FloatingWidget);
         Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), "Status: Test", "FAILED: Incorrect campaign status");
     }
 
@@ -151,7 +153,7 @@ public class SmokeTest {
 
     @Test
     public void test11_openTalkable() {
-        this.driver.navigate().to("https://admin.void.talkable.com");
+        this.driver.navigate().to(EnvFactory.getAdminUrl());
     }
 
 // 15. Deactivate campaign.

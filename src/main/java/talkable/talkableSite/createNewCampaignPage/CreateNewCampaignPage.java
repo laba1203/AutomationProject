@@ -6,17 +6,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.CampaignPlacement;
+import talkable.talkableSite.campaign.pages.CampaignType;
 import talkable.talkableSite.createNewCampaignPage.elements.*;
 import util.DriverConfig;
 
 public class CreateNewCampaignPage extends AbstractTalkableSitePage {
 
-    WebDriverWait wait = new DriverConfig().getExplicitWait();
+//    WebDriverWait wait = new DriverConfig().getExplicitWait();
     private static final String title = "Choose New Campaign To Select | Talkable";
 
 
 //   Web Elements visible after uploading:
-    public SelectAdvocateDashboardButton selectAdvocateDashboardButton;
+    private SelectAdvocateDashboardButton selectAdvocateDashboardButton;
     private SelectInviteButton selectInviteButton;
     private SelectRewardGleamButton selectRewardGleamButton;
 
@@ -25,9 +26,6 @@ public class CreateNewCampaignPage extends AbstractTalkableSitePage {
     private CreatePostPurchaseButton createPostPurchaseButton;
     private CreateStandaloneButton createStandaloneButton;
 
-//    public enum PlacementType{PostPurchase, FloatingWidget, Standalone}
-//    private CampaignPlacement placementType;
-    public enum CampaignType{Invite, AdvocateDashboard, RewardGleam}
 
     public CreateNewCampaignPage(){
         isPageOpened(title);
