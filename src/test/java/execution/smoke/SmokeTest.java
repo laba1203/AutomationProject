@@ -60,6 +60,7 @@ public class SmokeTest {
     @Test
     public void test02_verifySiteName() {
         Header header = new Header();
+        header.switchSiteTo(siteName);
         Assert.assertEquals(header.getSiteName(), siteName, "FAILED: Incorrect site name");
     }
 

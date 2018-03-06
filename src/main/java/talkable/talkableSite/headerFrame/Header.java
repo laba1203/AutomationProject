@@ -34,10 +34,6 @@ public class Header extends AbstractElementsContainer{
 
     public void switchSiteTo(String siteName){
         siteSelect.searchAndSelect(siteName);
-//        siteSelectButton.click();
-//        SiteSelectContainer siteSelect = new SiteSelectContainer();
-//        siteSelect.selectSiteByText(siteName);
-//        wait.until(ExpectedConditions.textToBePresentInElement(siteSelectButton.getWebElement(), siteName));
     }
 
     public String getSiteName(){
