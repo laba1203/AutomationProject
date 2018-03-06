@@ -81,12 +81,12 @@ public class SimpleTestForAllCampaignTypes {
     @DataProvider
     private Object[][] getTestData(){
         return new Object[][]{
-//                {CampaignType.Invite, CampaignPlacement.FloatingWidget},
-//                {CampaignType.Invite, CampaignPlacement.Standalone},
-//                {CampaignType.Invite, CampaignPlacement.PostPurchase},
-//                {CampaignType.AdvocateDashboard, CampaignPlacement.FloatingWidget},
-//                {CampaignType.AdvocateDashboard, CampaignPlacement.Standalone},
-//                {CampaignType.AdvocateDashboard, CampaignPlacement.PostPurchase},
+                {CampaignType.Invite, CampaignPlacement.FloatingWidget},
+                {CampaignType.Invite, CampaignPlacement.Standalone},
+                {CampaignType.Invite, CampaignPlacement.PostPurchase},
+                {CampaignType.AdvocateDashboard, CampaignPlacement.FloatingWidget},
+                {CampaignType.AdvocateDashboard, CampaignPlacement.Standalone},
+                {CampaignType.AdvocateDashboard, CampaignPlacement.PostPurchase},
                 {CampaignType.RewardGleam, CampaignPlacement.Gleam}
         };
     }
