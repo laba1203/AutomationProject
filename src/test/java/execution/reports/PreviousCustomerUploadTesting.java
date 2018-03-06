@@ -2,6 +2,7 @@ package execution.reports;
 
 import common.cases.ReportsScenarios;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -17,10 +18,11 @@ import java.io.IOException;
 public class PreviousCustomerUploadTesting extends ReportsScenarios{
     private static final String fileName = "testDataForExistingCustomersReport.csv";
 
+    private WebDriver driver = new DriverConfig().getDriver();
+
 
     @BeforeClass
     public void setup(){
-        WebDriver driver = new DriverConfig().getDriver();
         driver.navigate().to(EnvFactory.getEnvUrl()); //"https://void.talkable.com"
         Header header = login(EnvFactory.getUser(), EnvFactory.getPassword());
         //Navigate to Existing Customers Report
@@ -33,6 +35,13 @@ public class PreviousCustomerUploadTesting extends ReportsScenarios{
     @Test(dataProvider = "getTestData")
     public void testing(String fileName, String expectedProgress, String expectedUploadedEmails, String expectedStatus){
         previousCustomerUploadTesting(fileName, expectedProgress, expectedUploadedEmails, expectedStatus);
+    }
+
+    @AfterClass
+    public void quit(){
+        driver.quit();
+        new DriverConfig().cleanWebDriver();
+
     }
 
 

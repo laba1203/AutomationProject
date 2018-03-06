@@ -58,7 +58,7 @@ public class CampaignNavigationMenu extends CampaignNavigationMenuOnEditor{
             case "SA":
                 placement = CampaignPlacement.Standalone;
                 break;
-            case "GR":
+            case "RG":
                 placement = CampaignPlacement.Gleam;
                 break;
             default:

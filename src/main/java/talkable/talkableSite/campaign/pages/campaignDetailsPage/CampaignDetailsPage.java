@@ -11,7 +11,6 @@ public class CampaignDetailsPage extends AbstractCampaignPage {
 
     private ElmntCopyButton copyButton;
     private ElmntCreateTestOfferButton createTestOfferButton;
-    private ElmntAdvocateOffersCount advocateOffers;
 
     private ElmntDeleteButton deleteButton;//should be initialised ONLY inside of the relevant method()
 
@@ -20,7 +19,10 @@ public class CampaignDetailsPage extends AbstractCampaignPage {
 //        header = new Header();
 //        campaignNavigationMenu = new CampaignNavigationMenu();
         copyButton = new ElmntCopyButton();
-        createTestOfferButton = new ElmntCreateTestOfferButton();
+        if(campaignNavigationMenu.getCampaignPlacement() != CampaignPlacement.Gleam) {
+            createTestOfferButton = new ElmntCreateTestOfferButton();
+        }
+
     }
 
     public CampaignDetailsPage copyCampaign(String newCampaignName) {
@@ -37,7 +39,7 @@ public class CampaignDetailsPage extends AbstractCampaignPage {
 
     public String getAdvocateOffersTotalCount() {
         if (isElementPresent(ElmntAdvocateOffersCount.getStaticLocator())) {
-            advocateOffers = new ElmntAdvocateOffersCount();
+            ElmntAdvocateOffersCount advocateOffers = new ElmntAdvocateOffersCount();
             return advocateOffers.getText();
         } else {
             System.out.println("Advocate Offer Count is empty");

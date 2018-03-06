@@ -2,38 +2,24 @@ package talkable.talkableSite.createNewCampaignPage;
 
 import abstractObjects.DrivenElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.CampaignType;
 import talkable.talkableSite.createNewCampaignPage.elements.*;
-import util.DriverConfig;
+
 
 public class CreateNewCampaignPage extends AbstractTalkableSitePage {
 
-//    WebDriverWait wait = new DriverConfig().getExplicitWait();
-    private static final String title = "Choose New Campaign To Select | Talkable";
+//    private static final String title = "Choose New Campaign To Select | Talkable";
 
-
-//   Web Elements visible after uploading:
-    private SelectAdvocateDashboardButton selectAdvocateDashboardButton;
-    private SelectInviteButton selectInviteButton;
-    private SelectRewardGleamButton selectRewardGleamButton;
-
-//    WebElements visible after some actions:
-    private CreateFloatingWidgetButton createFloatingWidgetButton;
-    private CreatePostPurchaseButton createPostPurchaseButton;
-    private CreateStandaloneButton createStandaloneButton;
-
+    private SelectAdvocateDashboardButton selectAdvocateDashboardButton = new SelectAdvocateDashboardButton();;
+    private SelectInviteButton selectInviteButton = new SelectInviteButton();
+    private SelectRewardGleamButton selectRewardGleamButton = new SelectRewardGleamButton();
 
     public CreateNewCampaignPage(){
-        isPageOpened(title);
-
-        //initialization of visible WebElements:
-        selectAdvocateDashboardButton = new SelectAdvocateDashboardButton();
-        selectInviteButton = new SelectInviteButton();
-        selectRewardGleamButton = new SelectRewardGleamButton();
+//        selectAdvocateDashboardButton = new SelectAdvocateDashboardButton();
+//        selectInviteButton = new SelectInviteButton();
+//        selectRewardGleamButton = new SelectRewardGleamButton();
     }
 
     public void createCampaign(CampaignType campaignType,CampaignPlacement placementType){
@@ -49,23 +35,19 @@ public class CreateNewCampaignPage extends AbstractTalkableSitePage {
         DrivenElement createButton = null;
         switch (placementType){
             case PostPurchase:
-                createPostPurchaseButton = new CreatePostPurchaseButton();
-                createButton = createPostPurchaseButton;
+                createButton = new CreatePostPurchaseButton();
                 break;
 
             case FloatingWidget:
-                createFloatingWidgetButton = new CreateFloatingWidgetButton();
-                createButton = createFloatingWidgetButton;
+                createButton = new CreateFloatingWidgetButton();
                 break;
 
             case Standalone:
-                createStandaloneButton = new CreateStandaloneButton();
-                createButton =  createStandaloneButton;
+                createButton =  new CreateStandaloneButton();
                 break;
 
             case Gleam:
-                //to be described
-                Assert.fail("!!!    FAILED: Gleam button is not yet defined in CreateNewCampaignPage() !!!!!!!");
+                createButton = new ElmntCreateGleamButton();
                 break;
         }
         return createButton;

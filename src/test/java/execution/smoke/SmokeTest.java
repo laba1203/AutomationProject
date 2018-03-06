@@ -60,14 +60,14 @@ public class SmokeTest {
     @Test
     public void test02_verifySiteName() {
         Header header = new Header();
-        Assert.assertEquals(header.getSiteName(), "automation-smoke-test", "FAILED: Incorrect site name");
+        Assert.assertEquals(header.getSiteName(), siteName, "FAILED: Incorrect site name");
     }
 
 // 3. Add new Campaign (Type = FW )
     @Test
     public void test03_createNewCampaign() {
         CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(Invite, CampaignPlacement.FloatingWidget);
-        Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), "Status: Test", "FAILED: Incorrect campaign status");
+        Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusTest, "FAILED: Incorrect campaign status");
     }
 
 // 4. Navigate to Rules page
@@ -126,7 +126,7 @@ public class SmokeTest {
     @Test
     public void test08_launchCampaign() {
         CampaignDetailsPage detailsPage = CommonScenarios.launchCampaign();
-        Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), "Status: Live", "FAILED: Campaign is not activated");
+        Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusActive, "FAILED: Campaign is not activated");
     }
 
 // 12. Create test offer.
@@ -134,7 +134,7 @@ public class SmokeTest {
     @Test
     public void test09_createTestOffer() {
         CampaignDetailsPage detailsPage = CommonScenarios.createTestOfferForNonPostPurchase("test" + System.currentTimeMillis() + "@test.com");
-        Assert.assertEquals(detailsPage.getAdvocateOffersTotalCount(), "Total: 1", "FAILED: Incorrect Offers count");
+        Assert.assertEquals(detailsPage.getAdvocateOffersTotalCount(), expectedAdvocateOffersCount, "FAILED: Incorrect Offers count");
     }
 
     /*
@@ -162,7 +162,7 @@ public class SmokeTest {
         PageCampaigns campaignsPage = (new Header()).clickCampaignsPage();
         CampaignDetailsPage detailsPage = campaignsPage.clickCampaignByName(campaignName);
         CampaignNavigationMenu menu = detailsPage.campaignNavigationMenu.deactivateCampaign();
-        Assert.assertEquals(menu.getCampaignStatus(), "Status: Disabled", "FAILED: Campaign is not deactivated");
+        Assert.assertEquals(menu.getCampaignStatus(), liveStatusDisabled, "FAILED: Campaign is not deactivated");
     }
 
 // 16. Check on the site that FW is not shown
