@@ -4,9 +4,8 @@ import abstractObjects.AbstractElementsContainer;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import talkable.addYourSitePage.AddSitePage;
+import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
-import talkable.talkableSite.headerFrame.elements.menuFrame.elements.CreateNewCampaignButton;
-import talkable.talkableSite.headerFrame.elements.menuFrame.elements.CreateNewSiteButton;
 
 public class MenuFrame extends AbstractElementsContainer {
 
@@ -14,16 +13,18 @@ public class MenuFrame extends AbstractElementsContainer {
     private static final By menuIsOpenedElement = By.cssSelector(".dropdown.open");
 
     //    Elements:
-    private CreateNewCampaignButton createNewCampaignButton;
-    private CreateNewSiteButton createNewSiteButton;
+    private ElmntCreateNewCampaignButton elmntCreateNewCampaignButton;
+    private ElmntCreateNewSiteButton elmntCreateNewSiteButton;
+    private ElmntCampaignPlacementsButton campaignPlacementsButton;
 
 
     public MenuFrame(){
         verifyIfMenuIsOpened();
 
 //        Initialize containers
-        createNewCampaignButton = new CreateNewCampaignButton();
-        createNewSiteButton = new CreateNewSiteButton();
+        elmntCreateNewCampaignButton = new ElmntCreateNewCampaignButton();
+        elmntCreateNewSiteButton = new ElmntCreateNewSiteButton();
+        campaignPlacementsButton = new ElmntCampaignPlacementsButton();
     }
 
 
@@ -35,12 +36,17 @@ public class MenuFrame extends AbstractElementsContainer {
     }
 
     public AddSitePage clickCreateNewSiteButton(){
-        createNewSiteButton.click();
+        elmntCreateNewSiteButton.click();
         return new AddSitePage();
     }
 
     public CreateNewCampaignPage clickCreateNewCampaignButton() {
-        createNewCampaignButton.click();
+        elmntCreateNewCampaignButton.click();
         return new CreateNewCampaignPage();
+    }
+
+    public PageCampaignPlacements clickCampaignPlacementsButton(){
+        campaignPlacementsButton.click();
+        return new PageCampaignPlacements();
     }
 }

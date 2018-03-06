@@ -3,8 +3,11 @@ package common.cases;
 import org.testng.Assert;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
+import talkable.talkableSite.campaign.pages.CampaignPlacement;
+import talkable.talkableSite.campaign.pages.CampaignType;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
+import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
@@ -62,7 +65,7 @@ public class CommonScenarios {
      * Precondition: Header should be available. Site should not have any active campaign with the selected campaignType/placementType
      * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
      * */
-    public static CampaignDetailsPage initiateCampaignCreation(CreateNewCampaignPage.CampaignType campaignType, CreateNewCampaignPage.PlacementType placementType){
+    public static CampaignDetailsPage initiateCampaignCreation(CampaignType campaignType, CampaignPlacement placementType){
         Header header = new Header();
         CreateNewCampaignPage createNewCampaignPage = header.openMenu().clickCreateNewCampaignButton();
 
@@ -147,6 +150,25 @@ public class CommonScenarios {
         PageNewAffiliateMember newAffiliateMember = detailsPage.clickCreateTestOfferForNonPostPurchase();
 
         return newAffiliateMember.createMemberAndSwitchToCampaign(newAffiliatedMemberEmail);
+    }
+
+
+
+    /*Scenarios to deactivate campaign.
+     * Precondition: Page with header should opened. Campaign with campaignName should be active(Live).
+     * 1. Navigate to Campaigns page
+     * 2. Search campaign by @campaignName
+     * 3. Select campaign
+     * 4. Deactivate campaign.
+     * @Returns: Campaign Details Page deactivated campaign.
+     * */
+    public static CampaignDetailsPage deactivateCampaign(String campaignName) {
+        PageCampaigns campaignsPage = new Header().clickCampaignsPage();
+        CampaignDetailsPage detailsPage = campaignsPage.clickCampaignByName(campaignName);
+        CampaignNavigationMenu menu = detailsPage.campaignNavigationMenu.deactivateCampaign();
+        Assert.assertEquals(menu.getCampaignStatus(), "Status: Disabled", "FAILED: Campaign is not deactivated");
+
+        return new CampaignDetailsPage();
     }
 
 

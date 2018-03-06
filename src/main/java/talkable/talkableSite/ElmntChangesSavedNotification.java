@@ -1,4 +1,4 @@
-package talkable.talkableSite.campaign.pages.campaignRulesPage;
+package talkable.talkableSite;
 
 import abstractObjects.AbstractSelectElement;
 import org.openqa.selenium.By;

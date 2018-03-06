@@ -4,6 +4,7 @@ import abstractObjects.DrivenElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
+import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import util.logging.Log;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class PageCampaignRules extends AbstractCampaignPage{
     private ElmntCampaignNameInput campaignNameInput = new ElmntCampaignNameInput();;
     private ElmntCampaignDescriptionInput campaignDescription = new ElmntCampaignDescriptionInput();;
     private ElmntAdvocateOfferDeadlineDate advocateOfferDeadlineDate = new ElmntAdvocateOfferDeadlineDate();
-    private ElmntFriendOfferDeadlineDate friendOfferDeadlineDate = new ElmntFriendOfferDeadlineDate();
+    private ElmntFriendOfferDeadlineDate friendOfferDeadlineDate;
     private ElmntAdOfferDeadlineHours adOfferDeadlineHours;
     private ElmntAdOfferDeadlineMinutes adOfferDeadlineMinutes;
     private ElmntFrOfferDeadlineHours frOfferDeadlineHours;
@@ -51,8 +52,11 @@ public class PageCampaignRules extends AbstractCampaignPage{
         firstLoading();
         adOfferDeadlineHours = new ElmntAdOfferDeadlineHours();
         adOfferDeadlineMinutes = new ElmntAdOfferDeadlineMinutes();
-        frOfferDeadlineHours = new ElmntFrOfferDeadlineHours();
-        frOfferDeadlineMinutes = new ElmntFrOfferDeadlineMinutes();
+        if(campaignNavigationMenu.getCampaignPlacement() != CampaignPlacement.Gleam) {
+            friendOfferDeadlineDate = new ElmntFriendOfferDeadlineDate();
+            frOfferDeadlineHours = new ElmntFrOfferDeadlineHours();
+            frOfferDeadlineMinutes = new ElmntFrOfferDeadlineMinutes();
+        }
     }
 
 
@@ -182,16 +186,17 @@ public class PageCampaignRules extends AbstractCampaignPage{
         System.out.println("Page is loaded");
     }
 
-    private PageCampaignRules waitSaving(){
-        ElmntChangesSavedNotification notification = new ElmntChangesSavedNotification();
-        wait.until(ExpectedConditions.visibilityOf(notification.getWebElement()));
-        wait.until(ExpectedConditions.invisibilityOf(notification.getWebElement()));
-
-        return new PageCampaignRules();
-    }
+//    private PageCampaignRules waitSaving(){
+//        ElmntChangesSavedNotification notification = new ElmntChangesSavedNotification();
+//        wait.until(ExpectedConditions.visibilityOf(notification.getWebElement()));
+//        wait.until(ExpectedConditions.invisibilityOf(notification.getWebElement()));
+//
+//        return new PageCampaignRules();
+//    }
 
 
     static String getIncentiveTypeName(IncentiveType incentiveType){
+
         String name;
         switch (incentiveType){
             case AdvocateSignupIncentive:

@@ -9,5 +9,6 @@ public abstract class AbstractCampaignPage extends AbstractTalkableSitePage{
 
     public AbstractCampaignPage(){
         campaignNavigationMenu = new CampaignNavigationMenu();
+
     }
 }

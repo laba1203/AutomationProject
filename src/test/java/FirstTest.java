@@ -1,16 +1,15 @@
 
+import abstractObjects.Element;
 import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
-import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
-import talkable.talkableSite.campaign.pages.campaignRulesPage.IncentiveTile;
-import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
-import talkable.talkableSite.campaignsPage.PageCampaigns;
-import talkable.talkableSite.headerFrame.Header;
-import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
+import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
+import talkable.talkableSite.camapignPlacements.PlacementRowElement;
 import util.DriverConfig;
+import util.Util;
+
+import java.util.ArrayList;
 
 
 public class FirstTest {
@@ -30,16 +29,28 @@ public class FirstTest {
     @Test
     public void test1_login(){
         commonScenarios.login("maxim.laba@talkable.com", "Password@1");
-        driver.navigate().to("https://admin.void.talkable.com/sites/custom2501/campaigns/45519#/");
+        driver.navigate().to("https://admin.void.talkable.com/sites/email-test/placements");
     }
 
     @Test
     public void test2(){
-        CampaignDetailsPage detailsPage = CommonScenarios.createTestOfferForNonPostPurchase("test@test.com");
+        PageCampaignPlacements campaignPlacements = new PageCampaignPlacements();
+        ArrayList<PlacementRowElement> shownOn = campaignPlacements.standaloneSection.getShownOnList();
+        for (PlacementRowElement el :
+                shownOn) {
+            System.out.println(el.getText());
+        }
+        System.out.println("***************");
+
+        ArrayList<PlacementRowElement> hiddenOn = campaignPlacements.standaloneSection.getHiddenOnList();
+        for (PlacementRowElement el :
+                hiddenOn) {
+            System.out.println(el.getText());
+        }
+        campaignPlacements = campaignPlacements.standaloneSection.addInclusion(false, "autotest.html");
+        campaignPlacements.floatingWidgetSection.addExclusion(true, "/test/autotest.html");
 
     }
-
-
 
 
 

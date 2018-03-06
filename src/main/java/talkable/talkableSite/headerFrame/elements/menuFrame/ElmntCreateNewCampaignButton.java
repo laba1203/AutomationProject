@@ -1,13 +1,13 @@
-package talkable.talkableSite.headerFrame.elements.menuFrame.elements;
+package talkable.talkableSite.headerFrame.elements.menuFrame;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class CreateNewCampaignButton extends AbstractElement {
+class ElmntCreateNewCampaignButton extends AbstractElement {
 
     private static final By createCampaignButtonLocator = By.linkText("Create New Campaign");
 
-    public CreateNewCampaignButton(){
+    ElmntCreateNewCampaignButton(){
         setWebElement(createCampaignButtonLocator);
     }
 }

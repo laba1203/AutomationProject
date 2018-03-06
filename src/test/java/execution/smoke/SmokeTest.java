@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
@@ -17,24 +18,25 @@ import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
-import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage.CampaignType;
-import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage.PlacementType;
 import talkable.talkableSite.headerFrame.Header;
 import util.DriverConfig;
+import util.EnvFactory;
+import util.TestDataGenerator;
+
+import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
 
 public class SmokeTest {
-    DriverConfig driverFactory;
-    WebDriver driver;
+    private DriverConfig driverFactory;
+    private WebDriver driver;
     private static final String siteUrl = "http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html";
     private static final String talkableUrl = "https://void.talkable.com";
-    private static final String user = "maxim.laba+automation.smoke.test@talkable.com";
-    private static final String password = "Password@1";
+
     private static final String siteName = "automation-smoke-test";
     private static final String liveStatusActive = "Status: Live";
     private static final String liveStatusTest = "Status: Test";
     private static final String liveStatusDisabled = "Status: Disabled";
     private static final String expectedAdvocateOffersCount = "Total: 1";
-    private static final String campaignName = "AUTO_TEST_" + System.currentTimeMillis();
+    private static final String campaignName = "AUTO_TEST_" + TestDataGenerator.getRandomId();
 
     /*Link to test scenario: https://drive.google.com/open?id=1rnq3vo9qQ25vtTwPF7hwXRt7zMBiK28VuAyPc50_X7s
     * */
@@ -45,27 +47,27 @@ public class SmokeTest {
     public void setup() {
         this.driverFactory = new DriverConfig();
         this.driver = this.driverFactory.getDriver();
-        this.driver.navigate().to("https://void.talkable.com");
+        this.driver.navigate().to(EnvFactory.getEnvUrl());
     }
 
 // 1. Login to Talkable.
     @Test
     public void test01_login() {
-        CommonScenarios.login("maxim.laba+automation.smoke.test@talkable.com", "Password@1");
+        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
     }
 
 // 2. Verify site Name
     @Test
     public void test02_verifySiteName() {
         Header header = new Header();
-        Assert.assertEquals(header.getSiteName(), "automation-smoke-test", "FAILED: Incorrect site name");
+        Assert.assertEquals(header.getSiteName(), siteName, "FAILED: Incorrect site name");
     }
 
 // 3. Add new Campaign (Type = FW )
     @Test
     public void test03_createNewCampaign() {
-        CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(CampaignType.Invite, PlacementType.FloatingWidget);
-        Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), "Status: Test", "FAILED: Incorrect campaign status");
+        CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(Invite, CampaignPlacement.FloatingWidget);
+        Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusTest, "FAILED: Incorrect campaign status");
     }
 
 // 4. Navigate to Rules page
@@ -124,7 +126,7 @@ public class SmokeTest {
     @Test
     public void test08_launchCampaign() {
         CampaignDetailsPage detailsPage = CommonScenarios.launchCampaign();
-        Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), "Status: Live", "FAILED: Campaign is not activated");
+        Assert.assertEquals(detailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusActive, "FAILED: Campaign is not activated");
     }
 
 // 12. Create test offer.
@@ -132,7 +134,7 @@ public class SmokeTest {
     @Test
     public void test09_createTestOffer() {
         CampaignDetailsPage detailsPage = CommonScenarios.createTestOfferForNonPostPurchase("test" + System.currentTimeMillis() + "@test.com");
-        Assert.assertEquals(detailsPage.getAdvocateOffersTotalCount(), "Total: 1", "FAILED: Incorrect Offers count");
+        Assert.assertEquals(detailsPage.getAdvocateOffersTotalCount(), expectedAdvocateOffersCount, "FAILED: Incorrect Offers count");
     }
 
     /*
@@ -151,7 +153,7 @@ public class SmokeTest {
 
     @Test
     public void test11_openTalkable() {
-        this.driver.navigate().to("https://admin.void.talkable.com");
+        this.driver.navigate().to(EnvFactory.getAdminUrl());
     }
 
 // 15. Deactivate campaign.
@@ -160,7 +162,7 @@ public class SmokeTest {
         PageCampaigns campaignsPage = (new Header()).clickCampaignsPage();
         CampaignDetailsPage detailsPage = campaignsPage.clickCampaignByName(campaignName);
         CampaignNavigationMenu menu = detailsPage.campaignNavigationMenu.deactivateCampaign();
-        Assert.assertEquals(menu.getCampaignStatus(), "Status: Disabled", "FAILED: Campaign is not deactivated");
+        Assert.assertEquals(menu.getCampaignStatus(), liveStatusDisabled, "FAILED: Campaign is not deactivated");
     }
 
 // 16. Check on the site that FW is not shown
