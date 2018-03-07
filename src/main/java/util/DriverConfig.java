@@ -2,16 +2,23 @@ package util;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Parameters;
 import util.logging.Log;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 
 
 public class DriverConfig {
+
+    //URL for selenium
+    private static final String URL = "http://localhost:4444/wd/hub";
 
     private static WebDriver driver;
     private static WebDriverWait wait;
@@ -19,16 +26,36 @@ public class DriverConfig {
     private static final long DEFAULT_TIME_OUT = 15;
 
     @Parameters
-    private WebDriver setNewDriver()
+    private WebDriver setNewLocalDriver()
     {
         final File file = new File(PropertyLoader.loadProperty("path."+getOS()+".webDriver"));
         System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
-        driver = new ChromeDriver();
+
+        driver = new ChromeDriver(); //launch local webDriver
 
         setImplicitlyWait();
 
         return driver;
 
+    }
+
+
+    private WebDriver setNewRemoteDriver(){
+        final File file = new File(PropertyLoader.loadProperty("path.linux.webDriver"));
+        System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
+
+        //code for remote driver:
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//        capabilities.setBrowserName("chrome");
+        try {
+            driver = new RemoteWebDriver(new URL(URL), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        //
+        setImplicitlyWait();
+
+        return driver;
     }
 
     private String getOS(){
@@ -39,7 +66,8 @@ public class DriverConfig {
 
     public WebDriver getDriver(){
         if (driver == null){
-            driver = new DriverConfig().setNewDriver();
+//            driver = new DriverConfig().setNewLocalDriver(); //for local testing
+            driver = new DriverConfig().setNewRemoteDriver(); //for remote testing
         }
         return driver;
     }

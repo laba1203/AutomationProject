@@ -1,5 +1,4 @@
 
-import abstractObjects.Element;
 import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
@@ -7,7 +6,6 @@ import org.testng.annotations.Test;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.camapignPlacements.PlacementRowElement;
 import util.DriverConfig;
-import util.Util;
 
 import java.util.ArrayList;
 

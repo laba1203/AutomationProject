@@ -26,7 +26,8 @@ public class SimpleTestForAllCampaignTypes {
     private DriverConfig driverFactory;
     private WebDriver driver;
 
-    private static final String customerSiteUrl = "";
+    private static final String customerSiteUrl = "http://learn.talkable.com/QA-Common/Automation/void/simple-test/";
+    private static final String siteName = "simple-test";
 
 
     @BeforeClass
@@ -35,7 +36,8 @@ public class SimpleTestForAllCampaignTypes {
         this.driver = this.driverFactory.getDriver();
         this.driver.navigate().to(EnvFactory.getEnvUrl());
         //Login to env
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
+        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).switchSiteTo(siteName);
+
     }
 
 
@@ -75,7 +77,6 @@ public class SimpleTestForAllCampaignTypes {
         driver.quit();
         driverFactory.cleanWebDriver();
     }
-
 
 
     @DataProvider
