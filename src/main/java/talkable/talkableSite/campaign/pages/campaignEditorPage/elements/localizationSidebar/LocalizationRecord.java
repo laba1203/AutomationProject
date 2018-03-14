@@ -5,7 +5,7 @@ import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-class LocalizationRecord extends AbstractElementsContainer{
+public class LocalizationRecord extends AbstractElementsContainer{
 
     Element name;
     Element value;
@@ -17,5 +17,13 @@ class LocalizationRecord extends AbstractElementsContainer{
         value = new Element(webElement.findElement(By.xpath(".//textarea")));
         createABTestButton = new Element(webElement.findElement(By.xpath(".//a[@data-action = 'Create A/B test variant']")));
         copyToOtherCampaignsBtn = new Element(webElement.findElement(By.xpath(".//a[@data-label = 'Copy to other campaigns']")));
+    }
+
+    public Element getName() {
+        return name;
+    }
+
+    public Element getValue() {
+        return value;
     }
 }

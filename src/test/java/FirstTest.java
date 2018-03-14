@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.camapignPlacements.PlacementRowElement;
+import talkable.talkableSite.campaign.pages.campaignEditorPage.EditorPage;
 import util.DriverConfig;
 
 import java.util.ArrayList;
@@ -27,27 +28,20 @@ public class FirstTest {
     @Test
     public void test1_login(){
         commonScenarios.login("maxim.laba@talkable.com", "Password@1");
-        driver.navigate().to("https://admin.void.talkable.com/sites/email-test/placements");
+        driver.navigate().to("https://admin.void.talkable.com/sites/simple-test/campaigns/45595/editor#/view_setups/150283/preset_slug/default-preset");
     }
 
     @Test
-    public void test2(){
-        PageCampaignPlacements campaignPlacements = new PageCampaignPlacements();
-        ArrayList<PlacementRowElement> shownOn = campaignPlacements.standaloneSection.getShownOnList();
-        for (PlacementRowElement el :
-                shownOn) {
-            System.out.println(el.getText());
-        }
-        System.out.println("***************");
+    public void test2() {
+        EditorPage editorPage = new EditorPage();
+        System.out.println(editorPage.localizationSidebar.getRecordByName("Advocate pages overlay opacity#").getName().getText());
+        System.out.println(editorPage.localizationSidebar.getRecordByName("Advocate pages overlay opacity#").getValue().getText());
+    }
 
-        ArrayList<PlacementRowElement> hiddenOn = campaignPlacements.standaloneSection.getHiddenOnList();
-        for (PlacementRowElement el :
-                hiddenOn) {
-            System.out.println(el.getText());
-        }
-        campaignPlacements = campaignPlacements.standaloneSection.addInclusion(false, "autotest.html");
-        campaignPlacements.floatingWidgetSection.addExclusion(true, "/test/autotest.html");
-
+    @Test
+    public void test3(){
+        EditorPage editorPage = new EditorPage();
+        editorPage = editorPage.switchViewByName("Advocate social sharing");
     }
 
 
