@@ -1,14 +1,11 @@
 package execution;
 
 import common.cases.CommonScenarios;
-import customerSite.talkableFrame.floatingWidgete.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
-import org.openqa.selenium.NoSuchElementException;
+import customerSite.talkableFrame.commonPages.advocateSignupPage.AdvocateSignupPage;
+import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.CampaignType;
 import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
@@ -28,6 +25,7 @@ public class SimpleTestForAllCampaignTypes {
 
     private static final String customerSiteUrl = "http://learn.talkable.com/QA-Common/Automation/void/simple-test/";
     private static final String siteName = "simple-test";
+    private String campaignDetailsPageUrl;
 
 
     @BeforeClass
@@ -36,7 +34,9 @@ public class SimpleTestForAllCampaignTypes {
         this.driver = this.driverFactory.getDriver();
         this.driver.navigate().to(EnvFactory.getEnvUrl());
         //Login to env
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).switchSiteTo(siteName);
+        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).selectByVisibleText(siteName);
+        driver.getCurrentUrl();
+
 
     }
 
@@ -53,8 +53,7 @@ public class SimpleTestForAllCampaignTypes {
         launchPage.launchCampaign();
 
         //Verification on Customer Site:
-//        this.driverFactory.getDriver().navigate().to(customerSiteUrl);
-//        AdvocateTriggerWidgetFrame triggerWidget = new AdvocateTriggerWidgetFrame();
+        //TBD
 
         //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
@@ -62,13 +61,7 @@ public class SimpleTestForAllCampaignTypes {
         CommonScenarios.deactivateCampaign(campaignName);
 
         //Verify that campaign is inactive on the Customer Site:
-//        try {
-//            this.driverFactory.getDriver().navigate().to("http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html");
-//            new AdvocateTriggerWidgetFrame();
-//            Assert.fail("FAILED: Floating Widget is displayed. Test Failed");
-//        } catch (NoSuchElementException e) {
-//            System.out.println("PASSED: Floating Widget is not displayed");
-//        }
+        //TBD
 
     }
 

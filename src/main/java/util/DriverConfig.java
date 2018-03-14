@@ -25,7 +25,7 @@ public class DriverConfig {
 
     private static final long DEFAULT_TIME_OUT = 15;
 
-    @Parameters
+    @Parameters()
     private WebDriver setNewLocalDriver()
     {
         final File file = new File(PropertyLoader.loadProperty("path."+getOS()+".webDriver"));
@@ -41,7 +41,8 @@ public class DriverConfig {
 
 
     private WebDriver setNewRemoteDriver(){
-        final File file = new File(PropertyLoader.loadProperty("path.linux.webDriver"));
+//        final File file = new File(PropertyLoader.loadProperty("path.linux.webDriver"));
+        final File file = new File(PropertyLoader.loadProperty("path.mac.webDriver"));
         System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
 
         //code for remote driver:
@@ -66,8 +67,8 @@ public class DriverConfig {
 
     public WebDriver getDriver(){
         if (driver == null){
-//            driver = new DriverConfig().setNewLocalDriver(); //for local testing
-            driver = new DriverConfig().setNewRemoteDriver(); //for remote testing
+            driver = new DriverConfig().setNewLocalDriver(); //for local testing
+//            driver = new DriverConfig().setNewRemoteDriver(); //for remote testing
         }
         return driver;
     }

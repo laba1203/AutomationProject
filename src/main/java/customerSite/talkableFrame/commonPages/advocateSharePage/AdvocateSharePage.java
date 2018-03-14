@@ -1,11 +1,11 @@
-package customerSite.talkableFrame.floatingWidgete.advocateSharePage;
+package customerSite.talkableFrame.commonPages.advocateSharePage;
 
 import abstractObjects.AbstractTalkableFrame;
 import org.openqa.selenium.By;
 
 public class AdvocateSharePage extends AbstractTalkableFrame{
 
-    private By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe-overlay']");
+    private By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
 
 //    private ElmntClosePopupButton elmntClosePopupButton;
     private ElmntShareViaEmailButton shareViaEmailButton;
@@ -27,10 +27,28 @@ public class AdvocateSharePage extends AbstractTalkableFrame{
             e.printStackTrace();
         }
 
+        setElementsInFrame();
+
+    }
+
+    public AdvocateSharePage(By frameLocator){
+        setWebElement(frameLocator);
+        switchToThisFrame();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        setElementsInFrame();
+
+    }
+
+    private void setElementsInFrame(){
         shareViaEmailButton = new ElmntShareViaEmailButton();
         shareByLinkButton = new ElmntShareByLinkButton();
         shareViaFacebookButton = new ElmntShareViaFacebookButton();
-
     }
 
     public String getShareLink(){

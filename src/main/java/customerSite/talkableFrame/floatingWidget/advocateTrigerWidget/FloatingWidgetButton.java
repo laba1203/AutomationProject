@@ -1,4 +1,4 @@
-package customerSite.talkableFrame.floatingWidgete.advocateTrigerWidget;
+package customerSite.talkableFrame.floatingWidget.advocateTrigerWidget;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;

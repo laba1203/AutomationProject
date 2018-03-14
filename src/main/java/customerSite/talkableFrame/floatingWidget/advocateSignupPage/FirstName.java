@@ -1,4 +1,4 @@
-package customerSite.talkableFrame.floatingWidgete.advocateSignupPage;
+package customerSite.talkableFrame.floatingWidget.advocateSignupPage;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
