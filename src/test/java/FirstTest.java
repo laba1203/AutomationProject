@@ -3,12 +3,8 @@ import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
-import talkable.talkableSite.camapignPlacements.PlacementRowElement;
 import talkable.talkableSite.campaign.pages.campaignEditorPage.EditorPage;
 import util.DriverConfig;
-
-import java.util.ArrayList;
 
 
 public class FirstTest {
@@ -34,8 +30,8 @@ public class FirstTest {
     @Test
     public void test2() {
         EditorPage editorPage = new EditorPage();
-        System.out.println(editorPage.localizationSidebar.getRecordByName("Advocate pages overlay opacity#").getName().getText());
-        System.out.println(editorPage.localizationSidebar.getRecordByName("Advocate pages overlay opacity#").getValue().getText());
+        System.out.println(editorPage.localizationSidebar.getCopyRecordByName("Advocate pages overlay opacity#").getName().getText());
+        System.out.println(editorPage.localizationSidebar.getCopyRecordByName("Advocate pages overlay opacity#").getValue().getText());
         editorPage.updateCopyLocalization("Advocate share page description#", "Updated");
     }
 
@@ -44,7 +40,5 @@ public class FirstTest {
         EditorPage editorPage = new EditorPage();
         editorPage = editorPage.switchViewByName("Advocate social sharing");
     }
-
-
 
 }

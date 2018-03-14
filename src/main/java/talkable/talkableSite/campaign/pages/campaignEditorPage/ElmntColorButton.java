@@ -1,4 +1,4 @@
-package talkable.talkableSite.campaign.pages.campaignEditorPage.elements.localizationSidebar;
+package talkable.talkableSite.campaign.pages.campaignEditorPage;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
