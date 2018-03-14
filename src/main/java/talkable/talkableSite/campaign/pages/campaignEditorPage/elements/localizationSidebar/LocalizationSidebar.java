@@ -39,6 +39,7 @@ public class LocalizationSidebar extends AbstractElementsContainer{
 
     public void setCopyLocalization(String localizationName, String newValue){
         LocalizationRecord record = getRecordByName(localizationName);
+        record.value.click();
         record.value.clear();
         record.value.sendKeys(newValue);
     }

@@ -36,6 +36,7 @@ public class FirstTest {
         EditorPage editorPage = new EditorPage();
         System.out.println(editorPage.localizationSidebar.getRecordByName("Advocate pages overlay opacity#").getName().getText());
         System.out.println(editorPage.localizationSidebar.getRecordByName("Advocate pages overlay opacity#").getValue().getText());
+        editorPage.updateCopyLocalization("Advocate share page description#", "Updated");
     }
 
     @Test
