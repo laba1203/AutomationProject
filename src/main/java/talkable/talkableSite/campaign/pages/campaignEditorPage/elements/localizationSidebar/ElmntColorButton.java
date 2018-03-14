@@ -3,10 +3,10 @@ package talkable.talkableSite.campaign.pages.campaignEditorPage.elements.localiz
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-class ElementColorButton extends AbstractElement{
-    private By locator = By.cssSelector(".Locale-entries-localizations-filters div:nth-of-type(3)");
+class ElmntColorButton extends AbstractElement{
+    private static final By locator = By.cssSelector(".Locale-entries-localizations-filters div:nth-of-type(3)");
 
-    public ElementColorButton(){
+    ElmntColorButton(){
         setWebElement(locator);
     }
 }

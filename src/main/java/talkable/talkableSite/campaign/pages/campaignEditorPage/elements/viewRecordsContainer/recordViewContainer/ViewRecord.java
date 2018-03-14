@@ -4,7 +4,7 @@ import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
-public class RecordViewContainer extends AbstractElement{
+public class ViewRecord extends AbstractElement{
 
     private static final String parentLocator = ".ac-editor-widget-navigation.js-editor-widget-shown";
 
@@ -16,11 +16,11 @@ public class RecordViewContainer extends AbstractElement{
     ViewName nameColumn;
     ViewVisible visibleColumn;
 
-    public RecordViewContainer(){
+    public ViewRecord(){
 
     }
 
-    public RecordViewContainer getRecordByIndex(int index){
+    public ViewRecord getRecordByIndex(int index){
         String recordLocator = parentLocator + ">li:nth-of-type(" + index + ")";
         setWebElement(By.cssSelector(recordLocator));
 
@@ -30,11 +30,6 @@ public class RecordViewContainer extends AbstractElement{
         return this;
     }
 
-    //It doesn't work:
-    public void selectViewByLinkText(String viewName){
-        nameColumn = new ViewName(By.cssSelector("span:contains('"+viewName+"')"));//(By.linkText(viewName));
-        nameColumn.click();
-    }
 
     public void switchVisibleCheckbox(){
         if(visibleColumn == null){

@@ -2,37 +2,32 @@ package talkable.talkableSite.campaign.pages.campaignEditorPage.elements.viewRec
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
-import talkable.talkableSite.campaign.pages.campaignEditorPage.elements.viewRecordsContainer.recordViewContainer.RecordViewContainer;
+import talkable.talkableSite.campaign.pages.campaignEditorPage.elements.viewRecordsContainer.recordViewContainer.ViewRecord;
 
 import java.util.ArrayList;
 
 public class ViewRecordsContainer extends AbstractElement{
 
-    private String locator = ".ac-editor-widget-navigation.js-editor-widget-shown li";
-    private ArrayList<RecordViewContainer> records;
+    private String locator = ".ac-editor-widget-navigation.js-editor-widget-shown > div > li";
+    private ArrayList<ViewRecord> records;
 
     public ViewRecordsContainer(){
         setWebElement(By.cssSelector(locator));
         records = getViewRecords(By.cssSelector(locator));
     }
 
-    private ArrayList<RecordViewContainer> getViewRecords(By locator){
+    private ArrayList<ViewRecord> getViewRecords(By locator){
         int count = getWebElements(locator).size();
-        ArrayList<RecordViewContainer> records = new ArrayList<>();
+        ArrayList<ViewRecord> records = new ArrayList<>();
 
         for (int i = 1; i <= count; i++){
-            records.add(new RecordViewContainer().getRecordByIndex(i));
+            records.add(new ViewRecord().getRecordByIndex(i));
         }
         return records;
     }
 
     public void selectViewByIndex(int index){
         records.get(index).click();
-    }
-
-    //Not work:
-    public void selectViewByName(String name){
-        new RecordViewContainer().selectViewByLinkText(name);
     }
 
 }

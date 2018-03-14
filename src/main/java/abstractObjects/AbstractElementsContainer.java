@@ -54,11 +54,23 @@ public abstract class AbstractElementsContainer
     }
 
     protected void selectByText(String text, ArrayList<DrivenElement> items){
+        getElementByText(text, items).click();
+
+//        for (DrivenElement li : items) {
+//            if(li.getText().equals(text)){
+//                li.click();
+//            }
+//        }
+    }
+
+    protected DrivenElement getElementByText(String text, ArrayList<DrivenElement> items){
         for (DrivenElement li : items) {
             if(li.getText().equals(text)){
-                li.click();
+                return  li;
             }
         }
+        System.out.println("Element with text <" + text + "> is not found");
+        return null;
     }
 
 

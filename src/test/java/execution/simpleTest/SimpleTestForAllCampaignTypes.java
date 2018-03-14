@@ -1,4 +1,4 @@
-package execution;
+package execution.simpleTest;
 
 import common.cases.CommonScenarios;
 import customerSite.talkableFrame.commonPages.advocateSignupPage.AdvocateSignupPage;

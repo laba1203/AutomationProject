@@ -1,14 +1,13 @@
 package talkable.talkableSite.campaign.pages.campaignEditorPage;
 
+
 import abstractObjects.AbstractElementsContainer;
-import talkable.talkableSite.AbstractTalkableSitePage;
-import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
 import talkable.talkableSite.campaign.pages.campaignEditorPage.elements.SelectedViewField;
 import talkable.talkableSite.campaign.pages.campaignEditorPage.elements.localizationSidebar.LocalizationSidebar;
 import talkable.talkableSite.campaign.pages.campaignEditorPage.elements.viewRecordsContainer.ViewRecordsContainer;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
 
-public class EditorPage extends AbstractTalkableSitePage{
+public class EditorPage extends AbstractElementsContainer{
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu;
     private LocalizationSidebar localizationSidebar;
@@ -18,25 +17,25 @@ public class EditorPage extends AbstractTalkableSitePage{
 
 
 
-
     public EditorPage(){
-
         this.campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
         selectedViewField = new SelectedViewField();
         localizationSidebar = new LocalizationSidebar();
     }
 
-    public void switchViewByIndex(int index){
+    public EditorPage switchViewByIndex(int index){
         selectedViewField.click();
-        new ViewRecordsContainer().selectViewByIndex(index);
-        localizationSidebar = new LocalizationSidebar();
+//        new ViewRecordsContainer().selectViewByIndex(index);
+//        localizationSidebar = new LocalizationSidebar();
+        new ContainerViewRecords().selectByIndex(index);
+        return new EditorPage();
     }
 
     //Not work:
-    public void switchViewByName(String name){
+    public EditorPage switchViewByName(String name){
         selectedViewField.click();
-        new ViewRecordsContainer().selectViewByName(name);
-        localizationSidebar = new LocalizationSidebar();
+        new ContainerViewRecords().selectViewByText(name);
+        return new EditorPage();
     }
 
 

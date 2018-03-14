@@ -4,9 +4,9 @@ import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
 class ElementConfigurationButton extends AbstractElement{
-    private By locator = By.cssSelector(".Locale-entries-localizations-filters div:nth-of-type(4)");
+    private static  final By locator = By.cssSelector(".Locale-entries-localizations-filters div:nth-of-type(4)");
 
-    public ElementConfigurationButton(){
+    ElementConfigurationButton(){
         setWebElement(locator);
     }
 }

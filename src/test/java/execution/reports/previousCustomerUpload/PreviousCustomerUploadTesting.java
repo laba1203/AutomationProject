@@ -1,4 +1,4 @@
-package execution.reports;
+package execution.reports.previousCustomerUpload;
 
 import common.cases.ReportsScenarios;
 import org.openqa.selenium.WebDriver;
