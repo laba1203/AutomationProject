@@ -1,18 +1,14 @@
 package talkable.talkableSite.campaign.pages.campaignEditorPage.elements.localizationSidebar;
 
-import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
 import org.openqa.selenium.WebElement;
 
-class LocalizationConfigRecord extends AbstractElementsContainer{
+class LocalizationConfigRecord extends AbstractLocalizationRecord{
 
-    Element name;
 
     LocalizationConfigRecord(WebElement webElement){
+        super(webElement);
 
     }
 
-    public String getNameText(){
-        return name.getText();
-    }
 }

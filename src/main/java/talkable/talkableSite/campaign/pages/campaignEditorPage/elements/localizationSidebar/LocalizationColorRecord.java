@@ -1,18 +1,18 @@
 package talkable.talkableSite.campaign.pages.campaignEditorPage.elements.localizationSidebar;
 
-import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class LocalizationColorRecord extends AbstractElementsContainer{
+class LocalizationColorRecord extends AbstractLocalizationRecord{
 
-    Element name;
+    Element colorValueInput;
+
 
     LocalizationColorRecord(WebElement webElement){
-
+        super(webElement);
+        colorValueInput = new Element(webElement.findElement(By.xpath(".//*[contains(@class , 'asColorPicker-input')]")));
     }
 
-    public String getNameText(){
-        return name.getText();
-    }
+
 }

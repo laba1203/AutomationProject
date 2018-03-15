@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import talkable.talkableSite.campaign.pages.campaignEditorPage.EditorPage;
+import talkable.talkableSite.headerFrame.Header;
 import util.DriverConfig;
 
 
@@ -11,7 +12,7 @@ public class FirstTest {
 
     WebDriver driver;
 
-    CommonScenarios commonScenarios = new CommonScenarios();
+//    CommonScenarios commonScenarios = new CommonScenarios();
 
     private String siteName = "automationSite";
 
@@ -23,22 +24,24 @@ public class FirstTest {
 
     @Test
     public void test1_login(){
-        commonScenarios.login("maxim.laba@talkable.com", "Password@1");
-        driver.navigate().to("https://admin.void.talkable.com/sites/simple-test/campaigns/45595/editor#/view_setups/150283/preset_slug/default-preset");
+        Header header = CommonScenarios.login("maxim.laba@talkable.com", "Password@1");
+        header.switchSiteTo("email-test");
+
+//        driver.navigate().to("https://admin.void.talkable.com/sites/simple-test/campaigns/45595/editor#/view_setups/150283/preset_slug/default-preset");
     }
 
-    @Test
-    public void test2() {
-        EditorPage editorPage = new EditorPage();
-        System.out.println(editorPage.localizationSidebar.getCopyRecordByName("Advocate pages overlay opacity#").getName().getText());
-        System.out.println(editorPage.localizationSidebar.getCopyRecordByName("Advocate pages overlay opacity#").getValue().getText());
-        editorPage.updateCopyLocalization("Advocate share page description#", "Updated");
-    }
-
-    @Test
-    public void test3(){
-        EditorPage editorPage = new EditorPage();
-        editorPage = editorPage.switchViewByName("Advocate social sharing");
-    }
+//    @Test
+//    public void test2() {
+//        EditorPage editorPage = new EditorPage();
+//        System.out.println(editorPage.localizationSidebar.getCopyRecordByName("Advocate pages overlay opacity#").getNameText());
+//        System.out.println(editorPage.localizationSidebar.getCopyRecordByName("Advocate pages overlay opacity#").getValue().getText());
+//        editorPage.updateCopyLocalization("Advocate share page description#", "Updated");
+//    }
+//
+//    @Test
+//    public void test3(){
+//        EditorPage editorPage = new EditorPage();
+//        editorPage = editorPage.switchViewByName("Advocate social sharing");
+//    }
 
 }

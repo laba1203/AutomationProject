@@ -2,11 +2,13 @@ package talkable.talkableSite.campaign.pages.campaignRulesPage;
 
 import abstractObjects.AbstractSelectElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 class ElmntAdOfferDeadlineHours extends AbstractSelectElement{
-    private static final By locator = By.cssSelector("//select[@name='expires_at.hour']");
 
     ElmntAdOfferDeadlineHours(){
-        setWebElement("//select[@name='expires_at.hour']");
+
+        WebElement webElement = getDriver().findElement(By.xpath("//select[@name='expires_at.hour']"));
+        setWebElement(webElement);
     }
 }
