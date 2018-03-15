@@ -8,16 +8,14 @@ import talkable.talkableSite.campaign.pages.campaignEditorPage.EditorPage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static talkable.talkableSite.campaign.pages.campaignEditorPage.EditorPage.LocalizationMode.*;
-
 public class LocalizationSidebar extends AbstractElementsContainer{
 
     private static final String localizationItemsXpath = "//div[contains(@class, 'Locale-entries-localizations-item')]";
     private EditorPage.LocalizationMode mode;
-    private ArrayList<LocalizationCopyRecord> copyRecords = new ArrayList<>();
-    private ArrayList<LocalizationColorRecord> colorRecords = new ArrayList<>();
-    private ArrayList<LocalizationImagesRecord> imagesRecords = new ArrayList<>();
-    private ArrayList<LocalizationConfigRecord> configRecords = new ArrayList<>();
+    private ArrayList<RecordFactory> copyRecords = new ArrayList<>();
+    private ArrayList<RecordFactory> colorRecords = new ArrayList<>();
+    private ArrayList<RecordFactory> imagesRecords = new ArrayList<>();
+    private ArrayList<RecordFactory> configRecords = new ArrayList<>();
 
 
     public LocalizationSidebar(EditorPage.LocalizationMode mode){
@@ -33,64 +31,45 @@ public class LocalizationSidebar extends AbstractElementsContainer{
         }
     }
 
-    public void setCopyLocalization(String localizationName, String newValue){
-        LocalizationCopyRecord record = getCopyRecordByName(localizationName);
-        record.value.click();
-        record.value.clear();
-        record.value.sendKeys(newValue);
+    public void updateRecord(EditorPage.LocalizationMode mode, String localizationName, String newValue){
+        getRecord(mode, localizationName).update(newValue);
     }
 
-
-
-    public LocalizationCopyRecord getCopyRecordByName(String localizationName){
-        verifyMode(COPY);
-        for (LocalizationCopyRecord record : copyRecords) {
-            if(record.name.getText().equals(localizationName)){
-                return  record;
-            }
+    public RecordFactory getRecord(EditorPage.LocalizationMode mode, String localizationName){
+        verifyMode(mode);
+        switch (mode){
+            case CONFIGURATION:
+                return findRecord(configRecords, localizationName);
+            case IMAGES:
+                return findRecord(imagesRecords, localizationName);
+            case COLOR:
+                return findRecord(colorRecords, localizationName);
+            case COPY:
+                return findRecord(copyRecords, localizationName);
+            default:
+                assetFail(localizationName);
+                return null;
         }
-        Assert.fail("FAILED: There no view copyRecords with name : <" + localizationName + ">");
-        return null;
+
     }
 
-    public LocalizationColorRecord getColorRecordByName(String localizationName){
-        verifyMode(COLOR);
-        for (LocalizationColorRecord record : colorRecords) {
-            if(record.getNameText().equals(localizationName)){
+    private RecordFactory findRecord(ArrayList<RecordFactory> records, String recordName){
+        for (RecordFactory record : records) {
+            if(record.getNameText().equals(recordName)){
                 return record;
             }
         }
-        Assert.fail("FAILED: There no view copyRecords with name : <" + localizationName + ">");
+        assetFail(recordName);
         return null;
     }
-
-    public LocalizationImagesRecord getImagesRecordByName(String localizationName){
-        verifyMode(IMAGES);
-        for (LocalizationImagesRecord record : imagesRecords) {
-            if(record.getNameText().equals(localizationName)){
-                return record;
-            }
-        }
-        Assert.fail("FAILED: There no view copyRecords with name : <" + localizationName + ">");
-        return null;
-    }
-
-    public LocalizationConfigRecord getConfigRecordByName(String localizationName){
-        verifyMode(CONFIGURATION);
-        for (LocalizationConfigRecord record : configRecords) {
-            if(record.getNameText().equals(localizationName)){
-                return record;
-            }
-        }
-        Assert.fail("FAILED: There no view copyRecords with name : <" + localizationName + ">");
-        return null;
-    }
-
 
     private void verifyMode(EditorPage.LocalizationMode actualMode){
         Assert.assertEquals(actualMode, this.mode, "FAILED: Incorrect localization mode");
     }
 
+    private void assetFail(String localizationName){
+        Assert.fail("FAILED: There is no view copyRecords with name : <" + localizationName + ">");
+    }
 
     private void addRecord(EditorPage.LocalizationMode mode, WebElement webElement){
         switch (mode){
@@ -111,7 +90,4 @@ public class LocalizationSidebar extends AbstractElementsContainer{
                 break;
         }
     }
-
-
-
 }

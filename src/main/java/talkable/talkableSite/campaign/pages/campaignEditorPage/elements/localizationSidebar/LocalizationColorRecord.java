@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 class LocalizationColorRecord extends AbstractLocalizationRecord{
 
-    Element colorValueInput;
+    private Element colorValueInput;
 
 
     LocalizationColorRecord(WebElement webElement){
@@ -14,5 +14,13 @@ class LocalizationColorRecord extends AbstractLocalizationRecord{
         colorValueInput = new Element(webElement.findElement(By.xpath(".//*[contains(@class , 'asColorPicker-input')]")));
     }
 
+    @Override
+    public void update(String newValue) {
+        colorValueInput.sendKeys(newValue);
+    }
 
+    @Override
+    public String getValueText() {
+        return colorValueInput.getAttribute("value");
+    }
 }

@@ -5,7 +5,7 @@ import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-abstract class AbstractLocalizationRecord extends AbstractElementsContainer{
+abstract class AbstractLocalizationRecord extends AbstractElementsContainer implements RecordFactory{
 
     protected Element name;
     protected Element createABTestButton;
@@ -17,9 +17,19 @@ abstract class AbstractLocalizationRecord extends AbstractElementsContainer{
         copyToOtherCampaignsBtn = new Element(webElement.findElement(By.xpath(".//a[@data-label = 'Copy to other campaigns']")));
     }
 
+    @Override
     public String getNameText(){
         return name.getText();
     }
 
+    @Override
+    public void createABTest(){
+        createABTestButton.click();
+    }
+
+    @Override
+    public void copyToOtherCampaigns(){
+        copyToOtherCampaignsBtn.click();
+    }
 
 }

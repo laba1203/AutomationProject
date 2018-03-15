@@ -6,26 +6,26 @@ import org.openqa.selenium.WebElement;
 
 public class LocalizationCopyRecord extends AbstractLocalizationRecord{
 
-//    Element name;
-    Element value;
-//    Element createABTestButton;
-//    Element copyToOtherCampaignsBtn;
+    private Element value;
 
     LocalizationCopyRecord(WebElement webElement){
         super(webElement);
-
         value = new Element(webElement.findElement(By.xpath(".//textarea")));
-//        createABTestButton = new Element(webElement.findElement(By.xpath(".//a[@data-action = 'Create A/B test variant']")));
-//        copyToOtherCampaignsBtn = new Element(webElement.findElement(By.xpath(".//a[@data-label = 'Copy to other campaigns']")));
     }
 
     public Element getValue() {
         return value;
     }
 
-    public void sendKeys(String text){
+    @Override
+    public void update(String text){
         value.click();
         value.clear();
         value.sendKeys(text);
+    }
+
+    @Override
+    public String getValueText() {
+        return value.getText();
     }
 }

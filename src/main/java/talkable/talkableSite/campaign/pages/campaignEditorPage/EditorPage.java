@@ -1,5 +1,6 @@
 package talkable.talkableSite.campaign.pages.campaignEditorPage;
 
+import org.testng.Assert;
 import talkable.talkableSite.AbstractTkblSitePageWithoutHeader;
 import talkable.talkableSite.campaign.pages.campaignEditorPage.elements.localizationSidebar.LocalizationSidebar;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
@@ -20,13 +21,12 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
     public enum LocalizationMode{COPY, IMAGES, COLOR, CONFIGURATION}
     private LocalizationMode mode;
 
-
     public EditorPage(){
         localizationSidebar = new LocalizationSidebar(COPY);
         mode = COPY;
     }
 
-    public EditorPage(LocalizationMode mode){
+    private EditorPage(LocalizationMode mode){
         localizationSidebar = new LocalizationSidebar(mode);
         this.mode = mode;
     }
@@ -43,23 +43,21 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         return new EditorPage();
     }
 
-    public EditorPage updateCopyLocalization(String localizationName, String newValue){
-        localizationSidebar.setCopyLocalization(localizationName, newValue);
-        return saveChanges();
+    public EditorPage updateLocalization(LocalizationMode type, String localizationName, String newValue){
+        verifyLocalizationMode(type);
+        localizationSidebar.updateRecord(type, localizationName, newValue);
+        saveChanges();
+        return new EditorPage(type);
     }
 
-//    public EditorPage
-
-//    public EditorPage updateColorLocalization(){
-//
-//
-//    }
-
+    private void verifyLocalizationMode(LocalizationMode mode){
+        Assert.assertEquals(mode, this.mode, "FAILED: Incorrect Localization type used in the method");
+    }
 
     private EditorPage saveChanges(){
         saveButton.click();
         waitSaving();
-        return new EditorPage();
+        return new EditorPage(this.mode);
     }
 
     public EditorPage switchToCopyTab(){
@@ -82,8 +80,13 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         return new EditorPage(CONFIGURATION);
     }
 
+    public void clickCreateABTest(LocalizationMode type, String localizationName){
+        localizationSidebar.getRecord(type, localizationName).createABTest();
+        //TODO: Return action to be added after implementation of AB Test editor page
+    }
 
-
-
-
+    public void clickCopyToOtherCampaigns(LocalizationMode type, String localizationName){
+        localizationSidebar.getRecord(type, localizationName).copyToOtherCampaigns();
+        //TODO: Return action to be added after implementation of Multi-campaign editor page
+    }
 }
