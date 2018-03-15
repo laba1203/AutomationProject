@@ -1,8 +1,8 @@
 package common.cases;
 
-import customerSite.talkableFrame.floatingWidgete.advocateSharePage.AdvocateSharePage;
-import customerSite.talkableFrame.floatingWidgete.advocateSignupPage.AdvocateSignupPage;
-import customerSite.talkableFrame.floatingWidgete.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
+import customerSite.talkableFrame.floatingWidget.advocateSharePage.AdvocateSharePageFW;
+import customerSite.talkableFrame.floatingWidget.advocateSignupPage.AdvocateSignupPageFW;
+import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
 import org.openqa.selenium.WebDriver;
 import util.DriverConfig;
 
@@ -17,9 +17,9 @@ public class ClientSiteScenarios {
       * */
     public static String completeAdvocateOfferForFloatingWidget(String advocateName, String advocateEmail){
         AdvocateTriggerWidgetFrame advocateTriggerWidget = new AdvocateTriggerWidgetFrame();
-        AdvocateSignupPage advocateSignupPage = advocateTriggerWidget.click();
-        AdvocateSharePage advocateSharePage = advocateSignupPage.submitForm(advocateName, advocateEmail);
-        return advocateSharePage.getShareLink();
+        AdvocateSignupPageFW advocateSignupPageFW = advocateTriggerWidget.click();
+        AdvocateSharePageFW advocateSharePageFW = advocateSignupPageFW.submitForm(advocateName, advocateEmail);
+        return advocateSharePageFW.getShareLink();
     }
 
     /*Technical method to setup new driver instace with clean cookies.

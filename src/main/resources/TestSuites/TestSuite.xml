@@ -6,7 +6,7 @@
                     <include name="test1_login"/>
                 </methods>-->
             </class>
-            <class name="execution.SimpleTestForAllCampaignTypes">
+            <class name="execution.simpleTest.SimpleTestForAllCampaignTypes">
 
             </class>
         </classes>

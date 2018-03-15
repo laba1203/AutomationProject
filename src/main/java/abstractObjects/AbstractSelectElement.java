@@ -1,82 +1,81 @@
 package abstractObjects;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import util.logging.Log;
 
 import java.util.List;
 
 public abstract class AbstractSelectElement extends AbstractElement{
 
-    private WebDriver driver = getDriver();
+    private static final String buttonXpath = "./../div/a";
+    private static final String selectedItemXpath = buttonXpath + "/span";
+    private static final String searchFieldXpath = "./../div/div[@class='chosen-drop']//input";
+    private static final String allItemsXpath = "./..//ul/child::li[contains(@class, 'active-result')]";
+    private static final String firstItemXpath = allItemsXpath + "[1]";
 
-    private String searchFieldLocator;
-    private String selectedItemLocator;
-    private String allItemsLocator;
-    private String buttonLocator;
+    private WebElement selectWebElement;
+    private Element button;
 
-    private WebElement button;
-    private WebElement selectedItem;
-
-
-    protected void setWebElement(String xpathOfSelectElement){
-        setLocatorsFromSelectXpath(xpathOfSelectElement);
-        button = driver.findElement(By.xpath(buttonLocator));
+    @Override
+    public void setWebElement(WebElement selectWebElement){
+        this.selectWebElement = selectWebElement;
+        button = new Element(selectWebElement.findElement(By.xpath(buttonXpath)));
     }
 
-    private void setLocatorsFromSelectXpath(String xpathLocator){
-        buttonLocator = xpathLocator + "/../div/a";
-        selectedItemLocator = buttonLocator + "/span";
-        searchFieldLocator = xpathLocator + " /../div/div[@class='chosen-drop']//input";
-        allItemsLocator = xpathLocator + "/..//ul/child::li";
+    @Override
+    public void setWebElement(By locator){
+        setWebElement(getDriver().findElement(locator));
     }
-
 
     public void selectByVisibleText(String text){
         button.click();
-//        driver.findElement(By.xpath(searchFieldLocator));
         clickByText(text);
         //Verify that text is selected
-        selectedItem = driver.findElement(By.xpath(selectedItemLocator));
-        Assert.assertEquals(selectedItem.getText(), text);
+        verifySelectedItem(text);
     }
 
     public void searchByText(String text){
         button.click();
-        WebElement searchField = driver.findElement(By.xpath(searchFieldLocator));
-        searchField.sendKeys(text);
+        populateSearchField(text);
     }
+
+
+    private void populateSearchField(String text){
+        new Element(selectWebElement.findElement(By.xpath(searchFieldXpath))).sendKeys(text);
+    }
+
+
+    private void verifySelectedItem(String expectedItemName){
+        Element selectedItem = new Element(selectWebElement.findElement(By.xpath(selectedItemXpath)));
+        Assert.assertEquals(selectedItem.getText(), expectedItemName);
+    }
+
 
     public void searchAndSelect(String text){
         button.click();
-        WebElement searchField = driver.findElement(By.xpath(searchFieldLocator));
-        searchField.sendKeys(text);
-        WebElement firstItem = driver.findElement(By.xpath(allItemsLocator + "[1]"));
-        firstItem.click();
-        //Verify that text is selected
-        selectedItem = driver.findElement(By.xpath(selectedItemLocator));
-        Assert.assertEquals(selectedItem.getText(), text);
+        populateSearchField(text);
+        //click to first element in the list:
+        new Element(selectWebElement.findElement(By.xpath(firstItemXpath))).click();
+        verifySelectedItem(text);
+
     }
 
+
     public String getSelectedItemText(){
-        selectedItem = driver.findElement(By.xpath(selectedItemLocator));
+        Element selectedItem = new Element(selectWebElement.findElement(By.xpath(selectedItemXpath)));
         return selectedItem.getText();
     }
 
+
     private void clickByText(String text){
-        List<WebElement> items= driver.findElements(By.xpath(allItemsLocator));
+        List<WebElement> items= selectWebElement.findElements(By.xpath(allItemsXpath));
         for (WebElement li : items) {
             if(li.getText().equals(text)){
                 li.click();
+                break;
             }
         }
-    }
-
-
-    public void clickButton() {
-        button.click();
     }
 
 }
