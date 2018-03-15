@@ -1,7 +1,7 @@
-package talkable.talkableSite.campaign.pages.campaignDetailsPage.containers.copyCampaignPopup;
+package talkable.talkableSite.campaign.pages.detailsPage.containers.copyCampaignPopup;
 
 import abstractObjects.AbstractElementsContainer;
-import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
+import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 
 public class CopyCampaignPopup extends AbstractElementsContainer{
 

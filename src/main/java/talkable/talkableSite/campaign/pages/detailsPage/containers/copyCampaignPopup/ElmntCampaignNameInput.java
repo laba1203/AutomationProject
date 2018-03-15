@@ -1,4 +1,4 @@
-package talkable.talkableSite.campaign.pages.campaignDetailsPage.containers.copyCampaignPopup;
+package talkable.talkableSite.campaign.pages.detailsPage.containers.copyCampaignPopup;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;

@@ -1,15 +1,10 @@
 
 package talkable.talkableSite.campaignsPage;
 
-import abstractObjects.AbstractElementsContainer;
-import abstractObjects.Element;
-import java.util.ArrayList;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
-import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
+import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
-import util.logging.Log;
 
 public class PageCampaigns extends AbstractTalkableSitePage {
     private static final String liveCampaignsTableXpath = "//h2[contains(text(), 'Live')]/following::table[1]";

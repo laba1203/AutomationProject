@@ -1,4 +1,4 @@
-package talkable.talkableSite.campaign.pages.campaignEditorPage.elements.localizationSidebar;
+package talkable.talkableSite.campaign.pages.editorPage.localizationSidebar;
 
 import abstractObjects.Element;
 import org.openqa.selenium.By;
@@ -16,6 +16,7 @@ class LocalizationColorRecord extends AbstractLocalizationRecord{
 
     @Override
     public void update(String newValue) {
+        colorValueInput.clear();
         colorValueInput.sendKeys(newValue);
     }
 

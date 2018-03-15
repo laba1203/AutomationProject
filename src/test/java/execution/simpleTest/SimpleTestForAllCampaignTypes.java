@@ -1,14 +1,11 @@
 package execution.simpleTest;
 
 import common.cases.CommonScenarios;
-import customerSite.talkableFrame.commonPages.advocateSignupPage.AdvocateSignupPage;
-import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.CampaignType;
-import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
+import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import util.DriverConfig;

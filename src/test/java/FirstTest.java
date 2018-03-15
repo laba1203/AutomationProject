@@ -3,11 +3,10 @@ import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import talkable.talkableSite.campaign.pages.campaignEditorPage.EditorPage;
-import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import util.DriverConfig;
 
-import static talkable.talkableSite.campaign.pages.campaignEditorPage.EditorPage.LocalizationMode.COPY;
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
 
 
 public class FirstTest {

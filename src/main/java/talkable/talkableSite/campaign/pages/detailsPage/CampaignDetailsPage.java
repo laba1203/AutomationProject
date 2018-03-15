@@ -1,19 +1,18 @@
-package talkable.talkableSite.campaign.pages.campaignDetailsPage;
+package talkable.talkableSite.campaign.pages.detailsPage;
 
+import abstractObjects.Alert;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
 import talkable.talkableSite.campaign.pages.CampaignPlacement;
+import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
-import talkable.talkableSite.campaign.pages.campaignDetailsPage.containers.copyCampaignPopup.CopyCampaignPopup;
+import talkable.talkableSite.campaign.pages.detailsPage.containers.copyCampaignPopup.CopyCampaignPopup;
 
 public class CampaignDetailsPage extends AbstractCampaignPage {
 
     private ElmntCopyButton copyButton;
     private ElmntCreateTestOfferButton createTestOfferButton;
-
-    private ElmntDeleteButton deleteButton;//should be initialised ONLY inside of the relevant method()
-
 
     public CampaignDetailsPage() {
 //        header = new Header();
@@ -71,6 +70,12 @@ public class CampaignDetailsPage extends AbstractCampaignPage {
         }
         createTestOfferButton.click();
         return new PageNewAffiliateMember();
+    }
+
+    public PageCampaigns delete(){
+        new ElmntDeleteButton().click();
+        new Alert().confirm();
+        return new PageCampaigns();
     }
 
 }

@@ -1,8 +1,8 @@
 package talkable.talkableSite.campaign.pages.campaignNavigationMenu;
 
 import abstractObjects.AbstractElementsContainer;
-import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
-import talkable.talkableSite.campaign.pages.campaignEditorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
+import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 
 public class CampaignNavigationMenuOnLaunchCampaignPage extends AbstractElementsContainer{

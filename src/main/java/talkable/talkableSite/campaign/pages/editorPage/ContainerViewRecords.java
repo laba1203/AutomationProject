@@ -1,4 +1,4 @@
-package talkable.talkableSite.campaign.pages.campaignEditorPage;
+package talkable.talkableSite.campaign.pages.editorPage;
 
 import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;

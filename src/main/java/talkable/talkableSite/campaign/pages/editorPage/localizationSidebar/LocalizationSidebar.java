@@ -1,10 +1,11 @@
-package talkable.talkableSite.campaign.pages.campaignEditorPage.elements.localizationSidebar;
+package talkable.talkableSite.campaign.pages.editorPage.localizationSidebar;
 
 import abstractObjects.AbstractElementsContainer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import talkable.talkableSite.campaign.pages.campaignEditorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class LocalizationSidebar extends AbstractElementsContainer{
     }
 
     private void setRecords(EditorPage.LocalizationMode mode){
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(localizationItemsXpath)));
         List<WebElement> items = driver.findElements(By.xpath(localizationItemsXpath));
         for (WebElement webElement :
                 items) {

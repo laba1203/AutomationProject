@@ -1,11 +1,11 @@
-package talkable.talkableSite.campaign.pages.campaignEditorPage;
+package talkable.talkableSite.campaign.pages.editorPage;
 
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTkblSitePageWithoutHeader;
-import talkable.talkableSite.campaign.pages.campaignEditorPage.elements.localizationSidebar.LocalizationSidebar;
+import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
 
-import static talkable.talkableSite.campaign.pages.campaignEditorPage.EditorPage.LocalizationMode.*;
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.*;
 
 public class EditorPage extends AbstractTkblSitePageWithoutHeader{
 
@@ -22,6 +22,7 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
     private LocalizationMode mode;
 
     public EditorPage(){
+        switchTo(COPY);
         localizationSidebar = new LocalizationSidebar(COPY);
         mode = COPY;
     }
@@ -50,6 +51,10 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         return new EditorPage(type);
     }
 
+    public String getLocalizationValue(LocalizationMode type, String localizationName){
+        return localizationSidebar.getRecord(type, localizationName).getValueText();
+    }
+
     private void verifyLocalizationMode(LocalizationMode mode){
         Assert.assertEquals(mode, this.mode, "FAILED: Incorrect Localization type used in the method");
     }
@@ -60,19 +65,24 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         return new EditorPage(this.mode);
     }
 
-    public EditorPage switchToCopyTab(){
-        copyButton.click();
-        return new EditorPage(COPY);
-    }
-
-    public EditorPage switchToImagesTab(){
-        imagesButton.click();
-        return new EditorPage(IMAGES);
-    }
-
-    public EditorPage switchToColorTab(){
-        colorButton.click();
-        return new EditorPage(COLOR);
+    public EditorPage switchTo(LocalizationMode mode){
+        switch (mode){
+            case COPY:
+                copyButton.click();
+                return new EditorPage(COPY);
+            case COLOR:
+                colorButton.click();
+                return new EditorPage(COLOR);
+            case IMAGES:
+                imagesButton.click();
+                return new EditorPage(IMAGES);
+            case CONFIGURATION:
+                configurationButton.click();
+                return new EditorPage(CONFIGURATION);
+            default:
+                Assert.fail("FAILED: Unknown localization type: <" + mode + ">");
+                return null;
+        }
     }
 
     public EditorPage switchToConfigTab(){

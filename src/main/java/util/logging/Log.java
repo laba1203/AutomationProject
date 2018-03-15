@@ -141,6 +141,10 @@ public class Log {
         return msg;
     }
 
-
+    public static String alertAccepted(){
+        String msg = "LOG: Click OK in Alert";
+        System.out.println(msg);
+        return msg;
+    }
 
 }

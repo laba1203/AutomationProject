@@ -73,6 +73,7 @@ public abstract class AbstractSelectElement extends AbstractElement{
         for (WebElement li : items) {
             if(li.getText().equals(text)){
                 li.click();
+                break;
             }
         }
     }

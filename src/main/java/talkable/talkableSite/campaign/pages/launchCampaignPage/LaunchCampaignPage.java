@@ -1,14 +1,11 @@
 package talkable.talkableSite.campaign.pages.launchCampaignPage;
 
-import org.openqa.selenium.NoSuchElementException;
 import talkable.talkableSite.AbstractTalkableSitePage;
-import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnLaunchCampaignPage;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.elements.CancelButton;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.elements.LaunchCampaignButton;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.noIntegrationFoundPopup.NoIntegrationFoundPopup;
-import talkable.talkableSite.campaign.pages.campaignDetailsPage.CampaignDetailsPage;
-import util.logging.Log;
+import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 
 public class LaunchCampaignPage extends AbstractTalkableSitePage {
 
