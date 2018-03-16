@@ -52,6 +52,7 @@ public class SimpleEditorTesting extends BaseTest {
     @Test
     public void test3_uploadNewImage(){
         //TODO: Add method for uploading of new image
+        Assert.fail("Uploading of new image is not yet implemented");
     }
 
     @Test
@@ -59,7 +60,7 @@ public class SimpleEditorTesting extends BaseTest {
         String localizationName = "Facebook share title#";
         String newValue = "Updated value for auto-test";
 
-        EditorPage editorPage = new EditorPage().switchTo(COPY);
+        EditorPage editorPage = new EditorPage();
         editorPage.switchViewByName("Advocate social sharing");
         editContentTest(COPY, localizationName, newValue);
     }
@@ -70,12 +71,14 @@ public class SimpleEditorTesting extends BaseTest {
         PageCampaigns pageCampaigns = detailsPage.delete();
     }
 
-
     private void editContentTest(EditorPage.LocalizationMode mode, String localizationName, String newValue){
-        EditorPage editorPage = new EditorPage().switchTo(mode);
-        editorPage.updateLocalization(mode, localizationName, newValue);
+        EditorPage editorPage = new EditorPage(mode);
+
+        System.out.println("DEBAG: **** Value: <" + editorPage.getLocalizationValue(mode, localizationName) + ">");
+
+        editorPage = editorPage.updateLocalization(mode, localizationName, newValue);
         Assert.assertEquals(editorPage.getLocalizationValue(mode, localizationName), newValue);
-        //TODO: Verification in preview screen should be added for COPY and CONFIGURATION.
+        //TODO: Verification in preview screen should be added for COPY.
     }
 
 
@@ -84,7 +87,7 @@ public class SimpleEditorTesting extends BaseTest {
         return new Object[][]{
                 {COPY, "Advocate signup page preheader#", "Updated value"},
                 {COLOR, "Advocate signup page cta background#", "#0fef4e"},
-                {CONFIGURATION, "Advocate signup page show opt in checkbox#", "Yes - checked"},
+                {CONFIGURATION, "Advocate signup button corners#", "Circle"},
                 {IMAGES, "Advocate signup page background#", "tkbl_default_example.jpg"},
         };
     }

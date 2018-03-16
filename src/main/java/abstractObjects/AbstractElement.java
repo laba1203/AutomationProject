@@ -37,10 +37,7 @@ public abstract class AbstractElement implements DrivenElement{
 
     public void click()
     {
-        //Newly added part for CampaignRulesPage. To be tested
         actions.moveToElement(this.webElement).perform();
-        //end
-
         this.webElement.click();
         Log.clickMsg(this);
     }
