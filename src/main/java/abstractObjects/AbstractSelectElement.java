@@ -2,6 +2,7 @@ package abstractObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 import java.util.List;
@@ -29,6 +30,9 @@ public abstract class AbstractSelectElement extends AbstractElement{
     }
 
     public void selectByVisibleText(String text){
+
+        new Actions(getDriver()).moveToElement(button.getWebElement(), 0, 200);
+
         button.click();
         clickByText(text);
         //Verify that text is selected
@@ -40,17 +44,14 @@ public abstract class AbstractSelectElement extends AbstractElement{
         populateSearchField(text);
     }
 
-
     private void populateSearchField(String text){
         new Element(selectWebElement.findElement(By.xpath(searchFieldXpath))).sendKeys(text);
     }
-
 
     private void verifySelectedItem(String expectedItemName){
         Element selectedItem = new Element(selectWebElement.findElement(By.xpath(selectedItemXpath)));
         Assert.assertEquals(selectedItem.getText(), expectedItemName);
     }
-
 
     public void searchAndSelect(String text){
         button.click();
@@ -61,21 +62,30 @@ public abstract class AbstractSelectElement extends AbstractElement{
 
     }
 
-
     public String getSelectedItemText(){
         Element selectedItem = new Element(selectWebElement.findElement(By.xpath(selectedItemXpath)));
         return selectedItem.getText();
     }
 
-
     private void clickByText(String text){
-        List<WebElement> items= selectWebElement.findElements(By.xpath(allItemsXpath));
+        List<WebElement> items = selectWebElement.findElements(By.xpath(allItemsXpath));
+        boolean isFound = false;
         for (WebElement li : items) {
             if(li.getText().equals(text)){
-                li.click();
+                //li.click();
+                new Element(li).click();
+                isFound = true;
                 break;
             }
         }
+        if(!isFound){
+            Assert.fail("FAILED: Element with text <" + text + "> is not found in drop down list");
+        }
+    }
+
+    @Override
+    public WebElement getWebElement(){
+        return button.getWebElement();
     }
 
 }

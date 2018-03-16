@@ -1,5 +1,6 @@
 package talkable.talkableSite.campaign.pages.editorPage;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTkblSitePageWithoutHeader;
 import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
@@ -17,20 +18,31 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
     private ElmntImagesButton imagesButton = new ElmntImagesButton();
     private ElmntColorButton colorButton = new ElmntColorButton();
     private ElmntConfigurationButton configurationButton = new ElmntConfigurationButton();
+    private PreviewFrame previewFrame = new PreviewFrame();
 
     public enum LocalizationMode{COPY, IMAGES, COLOR, CONFIGURATION}
     private LocalizationMode mode;
 
     public EditorPage(){
         switchTo(COPY);
-        localizationSidebar = new LocalizationSidebar(COPY);
-        mode = COPY;
+        setLocalizationSidebar(COPY);
     }
 
-    private EditorPage(LocalizationMode mode){
+    private void setLocalizationSidebar(LocalizationMode mode){
         localizationSidebar = new LocalizationSidebar(mode);
         this.mode = mode;
     }
+
+    public EditorPage(LocalizationMode mode){
+        switchTo(mode);
+        localizationSidebar = new LocalizationSidebar(mode);
+        this.mode = mode;
+    }
+
+    public String getElementTextFromPreview(By locator){
+        return previewFrame.getElementText(locator);
+    }
+
 
     public EditorPage switchViewByIndex(int index){
         elmntSelectedViewField.click();
@@ -65,23 +77,27 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         return new EditorPage(this.mode);
     }
 
-    public EditorPage switchTo(LocalizationMode mode){
+    public void switchTo(LocalizationMode mode){
         switch (mode){
             case COPY:
                 copyButton.click();
-                return new EditorPage(COPY);
+                setLocalizationSidebar(COPY);
+                break;
             case COLOR:
                 colorButton.click();
-                return new EditorPage(COLOR);
+                setLocalizationSidebar(COLOR);
+                break;
             case IMAGES:
                 imagesButton.click();
-                return new EditorPage(IMAGES);
+                setLocalizationSidebar(IMAGES);
+                break;
             case CONFIGURATION:
                 configurationButton.click();
-                return new EditorPage(CONFIGURATION);
+                setLocalizationSidebar(CONFIGURATION);
+                break;
             default:
                 Assert.fail("FAILED: Unknown localization type: <" + mode + ">");
-                return null;
+                break;
         }
     }
 

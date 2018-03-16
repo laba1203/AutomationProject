@@ -10,8 +10,8 @@ import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 
 public class Log {
 //    for containers:
-    private static final String clickMsg = "Click to ";
-    private static final String enterValueMsg = "Enter value: '";
+    private static final String clickMsg = "LOG: Click to ";
+    private static final String enterValueMsg = "LOG: Enter value: '";
     private static final String screenshotMsg = "Screenshot is available by the following path: ";
 
 
@@ -29,7 +29,7 @@ public class Log {
     }
 
     public static String enterValueAndClickEnterMsg(String value, Object obj){
-        String msg = "Enter value: '" + value + "' to " + obj.getClass().getName()+ ". And press ENTER/RETURN";
+        String msg = "LOG: Enter value: '" + value + "' to " + obj.getClass().getName()+ ". And press ENTER/RETURN";
         System.out.println(msg);
         return msg;
     }
@@ -45,38 +45,38 @@ public class Log {
     }
 
     public static String selectFromDropDownLogMsg(String selectedValue, Select dropdown){
-        String msg = "Element " + selectedValue + " is selected in dropdown " + dropdown;
+        String msg = "LOG: Element " + selectedValue + " is selected in dropdown " + dropdown;
         System.out.println(msg);
         return msg;
     }
 
     public static String webElementIsNotActiveMsg(AbstractElement webElement){
-        String msg = "WebElement is not active by the following locator" + webElement.getLocator();
+        String msg = "LOG: WebElement is not active by the following locator" + webElement.getLocator();
         System.out.println(msg);
         return msg;
     }
 
     public static String incorrectCountOFWebElementsMsg(){
-        String msg = "Incorrect count of WebElements by the locator";
+        String msg = "LOG: Incorrect count of WebElements by the locator";
         System.out.println(msg);
         return msg;
 
     }
 
     public static String popupIsNotOpenedMsg(){
-        String msg = "Popup is not opened";
+        String msg = "LOG: Popup is not opened";
         System.out.println(msg);
         return msg;
     }
 
     public static String fileUploadedMsg(String fileName, AbstractElement target){
-        String msg = "File: '" +fileName+ "' uploaded to element " + target.getClass().getName();
+        String msg = "LOG: File: '" +fileName+ "' uploaded to element " + target.getClass().getName();
         System.out.println(msg);
         return msg;
     }
 
     public static String fileIsNotProcessedMsg(){
-        String msg = "File is not processed";
+        String msg = "LOG: File is not processed";
         System.out.println(msg);
         return msg;
     }
@@ -88,55 +88,55 @@ public class Log {
     }
 
     public static String frameSwitchedMsg(AbstractTalkableFrame frame){
-        String msg = "Switched to iFrame " + frame.getClass().getName();
+        String msg = "LOG: Switched to iFrame " + frame.getClass().getName();
         System.out.println(msg);
         return msg;
     }
 
     public static String frameSwitchedMsg(){
-        String msg = "Frame switched";
+        String msg = "LOG: Frame switched";
         System.out.println(msg);
         return msg;
     }
 
     public static String platformTypeSelectedMsg(ChosePlatformPage.PlatformType platformType){
-        String msg = "The following platform is selected: " + platformType.toString();
+        String msg = "LOG: The following platform is selected: " + platformType.toString();
         System.out.println(msg);
         return msg;
     }
 
     public static String userRegisteredMsg(String userName){
-        String msg = "The following user is registered: " + userName;
+        String msg = "LOG: The following user is registered: " + userName;
         System.out.println(msg);
         return msg;
     }
 
     public static String userAndSiteCreatedMsg(String userName, String siteName){
-        String msg = "The following user successfully registered: " + userName + "\r\nThe following site created for the above user: " + siteName + "\r\n*****";
+        String msg = "LOG: The following user successfully registered: " + userName + "\r\nThe following site created for the above user: " + siteName + "\r\n*****";
         System.out.println(msg);
         return msg;
     }
 
     public static String elementClearedMsg(AbstractElement element){
-        String msg = "Text is cleared in element: " + element.getClass().getName();
+        String msg = "LOG: Text is cleared in element: " + element.getClass().getName();
         System.out.println(msg);
         return msg;
     }
 
     public static String switchedToWindowMsg(String windowHandle){
-        String msg = "Switched to Window: " + windowHandle;
+        String msg = "LOG: Switched to Window: " + windowHandle;
         System.out.println(msg);
         return msg;
     }
 
     public static String rowIsNotFound(String campaignName){
-        String msg = "Row is not found for " + campaignName;
+        String msg = "LOG: Row is not found for " + campaignName;
         System.out.println(msg);
         return msg;
     }
 
     public static String changesAreSaved(){
-        String msg = "Changes have been saved";
+        String msg = "LOG: Changes have been saved";
         System.out.println(msg);
         return msg;
     }

@@ -7,10 +7,14 @@ import org.openqa.selenium.WebElement;
 public class LocalizationCopyRecord extends AbstractLocalizationRecord{
 
     private Element value;
+    private Element text;
+
 
     LocalizationCopyRecord(WebElement webElement){
         super(webElement);
         value = new Element(webElement.findElement(By.xpath(".//textarea")));
+        text = new Element(webElement.findElement(By.xpath(".//div[@class = 'code-area']")));
+
     }
 
     public Element getValue() {
@@ -26,6 +30,6 @@ public class LocalizationCopyRecord extends AbstractLocalizationRecord{
 
     @Override
     public String getValueText() {
-        return value.getText();
+        return text.getText();
     }
 }

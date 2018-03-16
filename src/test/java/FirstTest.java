@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import util.DriverConfig;
 
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.CONFIGURATION;
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
 
 
@@ -30,16 +31,13 @@ public class FirstTest {
 
     @Test
     public void test2() {
-        EditorPage editorPage = new EditorPage();
-        System.out.println(editorPage.localizationSidebar.getRecord(COPY, "Advocate pages overlay opacity#").getNameText());
-        System.out.println(editorPage.localizationSidebar.getRecord(COPY, "Advocate pages overlay opacity#").getValueText());
-        editorPage.updateLocalization(COPY,"Advocate share page description#", "Updated");
+        EditorPage editorPage = new EditorPage(CONFIGURATION);
+//        System.out.println(editorPage.localizationSidebar.getRecord(COPY, "Advocate pages overlay opacity#").getNameText());
+//        System.out.println(editorPage.localizationSidebar.getRecord(COPY, "Advocate pages overlay opacity#").getValueText());
+        editorPage.updateLocalization(CONFIGURATION,
+                "Advocate share page button corners#",
+                "Circle");
     }
 
-    @Test
-    public void test3(){
-        EditorPage editorPage = new EditorPage();
-        editorPage = editorPage.switchViewByName("Advocate social sharing");
-    }
 
 }

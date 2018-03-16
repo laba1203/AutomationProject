@@ -18,7 +18,6 @@ public class LocalizationSidebar extends AbstractElementsContainer{
     private ArrayList<RecordFactory> imagesRecords = new ArrayList<>();
     private ArrayList<RecordFactory> configRecords = new ArrayList<>();
 
-
     public LocalizationSidebar(EditorPage.LocalizationMode mode){
         setRecords(mode);
         this.mode = mode;
@@ -32,6 +31,7 @@ public class LocalizationSidebar extends AbstractElementsContainer{
             addRecord(mode, webElement);
         }
     }
+
 
     public void updateRecord(EditorPage.LocalizationMode mode, String localizationName, String newValue){
         getRecord(mode, localizationName).update(newValue);
@@ -52,7 +52,6 @@ public class LocalizationSidebar extends AbstractElementsContainer{
                 assetFail(localizationName);
                 return null;
         }
-
     }
 
     private RecordFactory findRecord(ArrayList<RecordFactory> records, String recordName){

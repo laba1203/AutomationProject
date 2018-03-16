@@ -2,7 +2,10 @@ package abstractObjects;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.internal.Coordinates;
+import org.openqa.selenium.internal.Locatable;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import util.DriverConfig;
@@ -36,13 +39,12 @@ public abstract class AbstractElementsContainer
         try {
             return this.getClass().newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-//            e.printStackTrace();
             Assert.fail("FAILED: " + e.getMessage());
             return null;
         }
     }
 
-    public boolean isElementPresent(By locator){
+    protected boolean isElementPresent(By locator){
         System.out.println("DEBAG: Elements count: " + driver.findElements(locator).size());
         return driver.findElements(locator).size() > 0;
     }
@@ -54,12 +56,6 @@ public abstract class AbstractElementsContainer
 
     protected void selectByText(String text, ArrayList<DrivenElement> items){
         getElementByText(text, items).click();
-
-//        for (DrivenElement li : items) {
-//            if(li.getText().equals(text)){
-//                li.click();
-//            }
-//        }
     }
 
     protected DrivenElement getElementByText(String text, ArrayList<DrivenElement> items){
