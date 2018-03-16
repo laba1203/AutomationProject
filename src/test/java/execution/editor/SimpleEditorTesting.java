@@ -55,14 +55,16 @@ public class SimpleEditorTesting extends BaseTest {
         Assert.fail("Uploading of new image is not yet implemented");
     }
 
+    // Switch to Friend Share Email
+    // Update attribute at Friend Share Email page
     @Test
-    public void test4_updateSocialSharing(){
-        String localizationName = "Facebook share title#";
+    public void test4_updateFriendShareEmail(){
+        String localizationName = "Friend share email copy#";
         String newValue = "Updated value for auto-test";
 
-        EditorPage editorPage = new EditorPage();
-        editorPage.switchViewByName("Advocate social sharing");
+        EditorPage editorPage = new EditorPage(COPY).switchViewByName("Friend share email");
         editContentTest(COPY, localizationName, newValue);
+
     }
 
     @AfterClass
