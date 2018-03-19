@@ -62,6 +62,13 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         return new EditorPage(type);
     }
 
+    public EditorPage uploadAndSelectNewImage(String localizationName, String fileName){
+        verifyLocalizationMode(IMAGES);
+        //todo: add steps to upload new image
+        Assert.fail("FAILED: Method is not yet implemented");
+        return null;
+    }
+
     public String getLocalizationValue(LocalizationMode type, String localizationName){
         return localizationSidebar.getRecord(type, localizationName).getValueText();
     }

@@ -4,6 +4,7 @@ import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import talkable.talkableSite.campaign.pages.editorPage.selectImagePopup.PopupSelectImage;
 
 class LocalizationImagesRecord extends AbstractLocalizationRecord{
 
@@ -30,9 +31,9 @@ class LocalizationImagesRecord extends AbstractLocalizationRecord{
 
 
     @Override
-    public void update(String newValue) {
-        //TODO: implement the method.
-        Assert.fail("FAILED: update() method is not yet implemented for Images localization record");
+    public void update(String newFileName) {
+        PopupSelectImage popup = pickDifferentImage();
+        popup.selectImage(newFileName);
     }
 
     @Override

@@ -2,9 +2,6 @@ package talkable.talkableSite.reports.previousCustomersReport;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import util.logging.Log;
 
 class ElmntDropZoneInput extends AbstractElement{
 
@@ -13,5 +10,7 @@ class ElmntDropZoneInput extends AbstractElement{
     ElmntDropZoneInput(){
         setWebElement(locator);
     }
+
+    //todo: remove this elements when common element will be tested (in Image Editor --> Upload)
 
 }
