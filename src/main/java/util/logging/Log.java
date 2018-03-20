@@ -50,6 +50,12 @@ public class Log {
         return msg;
     }
 
+    public static String testPassed(String message){
+        String msg = "PASSED: " + message;
+        System.out.println(msg);
+        return msg;
+    }
+
     public static String webElementIsNotActiveMsg(AbstractElement webElement){
         String msg = "LOG: WebElement is not active by the following locator" + webElement.getLocator();
         System.out.println(msg);
@@ -143,6 +149,18 @@ public class Log {
 
     public static String alertAccepted(){
         String msg = "LOG: Click OK in Alert";
+        System.out.println(msg);
+        return msg;
+    }
+
+    public static String campaignDeactivated(String name){
+        String msg = "LOG: Campaign has been deactivated. Campaign Name: " + name;
+        System.out.println(msg);
+        return msg;
+    }
+
+    public static String tableIsMissed(String status){
+        String msg = "LOG: Table with <"+ status +"> campaigns is not displayed";
         System.out.println(msg);
         return msg;
     }

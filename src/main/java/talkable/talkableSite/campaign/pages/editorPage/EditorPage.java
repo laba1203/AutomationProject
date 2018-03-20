@@ -39,10 +39,9 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         this.mode = mode;
     }
 
-    public String getElementTextFromPreview(By locator){
+    public String getElementTextFromPreviewFrame(By locator){
         return previewFrame.getElementText(locator);
     }
-
 
     public EditorPage switchViewByIndex(int index){
         elmntSelectedViewField.click();
@@ -53,7 +52,7 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
     public EditorPage switchViewByName(String name){
         elmntSelectedViewField.click();
         new ContainerViewRecords().selectViewByText(name);
-        return new EditorPage();
+        return new EditorPage(this.mode);
     }
 
     public EditorPage updateLocalization(LocalizationMode type, String localizationName, String newValue){
@@ -61,6 +60,13 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         localizationSidebar.updateRecord(type, localizationName, newValue);
         saveChanges();
         return new EditorPage(type);
+    }
+
+    public EditorPage uploadAndSelectNewImage(String localizationName, String fileName){
+        verifyLocalizationMode(IMAGES);
+        //todo: add steps to upload new image
+        Assert.fail("FAILED: Method is not yet implemented");
+        return null;
     }
 
     public String getLocalizationValue(LocalizationMode type, String localizationName){
@@ -99,11 +105,6 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
                 Assert.fail("FAILED: Unknown localization type: <" + mode + ">");
                 break;
         }
-    }
-
-    public EditorPage switchToConfigTab(){
-        configurationButton.click();
-        return new EditorPage(CONFIGURATION);
     }
 
     public void clickCreateABTest(LocalizationMode type, String localizationName){

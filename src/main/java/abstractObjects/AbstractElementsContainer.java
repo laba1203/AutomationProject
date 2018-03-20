@@ -4,6 +4,7 @@ package abstractObjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,6 +14,7 @@ import util.Screenshot;
 import util.logging.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractElementsContainer
 {
@@ -67,6 +69,30 @@ public abstract class AbstractElementsContainer
         System.out.println("Element with text <" + text + "> is not found");
         return null;
     }
+
+    protected ArrayList<Element> getElementsList(By by){
+        List<WebElement> elements = driver.findElements(by);
+        return convert(elements);
+    }
+
+    protected ArrayList<Element> getElementsList(WebElement parentWebElement, String xpath){
+        List<WebElement> elements = parentWebElement.findElements(By.xpath(xpath));
+        return convert(elements);
+    }
+
+    private ArrayList<Element> convert(List<WebElement> from){
+        ArrayList<Element> outList = new ArrayList<>();
+        for (WebElement element :
+                from) {
+            outList.add(new Element(element));
+        }
+        return outList;
+    }
+
+
+
+
+
 
 
 }

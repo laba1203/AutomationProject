@@ -8,6 +8,7 @@ import util.DriverConfig;
 
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.CONFIGURATION;
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.IMAGES;
 
 
 public class FirstTest {
@@ -31,12 +32,13 @@ public class FirstTest {
 
     @Test
     public void test2() {
-        EditorPage editorPage = new EditorPage(CONFIGURATION);
-//        System.out.println(editorPage.localizationSidebar.getRecord(COPY, "Advocate pages overlay opacity#").getNameText());
-//        System.out.println(editorPage.localizationSidebar.getRecord(COPY, "Advocate pages overlay opacity#").getValueText());
-        editorPage.updateLocalization(CONFIGURATION,
-                "Advocate share page button corners#",
-                "Circle");
+        EditorPage editorPage = new EditorPage();
+        editorPage.switchTo(CONFIGURATION);
+        editorPage.switchTo(IMAGES);
+        editorPage.switchTo(COPY);
+        editorPage = editorPage.switchViewByName("Advocate social sharing");
+        editorPage.updateLocalization(COPY, "Facebook share title#", "test");
+
     }
 
 

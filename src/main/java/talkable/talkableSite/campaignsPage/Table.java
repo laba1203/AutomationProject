@@ -11,15 +11,47 @@ import org.testng.Assert;
 import util.logging.Log;
 
 public class Table extends AbstractElementsContainer {
+    private static final By disabled = By.xpath("//h2[contains(text(), 'Disabled')]/following::table[1]");
+    private static final By live = By.xpath("//h2[contains(text(), 'Live')]/following::table[1]");
+    private static final By test = By.xpath("//h2[contains(text(), 'Test')]/following::table[1]");
+
     private ArrayList<Row> table = new ArrayList<>();
 
-    public Table(By by) {
-        WebElement tableElement = this.driver.findElement(by);
+    enum Status{LIVE, TEST, DISABLED}
+
+//    public Table(By by) {
+//        WebElement tableElement = this.driver.findElement(by);
+//        List<WebElement> allRows = tableElement.findElements(By.xpath("./tbody/tr"));
+//
+//        for (WebElement webElement :
+//                allRows) {
+//            this.table.add(new Row(webElement));
+//        }
+//    }
+
+    Table(Status status) {
+//        WebElement tableElement = this.driver.findElement(by);
+        WebElement tableElement = setTableWebElement(status);
         List<WebElement> allRows = tableElement.findElements(By.xpath("./tbody/tr"));
 
         for (WebElement webElement :
                 allRows) {
             this.table.add(new Row(webElement));
+        }
+    }
+
+
+    private WebElement setTableWebElement(Status status){
+        switch (status){
+            case LIVE:
+                return driver.findElement(live);
+            case TEST:
+                return driver.findElement(test);
+            case DISABLED:
+                return driver.findElement(disabled);
+            default:
+                Assert.fail("FAILED: Unknown campaign status: " + status.toString());
+                return null;
         }
     }
 
@@ -60,20 +92,37 @@ public class Table extends AbstractElementsContainer {
         return row;
     }
 
+    ArrayList<Row> getAllRows(){
+        return table;
+    }
+
 
 
     class Row {
+        WebElement rowElement;
         Element type;
         Element name;
         Element id;
         Element offers;
+        Element actionsButton;
 
         Row(WebElement rowElement){
+            this.rowElement = rowElement;
+
             type = new Element(rowElement.findElement(By.xpath(".//div[contains(@class, 'campaign-type')]/span")));
             name = new Element(rowElement.findElement(By.xpath(".//*[contains(@class, 'campaign-teaser-name')]")));
             id = new Element(rowElement.findElement(By.xpath(".//*[contains(@class, 'campaign-teaser-id')]")));
             offers = new Element(rowElement.findElement(By.xpath(".//*[contains(@class, 'campaign-teaser-count-text')]")));
+            actionsButton = new Element(rowElement.findElement(By.xpath(".//*[@data-toggle = 'dropdown']")));
         }
+
+        void deactivate(){
+            actionsButton.click();
+            Element deactivateButton = new Element(rowElement.findElement(By.xpath(".//*[contains(text(),'Deactivate')]")));
+            deactivateButton.click();
+        }
+
+
 
 
     }

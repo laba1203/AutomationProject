@@ -1,10 +1,8 @@
 package execution;
 
-import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import util.DriverConfig;
 import util.EnvFactory;
 

@@ -43,7 +43,7 @@ class ContainerViewRecords extends AbstractElementsContainer{
                 return  record;
             }
         }
-        Assert.fail("FAILED: There no view records with name : <" + name + ">");
+        Assert.fail("FAILED: There is no view records with name : <" + name + ">");
         return null;
     }
 

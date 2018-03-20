@@ -4,7 +4,7 @@ import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
 class ElmntChangesSavedNotification extends AbstractElement{
-    private static final By locator = By.xpath("//div[text()='Changes have been saved']");
+    private static final By locator = By.xpath("//*[text()='Changes have been saved']");
 
     ElmntChangesSavedNotification(){
         setWebElement(locator);

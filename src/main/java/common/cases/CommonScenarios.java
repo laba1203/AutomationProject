@@ -111,7 +111,7 @@ public class CommonScenarios {
      * Post-condition: IntegrationInstructionPage is opened.
      * Returns: user email.
      * */
-    public static String registerNewUserWithSite(String email, String password, String siteName, String siteUrl, ChosePlatformPage.PlatformType platformType)
+    public static IntegrationInstructionPage registerNewUserWithSite(String email, String password, String siteName, String siteUrl, ChosePlatformPage.PlatformType platformType)
     {
         CreateAccountPage createAccountPage =  new ChosePlatformPage().selectPlatform(platformType);
         IntegrationInstructionPage integrationInstructionPage = createAccountPage.populateAndSubmitForm(email, password, siteName, siteUrl);
@@ -120,7 +120,7 @@ public class CommonScenarios {
         Assert.assertEquals(integrationInstructionPage.header.getSiteName(), siteName);
         Log.userAndSiteCreatedMsg(email, siteName);
 
-        return email;
+        return integrationInstructionPage;
     }
 
     /*Scenarios to create Test Offer for campaign with Post Purchase placement.

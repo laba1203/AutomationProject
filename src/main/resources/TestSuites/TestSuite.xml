@@ -1,5 +1,5 @@
 <suite name="SuiteName1">
-    <test name="Testing1" preserve-order="true" >
+    <test name="Regression" preserve-order="true" >
         <classes>
             <class name="execution.smoke.SmokeTest">
                 <!--<methods>
@@ -7,7 +7,8 @@
                 </methods>-->
             </class>
             <class name="execution.simpleTest.SimpleTestForAllCampaignTypes">
-
+            </class>
+            <class name="execution.editor.SimpleEditorTesting">
             </class>
         </classes>
 
@@ -16,5 +17,22 @@
         </packages>-->
 
     </test>
+    <test name="Reports" preserve-order="true" >
+        <classes>
+            <class name="execution.reports.previousCustomerUpload.PreviousCustomerUploadTesting">
+
+            </class>
+        </classes>
+    </test>
+
+    <!-- Below section should be executed only for extended regression-->
+    <!--
+    <test name="UserRegistration" preserve-order="true" >
+        <classes>
+            <class name="execution.registration.CreateNewUserWithSite">
+            </class>
+        </classes>
+    </test>
+    -->
 
 </suite>
