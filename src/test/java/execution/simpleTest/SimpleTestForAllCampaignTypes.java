@@ -1,16 +1,22 @@
 package execution.simpleTest;
 
+import common.cases.ClientSiteScenarios;
 import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
+import talkable.talkableSite.headerFrame.Header;
 import util.DriverConfig;
 import util.EnvFactory;
 import util.TestDataGenerator;
+import util.logging.Log;
+
+import static talkable.talkableSite.campaign.pages.CampaignPlacement.PostPurchase;
 
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1FLkr-T2s-mVnG770gLh4imwMnoO0vFtduYquM_49zzQ/edit#gid=0
@@ -22,8 +28,6 @@ public class SimpleTestForAllCampaignTypes {
 
     private static final String customerSiteUrl = "http://learn.talkable.com/QA-Common/Automation/void/simple-test/";
     private static final String siteName = "simple-test";
-    private String campaignDetailsPageUrl;
-
 
     @BeforeClass
     public void setup() {
@@ -33,14 +37,17 @@ public class SimpleTestForAllCampaignTypes {
         //Login to env
         CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).selectByVisibleText(siteName);
         driver.getCurrentUrl();
-
-
     }
-
 
     @Test(dataProvider = "getTestData")
     public void test(CampaignType campaignType, CampaignPlacement campaignPlacement){
         String campaignName = "AUTO_TEST_" + TestDataGenerator.getRandomId();
+
+        //re-open Talkable admin site:
+        this.driver.navigate().to(EnvFactory.getAdminUrl());
+        //deactivate all live campaigns:
+        new Header().clickCampaignsPage().deactivateAllLiveCampaigns();
+
         //Create new campaign
         CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(campaignType, campaignPlacement);
         PageCampaignRules rulesPage = detailsPage.campaignNavigationMenu.openRulesPage();
@@ -50,7 +57,12 @@ public class SimpleTestForAllCampaignTypes {
         launchPage.launchCampaign();
 
         //Verification on Customer Site:
-        //TBD
+        if (ClientSiteScenarios.assertCampaignOnCustomerSite(campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
+            Log.testPassed(campaignPlacement.toString() + " is present on the site");
+        }
+        else{
+            Assert.fail("FAILED: " + campaignType.toString() + ": " + campaignPlacement.toString() + " is not displayed on the customer site");
+        }
 
         //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
@@ -58,8 +70,12 @@ public class SimpleTestForAllCampaignTypes {
         CommonScenarios.deactivateCampaign(campaignName);
 
         //Verify that campaign is inactive on the Customer Site:
-        //TBD
-
+        if (!ClientSiteScenarios.assertCampaignOnCustomerSite(campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
+            Log.testPassed(campaignPlacement.toString() + " is not displayed on the site");
+        }
+        else{
+            Assert.fail("FAILED: " + campaignType.toString() + ": " + campaignPlacement.toString() + " is displayed on the customer site after deactivation");
+        }
     }
 
     @AfterClass
@@ -74,13 +90,19 @@ public class SimpleTestForAllCampaignTypes {
         return new Object[][]{
                 {CampaignType.Invite, CampaignPlacement.FloatingWidget},
                 {CampaignType.Invite, CampaignPlacement.Standalone},
-                {CampaignType.Invite, CampaignPlacement.PostPurchase},
                 {CampaignType.AdvocateDashboard, CampaignPlacement.FloatingWidget},
                 {CampaignType.AdvocateDashboard, CampaignPlacement.Standalone},
-                {CampaignType.AdvocateDashboard, CampaignPlacement.PostPurchase},
+                {CampaignType.Invite, PostPurchase},
+                {CampaignType.AdvocateDashboard, PostPurchase},
                 {CampaignType.RewardGleam, CampaignPlacement.Gleam}
         };
     }
 
+    private String getCustomerSiteUrl(CampaignPlacement placement){
+        if(placement == PostPurchase){
+            return customerSiteUrl + "pp.html";
+        }
+        return customerSiteUrl;
+    }
 
 }

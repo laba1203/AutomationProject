@@ -25,4 +25,14 @@
         </classes>
     </test>
 
+    <!-- Below section should be executed only for extended regression-->
+    <!--
+    <test name="UserRegistration" preserve-order="true" >
+        <classes>
+            <class name="execution.registration.CreateNewUserWithSite">
+            </class>
+        </classes>
+    </test>
+    -->
+
 </suite>

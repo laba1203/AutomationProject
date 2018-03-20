@@ -7,6 +7,7 @@ public class EnvFactory {
     private static final String voidUrl = "https://void.talkable.com";
     private static final String adminVoidUrl = "https://admin.void.talkable.com";
     private static final String prodUrl = "https://talkable.com";
+    private static final String registrationPath = "/register?object_or_array";
 
     private static final String user = "maxim.laba+automation.smoke.test@talkable.com";
     private static final String password = "Password@1";
@@ -26,5 +27,9 @@ public class EnvFactory {
 
     public static String getPassword(){
         return password;
+    }
+
+    public static String getRegistrationURL(){
+        return getAdminUrl() + registrationPath;
     }
 }
