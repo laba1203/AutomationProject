@@ -22,6 +22,7 @@ import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.Localiz
 public class SimpleEditorTesting extends BaseTest {
 
     private static final String siteName = PropertyLoader.loadProperty("sites.name.editorTesting");
+    private EditorPage editorPage;
 
     @BeforeClass
     public void precondition(){
@@ -34,7 +35,7 @@ public class SimpleEditorTesting extends BaseTest {
     //Navigate to Simple Editor
     @Test
     public void test1_navigateToSimpleEditor(){
-        new CampaignDetailsPage().campaignNavigationMenu.openEditorPage();
+        editorPage = new CampaignDetailsPage().campaignNavigationMenu.openEditorPage();
     }
 
     // Edit Copy content
@@ -45,43 +46,35 @@ public class SimpleEditorTesting extends BaseTest {
     public void test2_editContent(EditorPage.LocalizationMode mode, String localizationName, String newValue)
     {
         editContentTest(mode, localizationName, newValue);
-        //TODO: Verification in preview screen should be added for COPY and CONFIGURATION.
     }
 
-    //Upload new image
-    @Test
-    public void test3_uploadNewImage(){
-        //TODO: Add method for uploading of new image
-        Assert.fail("Uploading of new image is not yet implemented");
-    }
 
     // Switch to Friend Share Email
     // Update attribute at Friend Share Email page
     @Test
-    public void test4_updateFriendShareEmail(){
+    public void test3_updateFriendShareEmail(){
         String localizationName = "Friend share email copy#";
         String newValue = "Updated value for auto-test";
 
-        EditorPage editorPage = new EditorPage(COPY).switchViewByName("Friend share email");
+        editorPage = new EditorPage(COPY).switchViewByName("Friend share email");
         editContentTest(COPY, localizationName, newValue);
 
     }
 
-    @AfterClass
-    public void deleteTestData(){
-        CampaignDetailsPage detailsPage = new EditorPage().campaignNavigationMenu.openDetailsPage();
-        PageCampaigns pageCampaigns = detailsPage.delete();
-    }
-
     private void editContentTest(EditorPage.LocalizationMode mode, String localizationName, String newValue){
-        EditorPage editorPage = new EditorPage(mode);
-
-        System.out.println("DEBAG: **** Value: <" + editorPage.getLocalizationValue(mode, localizationName) + ">");
-
+        editorPage = new EditorPage(mode);
+//        System.out.println("DEBAG: **** Value: <" + editorPage.getLocalizationValue(mode, localizationName) + ">");
         editorPage = editorPage.updateLocalization(mode, localizationName, newValue);
         Assert.assertEquals(editorPage.getLocalizationValue(mode, localizationName), newValue);
-        //TODO: Verification in preview screen should be added for COPY.
     }
+
+    @AfterClass
+    public void deleteTestData(){
+        CampaignDetailsPage detailsPage = editorPage.campaignNavigationMenu.openDetailsPage();
+        detailsPage.delete();
+    }
+
+
 
 
     @DataProvider
@@ -91,6 +84,8 @@ public class SimpleEditorTesting extends BaseTest {
                 {COLOR, "Advocate signup page cta background#", "#0fef4e"},
                 {CONFIGURATION, "Advocate signup button corners#", "Circle"},
                 {IMAGES, "Advocate signup page background#", "tkbl_default_example.jpg"},
+                //todo: For now IMAGE test is failed because of different values in expected and actual results.
+                //To fix it method to compare partial text should be implemented
         };
     }
 
