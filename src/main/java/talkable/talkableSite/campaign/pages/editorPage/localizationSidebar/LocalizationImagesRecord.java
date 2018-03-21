@@ -24,7 +24,7 @@ class LocalizationImagesRecord extends AbstractLocalizationRecord{
         editImage.click();
     }
 
-    public PopupSelectImage pickDifferentImage(){
+    private PopupSelectImage pickDifferentImage(){
         pickDiffImage.click();
         return new PopupSelectImage();
     }

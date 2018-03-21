@@ -38,8 +38,7 @@ public class CommonScenarios {
 //        homePage.loginButton.click();
 //        LoginPage loginPage = new LoginPage();
         LoginPage loginPage = homePage.clickLoginButton();
-        Header header = loginPage.submitLoginForm(email, password);
-        return header;
+        return loginPage.submitLoginForm(email, password);
     }
 
     /***
@@ -90,11 +89,9 @@ public class CommonScenarios {
     public static CampaignDetailsPage launchCampaign()
     {
         CampaignNavigationMenu campaignNavigationMenu = new CampaignNavigationMenu();
-//        campaignNavigationMenu.launchDeactivateCampaignButton.click();
         LaunchCampaignPage launchCampaignPage = campaignNavigationMenu.launchCampaign();
 
         //Launch Campaign Page is opened
-//        LaunchCampaignPage launchCampaignPage = new LaunchCampaignPage();
         CampaignDetailsPage campaignDetailsPage = launchCampaignPage.launchCampaign();
         //check Campaign Status
         Assert.assertEquals(campaignDetailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusActive);

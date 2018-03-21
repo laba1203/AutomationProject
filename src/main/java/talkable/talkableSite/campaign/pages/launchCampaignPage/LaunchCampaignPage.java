@@ -31,15 +31,6 @@ public class LaunchCampaignPage extends AbstractTalkableSitePage {
         else{
             launchCampaignButton.click();
         }
-//        try{
-//            noIntegrationFoundPopup = new NoIntegrationFoundPopup();
-//            noIntegrationFoundPopup.launchNowButton.click();
-//        }
-//        catch (NoSuchElementException e ){
-//
-//            Log.popupIsNotOpenedMsg();
-//            System.out.println(e);
-//        }
 
         return new CampaignDetailsPage();
     }
