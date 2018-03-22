@@ -5,6 +5,9 @@ import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
+import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.INELIGIBLE;
+import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.SELECTED;
+import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.UNSELECTED;
 
 public class PageMultiCampaignEditor extends AbstractTalkableSitePage
 {
@@ -13,12 +16,17 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
     private ElmntCampaignViewField campaignViewField = new ElmntCampaignViewField();
     private ElmntContentField contentField = new ElmntContentField();
     private ElmntCampaignFilter campaignFilter = new ElmntCampaignFilter();
+    private ElmntSaveContentButton saveContentButton = new ElmntSaveContentButton();
+    private CampaignsList selectedCampaigns;
+    private CampaignsList unselectedCampaigns;
+    private CampaignsList ineligibleCampaigns;
 
-    private ContentValueRecord newContentValue;
+    private ContentValueRecord contentRecord;
 
     public PageMultiCampaignEditor(EditorPage.LocalizationMode mode){
         this.mode = mode;
-        newContentValue = getContentValueRecord(mode);
+        contentRecord = getContentValueRecord(mode);
+        setCampaignsLists();
     }
 
     private ContentValueRecord getContentValueRecord(EditorPage.LocalizationMode mode){
@@ -37,9 +45,13 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
         }
     }
 
+    public String getNewContentValue(){
+        return contentRecord.getText();
+    }
+
     public PageMultiCampaignEditor updateContent(String newValue){
-        newContentValue.update(newValue);
-        return new PageMultiCampaignEditor(mode);
+        contentRecord.update(newValue);
+        return saveChanges();
     }
 
     public EditorPage backToEditor(){
@@ -53,5 +65,39 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
 
     public String getContentValue() {
         return contentField.getText();
+    }
+
+    public CampaignsList getIneligibleCampaigns() {
+        return ineligibleCampaigns;
+    }
+
+    public CampaignsList getSelectedCampaigns() {
+        return selectedCampaigns;
+    }
+
+    public CampaignsList getUnselectedCampaigns() {
+        return unselectedCampaigns;
+    }
+
+    private void setCampaignsLists(){
+        selectedCampaigns = new CampaignsList(SELECTED);
+        unselectedCampaigns = new CampaignsList(UNSELECTED);
+        ineligibleCampaigns = new CampaignsList(INELIGIBLE);
+    }
+
+    public void selectCampaign(String campaignName){
+        unselectedCampaigns.findCampaign(campaignName).select();
+        setCampaignsLists();
+    }
+
+    public void unselectCampaign(String campaignName){
+        selectedCampaigns.findCampaign(campaignName).select();
+        setCampaignsLists();
+    }
+
+    private PageMultiCampaignEditor saveChanges(){
+        new ElmntSaveContentButton().click();
+        waitSaving();
+        return new PageMultiCampaignEditor(mode);
     }
 }

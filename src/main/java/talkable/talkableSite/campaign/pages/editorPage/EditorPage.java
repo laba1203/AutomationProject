@@ -5,6 +5,7 @@ import org.testng.Assert;
 import talkable.talkableSite.AbstractTkblSitePageWithoutHeader;
 import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
+import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.*;
 
@@ -107,13 +108,13 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         }
     }
 
+    public PageMultiCampaignEditor clickCopyToOtherCampaigns(LocalizationMode type, String localizationName){
+        localizationSidebar.getRecord(type, localizationName).copyToOtherCampaigns();
+        return new PageMultiCampaignEditor(mode);
+    }
+
     public void clickCreateABTest(LocalizationMode type, String localizationName){
         localizationSidebar.getRecord(type, localizationName).createABTest();
         //TODO: Return action to be added after implementation of AB Test editor page
-    }
-
-    public void clickCopyToOtherCampaigns(LocalizationMode type, String localizationName){
-        localizationSidebar.getRecord(type, localizationName).copyToOtherCampaigns();
-        //TODO: Return action to be added after implementation of Multi-campaign editor page
     }
 }

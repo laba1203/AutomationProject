@@ -8,6 +8,7 @@ import talkable.talkableSite.campaign.pages.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
+import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
@@ -18,6 +19,8 @@ import talkable.loginPage.LoginPage;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.logging.Log;
+
+import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
 /*Class to allocate common scenarios in Talkable.
  * */
@@ -160,8 +163,8 @@ public class CommonScenarios {
      * @Returns: Campaign Details Page deactivated campaign.
      * */
     public static CampaignDetailsPage deactivateCampaign(String campaignName) {
-        PageCampaigns campaignsPage = new Header().clickCampaignsPage();
-        CampaignDetailsPage detailsPage = campaignsPage.clickCampaignByName(campaignName);
+        PageCampaigns campaignsPage = new Header().openCampaignsPage();
+        CampaignDetailsPage detailsPage = campaignsPage.openCampaignByName(campaignName, LIVE);
         CampaignNavigationMenu menu = detailsPage.campaignNavigationMenu.deactivateCampaign();
         Assert.assertEquals(menu.getCampaignStatus(), "Status: Disabled", "FAILED: Campaign is not deactivated");
 

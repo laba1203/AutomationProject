@@ -16,6 +16,8 @@ class ContentCopyInput extends AbstractElementsContainer implements ContentValue
 
     @Override
     public void update(String text){
+        value.click();
+        value.clear();
         value.sendKeys(text);
     }
 

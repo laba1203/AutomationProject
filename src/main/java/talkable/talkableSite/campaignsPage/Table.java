@@ -1,6 +1,7 @@
 package talkable.talkableSite.campaignsPage;
 
 import abstractObjects.AbstractElementsContainer;
+import abstractObjects.Alert;
 import abstractObjects.Element;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,7 +18,7 @@ public class Table extends AbstractElementsContainer {
 
     private ArrayList<Row> table = new ArrayList<>();
 
-    enum Status{LIVE, TEST, DISABLED}
+    public enum Status{LIVE, TEST, DISABLED}
 
 //    public Table(By by) {
 //        WebElement tableElement = this.driver.findElement(by);
@@ -120,6 +121,13 @@ public class Table extends AbstractElementsContainer {
             actionsButton.click();
             Element deactivateButton = new Element(rowElement.findElement(By.xpath(".//*[contains(text(),'Deactivate')]")));
             deactivateButton.click();
+        }
+
+        void delete(){
+            actionsButton.click();
+            Element deleteButton = new Element(rowElement.findElement(By.xpath(".//*[contains(text(),'Delete')]")));
+            deleteButton.click();
+            new Alert().confirm();
         }
 
 

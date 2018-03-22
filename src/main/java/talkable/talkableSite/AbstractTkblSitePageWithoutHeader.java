@@ -9,7 +9,7 @@ public abstract class AbstractTkblSitePageWithoutHeader extends AbstractElements
 
     public void waitSaving(){
         ElmntChangesSavedNotification notification = new ElmntChangesSavedNotification();
-        wait.until(ExpectedConditions.visibilityOf(notification.getWebElement()));
+//        wait.until(ExpectedConditions.visibilityOf(notification.getWebElement()));
         wait.until(ExpectedConditions.invisibilityOf(notification.getWebElement()));
     }
 }
