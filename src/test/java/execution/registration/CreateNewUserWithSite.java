@@ -7,14 +7,14 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
-import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import util.DriverConfig;
 import util.EnvFactory;
-import util.TestArtifactsProvider;
 import util.TestDataGenerator;
 
 import static talkable.userRegistration.chosePlatformPage.ChosePlatformPage.PlatformType.OTHER;
 
+/*Link to test scenario: https://docs.google.com/spreadsheets/d/1VtMlmQDO77F5gGKOBBEuBN9hVyXBsnp3jD5u-v3z5Zk/
+ * */
 public class CreateNewUserWithSite {
     private DriverConfig driverFactory;
     private WebDriver driver;

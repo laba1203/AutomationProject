@@ -18,12 +18,14 @@ import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
+import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.headerFrame.Header;
 import util.DriverConfig;
 import util.EnvFactory;
 import util.TestDataGenerator;
 
 import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
+import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
 public class SmokeTest {
     private DriverConfig driverFactory;
@@ -160,8 +162,8 @@ public class SmokeTest {
 // 15. Deactivate campaign.
     @Test
     public void test12_deactivateCampaign() {
-        PageCampaigns campaignsPage = (new Header()).clickCampaignsPage();
-        CampaignDetailsPage detailsPage = campaignsPage.clickCampaignByName(campaignName);
+        PageCampaigns campaignsPage = (new Header()).openCampaignsPage();
+        CampaignDetailsPage detailsPage = campaignsPage.openCampaignByName(campaignName, LIVE);
         CampaignNavigationMenu menu = detailsPage.campaignNavigationMenu.deactivateCampaign();
         Assert.assertEquals(menu.getCampaignStatus(), liveStatusDisabled, "FAILED: Campaign is not deactivated");
     }

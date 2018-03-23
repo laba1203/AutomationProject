@@ -46,7 +46,7 @@ public class SimpleTestForAllCampaignTypes {
         //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
         //deactivate all live campaigns:
-        new Header().clickCampaignsPage().deactivateAllLiveCampaigns();
+        new Header().openCampaignsPage().deactivateAllLiveCampaigns();
 
         //Create new campaign
         CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(campaignType, campaignPlacement);

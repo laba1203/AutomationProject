@@ -159,6 +159,12 @@ public class Log {
         return msg;
     }
 
+    public static String campaignDeleted(String name){
+        String msg = "LOG: Campaign deleted. Campaign Name: " + name;
+        System.out.println(msg);
+        return msg;
+    }
+
     public static String tableIsMissed(String status){
         String msg = "LOG: Table with <"+ status +"> campaigns is not displayed";
         System.out.println(msg);

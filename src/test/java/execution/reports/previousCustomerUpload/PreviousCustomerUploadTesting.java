@@ -15,7 +15,10 @@ import util.TestDataConverter;
 
 import java.io.IOException;
 
+/*Link to test scenario: https://docs.google.com/spreadsheets/d/1ONGHch4nOJ28fGgNG4Hz3THlX1NWn8KxwM74fBSLngM/
+ * */
 public class PreviousCustomerUploadTesting extends ReportsScenarios{
+
     private static final String fileName = "testDataForExistingCustomersReport.csv";
 
     private WebDriver driver = new DriverConfig().getDriver();
@@ -27,10 +30,8 @@ public class PreviousCustomerUploadTesting extends ReportsScenarios{
         Header header = login(EnvFactory.getUser(), EnvFactory.getPassword());
         //Navigate to Existing Customers Report
         ReportsPage reportsPage = header.clickReportsButton();
-        PreviousCustomersReportPage previousCustomersReportPage = reportsPage.openExistingCustomerReport();
-
+        reportsPage.openExistingCustomerReport();
     }
-
 
     @Test(dataProvider = "getTestData")
     public void testing(String fileName, String expectedProgress, String expectedUploadedEmails, String expectedStatus){

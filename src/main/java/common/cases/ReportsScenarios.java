@@ -25,10 +25,10 @@ public class ReportsScenarios extends CommonScenarios{
         String actualUploadedEmails = previousCustomersReport.getRowWithCsv(1).getEmailsUploaded();
         String actualStatus = previousCustomersReport.getRowWithCsv(1).getStatus();
 
-        Assert.assertEquals(actualFileName, fileName, "Incorrect FileName");
-        Assert.assertEquals(actualProgress, expectedProgress, "Incorrect Progress");
-        Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails, "Incorrect UploadedEmails");
-        Assert.assertEquals(actualStatus, expectedStatus, "Incorrect Status");
+        Assert.assertEquals(actualFileName, fileName, "FAILED: Incorrect FileName");
+        Assert.assertEquals(actualProgress, expectedProgress, "FAILED: Incorrect Progress");
+        Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails, "FAILED: Incorrect UploadedEmails");
+        Assert.assertEquals(actualStatus, expectedStatus, "FAILED: Incorrect Status");
 
 
     }
