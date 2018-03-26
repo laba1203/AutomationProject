@@ -35,5 +35,18 @@ public class Util {
 
     }
 
+    public static String getLastUrlResource(String url){
+        char[] chars = url.toCharArray();
+        int size = chars.length;
+        int iterator = 0;
+        for(int i = size-1; i > 0; i--){
+            if(String.valueOf(chars[i]).equals("/")){
+                iterator = i+1;
+                return url.substring(iterator);
+            }
+        }
+        Assert.fail("FAILED: Input string is not an URL: <" + url + ">");
+        return null;
+    }
 
 }

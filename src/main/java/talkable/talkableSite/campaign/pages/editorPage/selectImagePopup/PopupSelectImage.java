@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.common.elements.dropzone.DropZoneInput;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import util.TestArtifactsProvider;
 
 import java.util.ArrayList;
@@ -25,9 +26,13 @@ public class PopupSelectImage extends AbstractElementsContainer{
     }
 
 
-    public EditorPage selectImage(String imageName){
-        findTile(imageName).select();
+    public EditorPage selectImageFromEditor(String imageName){
+        selectImage(imageName);
         return new EditorPage(IMAGES);
+    }
+
+    public void selectImage(String imageName){
+        findTile(imageName).select();
     }
 
     private ImageTile findTile(String name){
@@ -60,7 +65,7 @@ public class PopupSelectImage extends AbstractElementsContainer{
 
     public EditorPage uploadAndSelect(String fileName){
         PopupSelectImage popup = uploadImage(fileName);
-        return popup.selectImage(fileName);
+        return popup.selectImageFromEditor(fileName);
     }
 
 

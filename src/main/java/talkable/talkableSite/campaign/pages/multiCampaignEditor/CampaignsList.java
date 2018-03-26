@@ -53,11 +53,17 @@ public class CampaignsList extends AbstractElementsContainer
     }
 
     private void setCampaignRecords(){
-        List<WebElement> records = ownElement.findElements(By.xpath(campaignRecordXpath));
-        for (WebElement el :
-                records) {
-            campaigns.add(new CampaignRecord(el, eligible));
+        if(!isCountZero()) {
+            List<WebElement> records = ownElement.findElements(By.xpath(campaignRecordXpath));
+            for (WebElement el :
+                    records) {
+                campaigns.add(new CampaignRecord(el, eligible));
+            }
         }
+    }
+
+    private boolean isCountZero(){
+        return count.getText().equals("0");
     }
 
     ArrayList<CampaignRecord> getCampaignsList(){

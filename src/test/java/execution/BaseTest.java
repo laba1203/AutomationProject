@@ -1,8 +1,8 @@
 package execution;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import util.DriverConfig;
 import util.EnvFactory;
 
@@ -11,7 +11,7 @@ import util.EnvFactory;
         public WebDriver driver;
 
 
-        @BeforeClass
+        @BeforeSuite
         public void setup() {
             this.driverFactory = new DriverConfig();
             this.driver = this.driverFactory.getDriver();
@@ -19,7 +19,7 @@ import util.EnvFactory;
         }
 
 
-        @AfterClass
+        @AfterSuite
         public void quit() {
             driver.quit();
             driverFactory.cleanWebDriver();

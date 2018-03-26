@@ -171,4 +171,10 @@ public class Log {
         return msg;
     }
 
+    public static String itemSelectedFromDropdownMsg(String itemName){
+        String msg = "LOG: Following item is selected from dropdown list: <" + itemName + ">";
+        System.out.println(msg);
+        return msg;
+    }
+
 }

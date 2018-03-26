@@ -27,6 +27,8 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
         this.mode = mode;
         contentRecord = getContentValueRecord(mode);
         setCampaignsLists();
+
+        System.out.println("DEBAG: MCE page is opened");
     }
 
     private ContentValueRecord getContentValueRecord(EditorPage.LocalizationMode mode){

@@ -4,6 +4,7 @@ import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import talkable.talkableSite.campaign.pages.editorPage.selectImagePopup.PopupSelectImage;
+import util.Util;
 
 class ContentImageInput extends AbstractElementsContainer implements ContentValueRecord{
 
@@ -23,7 +24,7 @@ class ContentImageInput extends AbstractElementsContainer implements ContentValu
 
     @Override
     public String getText(){
-        return selectImage.getAttribute("src");
+        return Util.getLastUrlResource(selectImage.getAttribute("src"));
     }
 
 

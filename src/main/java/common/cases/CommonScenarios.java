@@ -7,6 +7,8 @@ import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
+import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
@@ -20,7 +22,9 @@ import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.logging.Log;
 
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
+import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
 
 /*Class to allocate common scenarios in Talkable.
  * */
@@ -169,6 +173,30 @@ public class CommonScenarios {
         Assert.assertEquals(menu.getCampaignStatus(), "Status: Disabled", "FAILED: Campaign is not deactivated");
 
         return new CampaignDetailsPage();
+    }
+
+    /*Scenarios to open Multi-Campaign Editor page for some campaign.
+     * Precondition: Page with header should opened. Campaign with @campaignName should exist with defined @status.
+     * 1. Navigate to Campaigns page
+     * 2. Search campaign by @campaignName and @status
+     * 3. Select campaign
+     * 4. Navigate to Editor page.
+     * 5. Select view by @pageViewName
+     * 6. Select localization type by @contentType (COPY, IMAGE, CONFIGURATION or COLOR)
+     * 7. Find localization by @localizationName and click 'Copy to Other Campaigns' button
+     * @Returns: Multi-Campaign Editor page for mentioned parameters.
+     * */
+    public static PageMultiCampaignEditor openMultiCampaignEditorPage(String campaignName,
+                                                                      Table.Status status,
+                                                                      String pageViewName,
+                                                                      String localizationName,
+                                                                      EditorPage.LocalizationMode contentType)
+    {
+        CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
+        EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
+        editor = editor.switchViewByName(pageViewName);
+        editor.switchTo(contentType);
+        return editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
     }
 
 

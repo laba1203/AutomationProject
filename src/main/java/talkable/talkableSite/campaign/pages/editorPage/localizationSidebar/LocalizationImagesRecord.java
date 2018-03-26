@@ -33,7 +33,7 @@ class LocalizationImagesRecord extends AbstractLocalizationRecord{
     @Override
     public void update(String newFileName) {
         PopupSelectImage popup = pickDifferentImage();
-        popup.selectImage(newFileName);
+        popup.selectImageFromEditor(newFileName);
     }
 
     @Override

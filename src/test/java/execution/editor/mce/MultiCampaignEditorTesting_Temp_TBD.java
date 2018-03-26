@@ -3,7 +3,10 @@ package execution.editor.mce;
 import common.cases.CommonScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeGroups;
+import org.testng.annotations.Test;
 import talkable.talkableSite.campaign.pages.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
@@ -20,7 +23,7 @@ import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1NlY_NBmvKIRjmqb2d7oQPuDZEs6s7fToZkrSJPhwOaY
  * */
-public class MultiCampaignEditorTesting extends BaseTest {
+public class MultiCampaignEditorTesting_Temp_TBD extends BaseTest {
 
     private static final String siteName = PropertyLoader.loadProperty("sites.name.multiCampaignEditorTesting");
 
@@ -37,7 +40,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     private PageMultiCampaignEditor mcePage;
 
-    @BeforeSuite
+    @BeforeClass
     public void precondition() {
         //login to Talkable and select site
         CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword())
@@ -78,7 +81,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     // Navigate to Simple Editor --> Copy (AD Trigger Widget view)
     // For attribute "Advocate trigger cta" click 'Copy to other campaign' button
     @Test(groups = "copyUpdate")
-    public void test11_openMultiCampaignEditorCOPY() {
+    public void test11_openMultiCampaignEditor() {
         CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignNameFW_1, TEST);
         EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
         mcePage = editor.clickCopyToOtherCampaigns(COPY, localizationName + "#");
@@ -97,7 +100,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     //Select second FW campaign
     @Test(groups = "copyUpdate")
-    public void test12_selectSecondFWCampaignCOPY() {
+    public void test12_selectSecondFWCampaign() {
         mcePage.selectCampaign(campaignNameFW_2);
         // Verify selected campaign list
         Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2");
@@ -107,20 +110,20 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     //Enter new value and click Save localizationName button
     @Test(groups = "copyUpdate")
-    public void test13_updateValueCOPY() {
+    public void test13_updateValue() {
         mcePage = mcePage.updateContent(newContentValue);
         Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
     }
 
     @Test(groups = "copyUpdate")
-    public void test14_checkValueInFirstCampaignCOPY() {
+    public void test14_checkValueInFirstCampaign() {
         EditorPage editor = mcePage.backToEditor();
         String value = editor.getLocalizationValue(COPY, localizationName + "#");
         Assert.assertEquals(value, newContentValue);
     }
 
     @Test(groups = "copyUpdate")
-    public void test15_checkValueInSecondCampaignCOPY() {
+    public void test15_checkValueInSecondCampaign() {
         //open campaignDetailsPage and open second campaign:
         PageCampaigns campaignsPage = new EditorPage().campaignNavigationMenu
                 .openDetailsPage().header.openCampaignsPage();
@@ -128,6 +131,53 @@ public class MultiCampaignEditorTesting extends BaseTest {
         // Verify value in Editor:
         String value = editor.getLocalizationValue(COPY, localizationName + "#");
         Assert.assertEquals(value, newContentValue);
+    }
+
+
+
+    private void repeatTestForColor(String campaignName,
+                                    String viewName,
+                                    String localizationName,
+                                    EditorPage.LocalizationMode mode,
+                                    String selectedCampaignsAfterUpdate,
+                                    String unselectedCampaignsAfterUpdate
+                                    ){
+        mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNamePP,
+                TEST,
+                campaignView,
+                localizationName,
+                COLOR,
+                "1",
+                "3",
+                "0");
+        mcePage.selectCampaign(campaignNameFW_1);
+        mcePage.selectCampaign(campaignNameSA);
+        // Verify selected campaign list
+        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "3");
+        // Verify unselected campaigns list
+        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "1");
+
+        mcePage = mcePage.updateContent(newContentValue);
+        Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
+
+        checkValueInFirstCampaign(mcePage,
+                COLOR,
+                localizationName,
+                newContentValue);
+        checkValuesInOtherCampaign(new EditorPage(),
+                campaignNameSA,
+                TEST,
+                campaignView,
+                COLOR,
+                localizationName,
+                newContentValue);
+        checkValuesInOtherCampaign(new EditorPage(),
+                campaignNameFW_1,
+                TEST,
+                campaignView,
+                COLOR,
+                localizationName,
+                newContentValue);
     }
 
 
@@ -145,11 +195,13 @@ public class MultiCampaignEditorTesting extends BaseTest {
         newContentValue = "#23f908";
     }
 
+
+
     // Open PP campaign.
     // Navigate to Simple Editor --> Color (PP Share page view)
     // For attribute "Advocate share page email button background" click 'Copy to other campaign' button
     @Test(groups = "colorUpdate")
-    public void test21_openMultiCampaignEditorCOLOR() {
+    public void test21_openMultiCampaignEditor() {
         mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNamePP,
                 TEST,
                 campaignView,
@@ -162,7 +214,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     //Select campaign FW and SA campaign
     @Test(groups = "colorUpdate")
-    public void test22_selectCampaignsCOLOR() {
+    public void test22_selectCampaigns() {
         mcePage.selectCampaign(campaignNameFW_1);
         mcePage.selectCampaign(campaignNameSA);
         // Verify selected campaign list
@@ -173,13 +225,13 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     // Enter new value and click Save content button
     @Test(groups = "colorUpdate")
-    public void test23_updateValueCOLOR() {
+    public void test23_updateValue() {
         mcePage = mcePage.updateContent(newContentValue);
         Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
     }
 
     @Test(groups = "colorUpdate")
-    public void test24_checkValueInFirstCampaignCOLOR() {
+    public void test24_checkValueInFirstCampaign() {
 
         checkValueInFirstCampaign(mcePage,
                 COLOR,
@@ -188,7 +240,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     }
 
     @Test(groups = "copyUpdate")
-    public void test25_checkValueInSACampaignCOLOR() {
+    public void test25_checkValueInSACampaign() {
         checkValuesInOtherCampaign(new EditorPage(),
                 campaignNameSA,
                 TEST,
@@ -199,7 +251,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     }
 
     @Test(groups = "copyUpdate")
-    public void test26_checkValueInFWCampaignCOLOR() {
+    public void test26_checkValueInFWCampaign() {
         checkValuesInOtherCampaign(new EditorPage(),
                 campaignNameFW_1,
                 TEST,
@@ -216,10 +268,9 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @BeforeGroups("configurationUpdate")
     public void setUpForConfigurationTests() {
         driver.navigate().to(EnvFactory.getAdminUrl());
-        System.out.println("--   DEBAG: Admin page is opened CONFIG ---");
         new Header();
         //set test data
-        localizationName = "Automatic font sizing";
+        localizationName = "Automatic font sizingd";
         campaignView = "Friend claim page";
         newContentValue = "Disabled";
     }
@@ -228,8 +279,8 @@ public class MultiCampaignEditorTesting extends BaseTest {
 //    Navigate to Simple Editor --> Configuration (Friend claim page view)
 //    For attribute "Automatic font sizing" click 'Copy to other campaign' button
     @Test(groups = "configurationUpdate")
-    public void test31_openMultiCampaignEditorCONFIG() {
-        mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNameSA,
+    public void test31_openMultiCampaignEditor() {
+        mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNamePP,
                 TEST,
                 campaignView,
                 localizationName,
@@ -239,9 +290,9 @@ public class MultiCampaignEditorTesting extends BaseTest {
                 "0");
     }
 
-    //Select PP campaign
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test31_openMultiCampaignEditorCONFIG")
-    public void test32_selectCampaignsCONFIG() {
+    //Select campaign FW and SA campaign
+    @Test(groups = "configurationUpdate")
+    public void test32_selectCampaigns() {
         mcePage.selectCampaign(campaignNamePP);
         // Verify selected campaign list
         Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2");
@@ -250,22 +301,22 @@ public class MultiCampaignEditorTesting extends BaseTest {
     }
 
     // Enter new value and click Save content button
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test31_openMultiCampaignEditorCONFIG")
-    public void test33_updateValueCONFIG() {
+    @Test(groups = "configurationUpdate")
+    public void test33_updateValue() {
         mcePage = mcePage.updateContent(newContentValue);
         Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
     }
 
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test33_updateValueCONFIG")
-    public void test34_checkValueInFirstCampaignCONFIG() {
+    @Test(groups = "configurationUpdate")
+    public void test34_checkValueInFirstCampaign() {
         checkValueInFirstCampaign(mcePage,
                 CONFIGURATION,
                 localizationName,
                 newContentValue);
     }
 
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test32_selectCampaignsCONFIG")
-    public void test35_checkValueInSACampaignCONFIG() {
+    @Test(groups = "copyUpdate")
+    public void test35_checkValueInSACampaign() {
         checkValuesInOtherCampaign(new EditorPage(),
                 campaignNameSA,
                 TEST,
@@ -275,70 +326,9 @@ public class MultiCampaignEditorTesting extends BaseTest {
                 newContentValue);
     }
 
-    /*
-     *****  Verification of MCE Page for IMAGES localization type *******
-     */
-
-    @BeforeGroups("imageUpdate")
-    public void setUpForImageTests() {
-        driver.navigate().to(EnvFactory.getAdminUrl());
-        System.out.println("--   DEBAG: Admin page is opened  ---");
-        new Header();
-        //set test data
-        localizationName = "Advocate signup page background";
-        campaignView = "Advocate signup page";
-        newContentValue = "tkbl_default_icon-link-color-2x.png";
-    }
-
-    @Test(groups = "imageUpdate")
-    public void test41_openMultiCampaignEditorIMAGES() {
-        mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNameSA,
-                TEST,
-                campaignView,
-                localizationName,
-                IMAGES,
-                "1",
-                "2",
-                "1");
-    }
-
-    @Test(groups = "imageUpdate", dependsOnMethods = "test41_openMultiCampaignEditorIMAGES")
-    public void test42_selectCampaignsIMAGES() {
-        mcePage.selectCampaign(campaignNameFW_1);
-        // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2");
-        // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "1");
-    }
-
-    @Test(groups = "imageUpdate", dependsOnMethods = "test41_openMultiCampaignEditorIMAGES")
-    public void test43_updateValueIMAGES() {
-        mcePage = mcePage.updateContent(newContentValue);
-        Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
-    }
-
-    @Test(groups = "imageUpdate", dependsOnMethods = "test43_updateValueIMAGES")
-    public void test44_checkValueInFirstCampaignIMAGES() {
-        checkValueInFirstCampaign(mcePage,
-                IMAGES,
-                localizationName,
-                newContentValue);
-    }
-
-    @Test(groups = "imageUpdate", dependsOnMethods = "test42_selectCampaignsIMAGES")
-    public void test45_checkValueInFWCampaignIMAGES() {
-        checkValuesInOtherCampaign(new EditorPage(),
-                campaignNameFW_1,
-                TEST,
-                campaignView,
-                IMAGES,
-                localizationName,
-                newContentValue);
-    }
 
 
-
-    @AfterSuite
+    @AfterClass
     public void deleteTestCampaigns() {
         CampaignDetailsPage detailsPage = new EditorPage().campaignNavigationMenu.openDetailsPage();
         detailsPage.header.openCampaignsPage().deleteAllTestCampaigns();

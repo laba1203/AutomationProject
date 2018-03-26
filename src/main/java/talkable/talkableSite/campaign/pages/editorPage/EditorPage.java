@@ -1,6 +1,7 @@
 package talkable.talkableSite.campaign.pages.editorPage;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTkblSitePageWithoutHeader;
 import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
@@ -87,18 +88,22 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
     public void switchTo(LocalizationMode mode){
         switch (mode){
             case COPY:
+                wait.until(ExpectedConditions.elementToBeClickable(copyButton.getWebElement()));
                 copyButton.click();
                 setLocalizationSidebar(COPY);
                 break;
             case COLOR:
+                wait.until(ExpectedConditions.elementToBeClickable(colorButton.getWebElement()));
                 colorButton.click();
                 setLocalizationSidebar(COLOR);
                 break;
             case IMAGES:
+                wait.until(ExpectedConditions.elementToBeClickable(imagesButton.getWebElement()));
                 imagesButton.click();
                 setLocalizationSidebar(IMAGES);
                 break;
             case CONFIGURATION:
+                wait.until(ExpectedConditions.elementToBeClickable(configurationButton.getWebElement()));
                 configurationButton.click();
                 setLocalizationSidebar(CONFIGURATION);
                 break;
