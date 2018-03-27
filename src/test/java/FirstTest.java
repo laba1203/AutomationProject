@@ -20,7 +20,7 @@ public class FirstTest {
 
     private String siteName = "automationSite";
 
-//    @BeforeClass
+//    @BeforeSuit
     public void setup(){
         driver = new DriverConfig().getDriver();
         driver.navigate().to("https://void.talkable.com");

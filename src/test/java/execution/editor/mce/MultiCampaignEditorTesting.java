@@ -64,11 +64,12 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     /*
      *****  Verification of MCE Page for COPY localization type *******
-
      */
-
     @BeforeGroups("copyUpdate")
     public void setTestData() {
+        driver.navigate().to(EnvFactory.getAdminUrl());
+        new Header();
+        //set values:
         newContentValue = "New Copy Value";
         localizationName = "Advocate trigger cta";
         campaignView = "Advocate trigger widget";
@@ -215,6 +216,8 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @BeforeGroups("configurationUpdate")
     public void setUpForConfigurationTests() {
+        System.out.println("DEBAG: ");
+
         driver.navigate().to(EnvFactory.getAdminUrl());
         System.out.println("--   DEBAG: Admin page is opened CONFIG ---");
         new Header();

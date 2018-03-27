@@ -1,7 +1,16 @@
-<suite name="MultiCampaignEditor">
+<suite name="MultiCampaignEditor" preserve-order="true">
     <test name="Multi-campaign editor" preserve-order="true">
         <classes>
             <class name="execution.editor.mce.MultiCampaignEditorTesting">
+                <groups>
+                    <run>
+                        <exclude name = "copyUpdate"/>
+                        <exclude name = "colorUpdate"/>
+                        <!--<exclude name = "configurationUpdate"/>-->
+                        <!--<exclude name = "imageUpdate"/>-->
+
+                    </run>
+                </groups>
             </class>
         </classes>
     </test>
@@ -11,6 +20,7 @@
             </class>
         </classes>
     </test>
+
 
 </suite>
 
