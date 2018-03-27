@@ -24,7 +24,7 @@ class LocalizationImagesRecord extends AbstractLocalizationRecord{
         editImage.click();
     }
 
-    public PopupSelectImage pickDifferentImage(){
+    private PopupSelectImage pickDifferentImage(){
         pickDiffImage.click();
         return new PopupSelectImage();
     }
@@ -33,7 +33,7 @@ class LocalizationImagesRecord extends AbstractLocalizationRecord{
     @Override
     public void update(String newFileName) {
         PopupSelectImage popup = pickDifferentImage();
-        popup.selectImage(newFileName);
+        popup.selectImageFromEditor(newFileName);
     }
 
     @Override

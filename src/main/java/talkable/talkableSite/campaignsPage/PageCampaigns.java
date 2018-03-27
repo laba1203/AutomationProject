@@ -28,17 +28,14 @@ public class PageCampaigns extends AbstractTalkableSitePage {
     }
 
     public Table getLiveCampaignsTable() {
-//        return new Table(By.xpath("//h2[contains(text(), 'Live')]/following::table[1]"));
         return new Table(LIVE);
     }
 
     public Table getTestCampaignsTable() {
-//        return new Table(By.xpath("//h2[contains(text(), 'Test')]/following::table[1]"));
         return new Table(TEST);
     }
 
     public Table getDisabledCampaignsTable() {
-//        return new Table(By.xpath("//h2[contains(text(), 'Disabled')]/following::table[1]"));
         return new Table(DISABLED);
     }
 
@@ -47,9 +44,13 @@ public class PageCampaigns extends AbstractTalkableSitePage {
         return new CreateNewCampaignPage();
     }
 
-    public CampaignDetailsPage clickCampaignByName(String campaignName) {
-        Table liveCampaigns = getLiveCampaignsTable();
-        Table.Row campaignRow = liveCampaigns.getRowByCampaignName(campaignName);
+    public CampaignDetailsPage openCampaignByName(String campaignName, Table.Status status) {
+//        Table liveCampaigns = getLiveCampaignsTable();
+//        Table.Row campaignRow = liveCampaigns.getRowByCampaignName(campaignName);
+//        campaignRow.name.click();
+//        return new CampaignDetailsPage();
+        Table table = new Table(status);
+        Table.Row campaignRow = table.getRowByCampaignName(campaignName);
         campaignRow.name.click();
         return new CampaignDetailsPage();
     }
@@ -68,6 +69,30 @@ public class PageCampaigns extends AbstractTalkableSitePage {
         return new PageCampaigns();
     }
 
+    public PageCampaigns deleteAllTestCampaigns(){
+        if(isTablePresent(TEST)){
+
+//            ArrayList<Table.Row> campaigns = getTestCampaignsTable().getAllRows();
+//            for (Table.Row row :
+//                    campaigns) {
+//                String campaignName = row.name.getText();
+//                row.delete();
+//                waitDeletion();
+//                Log.campaignDeleted(campaignName);
+//            }
+            int count = getTestCampaignsTable().getAllRows().size();
+            System.out.println("DEBAG: Found " + count + " Test campaign for deletion");
+            for(int i = 0; i < count; i++){
+                Table.Row row = getTestCampaignsTable().getAllRows().get(0);
+                String campaignName = row.name.getText();
+                row.delete();
+                waitDeletion();
+                Log.campaignDeleted(campaignName);
+            }
+        }
+        return new PageCampaigns();
+    }
+
     private boolean isTablePresent(Table.Status status){
         try{
             Table table = new Table(status);
@@ -81,6 +106,11 @@ public class PageCampaigns extends AbstractTalkableSitePage {
     private void waitDeactivation(){
         MsgCampaignDeactivated campaignDeactivated = new MsgCampaignDeactivated();
         wait.until(ExpectedConditions.invisibilityOf(campaignDeactivated.getWebElement()));
+    }
+
+    private void waitDeletion(){
+        MsgCampaignDeleted msg = new MsgCampaignDeleted();
+        wait.until(ExpectedConditions.invisibilityOf(msg.getWebElement()));
     }
 }
 

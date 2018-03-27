@@ -4,8 +4,8 @@ package execution.smoke;
 
 import common.cases.CommonScenarios;
 import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
+import execution.BaseTest;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -24,12 +24,11 @@ import util.EnvFactory;
 import util.TestDataGenerator;
 
 import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
+import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
-public class SmokeTest {
-    private DriverConfig driverFactory;
-    private WebDriver driver;
-    private static final String siteUrl = "http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html";
-    private static final String talkableUrl = "https://void.talkable.com";
+public class SmokeTest  extends BaseTest{
+
+    private static final String SITE_URL = "http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html";
 
     private static final String siteName = "automation-smoke-test";
     private static final String liveStatusActive = "Status: Live";
@@ -45,8 +44,6 @@ public class SmokeTest {
 
     @BeforeClass
     public void setup() {
-        this.driverFactory = new DriverConfig();
-        this.driver = this.driverFactory.getDriver();
         this.driver.navigate().to(EnvFactory.getEnvUrl());
     }
 
@@ -147,7 +144,7 @@ public class SmokeTest {
 // 14. Verify FW on client site
     @Test
     public void test10_verifyCampaignOnSite() {
-        this.driverFactory.getDriver().navigate().to("http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html");
+        this.driverFactory.getDriver().navigate().to(SITE_URL);
         AdvocateTriggerWidgetFrame triggerWidget = new AdvocateTriggerWidgetFrame();
         triggerWidget.click();
     }
@@ -160,8 +157,8 @@ public class SmokeTest {
 // 15. Deactivate campaign.
     @Test
     public void test12_deactivateCampaign() {
-        PageCampaigns campaignsPage = (new Header()).clickCampaignsPage();
-        CampaignDetailsPage detailsPage = campaignsPage.clickCampaignByName(campaignName);
+        PageCampaigns campaignsPage = (new Header()).openCampaignsPage();
+        CampaignDetailsPage detailsPage = campaignsPage.openCampaignByName(campaignName, LIVE);
         CampaignNavigationMenu menu = detailsPage.campaignNavigationMenu.deactivateCampaign();
         Assert.assertEquals(menu.getCampaignStatus(), liveStatusDisabled, "FAILED: Campaign is not deactivated");
     }
@@ -170,7 +167,7 @@ public class SmokeTest {
     @Test
     public void test13_verifyFwOnSite() {
         try {
-            this.driverFactory.getDriver().navigate().to("http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html");
+            this.driverFactory.getDriver().navigate().to(SITE_URL);
             new AdvocateTriggerWidgetFrame();
             Assert.fail("FAILED: Floating Widget is displayed. Test Failed");
         } catch (NoSuchElementException e) {
@@ -179,12 +176,5 @@ public class SmokeTest {
 
     }
 
-
-
-    @AfterClass
-    public void quit(){
-        driver.quit();
-        driverFactory.cleanWebDriver();
-    }
 }
 

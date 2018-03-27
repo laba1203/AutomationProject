@@ -1,10 +1,12 @@
 package talkable.talkableSite.campaign.pages.editorPage;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTkblSitePageWithoutHeader;
 import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
+import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.*;
 
@@ -86,18 +88,22 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
     public void switchTo(LocalizationMode mode){
         switch (mode){
             case COPY:
+                wait.until(ExpectedConditions.elementToBeClickable(copyButton.getWebElement()));
                 copyButton.click();
                 setLocalizationSidebar(COPY);
                 break;
             case COLOR:
+                wait.until(ExpectedConditions.elementToBeClickable(colorButton.getWebElement()));
                 colorButton.click();
                 setLocalizationSidebar(COLOR);
                 break;
             case IMAGES:
+                wait.until(ExpectedConditions.elementToBeClickable(imagesButton.getWebElement()));
                 imagesButton.click();
                 setLocalizationSidebar(IMAGES);
                 break;
             case CONFIGURATION:
+                wait.until(ExpectedConditions.elementToBeClickable(configurationButton.getWebElement()));
                 configurationButton.click();
                 setLocalizationSidebar(CONFIGURATION);
                 break;
@@ -107,13 +113,13 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         }
     }
 
+    public PageMultiCampaignEditor clickCopyToOtherCampaigns(LocalizationMode type, String localizationName){
+        localizationSidebar.getRecord(type, localizationName).copyToOtherCampaigns();
+        return new PageMultiCampaignEditor(mode);
+    }
+
     public void clickCreateABTest(LocalizationMode type, String localizationName){
         localizationSidebar.getRecord(type, localizationName).createABTest();
         //TODO: Return action to be added after implementation of AB Test editor page
-    }
-
-    public void clickCopyToOtherCampaigns(LocalizationMode type, String localizationName){
-        localizationSidebar.getRecord(type, localizationName).copyToOtherCampaigns();
-        //TODO: Return action to be added after implementation of Multi-campaign editor page
     }
 }

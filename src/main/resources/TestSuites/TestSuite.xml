@@ -1,4 +1,5 @@
 <suite name="SuiteName1">
+
     <test name="Regression" preserve-order="true" >
         <classes>
             <class name="execution.smoke.SmokeTest">
@@ -15,11 +16,17 @@
         <!--<packages>
             <package name="" />
         </packages>-->
-
     </test>
     <test name="Reports" preserve-order="true" >
         <classes>
             <class name="execution.reports.previousCustomerUpload.PreviousCustomerUploadTesting">
+
+            </class>
+        </classes>
+    </test>
+    <test name="Multi-campaign Editor" preserve-order="true">
+        <classes>
+            <class name="execution.editor.mce.MultiCampaignEditorTesting">
 
             </class>
         </classes>
@@ -36,3 +43,4 @@
     -->
 
 </suite>
+

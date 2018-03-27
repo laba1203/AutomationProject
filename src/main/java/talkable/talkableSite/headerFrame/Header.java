@@ -56,7 +56,7 @@ public class Header extends AbstractElementsContainer{
         return new ReportsPage();
     }
 
-    public PageCampaigns clickCampaignsPage(){
+    public PageCampaigns openCampaignsPage(){
         campaignsButton.click();
         return new PageCampaigns();
     }

@@ -2,6 +2,7 @@ package execution.simpleTest;
 
 import common.cases.ClientSiteScenarios;
 import common.cases.CommonScenarios;
+import execution.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -21,22 +22,23 @@ import static talkable.talkableSite.campaign.pages.CampaignPlacement.PostPurchas
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1FLkr-T2s-mVnG770gLh4imwMnoO0vFtduYquM_49zzQ/edit#gid=0
 * */
-public class SimpleTestForAllCampaignTypes {
+public class SimpleTestForAllCampaignTypes extends BaseTest{
 
-    private DriverConfig driverFactory;
-    private WebDriver driver;
+//    private DriverConfig driverFactory;
+//    private WebDriver driver;
 
     private static final String customerSiteUrl = "http://learn.talkable.com/QA-Common/Automation/void/simple-test/";
     private static final String siteName = "simple-test";
 
     @BeforeClass
     public void setup() {
-        this.driverFactory = new DriverConfig();
-        this.driver = this.driverFactory.getDriver();
+        //commented after extension of BaseTest:
+//        this.driverFactory = new DriverConfig();
+//        this.driver = this.driverFactory.getDriver();
         this.driver.navigate().to(EnvFactory.getEnvUrl());
         //Login to env
         CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).selectByVisibleText(siteName);
-        driver.getCurrentUrl();
+//        driver.getCurrentUrl();
     }
 
     @Test(dataProvider = "getTestData")
@@ -46,7 +48,7 @@ public class SimpleTestForAllCampaignTypes {
         //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
         //deactivate all live campaigns:
-        new Header().clickCampaignsPage().deactivateAllLiveCampaigns();
+        new Header().openCampaignsPage().deactivateAllLiveCampaigns();
 
         //Create new campaign
         CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(campaignType, campaignPlacement);
@@ -78,11 +80,13 @@ public class SimpleTestForAllCampaignTypes {
         }
     }
 
-    @AfterClass
-    public void quit() {
-        driver.quit();
-        driverFactory.cleanWebDriver();
-    }
+
+      //commented after extension of BaseTest:
+//    @AfterClass
+//    public void quit() {
+//        driver.quit();
+//        driverFactory.cleanWebDriver();
+//    }
 
 
     @DataProvider

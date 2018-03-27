@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+import util.logging.Log;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public abstract class AbstractSelectElement extends AbstractElement{
         clickByText(text);
         //Verify that text is selected
         verifySelectedItem(text);
+        Log.itemSelectedFromDropdownMsg(text);
     }
 
     public void searchByText(String text){
