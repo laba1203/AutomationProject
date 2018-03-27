@@ -19,10 +19,10 @@ public class AbTestImpressions_FloatingWidget {
     @Test
     public void test1_makeImpression(){
         driver = new DriverConfig().getDriver();
-        driver.navigate().to("http://learn.talkable.com/QA-Max/void/email-test/home.html");
+        driver.navigate().to("http://learn.talkable.com/QA-Max/void/test2003/index.html");
 
         AdvocateTriggerWidgetFrame button = new AdvocateTriggerWidgetFrame();
-        button.click();
+//        button.click();
 
         driver.quit();
         new DriverConfig().cleanWebDriver();
@@ -30,6 +30,7 @@ public class AbTestImpressions_FloatingWidget {
 
     @Test
     public void repeat(){
+
         for (int i = 0; i<5000; i++) {
             test1_makeImpression();
             System.out.println("\n\rCounter: " + i);

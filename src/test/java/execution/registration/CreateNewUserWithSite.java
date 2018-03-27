@@ -1,6 +1,7 @@
 package execution.registration;
 
 import common.cases.CommonScenarios;
+import execution.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -15,20 +16,21 @@ import static talkable.userRegistration.chosePlatformPage.ChosePlatformPage.Plat
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1VtMlmQDO77F5gGKOBBEuBN9hVyXBsnp3jD5u-v3z5Zk/
  * */
-public class CreateNewUserWithSite {
-    private DriverConfig driverFactory;
-    private WebDriver driver;
+public class CreateNewUserWithSite extends BaseTest{
+//    private DriverConfig driverFactory;
+//    private WebDriver driver;
 
-    private String email = "test" + TestDataGenerator.getRandomId() + "@test.com";
-    private String password = "Password1";
-    private String siteName = "autoSite" + TestDataGenerator.getRandomId();
-    private String siteUrl = "https://auto.test.site.com";
+    private static final String email = "maxim.laba+auto.test" + TestDataGenerator.getRandomId() + "@talkable.com";
+    private static final String password = "Password1";
+    private static final String siteName = "autoSite" + TestDataGenerator.getRandomId();
+    private static final String siteUrl = "https://auto.test.site.com";
 
 
     @BeforeClass
     public void setup() {
-        this.driverFactory = new DriverConfig();
-        this.driver = this.driverFactory.getDriver();
+        //commented after adding of Base Test
+//        this.driverFactory = new DriverConfig();
+//        this.driver = this.driverFactory.getDriver();
         this.driver.navigate().to(EnvFactory.getRegistrationURL());
     }
 
@@ -42,11 +44,11 @@ public class CreateNewUserWithSite {
         Assert.assertEquals(page.header.getSiteName(), siteName);
     }
 
-    @AfterClass
-    public void quit() {
-        driver.quit();
-        driverFactory.cleanWebDriver();
-        System.out.println("After class executed");
-    }
+    //commented after adding of Base Test
+//    @AfterClass
+//    public void quit() {
+//        driver.quit();
+//        driverFactory.cleanWebDriver();
+//    }
 
 }

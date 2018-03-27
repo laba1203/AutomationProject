@@ -1,10 +1,7 @@
 package util.logging;
 
 import abstractObjects.AbstractElement;
-import abstractObjects.AbstractElementsContainer;
 import abstractObjects.AbstractTalkableFrame;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 
@@ -40,8 +37,11 @@ public class Log {
         return msg;
     }
 
-    public static String getScreenshotMsg() {
-        return screenshotMsg;
+
+    public static String getScreenshotMsg(String path){
+        String msg = "SCREENSHOT: Screenshot is available by the next link:\r\n" + path +"\r\n";
+        System.out.println(msg);
+        return msg;
     }
 
     public static String selectFromDropDownLogMsg(String selectedValue, Select dropdown){

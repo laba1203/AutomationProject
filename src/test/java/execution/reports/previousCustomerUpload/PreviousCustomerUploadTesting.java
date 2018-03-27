@@ -1,6 +1,8 @@
 package execution.reports.previousCustomerUpload;
 
+import common.cases.CommonScenarios;
 import common.cases.ReportsScenarios;
+import execution.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -17,17 +19,17 @@ import java.io.IOException;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1ONGHch4nOJ28fGgNG4Hz3THlX1NWn8KxwM74fBSLngM/
  * */
-public class PreviousCustomerUploadTesting extends ReportsScenarios{
+public class PreviousCustomerUploadTesting extends BaseTest{
 
     private static final String fileName = "testDataForExistingCustomersReport.csv";
 
-    private WebDriver driver = new DriverConfig().getDriver();
+//    private WebDriver driver = new DriverConfig().getDriver();
 
 
     @BeforeClass
     public void setup(){
         driver.navigate().to(EnvFactory.getEnvUrl()); //"https://void.talkable.com"
-        Header header = login(EnvFactory.getUser(), EnvFactory.getPassword());
+        Header header = CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
         //Navigate to Existing Customers Report
         ReportsPage reportsPage = header.clickReportsButton();
         reportsPage.openExistingCustomerReport();
@@ -35,15 +37,14 @@ public class PreviousCustomerUploadTesting extends ReportsScenarios{
 
     @Test(dataProvider = "getTestData")
     public void testing(String fileName, String expectedProgress, String expectedUploadedEmails, String expectedStatus){
-        previousCustomerUploadTesting(fileName, expectedProgress, expectedUploadedEmails, expectedStatus);
+        ReportsScenarios.previousCustomerUploadTesting(fileName, expectedProgress, expectedUploadedEmails, expectedStatus);
     }
 
-    @AfterClass
-    public void quit(){
-        driver.quit();
-        new DriverConfig().cleanWebDriver();
-
-    }
+//    @AfterClass
+//    public void quit(){
+//        driver.quit();
+//        new DriverConfig().cleanWebDriver();
+//    }
 
 
     @DataProvider

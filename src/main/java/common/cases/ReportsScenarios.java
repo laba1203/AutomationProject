@@ -15,7 +15,7 @@ public class ReportsScenarios extends CommonScenarios{
     * @expectedUploadedEmails - count of emails which are expected to be uploaded in the file
     * @expectedStatus - expected status of the processing
     * */
-    protected void previousCustomerUploadTesting(String fileName, String expectedProgress,String expectedUploadedEmails, String expectedStatus){
+    public static void previousCustomerUploadTesting(String fileName, String expectedProgress,String expectedUploadedEmails, String expectedStatus){
         PreviousCustomersReportPage previousCustomersReport = new PreviousCustomersReportPage();
         previousCustomersReport.uploadFile(fileName);
         previousCustomersReport.waitTillFileProcessed();

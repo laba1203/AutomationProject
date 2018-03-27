@@ -13,19 +13,21 @@ public class Screenshot {
 
 
     private static final String PATH_TO_SAVE = "src/test/output/screenshots/";
-    private Log log = new Log();
-    private String filePath;
+    private String absoluteFilePath;
     
     public void getScreenshot(){
         File srcFile = ((TakesScreenshot)new DriverConfig().getDriver()).getScreenshotAs(OutputType.FILE);
         copyFile(srcFile);
-        System.out.println(log.getScreenshotMsg() + filePath);
+        //
+        Log.getScreenshotMsg(absoluteFilePath);
     }
 
     private void copyFile(File file){
-        filePath = PATH_TO_SAVE + "Screenshot_" + getTimeStamp() + ".png";
+        String filePath = PATH_TO_SAVE + "Screenshot_" + getTimeStamp() + ".png";
         try {
-            FileUtils.copyFile(file, new File(filePath));
+            File newFile = new File(filePath);
+            FileUtils.copyFile(file, newFile);
+            absoluteFilePath = newFile.getAbsolutePath();
         } catch (IOException e) {
             e.printStackTrace();
         }
