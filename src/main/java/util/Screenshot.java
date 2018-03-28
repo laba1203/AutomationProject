@@ -14,16 +14,18 @@ public class Screenshot {
 
     private static final String PATH_TO_SAVE = "src/test/output/screenshots/";
     private String absoluteFilePath;
+    private String fileName = "Screenshot_" + getTimeStamp() + ".png";
     
     public void getScreenshot(){
         File srcFile = ((TakesScreenshot)new DriverConfig().getDriver()).getScreenshotAs(OutputType.FILE);
         copyFile(srcFile);
         //
-        Log.getScreenshotMsg(absoluteFilePath);
+//        Log.getScreenshotMsg("file://" + absoluteFilePath);
+        Log.getScreenshotMsg("<a href=\"file://" + absoluteFilePath + "\">"+fileName+"</a>");
     }
 
     private void copyFile(File file){
-        String filePath = PATH_TO_SAVE + "Screenshot_" + getTimeStamp() + ".png";
+        String filePath = PATH_TO_SAVE + fileName;
         try {
             File newFile = new File(filePath);
             FileUtils.copyFile(file, newFile);

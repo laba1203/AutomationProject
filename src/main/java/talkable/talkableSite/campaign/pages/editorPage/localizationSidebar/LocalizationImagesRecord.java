@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.editorPage.selectImagePopup.PopupSelectImage;
+import util.Util;
 
 class LocalizationImagesRecord extends AbstractLocalizationRecord{
 
@@ -38,6 +39,6 @@ class LocalizationImagesRecord extends AbstractLocalizationRecord{
 
     @Override
     public String getValueText() {
-        return image.getAttribute("src");
+        return Util.getLastUrlResource(image.getAttribute("src"));
     }
 }

@@ -52,9 +52,19 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
     }
 
     public EditorPage switchViewByName(String name){
-        elmntSelectedViewField.click();
-        new ContainerViewRecords().selectViewByText(name);
+        if(isViewSelected(name)) {
+            System.out.println("DEBAG: View <" + name + "> is already selected");
+        }else{
+            elmntSelectedViewField.click();
+            new ContainerViewRecords().selectViewByText(name);
+            System.out.println("DEBAG: View changed to : " + name);
+        }
+
         return new EditorPage(this.mode);
+    }
+
+    private boolean isViewSelected(String toBeSelected){
+        return elmntSelectedViewField.getText().equals(toBeSelected);
     }
 
     public EditorPage updateLocalization(LocalizationMode type, String localizationName, String newValue){

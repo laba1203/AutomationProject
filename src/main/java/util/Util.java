@@ -35,18 +35,32 @@ public class Util {
 
     }
 
-    public static String getLastUrlResource(String url){
+    public static String getLastUrlResource(String initialUrl){
+        String url = removeParametersFromUrl(initialUrl);
         char[] chars = url.toCharArray();
         int size = chars.length;
         int iterator = 0;
         for(int i = size-1; i > 0; i--){
             if(String.valueOf(chars[i]).equals("/")){
                 iterator = i+1;
+                System.out.println("LOG: Resource has been retrieved from URL. \r\nInitial URL: " + initialUrl);
                 return url.substring(iterator);
             }
         }
-        Assert.fail("FAILED: Input string is not an URL: <" + url + ">");
+        Assert.fail("FAILED: Input string is not an URL: <" + initialUrl + ">");
         return null;
+    }
+
+    public static String removeParametersFromUrl(String url){
+        char[] chars = url.toCharArray();
+        int size = chars.length;
+        for(int i = chars.length-1; i > 0; i--){
+            if(String.valueOf(chars[i]).equals("?")){
+                return url.substring(0, i);
+            }
+        }
+        System.out.println("LOG: URL doesn't contains any parameters. URL: <" + url + ">");
+        return url;
     }
 
 }

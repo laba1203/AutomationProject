@@ -64,11 +64,12 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     /*
      *****  Verification of MCE Page for COPY localization type *******
-
      */
-
     @BeforeGroups("copyUpdate")
     public void setTestData() {
+        driver.navigate().to(EnvFactory.getAdminUrl());
+        new Header();
+        //set values:
         newContentValue = "New Copy Value";
         localizationName = "Advocate trigger cta";
         campaignView = "Advocate trigger widget";
@@ -88,11 +89,11 @@ public class MultiCampaignEditorTesting extends BaseTest {
         // Verify Content field on MCE screen
         Assert.assertEquals(mcePage.getContentValue(), localizationName);
         // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "1");
+        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "1", "FAILED: Incorrect count of Selected campaigns");
         // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "1");
+        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "1", "FAILED: Incorrect count of Unselected campaigns");
         // Verify ineligible campaign list
-        Assert.assertEquals(mcePage.getIneligibleCampaigns().getCampaignCount(), "2");
+        Assert.assertEquals(mcePage.getIneligibleCampaigns().getCampaignCount(), "2", "FAILED: Incorrect count of Ineligible campaigns");
     }
 
     //Select second FW campaign
@@ -100,23 +101,23 @@ public class MultiCampaignEditorTesting extends BaseTest {
     public void test12_selectSecondFWCampaignCOPY() {
         mcePage.selectCampaign(campaignNameFW_2);
         // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2");
+        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2", "FAILED: Incorrect count of Selected campaigns");
         // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "0");
+        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "0", "FAILED: Incorrect count of Unselected campaigns");
     }
 
     //Enter new value and click Save localizationName button
     @Test(groups = "copyUpdate")
     public void test13_updateValueCOPY() {
         mcePage = mcePage.updateContent(newContentValue);
-        Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
+        Assert.assertEquals(mcePage.getNewContentValue(), newContentValue, "FAILED: Incorrect new content value");
     }
 
     @Test(groups = "copyUpdate")
     public void test14_checkValueInFirstCampaignCOPY() {
         EditorPage editor = mcePage.backToEditor();
         String value = editor.getLocalizationValue(COPY, localizationName + "#");
-        Assert.assertEquals(value, newContentValue);
+        Assert.assertEquals(value, newContentValue, "FAILED: Incorrect new content value");
     }
 
     @Test(groups = "copyUpdate")
@@ -127,7 +128,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
         EditorPage editor = campaignsPage.openCampaignByName(campaignNameFW_2, TEST).campaignNavigationMenu.openEditorPage();
         // Verify value in Editor:
         String value = editor.getLocalizationValue(COPY, localizationName + "#");
-        Assert.assertEquals(value, newContentValue);
+        Assert.assertEquals(value, newContentValue, "FAILED: Incorrect new content value");
     }
 
 
@@ -215,6 +216,9 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @BeforeGroups("configurationUpdate")
     public void setUpForConfigurationTests() {
+
+        System.out.println("DEBAG: CONFIGURATION UPDATE Befor group executed");
+
         driver.navigate().to(EnvFactory.getAdminUrl());
         System.out.println("--   DEBAG: Admin page is opened CONFIG ---");
         new Header();
@@ -229,6 +233,15 @@ public class MultiCampaignEditorTesting extends BaseTest {
 //    For attribute "Automatic font sizing" click 'Copy to other campaign' button
     @Test(groups = "configurationUpdate")
     public void test31_openMultiCampaignEditorCONFIG() {
+
+        System.out.println("DEBAG: test31_openMultiCampaignEditorCONFIG START");
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNameSA,
                 TEST,
                 campaignView,
@@ -242,6 +255,9 @@ public class MultiCampaignEditorTesting extends BaseTest {
     //Select PP campaign
     @Test(groups = "configurationUpdate", dependsOnMethods = "test31_openMultiCampaignEditorCONFIG")
     public void test32_selectCampaignsCONFIG() {
+
+        System.out.println("DEBAG: test32_selectCampaignsCONFIG START");
+
         mcePage.selectCampaign(campaignNamePP);
         // Verify selected campaign list
         Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2");
@@ -250,7 +266,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     }
 
     // Enter new value and click Save content button
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test31_openMultiCampaignEditorCONFIG")
+    @Test(groups = "configurationUpdate", dependsOnMethods = "test32_selectCampaignsCONFIG")
     public void test33_updateValueCONFIG() {
         mcePage = mcePage.updateContent(newContentValue);
         Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
@@ -264,7 +280,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
                 newContentValue);
     }
 
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test32_selectCampaignsCONFIG")
+    @Test(groups = "configurationUpdate", dependsOnMethods = "test34_checkValueInFirstCampaignCONFIG")
     public void test35_checkValueInSACampaignCONFIG() {
         checkValuesInOtherCampaign(new EditorPage(),
                 campaignNameSA,
@@ -290,7 +306,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
         newContentValue = "tkbl_default_icon-link-color-2x.png";
     }
 
-    @Test(groups = "imageUpdate")
+    @Test(groups = "imageUpdate", dependsOnGroups = "configurationUpdate", alwaysRun = true)
     public void test41_openMultiCampaignEditorIMAGES() {
         mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNameSA,
                 TEST,
@@ -298,23 +314,23 @@ public class MultiCampaignEditorTesting extends BaseTest {
                 localizationName,
                 IMAGES,
                 "1",
-                "2",
-                "1");
+                "1",
+                "2");
     }
 
     @Test(groups = "imageUpdate", dependsOnMethods = "test41_openMultiCampaignEditorIMAGES")
     public void test42_selectCampaignsIMAGES() {
         mcePage.selectCampaign(campaignNameFW_1);
         // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2");
+        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2", "FAILED: Incorrect count of Selected campaigns");
         // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "1");
+        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "0", "FAILED: Incorrect count of Unselected campaigns");
     }
 
-    @Test(groups = "imageUpdate", dependsOnMethods = "test41_openMultiCampaignEditorIMAGES")
+    @Test(groups = "imageUpdate", dependsOnMethods = "test42_selectCampaignsIMAGES")
     public void test43_updateValueIMAGES() {
         mcePage = mcePage.updateContent(newContentValue);
-        Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
+        Assert.assertEquals(mcePage.getNewContentValue(), newContentValue, "FAILED: Incorrect New Content Value");
     }
 
     @Test(groups = "imageUpdate", dependsOnMethods = "test43_updateValueIMAGES")
@@ -325,7 +341,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
                 newContentValue);
     }
 
-    @Test(groups = "imageUpdate", dependsOnMethods = "test42_selectCampaignsIMAGES")
+    @Test(groups = "imageUpdate", dependsOnMethods = "test44_checkValueInFirstCampaignIMAGES")
     public void test45_checkValueInFWCampaignIMAGES() {
         checkValuesInOtherCampaign(new EditorPage(),
                 campaignNameFW_1,
@@ -369,11 +385,11 @@ public class MultiCampaignEditorTesting extends BaseTest {
         // Verify Content field on MCE screen
         Assert.assertEquals(mcePage.getContentValue(), localizationName);
         // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), expectedSelectedCampaignsCount);
+        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), expectedSelectedCampaignsCount, "FAILED: Incorrect count of Selected campaigns");
         // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), expectedUnselectedCampaignsCount);
+        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), expectedUnselectedCampaignsCount, "FAILED: Incorrect count of Unselected campaigns");
         // Verify ineligible campaign list
-        Assert.assertEquals(mcePage.getIneligibleCampaigns().getCampaignCount(), expectedIneligibleCampaignsCount);
+        Assert.assertEquals(mcePage.getIneligibleCampaigns().getCampaignCount(), expectedIneligibleCampaignsCount, "FAILED: Incorrect count of Ineligible campaigns");
 
         return mcePage;
     }
@@ -385,7 +401,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
         EditorPage editor = mcePage.backToEditor();
         editor.switchTo(localizationType);
         String value = editor.getLocalizationValue(localizationType, localizationName + "#");
-        Assert.assertEquals(value, newContentValue);
+        Assert.assertEquals(value, newContentValue, "FAILED: Incorrect New Content Value");
     }
 
     private void checkValuesInOtherCampaign(EditorPage editorPage,
@@ -406,7 +422,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
         editor.switchTo(mode);
         // Verify value in Editor:
         String value = editor.getLocalizationValue(mode, localizationName + "#");
-        Assert.assertEquals(value, newContentValue);
+        Assert.assertEquals(value, newContentValue, "FAILED: Incorrect New Content Value");
     }
 
 }
