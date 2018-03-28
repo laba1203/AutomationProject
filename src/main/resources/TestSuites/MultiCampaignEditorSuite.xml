@@ -1,5 +1,5 @@
-<suite name="MultiCampaignEditor" preserve-order="true">
-    <test name="Multi-campaign editor" preserve-order="true">
+<suite name="MultiCampaignEditor" preserve-order="true" group-by-instances="true">
+    <test name="Multi-campaign editor" preserve-order="true" group-by-instances="true">
         <classes>
             <class name="execution.editor.mce.MultiCampaignEditorTesting">
                 <groups>

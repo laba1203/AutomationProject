@@ -216,7 +216,8 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @BeforeGroups("configurationUpdate")
     public void setUpForConfigurationTests() {
-        System.out.println("DEBAG: ");
+
+        System.out.println("DEBAG: CONFIGURATION UPDATE Befor group executed");
 
         driver.navigate().to(EnvFactory.getAdminUrl());
         System.out.println("--   DEBAG: Admin page is opened CONFIG ---");
@@ -232,6 +233,15 @@ public class MultiCampaignEditorTesting extends BaseTest {
 //    For attribute "Automatic font sizing" click 'Copy to other campaign' button
     @Test(groups = "configurationUpdate")
     public void test31_openMultiCampaignEditorCONFIG() {
+
+        System.out.println("DEBAG: test31_openMultiCampaignEditorCONFIG START");
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNameSA,
                 TEST,
                 campaignView,
@@ -245,6 +255,9 @@ public class MultiCampaignEditorTesting extends BaseTest {
     //Select PP campaign
     @Test(groups = "configurationUpdate", dependsOnMethods = "test31_openMultiCampaignEditorCONFIG")
     public void test32_selectCampaignsCONFIG() {
+
+        System.out.println("DEBAG: test32_selectCampaignsCONFIG START");
+
         mcePage.selectCampaign(campaignNamePP);
         // Verify selected campaign list
         Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2");
@@ -253,7 +266,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     }
 
     // Enter new value and click Save content button
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test31_openMultiCampaignEditorCONFIG")
+    @Test(groups = "configurationUpdate", dependsOnMethods = "test32_selectCampaignsCONFIG")
     public void test33_updateValueCONFIG() {
         mcePage = mcePage.updateContent(newContentValue);
         Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
@@ -267,7 +280,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
                 newContentValue);
     }
 
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test32_selectCampaignsCONFIG")
+    @Test(groups = "configurationUpdate", dependsOnMethods = "test34_checkValueInFirstCampaignCONFIG")
     public void test35_checkValueInSACampaignCONFIG() {
         checkValuesInOtherCampaign(new EditorPage(),
                 campaignNameSA,
@@ -293,7 +306,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
         newContentValue = "tkbl_default_icon-link-color-2x.png";
     }
 
-    @Test(groups = "imageUpdate")
+    @Test(groups = "imageUpdate", dependsOnGroups = "configurationUpdate", alwaysRun = true)
     public void test41_openMultiCampaignEditorIMAGES() {
         mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNameSA,
                 TEST,
@@ -314,7 +327,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
         Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "1");
     }
 
-    @Test(groups = "imageUpdate", dependsOnMethods = "test41_openMultiCampaignEditorIMAGES")
+    @Test(groups = "imageUpdate", dependsOnMethods = "test42_selectCampaignsIMAGES")
     public void test43_updateValueIMAGES() {
         mcePage = mcePage.updateContent(newContentValue);
         Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
@@ -328,7 +341,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
                 newContentValue);
     }
 
-    @Test(groups = "imageUpdate", dependsOnMethods = "test42_selectCampaignsIMAGES")
+    @Test(groups = "imageUpdate", dependsOnMethods = "test44_checkValueInFirstCampaignIMAGES")
     public void test45_checkValueInFWCampaignIMAGES() {
         checkValuesInOtherCampaign(new EditorPage(),
                 campaignNameFW_1,
