@@ -7,7 +7,7 @@
                     <include name="test1_login"/>
                 </methods>-->
             </class>
-            <class name="execution.simpleTest.SimpleTestForAllCampaignTypes">
+            <class name="execution.simple.test.SimpleTestForAllCampaignTypes">
             </class>
             <class name="execution.editor.SimpleEditorTesting">
             </class>
@@ -19,7 +19,7 @@
     </test>
     <test name="Reports" preserve-order="true" >
         <classes>
-            <class name="execution.reports.previousCustomerUpload.PreviousCustomerUploadTesting">
+            <class name="execution.reports.previous.customer.upload.PreviousCustomerUploadTesting">
 
             </class>
         </classes>

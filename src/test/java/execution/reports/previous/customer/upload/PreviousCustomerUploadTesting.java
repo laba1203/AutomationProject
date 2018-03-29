@@ -1,4 +1,4 @@
-package execution.reports.previousCustomerUpload;
+package execution.reports.previous.customer.upload;
 
 import common.cases.CommonScenarios;
 import common.cases.ReportsScenarios;

@@ -1,4 +1,4 @@
-package execution.simpleTest;
+package execution.simple.test;
 
 import common.cases.ClientSiteScenarios;
 import common.cases.CommonScenarios;
