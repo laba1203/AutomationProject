@@ -127,16 +127,17 @@ public class Table extends AbstractElementsContainer {
         }
 
         void delete(){
+            verifyOffers();
             actionsButton.click();
-            Element deleteButton = null;
-            try {
-                deleteButton = new Element(rowElement.findElement(By.xpath(".//*[contains(text(),'Delete')]")));
-            }
-            catch (ElementNotFoundException e){
-                Assert.fail("FAILED: Delete option is missed for campaign <" + name.getText() + ">" + "\n" + e.getMessage());
-            }
+            Element deleteButton = new Element(rowElement.findElement(By.xpath(".//*[contains(text(),'Delete')]")));
             deleteButton.click();
             new Alert().confirm();
+        }
+
+        private void verifyOffers(){
+            if(offers.getText().equals("0")){
+                Assert.fail("FAILED: You can not delete campaign with offers. Offers count: <" + offers.getText() + ">, Campaign name: <" + name.getText() + ">");
+            }
         }
     }
 }
