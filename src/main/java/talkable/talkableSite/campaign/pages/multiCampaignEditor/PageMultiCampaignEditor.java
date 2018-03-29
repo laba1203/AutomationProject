@@ -102,4 +102,10 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
         waitSaving();
         return new PageMultiCampaignEditor(mode);
     }
+
+    public void typeToSearch(String text){
+        campaignFilter.clear();
+        campaignFilter.sendKeys(text);
+        setCampaignsLists();
+    }
 }

@@ -44,7 +44,7 @@ public class CampaignRecord extends AbstractElementsContainer{
     }
 
     public String getId(){
-        return id.getText().substring(3);
+        return id.getText().substring(4);
     }
 
     public String getStatus(){
