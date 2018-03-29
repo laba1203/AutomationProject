@@ -7,16 +7,12 @@ import org.testng.annotations.*;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
-import talkable.talkableSite.campaignsPage.Table;
+import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
+import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.headerFrame.Header;
 import util.EnvFactory;
 import util.PropertyLoader;
 
-import static talkable.talkableSite.campaign.pages.CampaignPlacement.FloatingWidget;
-import static talkable.talkableSite.campaign.pages.CampaignPlacement.PostPurchase;
-import static talkable.talkableSite.campaign.pages.CampaignPlacement.Standalone;
-import static talkable.talkableSite.campaign.pages.CampaignType.AdvocateDashboard;
-import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
@@ -25,13 +21,15 @@ import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 public class MceAdditionalScenarios extends BaseTest{
 
     private static final String siteName = PropertyLoader.loadProperty("sites.name.multiCampaignEditorTesting");
-    //ToDo: test cases for filtering and preview verification
-
-    private PageMultiCampaignEditor mcePage;
+    private static final String localizationName = "Advocate pages overlay opacity";
 
     private static final String incorrectSelectedCampaignsMsg = "FAILED: Incorrect Selected campaigns count";
     private static final String incorrectUnselectedCampaignsMsg = "FAILED: Incorrect Unselected campaigns count";
     private static final String incorrectIneligibleCampaignsMsg = "FAILED: Incorrect Ineligible campaigns count";
+
+    private PageMultiCampaignEditor mcePage;
+    private PreviewPopup previewPopup;
+
 
     @BeforeClass
     public void testDataSetup(){
@@ -59,7 +57,7 @@ public class MceAdditionalScenarios extends BaseTest{
                 .openCampaignsPage()
                 .openCampaignByName("Invite Post Purchase", LIVE);
         EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
-        mcePage = editor.clickCopyToOtherCampaigns(COPY, "Advocate pages overlay opacity#");
+        mcePage = editor.clickCopyToOtherCampaigns(COPY, localizationName + "#");
 
     }
 
@@ -91,19 +89,32 @@ public class MceAdditionalScenarios extends BaseTest{
 
 
     @BeforeGroups("preview")
-    public void test21_selectMultipleCampaigns(){
+    public void selectMultipleCampaigns(){
         mcePage.selectCampaign("Invite Floating Widget");
         mcePage.selectCampaign("Invite Post Purchase");
     }
 
     @Test(groups = "preview")
-    public void test22_preview(){
-//        mcePage.
+    public void test21_verifyPreviewPopup(){
+        String contentValue = mcePage.getNewContentValue();
+        previewPopup = mcePage.openPreviewPopup();
+
+        Assert.assertEquals(previewPopup.getContentName(), localizationName, "FAILED: Incorrect Content Name");
+        Assert.assertEquals(previewPopup.getContentName(), contentValue, "FAILED: Incorrect Content Name");
+    }
+
+    @Test
+    public void test22_closePreviewPopup(){
+        mcePage = previewPopup.closePopup();
+
+        assertCampaignsCount(mcePage, "3", "2", "3");
     }
 
     @AfterClass
     public void deactivateAndDelete(){
-
+        PageCampaigns campaignsPage = mcePage.header.openCampaignsPage().deleteAllTestCampaigns();
+        campaignsPage = campaignsPage.deactivateAllLiveCampaigns();
+        campaignsPage.deleteAllDisabledCampaigns();
     }
 
     private void assertCampaignsCount(PageMultiCampaignEditor mcePage,

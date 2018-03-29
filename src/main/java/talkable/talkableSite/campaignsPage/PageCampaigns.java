@@ -71,27 +71,47 @@ public class PageCampaigns extends AbstractTalkableSitePage {
 
     public PageCampaigns deleteAllTestCampaigns(){
         if(isTablePresent(TEST)){
-
-//            ArrayList<Table.Row> campaigns = getTestCampaignsTable().getAllRows();
-//            for (Table.Row row :
-//                    campaigns) {
+            deleteAllCampaigns(getTestCampaignsTable());
+//            int count = getTestCampaignsTable().getAllRows().size();
+//            System.out.println("DEBAG: Found " + count + " Test campaign for deletion");
+//            for(int i = 0; i < count; i++){
+//                Table.Row row = getTestCampaignsTable().getAllRows().get(0);
 //                String campaignName = row.name.getText();
 //                row.delete();
 //                waitDeletion();
 //                Log.campaignDeleted(campaignName);
 //            }
-            int count = getTestCampaignsTable().getAllRows().size();
-            System.out.println("DEBAG: Found " + count + " Test campaign for deletion");
-            for(int i = 0; i < count; i++){
-                Table.Row row = getTestCampaignsTable().getAllRows().get(0);
-                String campaignName = row.name.getText();
-                row.delete();
-                waitDeletion();
-                Log.campaignDeleted(campaignName);
-            }
         }
         return new PageCampaigns();
     }
+
+    public PageCampaigns deleteAllLiveCampaigns(){
+        if(isTablePresent(LIVE)){
+            deleteAllCampaigns(getLiveCampaignsTable());
+        }
+        return new PageCampaigns();
+    }
+
+    public PageCampaigns deleteAllDisabledCampaigns(){
+        if(isTablePresent(DISABLED)){
+            deleteAllCampaigns(getDisabledCampaignsTable());
+        }
+        return new PageCampaigns();
+    }
+
+    private void deleteAllCampaigns(Table table){
+        int count = table.getAllRows().size();
+        System.out.println("DEBAG: Found " + count + " campaign for deletion");
+        for(int i = 0; i < count; i++){
+            Table.Row row = table.getAllRows().get(0);
+            String campaignName = row.name.getText();
+            row.delete();
+            waitDeletion();
+            Log.campaignDeleted(campaignName);
+        }
+    }
+
+
 
     private boolean isTablePresent(Table.Status status){
         try{

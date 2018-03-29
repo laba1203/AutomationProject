@@ -6,7 +6,10 @@ import abstractObjects.Element;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import util.logging.Log;
@@ -125,14 +128,16 @@ public class Table extends AbstractElementsContainer {
 
         void delete(){
             actionsButton.click();
-            Element deleteButton = new Element(rowElement.findElement(By.xpath(".//*[contains(text(),'Delete')]")));
+            Element deleteButton = null;
+            try {
+                deleteButton = new Element(rowElement.findElement(By.xpath(".//*[contains(text(),'Delete')]")));
+            }
+            catch (ElementNotFoundException e){
+                Assert.fail("FAILED: Delete option is missed for campaign <" + name.getText() + ">" + "\n" + e.getMessage());
+            }
             deleteButton.click();
             new Alert().confirm();
         }
-
-
-
-
     }
 }
 

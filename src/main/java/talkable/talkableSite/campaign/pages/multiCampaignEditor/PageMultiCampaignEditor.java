@@ -3,6 +3,7 @@ package talkable.talkableSite.campaign.pages.multiCampaignEditor;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
 
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
 import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.INELIGIBLE;
@@ -20,6 +21,8 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
     private CampaignsList selectedCampaigns;
     private CampaignsList unselectedCampaigns;
     private CampaignsList ineligibleCampaigns;
+
+    private ElmntPreviewButton previewButton = new ElmntPreviewButton();
 
     private ContentValueRecord contentRecord;
 
@@ -107,5 +110,10 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
         campaignFilter.clear();
         campaignFilter.sendKeys(text);
         setCampaignsLists();
+    }
+
+    public PreviewPopup openPreviewPopup(){
+        previewButton.click();
+        return new PreviewPopup(mode);
     }
 }
