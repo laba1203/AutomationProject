@@ -1,12 +1,12 @@
-package talkable.homePage.elements;
+package talkable.homePage;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class LoginButton extends AbstractElement{
+class ElmntLoginButton extends AbstractElement{
     private static final By locator = By.className("js-ga-click");
 
-    public LoginButton(){
+    ElmntLoginButton(){
         setWebElement(locator);
     }
 }
