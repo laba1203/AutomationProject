@@ -69,29 +69,55 @@ public class PageCampaigns extends AbstractTalkableSitePage {
         return new PageCampaigns();
     }
 
-    public PageCampaigns deleteAllTestCampaigns(){
-        if(isTablePresent(TEST)){
-
-//            ArrayList<Table.Row> campaigns = getTestCampaignsTable().getAllRows();
-//            for (Table.Row row :
-//                    campaigns) {
+    public PageCampaigns deleteAllCampaignsWithStatus(Table.Status status){
+        if(isTablePresent(status)){
+            deleteAllCampaigns(new Table(status));
+//            int count = getTestCampaignsTable().getAllRows().size();
+//            System.out.println("DEBAG: Found " + count + " Test campaign for deletion");
+//            for(int i = 0; i < count; i++){
+//                Table.Row row = getTestCampaignsTable().getAllRows().get(0);
 //                String campaignName = row.name.getText();
 //                row.delete();
 //                waitDeletion();
 //                Log.campaignDeleted(campaignName);
 //            }
-            int count = getTestCampaignsTable().getAllRows().size();
-            System.out.println("DEBAG: Found " + count + " Test campaign for deletion");
-            for(int i = 0; i < count; i++){
-                Table.Row row = getTestCampaignsTable().getAllRows().get(0);
-                String campaignName = row.name.getText();
-                row.delete();
-                waitDeletion();
-                Log.campaignDeleted(campaignName);
-            }
         }
         return new PageCampaigns();
     }
+
+//    public PageCampaigns deleteAllLiveCampaigns(){
+//        if(isTablePresent(LIVE)){
+//            deleteAllCampaigns(getLiveCampaignsTable());
+//        }
+//        return new PageCampaigns();
+//    }
+
+//    public PageCampaigns deleteAllDisabledCampaigns(){
+//        Table.Status status = DISABLED;
+//        if(isTablePresent(status)){
+//            deleteAllCampaigns(getDisabledCampaignsTable(), status);
+//        }
+//        return new PageCampaigns();
+//    }
+
+    private void deleteAllCampaigns(Table table){
+        Table.Status status = table.getStatus();
+        int count = table.getAllRows().size();
+        System.out.println("DEBAG: Found " + count + " campaign for deletion");
+        for(int i = 0; i < count; i++){
+            Table.Row row = table.getAllRows().get(0);
+            String campaignName = row.name.getText();
+            row.delete();
+            waitDeletion();
+            Log.campaignDeleted(campaignName);
+
+            if(isTablePresent(status)) {
+                table = new Table(status); //to be tested
+            }
+        }
+    }
+
+
 
     private boolean isTablePresent(Table.Status status){
         try{

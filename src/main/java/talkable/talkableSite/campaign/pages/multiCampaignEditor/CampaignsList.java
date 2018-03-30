@@ -66,7 +66,7 @@ public class CampaignsList extends AbstractElementsContainer
         return count.getText().equals("0");
     }
 
-    ArrayList<CampaignRecord> getCampaignsList(){
+    public ArrayList<CampaignRecord> getCampaignsList(){
         return campaigns;
     }
 

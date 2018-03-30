@@ -1,13 +1,13 @@
-package talkable.loginPage.elements;
+package talkable.loginPage;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class LoginButton extends AbstractElement{
+class ElmntLoginButton extends AbstractElement{
 
     private static final By loginButtonLocator = By.cssSelector(".ac-login-button");
 
-    public LoginButton(){
+    ElmntLoginButton(){
         setWebElement(loginButtonLocator);
     }
 }

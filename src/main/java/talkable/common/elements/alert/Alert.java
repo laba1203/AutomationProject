@@ -1,10 +1,11 @@
-package abstractObjects;
+package talkable.common.elements.alert;
 
+import abstractObjects.AbstractElementsContainer;
 import org.openqa.selenium.WebDriver;
 import util.DriverConfig;
 import util.logging.Log;
 
-public class Alert extends AbstractElementsContainer{
+public class Alert extends AbstractElementsContainer {
 
     protected WebDriver driver = new DriverConfig().getDriver();
     private org.openqa.selenium.Alert alert;

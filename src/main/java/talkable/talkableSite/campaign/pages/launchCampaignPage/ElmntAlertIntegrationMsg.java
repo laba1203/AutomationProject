@@ -4,7 +4,7 @@ import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
 class ElmntAlertIntegrationMsg extends AbstractElement{
-    private static final By locator = By.cssSelector(".alert-info>.container");
+    private static final By locator = By.xpath("//p[contains(text(), 'Your site is not yet integrated')]");
 
     ElmntAlertIntegrationMsg(){
         setWebElement(locator);

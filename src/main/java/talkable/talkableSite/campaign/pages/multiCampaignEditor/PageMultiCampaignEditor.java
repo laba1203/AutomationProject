@@ -3,6 +3,7 @@ package talkable.talkableSite.campaign.pages.multiCampaignEditor;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
 
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
 import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.INELIGIBLE;
@@ -20,6 +21,8 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
     private CampaignsList selectedCampaigns;
     private CampaignsList unselectedCampaigns;
     private CampaignsList ineligibleCampaigns;
+
+    private ElmntPreviewButton previewButton = new ElmntPreviewButton();
 
     private ContentValueRecord contentRecord;
 
@@ -87,19 +90,33 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
         ineligibleCampaigns = new CampaignsList(INELIGIBLE);
     }
 
-    public void selectCampaign(String campaignName){
+    public PageMultiCampaignEditor selectCampaign(String campaignName){
         unselectedCampaigns.findCampaign(campaignName).select();
         setCampaignsLists();
+        return new PageMultiCampaignEditor(this.mode);
     }
 
-    public void unselectCampaign(String campaignName){
+    public PageMultiCampaignEditor unselectCampaign(String campaignName){
         selectedCampaigns.findCampaign(campaignName).select();
         setCampaignsLists();
+        return new PageMultiCampaignEditor(this.mode);
     }
 
     private PageMultiCampaignEditor saveChanges(){
         new ElmntSaveContentButton().click();
         waitSaving();
         return new PageMultiCampaignEditor(mode);
+    }
+
+    public PageMultiCampaignEditor typeToSearch(String text){
+        campaignFilter.clear();
+        campaignFilter.sendKeys(text);
+        setCampaignsLists();
+        return new PageMultiCampaignEditor(this.mode);
+    }
+
+    public PreviewPopup openPreviewPopup(){
+        previewButton.click();
+        return new PreviewPopup(mode);
     }
 }

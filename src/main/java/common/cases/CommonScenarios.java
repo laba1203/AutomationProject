@@ -74,13 +74,7 @@ public class CommonScenarios {
     public static CampaignDetailsPage initiateCampaignCreation(CampaignType campaignType, CampaignPlacement placementType){
         Header header = new Header();
         CreateNewCampaignPage createNewCampaignPage = header.openMenu().clickCreateNewCampaignButton();
-
-//        header.menuButton.click();
-//        MenuFrame menuFrame = new MenuFrame();
-//        menuFrame.createNewCampaignButton.click();
-
         //Create New Campaign page:
-//        CreateNewCampaignPage createNewCampaignPage = new CreateNewCampaignPage();
         createNewCampaignPage.createCampaign(campaignType, placementType);
         //check Campaign Status
         Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), liveStatusTest);
@@ -103,6 +97,17 @@ public class CommonScenarios {
         //check Campaign Status
         Assert.assertEquals(campaignDetailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusActive);
         return new CampaignDetailsPage();
+    }
+
+    public static CampaignDetailsPage createAndLaunchCampaign(CampaignType campaignType, CampaignPlacement placementType){
+        initiateCampaignCreation(campaignType, placementType);
+        try {
+            // This part is added due to an existing defect. Error 500 is returned when campaign is launched directly after creation.
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return launchCampaign();
     }
 
 

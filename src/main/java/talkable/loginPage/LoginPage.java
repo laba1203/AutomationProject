@@ -3,9 +3,6 @@ package talkable.loginPage;
 
 import abstractObjects.AbstractElementsContainer;
 import talkable.talkableSite.headerFrame.Header;
-import talkable.loginPage.elements.EmailInput;
-import talkable.loginPage.elements.LoginButton;
-import talkable.loginPage.elements.PasswordInput;
 
 
 public class LoginPage extends AbstractElementsContainer {
@@ -15,9 +12,9 @@ public class LoginPage extends AbstractElementsContainer {
 
     //Elements
 
-    private EmailInput emailInput;
-    private PasswordInput passwordInput;
-    private LoginButton loginButton;
+    private ElmntEmailInput emailInput;
+    private ElmntPasswordInput passwordInput;
+    private ElmntLoginButton loginButton;
 
 
 
@@ -27,9 +24,9 @@ public class LoginPage extends AbstractElementsContainer {
 
 
         //initiate web containers
-        emailInput = new EmailInput();
-        passwordInput = new PasswordInput();
-        loginButton = new LoginButton();
+        emailInput = new ElmntEmailInput();
+        passwordInput = new ElmntPasswordInput();
+        loginButton = new ElmntLoginButton();
 
     }
 

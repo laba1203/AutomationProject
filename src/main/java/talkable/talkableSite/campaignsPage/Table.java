@@ -1,40 +1,31 @@
 package talkable.talkableSite.campaignsPage;
 
 import abstractObjects.AbstractElementsContainer;
-import abstractObjects.Alert;
+import talkable.common.elements.alert.Alert;
 import abstractObjects.Element;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import util.logging.Log;
 
 public class Table extends AbstractElementsContainer {
     private static final By disabled = By.xpath("//h2[contains(text(), 'Disabled')]/following::table[1]");
     private static final By live = By.xpath("//h2[contains(text(), 'Live')]/following::table[1]");
     private static final By test = By.xpath("//h2[contains(text(), 'Test')]/following::table[1]");
 
+    private Status status;
     private ArrayList<Row> table = new ArrayList<>();
 
     public enum Status{LIVE, TEST, DISABLED}
 
-//    public Table(By by) {
-//        WebElement tableElement = this.driver.findElement(by);
-//        List<WebElement> allRows = tableElement.findElements(By.xpath("./tbody/tr"));
-//
-//        for (WebElement webElement :
-//                allRows) {
-//            this.table.add(new Row(webElement));
-//        }
-//    }
-
     Table(Status status) {
-//        WebElement tableElement = this.driver.findElement(by);
         WebElement tableElement = setTableWebElement(status);
+        assert tableElement != null;
         List<WebElement> allRows = tableElement.findElements(By.xpath("./tbody/tr"));
 
+        this.status = status;
         for (WebElement webElement :
                 allRows) {
             this.table.add(new Row(webElement));
@@ -56,6 +47,9 @@ public class Table extends AbstractElementsContainer {
         }
     }
 
+    public Status getStatus() {
+        return status;
+    }
 
     public String getCampaignType(int rowNumber) {
         return this.table.get(rowNumber).type.getText();
@@ -124,15 +118,18 @@ public class Table extends AbstractElementsContainer {
         }
 
         void delete(){
+            verifyOffers();
             actionsButton.click();
             Element deleteButton = new Element(rowElement.findElement(By.xpath(".//*[contains(text(),'Delete')]")));
             deleteButton.click();
             new Alert().confirm();
         }
 
-
-
-
+        private void verifyOffers(){
+            if(!offers.getText().equals("0")){
+                Assert.fail("FAILED: You can not delete campaign with offers. Offers count: <" + offers.getText() + ">, Campaign name: <" + name.getText() + ">");
+            }
+        }
     }
 }
 
