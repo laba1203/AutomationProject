@@ -40,41 +40,28 @@ public class MceAdditionalScenarios extends BaseTest{
     @BeforeClass
     public void testDataSetup(){
         // create test data
-        CommonScenarios.initiateCampaignCreation(AdvocateDashboard, Standalone);
-        CampaignDetailsPage detailsPage = CommonScenarios.launchCampaign();
+        CampaignDetailsPage detailsPage = CommonScenarios.createAndLaunchCampaign(AdvocateDashboard, Standalone);
         detailsPage.campaignNavigationMenu.deactivateCampaign();
 
-        CommonScenarios.initiateCampaignCreation(Invite, FloatingWidget);
-        CommonScenarios.launchCampaign();
-        CommonScenarios.initiateCampaignCreation(Invite, Standalone);
-        CommonScenarios.launchCampaign();
+        CommonScenarios.createAndLaunchCampaign(Invite, FloatingWidget);
+        CommonScenarios.createAndLaunchCampaign(Invite, Standalone);
+        detailsPage = CommonScenarios.createAndLaunchCampaign(Invite, PostPurchase);
 
-        CommonScenarios.initiateCampaignCreation(Invite, PostPurchase);
-        detailsPage = CommonScenarios.launchCampaign();
         // open MCE for PP campaign:
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        detailsPage = new Header()
-//                .openCampaignsPage()
-//                .openCampaignByName("Invite Post Purchase", LIVE);
         EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
         mcePage = editor.clickCopyToOtherCampaigns(COPY, localizationName + "#");
-
     }
 
 
     @Test(groups = "filtering")
     public void test11_filterByStatus(){
-        mcePage.typeToSearch("live");
+        mcePage = mcePage.typeToSearch("live");
         assertCampaignsCount(mcePage, "1", "1", "1");
     }
 
     @Test(groups = "filtering")
     public void test12_filterByCampaignName(){
-        mcePage.typeToSearch("invite");
+        mcePage = mcePage.typeToSearch("invite");
         assertCampaignsCount(mcePage, "1", "3", "2");
     }
 
@@ -82,36 +69,38 @@ public class MceAdditionalScenarios extends BaseTest{
     public void test13_filterByCampaignId(){
         String campaignID = mcePage.getSelectedCampaigns().getCampaignsList().get(0).getId().substring(0, 5);
         System.out.println("DEBAG: Campaign ID: <" + campaignID + ">");
-        mcePage.typeToSearch(campaignID);
+        mcePage = mcePage.typeToSearch(campaignID);
         assertCampaignsCount(mcePage, "1", "0", "0");
     }
 
     @AfterGroups("filtering")
     public void clearFilter(){
-        mcePage.typeToSearch("");
+        mcePage = mcePage.typeToSearch("");
     }
 
 
     @BeforeGroups("preview")
     public void selectMultipleCampaigns(){
-        mcePage.typeToSearch("invite");
-        mcePage.selectCampaign("Invite Floating Widget");
+        mcePage = mcePage.typeToSearch("invite");
+        mcePage = mcePage.selectCampaign("Invite Floating Widget");
     }
 
-    @Test(groups = "preview")
+    @Test(groups = "preview", dependsOnGroups = "filtering", alwaysRun = true)
     public void test21_verifyPreviewPopup(){
         String contentValue = mcePage.getNewContentValue();
         previewPopup = mcePage.openPreviewPopup();
 
         Assert.assertEquals(previewPopup.getContentName(), localizationName, "FAILED: Incorrect Content Name");
-        Assert.assertEquals(previewPopup.getContentName(), contentValue, "FAILED: Incorrect Content Name");
+        Assert.assertEquals(previewPopup.getContentValue(), contentValue, "FAILED: Incorrect Content Value");
     }
 
-    @Test(groups = "preview", dependsOnMethods = "test21_verifyPreviewPopup")
+    @Test(groups = "preview", dependsOnMethods = "test21_verifyPreviewPopup", alwaysRun = true)
     public void test22_closePreviewPopup(){
+        if(previewPopup == null){
+            Assert.fail("FAILED: Preview popup is not opened.");
+        }
         mcePage = previewPopup.closePopup();
-
-        assertCampaignsCount(mcePage, "3", "2", "3");
+        assertCampaignsCount(mcePage, "2", "3", "3");
     }
 
     @AfterClass

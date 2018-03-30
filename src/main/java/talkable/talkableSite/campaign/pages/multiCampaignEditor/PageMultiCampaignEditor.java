@@ -90,14 +90,16 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
         ineligibleCampaigns = new CampaignsList(INELIGIBLE);
     }
 
-    public void selectCampaign(String campaignName){
+    public PageMultiCampaignEditor selectCampaign(String campaignName){
         unselectedCampaigns.findCampaign(campaignName).select();
         setCampaignsLists();
+        return new PageMultiCampaignEditor(this.mode);
     }
 
-    public void unselectCampaign(String campaignName){
+    public PageMultiCampaignEditor unselectCampaign(String campaignName){
         selectedCampaigns.findCampaign(campaignName).select();
         setCampaignsLists();
+        return new PageMultiCampaignEditor(this.mode);
     }
 
     private PageMultiCampaignEditor saveChanges(){
@@ -106,10 +108,11 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
         return new PageMultiCampaignEditor(mode);
     }
 
-    public void typeToSearch(String text){
+    public PageMultiCampaignEditor typeToSearch(String text){
         campaignFilter.clear();
         campaignFilter.sendKeys(text);
         setCampaignsLists();
+        return new PageMultiCampaignEditor(this.mode);
     }
 
     public PreviewPopup openPreviewPopup(){

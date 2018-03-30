@@ -37,8 +37,16 @@ public abstract class AbstractElement implements DrivenElement{
 
     public void click()
     {
-        actions.moveToElement(this.webElement).perform();
-        this.webElement.click();
+        //to be tested (before was only code inside try{} ):
+        try {
+            actions.moveToElement(this.webElement).perform();
+            this.webElement.click();
+        }catch (StaleElementReferenceException e){
+            setWebElement(this.locator);
+            actions.moveToElement(this.webElement).perform();
+            this.webElement.click();
+        }
+
         Log.clickMsg(this);
     }
 

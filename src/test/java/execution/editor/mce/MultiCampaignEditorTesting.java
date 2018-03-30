@@ -104,7 +104,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     //Select second FW campaign
     @Test(groups = "copyUpdate")
     public void test12_selectSecondFWCampaignCOPY() {
-        mcePage.selectCampaign(campaignNameFW_2);
+        mcePage = mcePage.selectCampaign(campaignNameFW_2);
         // Verify selected campaign list
         Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2", "FAILED: Incorrect count of Selected campaigns");
         // Verify unselected campaigns list
@@ -169,8 +169,8 @@ public class MultiCampaignEditorTesting extends BaseTest {
     //Select campaign FW and SA campaign
     @Test(groups = "colorUpdate")
     public void test22_selectCampaignsCOLOR() {
-        mcePage.selectCampaign(campaignNameFW_1);
-        mcePage.selectCampaign(campaignNameSA);
+        mcePage = mcePage.selectCampaign(campaignNameFW_1);
+        mcePage = mcePage.selectCampaign(campaignNameSA);
         // Verify selected campaign list
         Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "3");
         // Verify unselected campaigns list
@@ -263,7 +263,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
         System.out.println("DEBAG: test32_selectCampaignsCONFIG START");
 
-        mcePage.selectCampaign(campaignNamePP);
+        mcePage = mcePage.selectCampaign(campaignNamePP);
         // Verify selected campaign list
         Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2");
         // Verify unselected campaigns list
@@ -325,7 +325,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @Test(groups = "imageUpdate", dependsOnMethods = "test41_openMultiCampaignEditorIMAGES")
     public void test42_selectCampaignsIMAGES() {
-        mcePage.selectCampaign(campaignNameFW_1);
+        mcePage = mcePage.selectCampaign(campaignNameFW_1);
         // Verify selected campaign list
         Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2", "FAILED: Incorrect count of Selected campaigns");
         // Verify unselected campaigns list

@@ -9,10 +9,11 @@ public class PreviewPopup extends AbstractElementsContainer{
     private EditorPage.LocalizationMode mode;
 
     private ElmntCampaignsDropDown campaigns = new ElmntCampaignsDropDown();
-    private ElmntViewPresetDropDown viewPreset = new ElmntViewPresetDropDown();
     private ElmntContentName contentName = new ElmntContentName();
     private ElmntContentValue contentValue = new ElmntContentValue();
     private ElmntCloseButton closeButton = new ElmntCloseButton();
+    private ElmntViewPresetDropDown viewPreset;
+
 
     public PreviewPopup(EditorPage.LocalizationMode mode) {
         this.mode = mode;
@@ -29,6 +30,11 @@ public class PreviewPopup extends AbstractElementsContainer{
     public PageMultiCampaignEditor closePopup(){
         closeButton.click();
         return new PageMultiCampaignEditor(mode);
+    }
+
+    public String getViewPresetValue(){
+        viewPreset = new ElmntViewPresetDropDown();
+        return viewPreset.getSelectedItemText();
     }
 
 }
