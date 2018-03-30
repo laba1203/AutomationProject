@@ -2,15 +2,14 @@ package talkable.talkableSite.siteDashboardPage;
 
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
-import talkable.talkableSite.siteDashboardPage.elements.SiteNameField;
 
 public class SiteDashboardPage extends AbstractTalkableSitePage{
-    private SiteNameField siteName;
+    private ElmntSiteNameField siteName;
 //    public Header header;
 
     public SiteDashboardPage(){
 //        header = new Header();
-        siteName = new SiteNameField();
+        siteName = new ElmntSiteNameField();
     }
 
     public void verifySiteName(String expectedSiteName){
