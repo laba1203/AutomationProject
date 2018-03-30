@@ -13,6 +13,11 @@ import talkable.talkableSite.headerFrame.Header;
 import util.EnvFactory;
 import util.PropertyLoader;
 
+import static talkable.talkableSite.campaign.pages.CampaignPlacement.FloatingWidget;
+import static talkable.talkableSite.campaign.pages.CampaignPlacement.PostPurchase;
+import static talkable.talkableSite.campaign.pages.CampaignPlacement.Standalone;
+import static talkable.talkableSite.campaign.pages.CampaignType.AdvocateDashboard;
+import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
@@ -33,29 +38,27 @@ public class MceAdditionalScenarios extends BaseTest{
 
     @BeforeClass
     public void testDataSetup(){
-        //Temp:
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).selectByVisibleText(siteName);
         // create test data
-//        CommonScenarios.initiateCampaignCreation(AdvocateDashboard, Standalone);
-//        CampaignDetailsPage detailsPage = CommonScenarios.launchCampaign();
-//        detailsPage.campaignNavigationMenu.deactivateCampaign();
-//
-//        CommonScenarios.initiateCampaignCreation(Invite, FloatingWidget);
-//        CommonScenarios.launchCampaign();
-//        CommonScenarios.initiateCampaignCreation(Invite, Standalone);
-//        CommonScenarios.launchCampaign();
-//
-//        CommonScenarios.initiateCampaignCreation(Invite, PostPurchase);
-//        detailsPage = CommonScenarios.launchCampaign();
+        CommonScenarios.initiateCampaignCreation(AdvocateDashboard, Standalone);
+        CampaignDetailsPage detailsPage = CommonScenarios.launchCampaign();
+        detailsPage.campaignNavigationMenu.deactivateCampaign();
+
+        CommonScenarios.initiateCampaignCreation(Invite, FloatingWidget);
+        CommonScenarios.launchCampaign();
+        CommonScenarios.initiateCampaignCreation(Invite, Standalone);
+        CommonScenarios.launchCampaign();
+
+        CommonScenarios.initiateCampaignCreation(Invite, PostPurchase);
+        detailsPage = CommonScenarios.launchCampaign();
         // open MCE for PP campaign:
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        CampaignDetailsPage detailsPage = new Header()
-                .openCampaignsPage()
-                .openCampaignByName("Invite Post Purchase", LIVE);
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        detailsPage = new Header()
+//                .openCampaignsPage()
+//                .openCampaignByName("Invite Post Purchase", LIVE);
         EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
         mcePage = editor.clickCopyToOtherCampaigns(COPY, localizationName + "#");
 

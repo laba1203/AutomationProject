@@ -135,7 +135,7 @@ public class Table extends AbstractElementsContainer {
         }
 
         private void verifyOffers(){
-            if(offers.getText().equals("0")){
+            if(!offers.getText().equals("0")){
                 Assert.fail("FAILED: You can not delete campaign with offers. Offers count: <" + offers.getText() + ">, Campaign name: <" + name.getText() + ">");
             }
         }

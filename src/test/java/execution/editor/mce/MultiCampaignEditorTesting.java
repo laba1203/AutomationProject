@@ -352,13 +352,19 @@ public class MultiCampaignEditorTesting extends BaseTest {
                 newContentValue);
     }
 
+    @AfterClass
+    public void openCampaignDetailPage(){
+        new EditorPage().campaignNavigationMenu.openDetailsPage();
+    }
 
 
     @AfterSuite
     public void deleteTestCampaigns() {
-        CampaignDetailsPage detailsPage = new EditorPage().campaignNavigationMenu.openDetailsPage();
-        detailsPage.header.openCampaignsPage().deleteAllTestCampaigns();
+        new Header().openCampaignsPage().deleteAllTestCampaigns();
     }
+
+
+
 
 
 
