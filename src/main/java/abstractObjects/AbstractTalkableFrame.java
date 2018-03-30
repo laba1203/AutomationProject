@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import util.logging.Log;
 
-public class AbstractTalkableFrame extends AbstractElementsContainer{
+public abstract class AbstractTalkableFrame extends AbstractElementsContainer{
     private WebElement frameElement;
 
     protected void setWebElement(By locator){
