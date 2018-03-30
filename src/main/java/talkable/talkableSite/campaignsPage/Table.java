@@ -1,18 +1,14 @@
 package talkable.talkableSite.campaignsPage;
 
 import abstractObjects.AbstractElementsContainer;
-import abstractObjects.Alert;
+import talkable.common.elements.alert.Alert;
 import abstractObjects.Element;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import util.logging.Log;
 
 public class Table extends AbstractElementsContainer {
     private static final By disabled = By.xpath("//h2[contains(text(), 'Disabled')]/following::table[1]");
@@ -24,19 +20,9 @@ public class Table extends AbstractElementsContainer {
 
     public enum Status{LIVE, TEST, DISABLED}
 
-//    public Table(By by) {
-//        WebElement tableElement = this.driver.findElement(by);
-//        List<WebElement> allRows = tableElement.findElements(By.xpath("./tbody/tr"));
-//
-//        for (WebElement webElement :
-//                allRows) {
-//            this.table.add(new Row(webElement));
-//        }
-//    }
-
     Table(Status status) {
-//        WebElement tableElement = this.driver.findElement(by);
         WebElement tableElement = setTableWebElement(status);
+        assert tableElement != null;
         List<WebElement> allRows = tableElement.findElements(By.xpath("./tbody/tr"));
 
         this.status = status;

@@ -1,6 +1,6 @@
 package talkable.talkableSite.campaign.pages.detailsPage;
 
-import abstractObjects.Alert;
+import talkable.common.elements.alert.Alert;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
 import talkable.talkableSite.campaign.pages.CampaignPlacement;
