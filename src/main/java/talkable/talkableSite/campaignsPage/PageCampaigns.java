@@ -69,9 +69,9 @@ public class PageCampaigns extends AbstractTalkableSitePage {
         return new PageCampaigns();
     }
 
-    public PageCampaigns deleteAllTestCampaigns(){
-        if(isTablePresent(TEST)){
-            deleteAllCampaigns(getTestCampaignsTable());
+    public PageCampaigns deleteAllCampaignsWithStatus(Table.Status status){
+        if(isTablePresent(status)){
+            deleteAllCampaigns(new Table(status));
 //            int count = getTestCampaignsTable().getAllRows().size();
 //            System.out.println("DEBAG: Found " + count + " Test campaign for deletion");
 //            for(int i = 0; i < count; i++){
@@ -85,21 +85,23 @@ public class PageCampaigns extends AbstractTalkableSitePage {
         return new PageCampaigns();
     }
 
-    public PageCampaigns deleteAllLiveCampaigns(){
-        if(isTablePresent(LIVE)){
-            deleteAllCampaigns(getLiveCampaignsTable());
-        }
-        return new PageCampaigns();
-    }
+//    public PageCampaigns deleteAllLiveCampaigns(){
+//        if(isTablePresent(LIVE)){
+//            deleteAllCampaigns(getLiveCampaignsTable());
+//        }
+//        return new PageCampaigns();
+//    }
 
-    public PageCampaigns deleteAllDisabledCampaigns(){
-        if(isTablePresent(DISABLED)){
-            deleteAllCampaigns(getDisabledCampaignsTable());
-        }
-        return new PageCampaigns();
-    }
+//    public PageCampaigns deleteAllDisabledCampaigns(){
+//        Table.Status status = DISABLED;
+//        if(isTablePresent(status)){
+//            deleteAllCampaigns(getDisabledCampaignsTable(), status);
+//        }
+//        return new PageCampaigns();
+//    }
 
     private void deleteAllCampaigns(Table table){
+        Table.Status status = table.getStatus();
         int count = table.getAllRows().size();
         System.out.println("DEBAG: Found " + count + " campaign for deletion");
         for(int i = 0; i < count; i++){
@@ -108,6 +110,10 @@ public class PageCampaigns extends AbstractTalkableSitePage {
             row.delete();
             waitDeletion();
             Log.campaignDeleted(campaignName);
+
+            if(isTablePresent(status)) {
+                table = new Table(status); //to be tested
+            }
         }
     }
 

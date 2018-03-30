@@ -9,8 +9,7 @@ import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
-import talkable.talkableSite.headerFrame.Header;
-import util.EnvFactory;
+import talkable.talkableSite.campaignsPage.Table;
 import util.PropertyLoader;
 
 import static talkable.talkableSite.campaign.pages.CampaignPlacement.FloatingWidget;
@@ -19,7 +18,9 @@ import static talkable.talkableSite.campaign.pages.CampaignPlacement.Standalone;
 import static talkable.talkableSite.campaign.pages.CampaignType.AdvocateDashboard;
 import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
+import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
+import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1P-VCSCq04_lqZQXhbhEm09duImidJBJGbIaOnmIlLDg
  * */
@@ -93,8 +94,8 @@ public class MceAdditionalScenarios extends BaseTest{
 
     @BeforeGroups("preview")
     public void selectMultipleCampaigns(){
+        mcePage.typeToSearch("invite");
         mcePage.selectCampaign("Invite Floating Widget");
-        mcePage.selectCampaign("Invite Post Purchase");
     }
 
     @Test(groups = "preview")
@@ -106,7 +107,7 @@ public class MceAdditionalScenarios extends BaseTest{
         Assert.assertEquals(previewPopup.getContentName(), contentValue, "FAILED: Incorrect Content Name");
     }
 
-    @Test
+    @Test(groups = "preview", dependsOnMethods = "test21_verifyPreviewPopup")
     public void test22_closePreviewPopup(){
         mcePage = previewPopup.closePopup();
 
@@ -115,9 +116,9 @@ public class MceAdditionalScenarios extends BaseTest{
 
     @AfterClass
     public void deactivateAndDelete(){
-        PageCampaigns campaignsPage = mcePage.header.openCampaignsPage().deleteAllTestCampaigns();
-        campaignsPage = campaignsPage.deactivateAllLiveCampaigns();
-        campaignsPage.deleteAllDisabledCampaigns();
+        PageCampaigns campaignsPage = mcePage.header.openCampaignsPage().deleteAllCampaignsWithStatus(TEST);
+        campaignsPage = campaignsPage.deleteAllCampaignsWithStatus(LIVE);
+        campaignsPage.deleteAllCampaignsWithStatus(DISABLED);
     }
 
     private void assertCampaignsCount(PageMultiCampaignEditor mcePage,

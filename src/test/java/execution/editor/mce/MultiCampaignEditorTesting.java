@@ -16,6 +16,8 @@ import util.EnvFactory;
 import util.PropertyLoader;
 
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.*;
+import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
+import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1NlY_NBmvKIRjmqb2d7oQPuDZEs6s7fToZkrSJPhwOaY
@@ -48,7 +50,10 @@ public class MultiCampaignEditorTesting extends BaseTest {
             e.printStackTrace();
         }
         //clear data from previous execution:
-        new Header().openCampaignsPage().deleteAllTestCampaigns();
+        PageCampaigns campaignsPage = new Header().openCampaignsPage().deleteAllCampaignsWithStatus(TEST);
+        campaignsPage = campaignsPage.deleteAllCampaignsWithStatus(LIVE);
+        campaignsPage.deleteAllCampaignsWithStatus(DISABLED);
+
         //Create campaigns for testing:
         campaignNameSA = CommonScenarios.initiateCampaignCreation(CampaignType.Invite, CampaignPlacement.Standalone)
                 .campaignNavigationMenu.getCampaignName();
@@ -360,7 +365,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @AfterSuite
     public void deleteTestCampaigns() {
-        new Header().openCampaignsPage().deleteAllTestCampaigns();
+        new Header().openCampaignsPage().deleteAllCampaignsWithStatus(TEST);
     }
 
 

@@ -19,6 +19,7 @@ public class Table extends AbstractElementsContainer {
     private static final By live = By.xpath("//h2[contains(text(), 'Live')]/following::table[1]");
     private static final By test = By.xpath("//h2[contains(text(), 'Test')]/following::table[1]");
 
+    private Status status;
     private ArrayList<Row> table = new ArrayList<>();
 
     public enum Status{LIVE, TEST, DISABLED}
@@ -38,6 +39,7 @@ public class Table extends AbstractElementsContainer {
         WebElement tableElement = setTableWebElement(status);
         List<WebElement> allRows = tableElement.findElements(By.xpath("./tbody/tr"));
 
+        this.status = status;
         for (WebElement webElement :
                 allRows) {
             this.table.add(new Row(webElement));
@@ -59,6 +61,9 @@ public class Table extends AbstractElementsContainer {
         }
     }
 
+    public Status getStatus() {
+        return status;
+    }
 
     public String getCampaignType(int rowNumber) {
         return this.table.get(rowNumber).type.getText();
