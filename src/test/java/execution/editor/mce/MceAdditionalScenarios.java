@@ -9,7 +9,6 @@ import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
-import talkable.talkableSite.campaignsPage.Table;
 import util.PropertyLoader;
 
 import static talkable.talkableSite.campaign.pages.CampaignPlacement.FloatingWidget;

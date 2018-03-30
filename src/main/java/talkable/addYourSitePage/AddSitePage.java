@@ -2,17 +2,16 @@ package talkable.addYourSitePage;
 
 import abstractObjects.AbstractElementsContainer;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
-import talkable.addYourSitePage.elements.*;
 
 public class AddSitePage extends AbstractElementsContainer {
 
     private static  final String title = "Site details | Talkable";
 
-    private SiteName siteName;
-    private WebAddressInput webAddressInput;
-    private PlatformInput platformInput;
-    private CurrencySelect currencySelect;
-    private AddSiteButton addSiteButton;
+    private ElmntSiteName siteName;
+    private ElmntWebAddressInput webAddressInput;
+    private ElmntPlatformInput platformInput;
+    private ElmntCurrencySelect currencySelect;
+    private ElmntAddSiteButton addSiteButton;
 
 
 
@@ -21,11 +20,11 @@ public class AddSitePage extends AbstractElementsContainer {
         isPageOpened(title);
 
         //initialize webElements:
-        siteName = new SiteName();
-        webAddressInput = new WebAddressInput();
-        platformInput = new PlatformInput();
-        currencySelect = new CurrencySelect();
-        addSiteButton = new AddSiteButton();
+        siteName = new ElmntSiteName();
+        webAddressInput = new ElmntWebAddressInput();
+        platformInput = new ElmntPlatformInput();
+        currencySelect = new ElmntCurrencySelect();
+        addSiteButton = new ElmntAddSiteButton();
 
     }
 

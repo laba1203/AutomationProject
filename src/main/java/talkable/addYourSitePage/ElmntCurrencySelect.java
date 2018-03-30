@@ -1,12 +1,12 @@
-package talkable.addYourSitePage.elements;
+package talkable.addYourSitePage;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class CurrencySelect extends AbstractElement {
+public class ElmntCurrencySelect extends AbstractElement {
     private By currencySelectLocator = By.id("site_currency_code");
 
-    public CurrencySelect(){
+    public ElmntCurrencySelect(){
         setWebElement(currencySelectLocator);
     }
 

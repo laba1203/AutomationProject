@@ -1,12 +1,12 @@
-package talkable.addYourSitePage.elements;
+package talkable.addYourSitePage;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class AddSiteButton extends AbstractElement {
+public class ElmntAddSiteButton extends AbstractElement {
     private By addSiteLocator = By.cssSelector("input[value = 'Add site']");
 
-    public AddSiteButton(){
+    public ElmntAddSiteButton(){
         setWebElement(addSiteLocator);
     }
 }

@@ -1,12 +1,12 @@
-package talkable.addYourSitePage.elements;
+package talkable.addYourSitePage;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class PlatformInput extends AbstractElement {
+public class ElmntPlatformInput extends AbstractElement {
     private By platformLocator = By.id("site_platform");
 
-    public PlatformInput(){
+    public ElmntPlatformInput(){
         setWebElement(platformLocator);
     }
 }

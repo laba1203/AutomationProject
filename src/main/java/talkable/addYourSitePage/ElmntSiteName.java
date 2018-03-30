@@ -1,12 +1,12 @@
-package talkable.addYourSitePage.elements;
+package talkable.addYourSitePage;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class SiteName extends AbstractElement {
+public class ElmntSiteName extends AbstractElement {
     private By siteNameLocator = By.id("site_name");
 
-    public SiteName(){
+    public ElmntSiteName(){
         setWebElement(siteNameLocator);
     }
 }
