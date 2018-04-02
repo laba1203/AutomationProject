@@ -18,8 +18,6 @@ public class ReportsPage extends AbstractTalkableSitePage{
 
 
     public ReportsPage(){
-        isPageOpened(title);
-
         previousCustomersButton = new PreviousCustomersButton();
         peopleButton = new PeopleButton();
         referralsButton = new ReferralsButton();

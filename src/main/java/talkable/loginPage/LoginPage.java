@@ -19,10 +19,6 @@ public class LoginPage extends AbstractElementsContainer {
 
 
     public LoginPage(){
-        //verify if page is opened
-        isPageOpened(title);
-
-
         //initiate web containers
         emailInput = new ElmntEmailInput();
         passwordInput = new ElmntPasswordInput();

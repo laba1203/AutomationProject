@@ -1,5 +1,7 @@
 <suite name="SuiteName1">
 
+    <suite-file path="MultiCampaignEditorSuite.xml"/>
+
     <test name="Regression" preserve-order="true" >
         <classes>
             <class name="execution.smoke.SmokeTest">
@@ -24,13 +26,13 @@
             </class>
         </classes>
     </test>
-    <test name="Multi-campaign Editor" preserve-order="true">
-        <classes>
-            <class name="execution.editor.mce.MultiCampaignEditorTesting">
+    <!--<test name="Multi-campaign Editor" preserve-order="true">-->
+        <!--<classes>-->
+            <!--<class name="execution.editor.mce.MultiCampaignEditorTesting">-->
 
-            </class>
-        </classes>
-    </test>
+            <!--</class>-->
+        <!--</classes>-->
+    <!--</test>-->
 
     <!-- Below section should be executed only for extended regression-->
     <!--

@@ -16,9 +16,6 @@ public class AddSitePage extends AbstractElementsContainer {
 
 
     public AddSitePage(){
-        //check if page is opened
-        isPageOpened(title);
-
         //initialize webElements:
         siteName = new ElmntSiteName();
         webAddressInput = new ElmntWebAddressInput();

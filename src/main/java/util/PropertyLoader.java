@@ -32,7 +32,7 @@ public class PropertyLoader {
     public static String loadEnvProperty(String name){
         Properties props;
         //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
-        String env = System.getProperty("test.environment");
+        String env = getMavenEnvName();
         if(env.equals("PROD")){
             props = getPropertiesFile(PROD_PROP_FILE);
         }
@@ -46,7 +46,6 @@ public class PropertyLoader {
             value = props.getProperty(name);
         }
         return value;
-
     }
 
     private static Properties getPropertiesFile(String fileName){
@@ -58,6 +57,16 @@ public class PropertyLoader {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static String getMavenEnvName(){
+        //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
+        //correct working:
+//        return System.getProperty("test.environment");
+
+        //for local running of the project:
+        return "VOID";
+
     }
 
 
