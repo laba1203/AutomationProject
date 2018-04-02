@@ -23,7 +23,6 @@ import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1P-VCSCq04_lqZQXhbhEm09duImidJBJGbIaOnmIlLDg
  * */
-
 public class MceAdditionalScenarios extends BaseTest{
 
     private static final String siteName = PropertyLoader.loadProperty("sites.name.multiCampaignEditorTesting");
