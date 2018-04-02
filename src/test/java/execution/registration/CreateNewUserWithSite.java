@@ -17,8 +17,6 @@ import static talkable.userRegistration.chosePlatformPage.ChosePlatformPage.Plat
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1VtMlmQDO77F5gGKOBBEuBN9hVyXBsnp3jD5u-v3z5Zk/
  * */
 public class CreateNewUserWithSite extends BaseTest{
-//    private DriverConfig driverFactory;
-//    private WebDriver driver;
 
     private static final String email = "maxim.laba+auto.test" + TestDataGenerator.getRandomId() + "@talkable.com";
     private static final String password = "Password1";
@@ -28,9 +26,6 @@ public class CreateNewUserWithSite extends BaseTest{
 
     @BeforeClass
     public void setup() {
-        //commented after adding of Base Test
-//        this.driverFactory = new DriverConfig();
-//        this.driver = this.driverFactory.getDriver();
         this.driver.navigate().to(EnvFactory.getRegistrationURL());
     }
 
@@ -43,12 +38,5 @@ public class CreateNewUserWithSite extends BaseTest{
         IntegrationInstructionPage page = CommonScenarios.registerNewUserWithSite(email, password, siteName, siteUrl, OTHER);
         Assert.assertEquals(page.header.getSiteName(), siteName);
     }
-
-    //commented after adding of Base Test
-//    @AfterClass
-//    public void quit() {
-//        driver.quit();
-//        driverFactory.cleanWebDriver();
-//    }
 
 }
