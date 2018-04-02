@@ -1,7 +1,11 @@
 # TalkableProductAutomationProject
 *To run scenarios execute following command in the project root directory, where ${env.NAME} name of test env (possible values: VOID, PROD):*
 
+
+```
 mnv clean test -Denv.NAME=PROD
+```
+
 
    *or*
  
