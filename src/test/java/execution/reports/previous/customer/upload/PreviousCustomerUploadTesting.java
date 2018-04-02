@@ -23,9 +23,6 @@ public class PreviousCustomerUploadTesting extends BaseTest{
 
     private static final String fileName = "testDataForExistingCustomersReport.csv";
 
-//    private WebDriver driver = new DriverConfig().getDriver();
-
-
     @BeforeClass
     public void setup(){
         driver.navigate().to(EnvFactory.getEnvUrl()); //"https://void.talkable.com"
@@ -39,12 +36,6 @@ public class PreviousCustomerUploadTesting extends BaseTest{
     public void testing(String fileName, String expectedProgress, String expectedUploadedEmails, String expectedStatus){
         ReportsScenarios.previousCustomerUploadTesting(fileName, expectedProgress, expectedUploadedEmails, expectedStatus);
     }
-
-//    @AfterClass
-//    public void quit(){
-//        driver.quit();
-//        new DriverConfig().cleanWebDriver();
-//    }
 
 
     @DataProvider

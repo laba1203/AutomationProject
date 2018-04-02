@@ -21,6 +21,7 @@ import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.headerFrame.Header;
 import util.DriverConfig;
 import util.EnvFactory;
+import util.PropertyLoader;
 import util.TestDataGenerator;
 
 import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
@@ -28,9 +29,11 @@ import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
 public class SmokeTest  extends BaseTest{
 
-    private static final String SITE_URL = "http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html";
+//    private static final String SITE_URL = "http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html";
+    private static final String SITE_URL = PropertyLoader.loadEnvProperty("test.sites.smoke.test");
+//    private static final String siteName = "automation-smoke-test";
+    private static final String siteName = PropertyLoader.loadProperty("sites.name.smokeTest");
 
-    private static final String siteName = "automation-smoke-test";
     private static final String liveStatusActive = "Status: Live";
     private static final String liveStatusTest = "Status: Test";
     private static final String liveStatusDisabled = "Status: Disabled";
