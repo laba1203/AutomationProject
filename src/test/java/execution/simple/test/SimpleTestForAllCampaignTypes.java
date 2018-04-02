@@ -14,6 +14,7 @@ import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPag
 import talkable.talkableSite.headerFrame.Header;
 import util.DriverConfig;
 import util.EnvFactory;
+import util.PropertyLoader;
 import util.TestDataGenerator;
 import util.logging.Log;
 
@@ -24,21 +25,15 @@ import static talkable.talkableSite.campaign.pages.CampaignPlacement.PostPurchas
 * */
 public class SimpleTestForAllCampaignTypes extends BaseTest{
 
-//    private DriverConfig driverFactory;
-//    private WebDriver driver;
-
-    private static final String customerSiteUrl = "http://learn.talkable.com/QA-Common/Automation/void/simple-test/";
-    private static final String siteName = "simple-test";
+//    private static final String customerSiteUrl = "http://learn.talkable.com/QA-Common/Automation/void/simple-test/";
+    private static final String customerSiteUrl = PropertyLoader.loadEnvProperty("test.sites.simpleTestForAllCampaigns");
+    private static final String siteName = PropertyLoader.loadProperty("sites.name.simpleTestForAllCampaigns");
 
     @BeforeClass
     public void setup() {
-        //commented after extension of BaseTest:
-//        this.driverFactory = new DriverConfig();
-//        this.driver = this.driverFactory.getDriver();
         this.driver.navigate().to(EnvFactory.getEnvUrl());
         //Login to env
         CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).selectByVisibleText(siteName);
-//        driver.getCurrentUrl();
     }
 
     @Test(dataProvider = "getTestData")
