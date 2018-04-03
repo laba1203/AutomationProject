@@ -35,9 +35,11 @@ public class PropertyLoader {
         String env = getMavenEnvName();
         if(env.equals("PROD")){
             props = getPropertiesFile(PROD_PROP_FILE);
+            System.out.println("DEBAG: Property loaded from prod.properties file");
         }
         else {
             props = getPropertiesFile(VOID_PROP_FILE);
+            System.out.println("DEBAG: Property loaded from void.properties file");
         }
         String value = "";
 
@@ -61,6 +63,7 @@ public class PropertyLoader {
 
     public static String getMavenEnvName(){
         //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
+
         //correct working:
 //        return System.getProperty("test.environment");
 

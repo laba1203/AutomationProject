@@ -21,7 +21,7 @@ public class BaseTest {
             this.driverFactory = new DriverConfig();
             this.driver = this.driverFactory.getDriver();
             this.driver.navigate().to(EnvFactory.getEnvUrl());
-            System.out.println("DEBAG: Before suite executed");
+            System.out.println("DEBAG: Before suite executed in Base Test");
         }
 
 
@@ -47,14 +47,14 @@ public class BaseTest {
             if(ITestResult.FAILURE == result.getStatus()){
                 screenshot.getScreenshot();
             }
-            System.out.println("DEBAG: Tried to capture screenshot");
+            System.out.println("LOG: Tried to capture screenshot");
         }
 
         @AfterSuite
         public void quit() {
             this.driver.quit();
             this.driverFactory.cleanWebDriver();
-            System.out.println("DEBAG: After class executed");
+            System.out.println("DEBAG: After Suite executed in Base Test");
         }
     }
 
