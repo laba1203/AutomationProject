@@ -148,8 +148,12 @@ public class SmokeTest  extends BaseTest{
     @Test
     public void test10_verifyCampaignOnSite() {
         this.driverFactory.getDriver().navigate().to(SITE_URL);
-        AdvocateTriggerWidgetFrame triggerWidget = new AdvocateTriggerWidgetFrame();
-        triggerWidget.click();
+        try {
+            AdvocateTriggerWidgetFrame triggerWidget = new AdvocateTriggerWidgetFrame();
+            triggerWidget.click();
+        }catch (NoSuchElementException e){
+            Assert.fail("FAILED: Advocate trigger widget is not displayed\r\n" + e.getMessage());
+        }
     }
 
     @Test

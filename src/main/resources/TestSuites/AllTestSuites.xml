@@ -1,0 +1,13 @@
+<suite name="SuiteName1">
+
+    <suite-file path="SmokeTest.xml"/>
+    <!--<suite-file path="MultiCampaignEditorSuite.xml"/>-->
+    <suite-file path="ReportsSuite.xml"/>
+    <suite-file path="EditorSuite.xml"/>
+    <suite-file path="SimpleTestForAllCampaignsTypes.xml"/>
+
+    <!--Below suite will create new site-->
+    <!--<suite-file path="AccountAndSiteCreation.xml"/>-->
+
+</suite>
+
