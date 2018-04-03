@@ -1,4 +1,4 @@
-package customerSite.talkableFrame.commonPages.advocateSharePage;
+package customerSite.talkableFrame.commonPages.advocateSharePage.invite;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;

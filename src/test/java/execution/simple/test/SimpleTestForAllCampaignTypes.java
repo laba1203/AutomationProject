@@ -3,7 +3,6 @@ package execution.simple.test;
 import common.cases.ClientSiteScenarios;
 import common.cases.CommonScenarios;
 import execution.BaseTest;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import talkable.talkableSite.campaign.pages.CampaignPlacement;
@@ -12,7 +11,6 @@ import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.talkableSite.headerFrame.Header;
-import util.DriverConfig;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
@@ -33,7 +31,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
     public void setup() {
         this.driver.navigate().to(EnvFactory.getEnvUrl());
         //Login to env
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).selectByVisibleText(siteName);
+        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
     }
 
     @Test(dataProvider = "getTestData")
@@ -42,6 +40,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
         //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
+        new Header().selectByVisibleText(siteName);
         //deactivate all live campaigns:
         new Header().openCampaignsPage().deactivateAllLiveCampaigns();
 
@@ -54,7 +53,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
         launchPage.launchCampaign();
 
         //Verification on Customer Site:
-        if (ClientSiteScenarios.assertCampaignOnCustomerSite(campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
+        if (ClientSiteScenarios.assertCampaignOnCustomerSite(campaignType, campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
             Log.testPassed(campaignPlacement.toString() + " is present on the site");
         }
         else{
@@ -63,26 +62,18 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
         //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
+        new Header().selectByVisibleText(siteName);
         //deactivate campaign:
         CommonScenarios.deactivateCampaign(campaignName);
 
         //Verify that campaign is inactive on the Customer Site:
-        if (!ClientSiteScenarios.assertCampaignOnCustomerSite(campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
+        if (!ClientSiteScenarios.assertCampaignOnCustomerSite(campaignType, campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
             Log.testPassed(campaignPlacement.toString() + " is not displayed on the site");
         }
         else{
             Assert.fail("FAILED: " + campaignType.toString() + ": " + campaignPlacement.toString() + " is displayed on the customer site after deactivation");
         }
     }
-
-
-      //commented after extension of BaseTest:
-//    @AfterClass
-//    public void quit() {
-//        driver.quit();
-//        driverFactory.cleanWebDriver();
-//    }
-
 
     @DataProvider
     private Object[][] getTestData(){
@@ -92,8 +83,9 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
                 {CampaignType.AdvocateDashboard, CampaignPlacement.FloatingWidget},
                 {CampaignType.AdvocateDashboard, CampaignPlacement.Standalone},
                 {CampaignType.Invite, PostPurchase},
-                {CampaignType.AdvocateDashboard, PostPurchase},
-                {CampaignType.RewardGleam, CampaignPlacement.Gleam}
+                {CampaignType.AdvocateDashboard, PostPurchase}//,
+//                {CampaignType.RewardGleam, CampaignPlacement.Gleam}
+                //TODO: separate test should be added for Gleam
         };
     }
 

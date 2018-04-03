@@ -1,6 +1,7 @@
 package common.cases;
 
-import customerSite.talkableFrame.commonPages.advocateSharePage.AdvocateSharePage;
+import customerSite.talkableFrame.commonPages.advocateSharePage.advocateDashboard.AdSharePageForAdDashboard;
+import customerSite.talkableFrame.commonPages.advocateSharePage.invite.AdvocateSharePageForInvite;
 import customerSite.talkableFrame.commonPages.advocateSignupPage.AdvocateSignupPage;
 import customerSite.talkableFrame.floatingWidget.advocateSharePage.AdvocateSharePageFW;
 import customerSite.talkableFrame.floatingWidget.advocateSignupPage.AdvocateSignupPageFW;
@@ -9,8 +10,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.CampaignPlacement;
+import talkable.talkableSite.campaign.pages.CampaignType;
 import util.DriverConfig;
-import util.logging.Log;
 
 public class ClientSiteScenarios {
 
@@ -43,7 +44,7 @@ public class ClientSiteScenarios {
     * 1. Open site link.
     * 2. Check campaign.
     */
-    public static boolean assertCampaignOnCustomerSite(CampaignPlacement placement, String siteLink){
+    public static boolean assertCampaignOnCustomerSite(CampaignType campaignType, CampaignPlacement placement, String siteLink){
         new DriverConfig().getDriver().navigate().to(siteLink);
         switch (placement){
             case FloatingWidget:
@@ -51,7 +52,7 @@ public class ClientSiteScenarios {
             case Standalone:
                 return isStandalonePresent(placement);
             case PostPurchase:
-                return isPostPurchasePresent(placement);
+                return isPostPurchasePresent(campaignType, placement);
             case Gleam:
                 return isGleamPresent(placement);
             default:
@@ -78,14 +79,34 @@ public class ClientSiteScenarios {
         }
     }
 
-    private static boolean isPostPurchasePresent(CampaignPlacement placement){
-        try{
-            AdvocateSharePage frame = new AdvocateSharePage();
-            return true;
+    private static boolean isPostPurchasePresent(CampaignType campaignType, CampaignPlacement placement){
+        try {
+            switch (campaignType){
+                case Invite:
+                    new AdvocateSharePageForInvite();
+                    return true;
+                case AdvocateDashboard:
+                    new AdSharePageForAdDashboard();
+                    return true;
+                case RewardGleam:
+                    Assert.fail("FAILED: Post Purc hase placement is not applicable for Gleam Campaign type.");
+                    return false;
+                default:
+                    Assert.fail("FAILED: Unknown campaign type: <" + campaignType + ">.");
+                    return false;
+            }
         }catch(NoSuchElementException e){
             return false;
         }
+//        try{
+//            AdvocateSharePageForInvite frame = new AdvocateSharePageForInvite();
+//            return true;
+//        }catch(NoSuchElementException e){
+//            return false;
+//        }
     }
+
+
 
     private static boolean isGleamPresent(CampaignPlacement placement){
         Assert.fail("Gleam verification is not yet implemented");
