@@ -32,10 +32,10 @@ public class Header extends AbstractElementsContainer{
 
     }
 
-    public Header switchSiteTo(String siteName){
-        siteSelect.searchAndSelect(siteName);
-        return new Header();
-    }
+//    public Header switchSiteTo(String siteName){
+//        siteSelect.searchAndSelect(siteName);
+//        return new Header();
+//    }
 
     public Header selectByVisibleText(String siteName){
         siteSelect.selectByVisibleText(siteName);

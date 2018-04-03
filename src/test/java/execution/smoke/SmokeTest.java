@@ -42,8 +42,7 @@ public class SmokeTest  extends BaseTest{
 
     /*Link to test scenario: https://drive.google.com/open?id=1rnq3vo9qQ25vtTwPF7hwXRt7zMBiK28VuAyPc50_X7s
     * */
-    public SmokeTest() {
-    }
+
 
     @BeforeClass
     public void setup() {
@@ -60,7 +59,8 @@ public class SmokeTest  extends BaseTest{
     @Test
     public void test02_verifySiteName() {
         Header header = new Header();
-        header.switchSiteTo(siteName);
+        header.selectByVisibleText(siteName);
+//        header.switchSiteTo(siteName);
         Assert.assertEquals(header.getSiteName(), siteName, "FAILED: Incorrect site name");
     }
 
@@ -90,7 +90,7 @@ public class SmokeTest  extends BaseTest{
         String description = "Campaign for smoke test";
         PageCampaignRules rulesPage = new PageCampaignRules();
         rulesPage = rulesPage.setCampaignDescription(description);
-        Assert.assertEquals(rulesPage.getCampaignDescription(), description, "FAILED: Campaign description is not updated");
+        Assert.assertEquals(rulesPage.getCampaignDescription(), description, "FAILED: Campaign description is not updated.");
     }
 
 // 7. Set Advocate/Friend Offer deadline

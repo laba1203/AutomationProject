@@ -26,7 +26,7 @@ public abstract class AbstractElement implements DrivenElement{
             this.locator = locator;
         }
         catch (NoSuchElementException e){
-            System.out.println("FAILED: " + e.getMessage());
+//            System.out.println("FAILED: " + e.getMessage());
             Assert.fail("FAILED Assert:" + e.getMessage());
         }
     }

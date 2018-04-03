@@ -44,11 +44,6 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
     public PageCampaignRules(){
 
-//        saveChangesButton = new ElmntSaveButton();
-//        campaignNameInput = new ElmntCampaignNameInput();
-//        campaignDescription = new ElmntCampaignDescriptionInput();
-//        advocateOfferDeadlineDate = new ElmntAdvocateOfferDeadlineDate();
-//        friendOfferDeadlineDate = new ElmntFriendOfferDeadlineDate();
         firstLoading();
         adOfferDeadlineHours = new ElmntAdOfferDeadlineHours();
         adOfferDeadlineMinutes = new ElmntAdOfferDeadlineMinutes();
@@ -59,14 +54,13 @@ public class PageCampaignRules extends AbstractCampaignPage{
         }
     }
 
-
-
     private PageCampaignRules saveChanges(){
         saveChangesButton.click();
-        waitLoading();
-        wait.until(ExpectedConditions.invisibilityOfElementWithText(saveChangesButton.getLocator(), "Saving..."));
-        saveChangesButton = new ElmntSaveButton();
-        wait.until(ExpectedConditions.textToBePresentInElement(saveChangesButton.getWebElement(), "Save changes"));
+//        waitLoading();
+//        wait.until(ExpectedConditions.invisibilityOfElementWithText(saveChangesButton.getLocator(), "Saving..."));
+//        saveChangesButton = new ElmntSaveButton();
+//        wait.until(ExpectedConditions.textToBePresentInElement(saveChangesButton.getWebElement(), "Save changes"));
+        waitSaving();
         Log.changesAreSaved();
 
         return new PageCampaignRules();
@@ -166,13 +160,13 @@ public class PageCampaignRules extends AbstractCampaignPage{
     public PageCampaignRules deleteIncentive(IncentiveType incentiveType, String value){
         IncentiveTile incentive = getIncentiveTile(incentiveType, value);
         incentive.delete();
-//        ElmntLoadingMessage loadingMsg = new ElmntLoadingMessage();
-        wait.until(ExpectedConditions.visibilityOf(new ElmntLoadingMessage().getWebElement()));
+
+//        wait.until(ExpectedConditions.visibilityOf(new ElmntLoadingMessage().getWebElement()));
         return waitLoading();
     }
 
     private PageCampaignRules waitLoading(){
-//        ElmntLoadingMessage loadingMessage = new ElmntLoadingMessage();
+        ElmntLoadingMessage loadingMessage = new ElmntLoadingMessage();
 //        wait.until(ExpectedConditions.visibilityOf(loadingMessage.getWebElement()));
 //        wait.until(ExpectedConditions.invisibilityOf(loadingMessage.getWebElement()));
         firstLoading();
@@ -181,18 +175,10 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
     private void firstLoading(){
         ElmntLoadingMessage loadingMessage = new ElmntLoadingMessage();
-//        wait.until(ExpectedConditions.visibilityOf(loadingMessage.getWebElement()));
         wait.until(ExpectedConditions.invisibilityOf(loadingMessage.getWebElement()));
-        System.out.println("Page is loaded");
+        System.out.println("LOG: Rules Page is loaded");
     }
 
-//    private PageCampaignRules waitSaving(){
-//        ElmntChangesSavedNotification notification = new ElmntChangesSavedNotification();
-//        wait.until(ExpectedConditions.visibilityOf(notification.getWebElement()));
-//        wait.until(ExpectedConditions.invisibilityOf(notification.getWebElement()));
-//
-//        return new PageCampaignRules();
-//    }
 
 
     static String getIncentiveTypeName(IncentiveType incentiveType){
@@ -237,14 +223,6 @@ public class PageCampaignRules extends AbstractCampaignPage{
         }
         return name;
     }
-
-
-
-
-
-
-
-
 
 
 }

@@ -1,11 +1,9 @@
-<suite name="Smoke Test" preserve-order="true" group-by-instances="true">
+<suite name="SmokeTest" preserve-order="true" group-by-instances="true">
     <test name="Smoke Test" preserve-order="true" >
         <classes>
             <class name="execution.smoke.SmokeTest"/>
         </classes>
     </test>
-
-
 
 </suite>
 
