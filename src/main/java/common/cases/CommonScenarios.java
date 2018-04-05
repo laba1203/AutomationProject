@@ -18,6 +18,7 @@ import talkable.talkableSite.headerFrame.Header;
 import talkable.homePage.HomePage;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.loginPage.LoginPage;
+import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.logging.Log;
@@ -53,18 +54,22 @@ public class CommonScenarios {
      * Precondition: Any page with header frame (class = Header()) should be opened
      * Post-condition: Site created. Site details page is opened
      * */
-    public void createNewSite(String siteName, String url){
+    public static IntegrationInstructionPage createNewSite(String siteName, String url){
         Header header = new Header();
-//        header.menuButton.click();
         AddSitePage addSitePage = header.openMenu().clickCreateNewSiteButton();
-
-//        MenuFrame menuFrame = new MenuFrame();
-//        menuFrame.createNewSiteButton.click();
-//        AddSitePage addSitePage = new AddSitePage();
-
         IntegrationInstructionPage integrationInstructionPage = addSitePage.submitForm(siteName, url);
         Assert.assertEquals(integrationInstructionPage.header.getSiteName(), siteName);
+        return integrationInstructionPage;
     }
+
+    public static SiteDashboardPage switchToSiteByVisibleText(String siteName){
+        new Header().selectByVisibleText(siteName);
+        SiteDashboardPage siteDashboardPage = new SiteDashboardPage();
+        Assert.assertEquals(siteDashboardPage.header.getSiteName(), siteName, "FAILED: Site is not switched");
+        return siteDashboardPage;
+    }
+
+
 
     /***
      * Scenario to initiate campaign creation.
@@ -75,10 +80,10 @@ public class CommonScenarios {
         Header header = new Header();
         CreateNewCampaignPage createNewCampaignPage = header.openMenu().clickCreateNewCampaignButton();
         //Create New Campaign page:
-        createNewCampaignPage.createCampaign(campaignType, placementType);
+        CampaignDetailsPage campaignDetailsPage = createNewCampaignPage.createCampaign(campaignType, placementType);
         //check Campaign Status
-        Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), liveStatusTest);
-        return new CampaignDetailsPage();
+        Assert.assertEquals(campaignDetailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusTest);
+        return campaignDetailsPage;
     }
 
 
@@ -160,7 +165,6 @@ public class CommonScenarios {
 
         return newAffiliateMember.createMemberAndSwitchToCampaign(newAffiliatedMemberEmail);
     }
-
 
 
     /*Scenarios to deactivate campaign.

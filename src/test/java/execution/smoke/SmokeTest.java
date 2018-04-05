@@ -19,10 +19,12 @@ import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.DriverConfig;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
+import util.logging.Log;
 
 import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
@@ -60,8 +62,9 @@ public class SmokeTest  extends BaseTest{
     public void test02_verifySiteName() {
         Header header = new Header();
         header.selectByVisibleText(siteName);
+        SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
 //        header.switchSiteTo(siteName);
-        Assert.assertEquals(header.getSiteName(), siteName, "FAILED: Incorrect site name");
+        Assert.assertEquals(dashboardPage.header.getSiteName(), siteName, "FAILED: Incorrect site name");
     }
 
 // 3. Add new Campaign (Type = FW )

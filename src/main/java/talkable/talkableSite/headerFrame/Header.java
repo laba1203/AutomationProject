@@ -9,8 +9,6 @@ import talkable.talkableSite.reports.reportsPage.ReportsPage;
 public class Header extends AbstractElementsContainer{
 
     //Elements:
-//    public SelectedSiteElement siteSelectButton;
-//    public SearchSiteInput searchSiteInput;
     private CustomerServicesButton customerServicesButton;
     private DashboardButton dashboardButton;
     private CampaignsButton campaignsButton;

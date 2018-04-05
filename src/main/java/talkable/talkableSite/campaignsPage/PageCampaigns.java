@@ -1,7 +1,6 @@
 
 package talkable.talkableSite.campaignsPage;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.talkableSite.AbstractTalkableSitePage;
@@ -44,11 +43,9 @@ public class PageCampaigns extends AbstractTalkableSitePage {
         return new CreateNewCampaignPage();
     }
 
+
+
     public CampaignDetailsPage openCampaignByName(String campaignName, Table.Status status) {
-//        Table liveCampaigns = getLiveCampaignsTable();
-//        Table.Row campaignRow = liveCampaigns.getRowByCampaignName(campaignName);
-//        campaignRow.name.click();
-//        return new CampaignDetailsPage();
         Table table = new Table(status);
         Table.Row campaignRow = table.getRowByCampaignName(campaignName);
         campaignRow.name.click();

@@ -1,10 +1,10 @@
-<suite name="SuiteName1">
+<suite name="All Test Suites">
 
-    <suite-file path="SmokeTest.xml"/>
-    <!--<suite-file path="MultiCampaignEditorSuite.xml"/>-->
-    <suite-file path="ReportsSuite.xml"/>
+    <!--<suite-file path="SmokeTest.xml"/>-->
+    <!--<suite-file path="SimpleTestForAllCampaignsTypes.xml"/>-->
     <suite-file path="EditorSuite.xml"/>
-    <suite-file path="SimpleTestForAllCampaignsTypes.xml"/>
+    <suite-file path="MultiCampaignEditorSuite.xml"/>
+    <!--<suite-file path="ReportsSuite.xml"/>-->
 
     <!--Below suite will create new site-->
     <!--<suite-file path="AccountAndSiteCreation.xml"/>-->

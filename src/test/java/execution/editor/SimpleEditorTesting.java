@@ -35,6 +35,7 @@ public class SimpleEditorTesting extends BaseTest {
     //Navigate to Simple Editor
     @Test
     public void test1_navigateToSimpleEditor(){
+
         editorPage = new CampaignDetailsPage().campaignNavigationMenu.openEditorPage();
     }
 
@@ -63,7 +64,6 @@ public class SimpleEditorTesting extends BaseTest {
 
     private void editContentTest(EditorPage.LocalizationMode mode, String localizationName, String newValue){
         editorPage = new EditorPage(mode);
-//        System.out.println("DEBAG: **** Value: <" + editorPage.getLocalizationValue(mode, localizationName) + ">");
         editorPage = editorPage.updateLocalization(mode, localizationName, newValue);
         Assert.assertEquals(editorPage.getLocalizationValue(mode, localizationName), newValue);
     }

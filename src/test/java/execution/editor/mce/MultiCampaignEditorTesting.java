@@ -12,6 +12,7 @@ import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaig
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 
@@ -42,15 +43,15 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @BeforeSuite
     public void precondition() {
         //login to Talkable and select site
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword())
-                .selectByVisibleText(siteName);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
+        SiteDashboardPage siteDashboardPage = CommonScenarios.switchToSiteByVisibleText(siteName);
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         //clear data from previous execution:
-        PageCampaigns campaignsPage = new Header().openCampaignsPage().deleteAllCampaignsWithStatus(TEST);
+        PageCampaigns campaignsPage = siteDashboardPage.header.openCampaignsPage().deleteAllCampaignsWithStatus(TEST);
         campaignsPage = campaignsPage.deleteAllCampaignsWithStatus(LIVE);
         campaignsPage.deleteAllCampaignsWithStatus(DISABLED);
 

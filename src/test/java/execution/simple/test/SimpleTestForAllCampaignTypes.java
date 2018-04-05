@@ -11,6 +11,7 @@ import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
@@ -41,8 +42,9 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
         //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
         new Header().selectByVisibleText(siteName);
+        SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
         //deactivate all live campaigns:
-        new Header().openCampaignsPage().deactivateAllLiveCampaigns();
+        dashboardPage.header.openCampaignsPage().deactivateAllLiveCampaigns();
 
         //Create new campaign
         CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(campaignType, campaignPlacement);
@@ -54,7 +56,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
         //Verification on Customer Site:
         if (ClientSiteScenarios.assertCampaignOnCustomerSite(campaignType, campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
-            Log.testPassed(campaignPlacement.toString() + " is present on the site");
+            Log.testPassed(campaignPlacement.toString() + " is present on the site\r");
         }
         else{
             Assert.fail("FAILED: " + campaignType.toString() + ": " + campaignPlacement.toString() + " is not displayed on the customer site");
@@ -68,7 +70,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
         //Verify that campaign is inactive on the Customer Site:
         if (!ClientSiteScenarios.assertCampaignOnCustomerSite(campaignType, campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
-            Log.testPassed(campaignPlacement.toString() + " is not displayed on the site");
+            Log.testPassed(campaignPlacement.toString() + " is not displayed on the site\r");
         }
         else{
             Assert.fail("FAILED: " + campaignType.toString() + ": " + campaignPlacement.toString() + " is displayed on the customer site after deactivation");
