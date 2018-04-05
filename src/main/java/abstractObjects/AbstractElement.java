@@ -26,7 +26,7 @@ public abstract class AbstractElement implements DrivenElement{
             this.locator = locator;
         }
         catch (NoSuchElementException e){
-            System.out.println("FAILED: " + e.getMessage());
+//            System.out.println("FAILED: " + e.getMessage());
             Assert.fail("FAILED Assert:" + e.getMessage());
         }
     }
@@ -40,7 +40,8 @@ public abstract class AbstractElement implements DrivenElement{
         //to be tested (before was only code inside try{} ):
         try {
             actions.moveToElement(this.webElement).perform();
-            this.webElement.click();
+//            this.webElement.click();
+            doubleClickForTimeout(this.webElement);
         }catch (StaleElementReferenceException e){
             setWebElement(this.locator);
             actions.moveToElement(this.webElement).perform();
@@ -48,6 +49,16 @@ public abstract class AbstractElement implements DrivenElement{
         }
 
         Log.clickMsg(this);
+    }
+
+    private void doubleClickForTimeout(WebElement element){
+        try{
+            element.click();
+        }catch (TimeoutException e){
+            System.out.println("DEBAG: Timeout error received during click() to " + this.getClass().getName());
+            element.click();
+            System.out.println("DEBAG: Successfully clicked during second attempt");
+        }
     }
 
     public void sendKeys(String value)

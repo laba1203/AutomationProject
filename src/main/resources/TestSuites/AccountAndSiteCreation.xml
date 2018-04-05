@@ -1,0 +1,11 @@
+<suite name="Account and Site creation" preserve-order="true" group-by-instances="true">
+    <test name="New user registration. Positive case" preserve-order="true" >
+        <classes>
+            <class name="execution.registration.CreateNewUserWithSite"/>
+        </classes>
+    </test>
+
+
+
+</suite>
+

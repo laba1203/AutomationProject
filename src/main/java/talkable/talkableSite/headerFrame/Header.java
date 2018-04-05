@@ -9,8 +9,6 @@ import talkable.talkableSite.reports.reportsPage.ReportsPage;
 public class Header extends AbstractElementsContainer{
 
     //Elements:
-//    public SelectedSiteElement siteSelectButton;
-//    public SearchSiteInput searchSiteInput;
     private CustomerServicesButton customerServicesButton;
     private DashboardButton dashboardButton;
     private CampaignsButton campaignsButton;
@@ -32,10 +30,10 @@ public class Header extends AbstractElementsContainer{
 
     }
 
-    public Header switchSiteTo(String siteName){
-        siteSelect.searchAndSelect(siteName);
-        return new Header();
-    }
+//    public Header switchSiteTo(String siteName){
+//        siteSelect.searchAndSelect(siteName);
+//        return new Header();
+//    }
 
     public Header selectByVisibleText(String siteName){
         siteSelect.selectByVisibleText(siteName);

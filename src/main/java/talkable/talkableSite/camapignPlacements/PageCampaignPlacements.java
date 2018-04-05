@@ -1,10 +1,8 @@
 package talkable.talkableSite.camapignPlacements;
 
-import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
 
-import static talkable.talkableSite.campaign.pages.CampaignPlacement.*;
+import static talkable.common.CampaignPlacement.*;
 
 public class PageCampaignPlacements extends AbstractTalkableSitePage{
 

@@ -177,4 +177,10 @@ public class Log {
         return msg;
     }
 
+    public static String siteSwitchedMsg(String siteName){
+        String msg = "LOG: Site switched to <" + siteName + ">";
+        System.out.println(msg);
+        return msg;
+    }
+
 }

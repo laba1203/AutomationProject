@@ -49,7 +49,7 @@
                     <reuseForks>true</reuseForks>-->
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                     <suiteXmlFiles>
-                        <suiteXmlFile>.\src\main\resources\TestSuites\TestSuite.xml</suiteXmlFile>
+                        <suiteXmlFile>.\src\main\resources\TestSuites\AllTestSuites.xml</suiteXmlFile>
                     </suiteXmlFiles>
 
                 </configuration>

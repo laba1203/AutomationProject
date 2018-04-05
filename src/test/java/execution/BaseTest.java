@@ -10,7 +10,7 @@ import util.Screenshot;
 import java.lang.reflect.Method;
 
 public class BaseTest {
-        public DriverConfig driverFactory;
+        protected DriverConfig driverFactory;
         public WebDriver driver;
         private Screenshot screenshot = new Screenshot();
 
@@ -19,9 +19,10 @@ public class BaseTest {
         public void commonSetup() {
 
             this.driverFactory = new DriverConfig();
+//            driverFactory.cleanWebDriver();
             this.driver = this.driverFactory.getDriver();
             this.driver.navigate().to(EnvFactory.getEnvUrl());
-            System.out.println("DEBAG: Before suite executed");
+            System.out.println("*** DEBAG: Before suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
         }
 
 
@@ -47,14 +48,14 @@ public class BaseTest {
             if(ITestResult.FAILURE == result.getStatus()){
                 screenshot.getScreenshot();
             }
-            System.out.println("DEBAG: Tried to capture screenshot");
+            System.out.println("LOG: Tried to capture screenshot");
         }
 
         @AfterSuite
         public void quit() {
             this.driver.quit();
             this.driverFactory.cleanWebDriver();
-            System.out.println("DEBAG: After class executed");
+            System.out.println("*** DEBAG: After Suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
         }
     }
 

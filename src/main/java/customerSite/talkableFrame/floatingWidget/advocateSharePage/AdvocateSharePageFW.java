@@ -1,9 +1,9 @@
 package customerSite.talkableFrame.floatingWidget.advocateSharePage;
 
-import customerSite.talkableFrame.commonPages.advocateSharePage.AdvocateSharePage;
+import customerSite.talkableFrame.commonPages.advocateSharePage.invite.AdvocateSharePageForInvite;
 import org.openqa.selenium.By;
 
-public class AdvocateSharePageFW extends AdvocateSharePage{
+public class AdvocateSharePageFW extends AdvocateSharePageForInvite {
 
     private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe-overlay']");
 

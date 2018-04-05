@@ -1,33 +1,46 @@
 package talkable.talkableSite.createNewCampaignPage;
 
 import abstractObjects.DrivenElement;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.talkableSite.AbstractTalkableSitePage;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
-import talkable.talkableSite.campaign.pages.CampaignType;
+import talkable.common.CampaignPlacement;
+import talkable.common.CampaignType;
+import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.createNewCampaignPage.elements.*;
 
 
 public class CreateNewCampaignPage extends AbstractTalkableSitePage {
-
-//    private static final String title = "Choose New Campaign To Select | Talkable";
-
     private SelectAdvocateDashboardButton selectAdvocateDashboardButton = new SelectAdvocateDashboardButton();;
     private SelectInviteButton selectInviteButton = new SelectInviteButton();
     private SelectRewardGleamButton selectRewardGleamButton = new SelectRewardGleamButton();
 
     public CreateNewCampaignPage(){
-//        selectAdvocateDashboardButton = new SelectAdvocateDashboardButton();
-//        selectInviteButton = new SelectInviteButton();
-//        selectRewardGleamButton = new SelectRewardGleamButton();
     }
 
-    public void createCampaign(CampaignType campaignType,CampaignPlacement placementType){
+    public CampaignDetailsPage createCampaign(CampaignType campaignType, CampaignPlacement placementType){
+        System.out.println("\r**** DEBAG-TEMP: createCampaign method start");
+
         DrivenElement campaignButton = getSelectCampaignButton(campaignType);
         campaignButton.click();
         DrivenElement createButton = getPlacementButton(placementType);
         wait.until(ExpectedConditions.visibilityOf(createButton.getWebElement()));
-        createButton.click();
+        try {
+            createButton.click();
+        }catch (WebDriverException e){
+            System.out.println("DEBAG-TEMP: WebDriverException is returned and Ignored for the first time.");
+            createButton.click();
+            System.out.println("DEBAG-TEMP: Clicked to Create Button successfully from the second attempt.");
+        }
+        //debag:::
+        try {
+            return new CampaignDetailsPage();
+        }catch (AssertionError e){
+            System.out.println("DEBAG-TEMP: Details page is not opened after the first click!!!. \r Details:\r" + e.getLocalizedMessage());
+            createButton.click();
+            System.out.println("DEBAG-TEMP: clicked at second time");
+            return new CampaignDetailsPage();
+        }
     }
 
 

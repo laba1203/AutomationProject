@@ -7,14 +7,17 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
-import talkable.talkableSite.campaign.pages.CampaignType;
+import talkable.common.CampaignPlacement;
+import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
-import talkable.talkableSite.campaignsPage.PageCampaigns;
+import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 
+import static talkable.common.CampaignPlacement.Standalone;
+import static talkable.common.CampaignType.Invite;
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.*;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1jjxHr_cLNaSq3HVBgU_y6k_llNDpNyTZUoWPAJ9Aw20/edit
@@ -27,14 +30,16 @@ public class SimpleEditorTesting extends BaseTest {
     @BeforeClass
     public void precondition(){
         //login to Talkable and select site
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).selectByVisibleText(siteName);
+        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
+        SiteDashboardPage dashboardPage = CommonScenarios.switchToSiteByVisibleText(siteName);
         //Create new Campaign
-        CommonScenarios.initiateCampaignCreation(CampaignType.Invite, CampaignPlacement.Standalone);
+        dashboardPage.header.openCampaignsPage().createNewCampaign(Invite, Standalone);
     }
 
     //Navigate to Simple Editor
     @Test
     public void test1_navigateToSimpleEditor(){
+
         editorPage = new CampaignDetailsPage().campaignNavigationMenu.openEditorPage();
     }
 
@@ -63,7 +68,6 @@ public class SimpleEditorTesting extends BaseTest {
 
     private void editContentTest(EditorPage.LocalizationMode mode, String localizationName, String newValue){
         editorPage = new EditorPage(mode);
-//        System.out.println("DEBAG: **** Value: <" + editorPage.getLocalizationValue(mode, localizationName) + ">");
         editorPage = editorPage.updateLocalization(mode, localizationName, newValue);
         Assert.assertEquals(editorPage.getLocalizationValue(mode, localizationName), newValue);
     }
@@ -84,8 +88,6 @@ public class SimpleEditorTesting extends BaseTest {
                 {COLOR, "Advocate signup page cta background#", "#0fef4e"},
                 {CONFIGURATION, "Advocate signup button corners#", "Circle"},
                 {IMAGES, "Advocate signup page background#", "tkbl_default_example.jpg"},
-                //todo: For now IMAGE test is failed because of different values in expected and actual results.
-                //To fix it method to compare partial text should be implemented
         };
     }
 

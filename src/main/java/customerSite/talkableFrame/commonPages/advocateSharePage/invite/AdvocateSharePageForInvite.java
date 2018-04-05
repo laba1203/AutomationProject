@@ -1,9 +1,9 @@
-package customerSite.talkableFrame.commonPages.advocateSharePage;
+package customerSite.talkableFrame.commonPages.advocateSharePage.invite;
 
 import abstractObjects.AbstractTalkableFrame;
 import org.openqa.selenium.By;
 
-public class AdvocateSharePage extends AbstractTalkableFrame{
+public class AdvocateSharePageForInvite extends AbstractTalkableFrame{
 
     private By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
 
@@ -16,7 +16,7 @@ public class AdvocateSharePage extends AbstractTalkableFrame{
     private ElmntFriendEmailInput friendEmailInput;
     private ElmntSubmitEmailButton submitEmailButton;
 
-    public AdvocateSharePage(){
+    public AdvocateSharePageForInvite(){
 
         setWebElement(frameLocator);
         switchToThisFrame();
@@ -31,7 +31,7 @@ public class AdvocateSharePage extends AbstractTalkableFrame{
 
     }
 
-    public AdvocateSharePage(By frameLocator){
+    public AdvocateSharePageForInvite(By frameLocator){
         setWebElement(frameLocator);
         switchToThisFrame();
 

@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 class ElmntFrOfferDeadlineHours extends AbstractSelectElement{
 
     ElmntFrOfferDeadlineHours(){
-        WebElement webElement = getDriver().findElement(By.xpath("//select[@name='expires_at.hour']"));
+        WebElement webElement = getDriver().findElement(By.xpath("//select[@name='friend_deadline.hour']"));
         setWebElement(webElement);
     }
 }

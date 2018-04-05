@@ -3,8 +3,8 @@ package common.cases;
 import org.testng.Assert;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
-import talkable.talkableSite.campaign.pages.CampaignType;
+import talkable.common.CampaignPlacement;
+import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
@@ -18,13 +18,12 @@ import talkable.talkableSite.headerFrame.Header;
 import talkable.homePage.HomePage;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.loginPage.LoginPage;
+import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.logging.Log;
 
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
-import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
 
 /*Class to allocate common scenarios in Talkable.
  * */
@@ -53,18 +52,23 @@ public class CommonScenarios {
      * Precondition: Any page with header frame (class = Header()) should be opened
      * Post-condition: Site created. Site details page is opened
      * */
-    public void createNewSite(String siteName, String url){
+    public static IntegrationInstructionPage createNewSite(String siteName, String url){
         Header header = new Header();
-//        header.menuButton.click();
         AddSitePage addSitePage = header.openMenu().clickCreateNewSiteButton();
-
-//        MenuFrame menuFrame = new MenuFrame();
-//        menuFrame.createNewSiteButton.click();
-//        AddSitePage addSitePage = new AddSitePage();
-
         IntegrationInstructionPage integrationInstructionPage = addSitePage.submitForm(siteName, url);
         Assert.assertEquals(integrationInstructionPage.header.getSiteName(), siteName);
+        return integrationInstructionPage;
     }
+
+    public static SiteDashboardPage switchToSiteByVisibleText(String siteName){
+        new Header().selectByVisibleText(siteName);
+        SiteDashboardPage siteDashboardPage = new SiteDashboardPage();
+        Assert.assertEquals(siteDashboardPage.header.getSiteName(), siteName, "FAILED: Site is not switched");
+        Log.siteSwitchedMsg(siteName);
+        return siteDashboardPage;
+    }
+
+
 
     /***
      * Scenario to initiate campaign creation.
@@ -75,11 +79,21 @@ public class CommonScenarios {
         Header header = new Header();
         CreateNewCampaignPage createNewCampaignPage = header.openMenu().clickCreateNewCampaignButton();
         //Create New Campaign page:
-        createNewCampaignPage.createCampaign(campaignType, placementType);
+        CampaignDetailsPage campaignDetailsPage = createNewCampaignPage.createCampaign(campaignType, placementType);
         //check Campaign Status
-        Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), liveStatusTest);
-        return new CampaignDetailsPage();
+        Assert.assertEquals(campaignDetailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusTest);
+        return campaignDetailsPage;
     }
+
+    /***
+     * Scenario to initiate campaign creation from Campaigns Page..
+     * Precondition: Header should be available.
+     * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
+     * */
+    public static CampaignDetailsPage initiateCampaignCreationFromCampaignsPage(CampaignType campaignType, CampaignPlacement placementType){
+        return new Header().openCampaignsPage().createNewCampaign(campaignType, placementType);
+    }
+
 
 
     /***
@@ -99,8 +113,12 @@ public class CommonScenarios {
         return new CampaignDetailsPage();
     }
 
+    /***
+     * Scenario to launch campaign from any page with CampaignNavigation menu
+     * Post-condition: Details page of launched campaign.
+     * */
     public static CampaignDetailsPage createAndLaunchCampaign(CampaignType campaignType, CampaignPlacement placementType){
-        initiateCampaignCreation(campaignType, placementType);
+        initiateCampaignCreationFromCampaignsPage(campaignType, placementType);
         try {
             // This part is added due to an existing defect. Error 500 is returned when campaign is launched directly after creation.
             Thread.sleep(4000);
@@ -160,7 +178,6 @@ public class CommonScenarios {
 
         return newAffiliateMember.createMemberAndSwitchToCampaign(newAffiliatedMemberEmail);
     }
-
 
 
     /*Scenarios to deactivate campaign.

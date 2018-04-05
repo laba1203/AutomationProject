@@ -3,7 +3,7 @@ package talkable.talkableSite.campaign.pages.detailsPage;
 import talkable.common.elements.alert.Alert;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
+import talkable.common.CampaignPlacement;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;

@@ -1,4 +1,4 @@
-package talkable.talkableSite.campaign.pages;
+package talkable.common;
 
 public enum CampaignPlacement {
     PostPurchase,

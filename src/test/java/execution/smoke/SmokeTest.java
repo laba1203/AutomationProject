@@ -7,10 +7,9 @@ import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTr
 import execution.BaseTest;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
+import talkable.common.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
@@ -19,12 +18,12 @@ import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.headerFrame.Header;
-import util.DriverConfig;
+import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
 
-import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
+import static talkable.common.CampaignType.Invite;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
 public class SmokeTest  extends BaseTest{
@@ -42,8 +41,7 @@ public class SmokeTest  extends BaseTest{
 
     /*Link to test scenario: https://drive.google.com/open?id=1rnq3vo9qQ25vtTwPF7hwXRt7zMBiK28VuAyPc50_X7s
     * */
-    public SmokeTest() {
-    }
+
 
     @BeforeClass
     public void setup() {
@@ -60,8 +58,9 @@ public class SmokeTest  extends BaseTest{
     @Test
     public void test02_verifySiteName() {
         Header header = new Header();
-        header.switchSiteTo(siteName);
-        Assert.assertEquals(header.getSiteName(), siteName, "FAILED: Incorrect site name");
+        header.selectByVisibleText(siteName);
+        SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
+        Assert.assertEquals(dashboardPage.header.getSiteName(), siteName, "FAILED: Incorrect site name");
     }
 
 // 3. Add new Campaign (Type = FW )
@@ -90,7 +89,7 @@ public class SmokeTest  extends BaseTest{
         String description = "Campaign for smoke test";
         PageCampaignRules rulesPage = new PageCampaignRules();
         rulesPage = rulesPage.setCampaignDescription(description);
-        Assert.assertEquals(rulesPage.getCampaignDescription(), description, "FAILED: Campaign description is not updated");
+        Assert.assertEquals(rulesPage.getCampaignDescription(), description, "FAILED: Campaign description is not updated.");
     }
 
 // 7. Set Advocate/Friend Offer deadline
@@ -118,7 +117,6 @@ public class SmokeTest  extends BaseTest{
     }
 
      /* To be added:
-     9. Modify campaign in Editor
 
      10. Modify campaign placement
      */
@@ -131,7 +129,6 @@ public class SmokeTest  extends BaseTest{
     }
 
 // 12. Create test offer.
-    //!!! To be tested!! Doesn't work properly.
     @Test
     public void test09_createTestOffer() {
         CampaignDetailsPage detailsPage = CommonScenarios.createTestOfferForNonPostPurchase("test" + System.currentTimeMillis() + "@test.com");
@@ -148,8 +145,12 @@ public class SmokeTest  extends BaseTest{
     @Test
     public void test10_verifyCampaignOnSite() {
         this.driverFactory.getDriver().navigate().to(SITE_URL);
-        AdvocateTriggerWidgetFrame triggerWidget = new AdvocateTriggerWidgetFrame();
-        triggerWidget.click();
+        try {
+            AdvocateTriggerWidgetFrame triggerWidget = new AdvocateTriggerWidgetFrame();
+            triggerWidget.click();
+        }catch (NoSuchElementException e){
+            Assert.fail("FAILED: Advocate trigger widget is not displayed\r\n" + e.getMessage());
+        }
     }
 
     @Test

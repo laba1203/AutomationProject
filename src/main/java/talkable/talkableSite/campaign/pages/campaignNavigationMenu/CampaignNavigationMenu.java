@@ -2,7 +2,7 @@ package talkable.talkableSite.campaign.pages.campaignNavigationMenu;
 
 
 import org.testng.Assert;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
+import talkable.common.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 
 public class CampaignNavigationMenu extends CampaignNavigationMenuOnEditor{

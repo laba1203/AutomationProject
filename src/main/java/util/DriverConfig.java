@@ -23,7 +23,7 @@ public class DriverConfig {
     private static WebDriver driver;
     private static WebDriverWait wait;
 
-    private static final long DEFAULT_TIME_OUT = 15;
+    private static final long DEFAULT_TIME_OUT = 20;
 
     @Parameters()
     private WebDriver setNewLocalDriver()
@@ -75,7 +75,7 @@ public class DriverConfig {
 
     public WebDriverWait getExplicitWait(){
         if(wait == null){
-            wait = new WebDriverWait(driver, 10, 500);
+            wait = new WebDriverWait(getDriver(), 15, 500);
         }
         return wait;
     }
@@ -83,10 +83,10 @@ public class DriverConfig {
     private void setImplicitlyWait(){
         driver.manage().timeouts().implicitlyWait(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
-
     }
 
     public void cleanWebDriver(){
+        wait = null;
         driver = null;
     }
 
