@@ -16,6 +16,11 @@ import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 
+import static talkable.common.CampaignPlacement.FloatingWidget;
+import static talkable.common.CampaignPlacement.PostPurchase;
+import static talkable.common.CampaignPlacement.Standalone;
+import static talkable.common.CampaignType.AdvocateDashboard;
+import static talkable.common.CampaignType.Invite;
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.*;
 import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
@@ -45,26 +50,21 @@ public class MultiCampaignEditorTesting extends BaseTest {
         //login to Talkable and select site
         CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
         SiteDashboardPage siteDashboardPage = CommonScenarios.switchToSiteByVisibleText(siteName);
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //clear data from previous execution:
         PageCampaigns campaignsPage = siteDashboardPage.header.openCampaignsPage().deleteAllCampaignsWithStatus(TEST);
         campaignsPage = campaignsPage.deleteAllCampaignsWithStatus(LIVE);
         campaignsPage.deleteAllCampaignsWithStatus(DISABLED);
 
         //Create campaigns for testing:
-        campaignNameSA = CommonScenarios.initiateCampaignCreation(CampaignType.Invite, CampaignPlacement.Standalone)
-                .campaignNavigationMenu.getCampaignName();
-        campaignNameFW_1 = CommonScenarios.initiateCampaignCreation(CampaignType.Invite, CampaignPlacement.FloatingWidget)
-                .campaignNavigationMenu.getCampaignName();
-        campaignNameFW_2 = CommonScenarios.initiateCampaignCreation(CampaignType.AdvocateDashboard, CampaignPlacement.FloatingWidget)
-                .campaignNavigationMenu.getCampaignName();
-        campaignNamePP = CommonScenarios.initiateCampaignCreation(CampaignType.Invite, CampaignPlacement.PostPurchase)
-                .campaignNavigationMenu.getCampaignName();
-
+        campaignsPage = campaignsPage.createNewCampaign(Invite, Standalone).header.openCampaignsPage();
+        campaignsPage = campaignsPage.createNewCampaign(Invite, FloatingWidget).header.openCampaignsPage();
+        campaignsPage = campaignsPage.createNewCampaign(AdvocateDashboard, FloatingWidget).header.openCampaignsPage();
+        campaignsPage.createNewCampaign(Invite, PostPurchase).header.openCampaignsPage();
     }
 
 

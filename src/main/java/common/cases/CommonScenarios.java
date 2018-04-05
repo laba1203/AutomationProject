@@ -64,6 +64,7 @@ public class CommonScenarios {
         new Header().selectByVisibleText(siteName);
         SiteDashboardPage siteDashboardPage = new SiteDashboardPage();
         Assert.assertEquals(siteDashboardPage.header.getSiteName(), siteName, "FAILED: Site is not switched");
+        Log.siteSwitchedMsg(siteName);
         return siteDashboardPage;
     }
 
@@ -84,6 +85,16 @@ public class CommonScenarios {
         return campaignDetailsPage;
     }
 
+    /***
+     * Scenario to initiate campaign creation from Campaigns Page..
+     * Precondition: Header should be available.
+     * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
+     * */
+    public static CampaignDetailsPage initiateCampaignCreationFromCampaignsPage(CampaignType campaignType, CampaignPlacement placementType){
+        return new Header().openCampaignsPage().createNewCampaign(campaignType, placementType);
+    }
+
+
 
     /***
      * Scenario to launch campaign
@@ -102,8 +113,12 @@ public class CommonScenarios {
         return new CampaignDetailsPage();
     }
 
+    /***
+     * Scenario to launch campaign from any page with CampaignNavigation menu
+     * Post-condition: Details page of launched campaign.
+     * */
     public static CampaignDetailsPage createAndLaunchCampaign(CampaignType campaignType, CampaignPlacement placementType){
-        initiateCampaignCreation(campaignType, placementType);
+        initiateCampaignCreationFromCampaignsPage(campaignType, placementType);
         try {
             // This part is added due to an existing defect. Error 500 is returned when campaign is launched directly after creation.
             Thread.sleep(4000);

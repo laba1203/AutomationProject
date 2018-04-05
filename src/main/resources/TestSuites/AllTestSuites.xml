@@ -1,7 +1,7 @@
 <suite name="All Test Suites">
 
-    <!--<suite-file path="SmokeTest.xml"/>-->
-    <!--<suite-file path="SimpleTestForAllCampaignsTypes.xml"/>-->
+    <suite-file path="SmokeTest.xml"/>
+    <suite-file path="SimpleTestForAllCampaignsTypes.xml"/>
     <suite-file path="EditorSuite.xml"/>
     <suite-file path="MultiCampaignEditorSuite.xml"/>
     <!--<suite-file path="ReportsSuite.xml"/>-->

@@ -10,6 +10,7 @@ import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
+import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.EnvFactory;
@@ -44,10 +45,11 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
         new Header().selectByVisibleText(siteName);
         SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
         //deactivate all live campaigns:
-        dashboardPage.header.openCampaignsPage().deactivateAllLiveCampaigns();
+        PageCampaigns campaignsPage = dashboardPage.header.openCampaignsPage().deactivateAllLiveCampaigns();
 
         //Create new campaign
-        CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(campaignType, campaignPlacement);
+        CampaignDetailsPage detailsPage = campaignsPage.createNewCampaign(campaignType, campaignPlacement);
+//        CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(campaignType, campaignPlacement);
         PageCampaignRules rulesPage = detailsPage.campaignNavigationMenu.openRulesPage();
         //set campaign name and click Launch Campaign
         LaunchCampaignPage launchPage = rulesPage.setCampaignName(campaignName).campaignNavigationMenu.launchCampaign();
