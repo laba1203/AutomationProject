@@ -5,7 +5,8 @@ import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
+import talkable.common.CampaignPlacement;
+import talkable.common.CommonMethods;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,25 +79,26 @@ public class PlacementTile extends AbstractElementsContainer{
 
     private String getPlacementName(CampaignPlacement placement)
     {
-        String placementName;
-        switch (placement){
-            case PostPurchase:
-                placementName = "Post Purchase";
-                break;
-            case Standalone:
-                placementName = "Standalone";
-                break;
-            case Gleam:
-                placementName = "Gleam";
-                break;
-            case FloatingWidget:
-                placementName = "Floating Widget";
-                break;
-            default:
-                placementName = null;
-                Assert.fail("FAILED: Unknown placement type: " + placement.toString());
-        }
-        return placementName;
+//        String placementName;
+//        switch (placement){
+//            case PostPurchase:
+//                placementName = "Post Purchase";
+//                break;
+//            case Standalone:
+//                placementName = "Standalone";
+//                break;
+//            case Gleam:
+//                placementName = "Gleam";
+//                break;
+//            case FloatingWidget:
+//                placementName = "Floating Widget";
+//                break;
+//            default:
+//                placementName = null;
+//                Assert.fail("FAILED: Unknown placement type: " + placement.toString());
+//        }
+//        return placementName;
+        return CommonMethods.getCampaignPlacementString(placement);
 
     }
 

@@ -3,8 +3,8 @@ package common.cases;
 import org.testng.Assert;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
-import talkable.talkableSite.campaign.pages.CampaignType;
+import talkable.common.CampaignPlacement;
+import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
@@ -23,9 +23,7 @@ import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.logging.Log;
 
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
-import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
 
 /*Class to allocate common scenarios in Talkable.
  * */

@@ -4,9 +4,8 @@ import abstractObjects.DrivenElement;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.talkableSite.AbstractTalkableSitePage;
-import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
-import talkable.talkableSite.campaign.pages.CampaignType;
+import talkable.common.CampaignPlacement;
+import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.createNewCampaignPage.elements.*;
 

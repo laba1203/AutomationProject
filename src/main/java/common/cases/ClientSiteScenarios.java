@@ -9,8 +9,8 @@ import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTr
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
-import talkable.talkableSite.campaign.pages.CampaignType;
+import talkable.common.CampaignPlacement;
+import talkable.common.CampaignType;
 import util.DriverConfig;
 
 public class ClientSiteScenarios {

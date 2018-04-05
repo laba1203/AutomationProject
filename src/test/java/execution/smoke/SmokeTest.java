@@ -7,10 +7,9 @@ import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTr
 import execution.BaseTest;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
+import talkable.common.CampaignPlacement;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
@@ -20,13 +19,11 @@ import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
-import util.DriverConfig;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
-import util.logging.Log;
 
-import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
+import static talkable.common.CampaignType.Invite;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
 public class SmokeTest  extends BaseTest{

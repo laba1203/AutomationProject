@@ -4,7 +4,7 @@ import abstractObjects.DrivenElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
+import talkable.common.CampaignPlacement;
 import util.logging.Log;
 
 import java.util.ArrayList;

@@ -11,11 +11,11 @@ import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.Pr
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import util.PropertyLoader;
 
-import static talkable.talkableSite.campaign.pages.CampaignPlacement.FloatingWidget;
-import static talkable.talkableSite.campaign.pages.CampaignPlacement.PostPurchase;
-import static talkable.talkableSite.campaign.pages.CampaignPlacement.Standalone;
-import static talkable.talkableSite.campaign.pages.CampaignType.AdvocateDashboard;
-import static talkable.talkableSite.campaign.pages.CampaignType.Invite;
+import static talkable.common.CampaignPlacement.FloatingWidget;
+import static talkable.common.CampaignPlacement.PostPurchase;
+import static talkable.common.CampaignPlacement.Standalone;
+import static talkable.common.CampaignType.AdvocateDashboard;
+import static talkable.common.CampaignType.Invite;
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
 import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;

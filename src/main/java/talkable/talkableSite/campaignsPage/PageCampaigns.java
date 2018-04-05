@@ -3,6 +3,8 @@ package talkable.talkableSite.campaignsPage;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import talkable.common.CampaignPlacement;
+import talkable.common.CampaignType;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
@@ -26,7 +28,7 @@ public class PageCampaigns extends AbstractTalkableSitePage {
     public PageCampaigns() {
     }
 
-    public Table getLiveCampaignsTable() {
+    private Table getLiveCampaignsTable() {
         return new Table(LIVE);
     }
 
@@ -38,11 +40,11 @@ public class PageCampaigns extends AbstractTalkableSitePage {
         return new Table(DISABLED);
     }
 
-    public CreateNewCampaignPage clickCreateNewCampaign() {
+    public CampaignDetailsPage createNewCampaign(CampaignType type, CampaignPlacement placement) {
         this.createNewCampaignButton.click();
-        return new CreateNewCampaignPage();
+        new ElmntNewCampaignDropdownFields(type, placement).click();
+        return new CampaignDetailsPage();
     }
-
 
 
     public CampaignDetailsPage openCampaignByName(String campaignName, Table.Status status) {

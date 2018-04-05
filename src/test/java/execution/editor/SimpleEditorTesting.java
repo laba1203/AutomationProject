@@ -7,11 +7,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
-import talkable.talkableSite.campaign.pages.CampaignType;
+import talkable.common.CampaignPlacement;
+import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
-import talkable.talkableSite.campaignsPage.PageCampaigns;
 import util.EnvFactory;
 import util.PropertyLoader;
 

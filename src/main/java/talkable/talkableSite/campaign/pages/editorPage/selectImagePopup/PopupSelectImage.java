@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.common.elements.dropzone.DropZoneInput;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
-import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import util.TestArtifactsProvider;
 
 import java.util.ArrayList;

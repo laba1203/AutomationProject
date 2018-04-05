@@ -5,8 +5,8 @@ import common.cases.CommonScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import talkable.talkableSite.campaign.pages.CampaignPlacement;
-import talkable.talkableSite.campaign.pages.CampaignType;
+import talkable.common.CampaignPlacement;
+import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
@@ -17,7 +17,7 @@ import util.PropertyLoader;
 import util.TestDataGenerator;
 import util.logging.Log;
 
-import static talkable.talkableSite.campaign.pages.CampaignPlacement.PostPurchase;
+import static talkable.common.CampaignPlacement.PostPurchase;
 
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1FLkr-T2s-mVnG770gLh4imwMnoO0vFtduYquM_49zzQ/edit#gid=0
