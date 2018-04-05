@@ -33,7 +33,6 @@ public class SimpleEditorTesting extends BaseTest {
         CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
         SiteDashboardPage dashboardPage = CommonScenarios.switchToSiteByVisibleText(siteName);
         //Create new Campaign
-//        CommonScenarios.initiateCampaignCreation(CampaignType.Invite, CampaignPlacement.Standalone);
         dashboardPage.header.openCampaignsPage().createNewCampaign(Invite, Standalone);
     }
 

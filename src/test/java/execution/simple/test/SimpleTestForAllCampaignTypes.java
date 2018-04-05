@@ -25,7 +25,6 @@ import static talkable.common.CampaignPlacement.PostPurchase;
 * */
 public class SimpleTestForAllCampaignTypes extends BaseTest{
 
-//    private static final String customerSiteUrl = "http://learn.talkable.com/QA-Common/Automation/void/simple-test/";
     private static final String customerSiteUrl = PropertyLoader.loadEnvProperty("test.sites.simpleTestForAllCampaigns");
     private static final String siteName = PropertyLoader.loadProperty("sites.name.simpleTestForAllCampaigns");
 
@@ -49,7 +48,6 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
         //Create new campaign
         CampaignDetailsPage detailsPage = campaignsPage.createNewCampaign(campaignType, campaignPlacement);
-//        CampaignDetailsPage detailsPage = CommonScenarios.initiateCampaignCreation(campaignType, campaignPlacement);
         PageCampaignRules rulesPage = detailsPage.campaignNavigationMenu.openRulesPage();
         //set campaign name and click Launch Campaign
         LaunchCampaignPage launchPage = rulesPage.setCampaignName(campaignName).campaignNavigationMenu.launchCampaign();

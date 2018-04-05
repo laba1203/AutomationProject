@@ -60,7 +60,6 @@ public class SmokeTest  extends BaseTest{
         Header header = new Header();
         header.selectByVisibleText(siteName);
         SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
-//        header.switchSiteTo(siteName);
         Assert.assertEquals(dashboardPage.header.getSiteName(), siteName, "FAILED: Incorrect site name");
     }
 
@@ -118,7 +117,6 @@ public class SmokeTest  extends BaseTest{
     }
 
      /* To be added:
-     9. Modify campaign in Editor
 
      10. Modify campaign placement
      */
@@ -131,7 +129,6 @@ public class SmokeTest  extends BaseTest{
     }
 
 // 12. Create test offer.
-    //!!! To be tested!! Doesn't work properly.
     @Test
     public void test09_createTestOffer() {
         CampaignDetailsPage detailsPage = CommonScenarios.createTestOfferForNonPostPurchase("test" + System.currentTimeMillis() + "@test.com");
