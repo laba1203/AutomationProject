@@ -9,7 +9,7 @@ public class PropertyLoader {
     private static final String PROP_FILE = "/application.properties";
     //
     private static final String VOID_PROP_FILE = "/void.properties";
-    private static final String PROD_PROP_FILE = "/void.properties";
+    private static final String PROD_PROP_FILE = "/prod.properties";
 
     private PropertyLoader() {}
 
@@ -68,7 +68,8 @@ public class PropertyLoader {
 //        return System.getProperty("test.environment");
 
         //for local running of the project:
-        return "VOID";
+//        return "VOID";
+        return "PROD";
 
     }
 
