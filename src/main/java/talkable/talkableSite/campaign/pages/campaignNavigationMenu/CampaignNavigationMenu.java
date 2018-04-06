@@ -19,7 +19,7 @@ public class CampaignNavigationMenu extends CampaignNavigationMenuOnEditor{
         campaignType = new ElmntCampaignType();
     }
 
-    public LaunchCampaignPage launchCampaign(){
+    public LaunchCampaignPage clickLaunchButton(){
         if(isCampaignActive()){
             Assert.fail("You can not launch this campaign. It is already active. ");
         }

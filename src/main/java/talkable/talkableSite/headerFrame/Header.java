@@ -1,6 +1,7 @@
 package talkable.talkableSite.headerFrame;
 
 import abstractObjects.AbstractElementsContainer;
+import talkable.homePage.HomePage;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.headerFrame.elements.*;
 import talkable.talkableSite.headerFrame.elements.menuFrame.MenuFrame;
@@ -57,6 +58,13 @@ public class Header extends AbstractElementsContainer{
     public PageCampaigns openCampaignsPage(){
         campaignsButton.click();
         return new PageCampaigns();
+    }
+
+    public HomePage logout(){
+        return openMenu().clickLogout();
+
+
+
     }
 
 

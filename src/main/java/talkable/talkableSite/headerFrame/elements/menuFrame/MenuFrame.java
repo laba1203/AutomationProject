@@ -1,9 +1,11 @@
 package talkable.talkableSite.headerFrame.elements.menuFrame;
 
 import abstractObjects.AbstractElementsContainer;
+import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import talkable.addYourSitePage.AddSitePage;
+import talkable.homePage.HomePage;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 
@@ -16,6 +18,7 @@ public class MenuFrame extends AbstractElementsContainer {
     private ElmntCreateNewCampaignButton elmntCreateNewCampaignButton;
     private ElmntCreateNewSiteButton elmntCreateNewSiteButton;
     private ElmntCampaignPlacementsButton campaignPlacementsButton;
+    private ElmntLogoutButton logoutButton;
 
 
     public MenuFrame(){
@@ -25,6 +28,7 @@ public class MenuFrame extends AbstractElementsContainer {
         elmntCreateNewCampaignButton = new ElmntCreateNewCampaignButton();
         elmntCreateNewSiteButton = new ElmntCreateNewSiteButton();
         campaignPlacementsButton = new ElmntCampaignPlacementsButton();
+        logoutButton = new ElmntLogoutButton();
     }
 
 
@@ -48,5 +52,10 @@ public class MenuFrame extends AbstractElementsContainer {
     public PageCampaignPlacements clickCampaignPlacementsButton(){
         campaignPlacementsButton.click();
         return new PageCampaignPlacements();
+    }
+
+    public HomePage clickLogout(){
+        logoutButton.click();
+        return new HomePage();
     }
 }

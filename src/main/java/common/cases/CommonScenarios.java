@@ -104,7 +104,7 @@ public class CommonScenarios {
     public static CampaignDetailsPage launchCampaign()
     {
         CampaignNavigationMenu campaignNavigationMenu = new CampaignNavigationMenu();
-        LaunchCampaignPage launchCampaignPage = campaignNavigationMenu.launchCampaign();
+        LaunchCampaignPage launchCampaignPage = campaignNavigationMenu.clickLaunchButton();
 
         //Launch Campaign Page is opened
         CampaignDetailsPage campaignDetailsPage = launchCampaignPage.launchCampaign();
