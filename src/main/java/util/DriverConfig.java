@@ -78,10 +78,6 @@ public class DriverConfig {
     }
 
     public WebDriverWait getExplicitWait(){
-//        if(wait == null){
-//            wait = new WebDriverWait(getDriver(), 15, 500);
-//        }
-//        return wait;
         return getCustomWait(15, 500);
     }
 
@@ -102,7 +98,6 @@ public class DriverConfig {
         driver = null;
     }
 
-
     //to be refactored
 
     public static String switchToUnknownWindow(String parentHandle){
@@ -115,20 +110,16 @@ public class DriverConfig {
     }
 
     private static void switchToUnknownWindow(String parentHandle, String childHandle){
-
         if (!childHandle.equals(parentHandle)){
             driver.switchTo().window(childHandle);
             Log.switchedToWindowMsg(childHandle);
         }
-
     }
 
     public static void switchToWindow(String windowHandle){
         driver.switchTo().window(windowHandle);
         Log.switchedToWindowMsg(windowHandle);
     }
-
-
 
 
 

@@ -15,9 +15,9 @@ public class BaseTest {
         private Screenshot screenshot = new Screenshot();
 
 
+        //setup driver and open Talkable site.
         @BeforeSuite
         public void commonSetup() {
-
             this.driverFactory = new DriverConfig();
 //            driverFactory.cleanWebDriver();
             this.driver = this.driverFactory.getDriver();
