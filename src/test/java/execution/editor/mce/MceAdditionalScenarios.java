@@ -99,7 +99,7 @@ public class MceAdditionalScenarios extends BaseTest{
             Assert.fail("FAILED: Preview popup is not opened.");
         }
         mcePage = previewPopup.closePopup();
-        assertCampaignsCount(mcePage, "2", "3", "3");
+        assertCampaignsCount(mcePage, "2", "2", "2");
     }
 
     @AfterClass

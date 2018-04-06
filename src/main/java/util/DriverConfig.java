@@ -28,7 +28,7 @@ public class DriverConfig {
     @Parameters()
     private WebDriver setNewLocalDriver()
     {
-        final File file = new File(PropertyLoader.loadProperty("path."+getOS()+".webDriver"));
+        final File file = new File(PropertyLoader.loadProperty("path.mac.webDriver"));
         System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
 
         driver = new ChromeDriver(); //launch local webDriver
@@ -36,8 +36,12 @@ public class DriverConfig {
         setImplicitlyWait();
 
         return driver;
-
     }
+
+    private WebDriver getLocalChromeDriver(){
+        return new ChromeDriver();
+    }
+
 
 
     private WebDriver setNewRemoteDriver(){
@@ -59,10 +63,10 @@ public class DriverConfig {
         return driver;
     }
 
-    private String getOS(){
-        System.out.println("Test is running on " + System.getProperty("os.name"));
-        return System.getProperty("os.name").toLowerCase().substring(0,3);
-    }
+//    private String getOS(){
+//        System.out.println("Test is running on " + System.getProperty("os.name"));
+//        return System.getProperty("os.name").toLowerCase().substring(0,3);
+//    }
 
 
     public WebDriver getDriver(){
@@ -74,8 +78,16 @@ public class DriverConfig {
     }
 
     public WebDriverWait getExplicitWait(){
+//        if(wait == null){
+//            wait = new WebDriverWait(getDriver(), 15, 500);
+//        }
+//        return wait;
+        return getCustomWait(15, 500);
+    }
+
+    public WebDriverWait getCustomWait(long timeOutInSeconds, long sleepInMillis) {
         if(wait == null){
-            wait = new WebDriverWait(getDriver(), 15, 500);
+            wait = new WebDriverWait(getDriver(), timeOutInSeconds, sleepInMillis);
         }
         return wait;
     }

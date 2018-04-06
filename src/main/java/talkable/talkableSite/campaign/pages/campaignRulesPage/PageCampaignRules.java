@@ -1,6 +1,7 @@
 package talkable.talkableSite.campaign.pages.campaignRulesPage;
 
 import abstractObjects.DrivenElement;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
@@ -175,7 +176,11 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
     private void firstLoading(){
         ElmntLoadingMessage loadingMessage = new ElmntLoadingMessage();
-        wait.until(ExpectedConditions.invisibilityOf(loadingMessage.getWebElement()));
+        try {
+            wait.until(ExpectedConditions.invisibilityOf(loadingMessage.getWebElement()));
+        }catch (TimeoutException e){
+            Assert.fail("FAILED: "+"org.openqa.selenium.TimeoutException:");
+        }
         System.out.println("LOG: Rules Page is loaded");
     }
 

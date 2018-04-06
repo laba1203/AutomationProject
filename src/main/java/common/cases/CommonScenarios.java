@@ -157,7 +157,7 @@ public class CommonScenarios {
     * 3. Switch back to Campaign Details page
     * Returns: Campaign Details Page for parent campaign.
     * */
-    public static CampaignDetailsPage createTestOfferForPostPurchase() {
+    public static CampaignDetailsPage createTestOfferNewPurchase() {
         CampaignDetailsPage detailsPage = new CampaignDetailsPage();
 
         CreateNewPurchasePage createNewPurchasePage = detailsPage.clickCreateTestOfferForPostPurchase();
@@ -172,9 +172,9 @@ public class CommonScenarios {
      * 4. Switch back to Campaign Details page
      * Returns: Campaign Details Page for parent campaign.
      * */
-    public static CampaignDetailsPage createTestOfferForNonPostPurchase(String newAffiliatedMemberEmail){
+    public static CampaignDetailsPage createTestOfferNewAffiliateMember(String newAffiliatedMemberEmail){
         CampaignDetailsPage detailsPage = new CampaignDetailsPage();
-        PageNewAffiliateMember newAffiliateMember = detailsPage.clickCreateTestOfferForNonPostPurchase();
+        PageNewAffiliateMember newAffiliateMember = detailsPage.clickCreateTestOfferNewAffiliateMember();
 
         return newAffiliateMember.createMemberAndSwitchToCampaign(newAffiliatedMemberEmail);
     }

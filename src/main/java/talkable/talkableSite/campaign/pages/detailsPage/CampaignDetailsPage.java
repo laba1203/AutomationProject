@@ -55,9 +55,9 @@ public class CampaignDetailsPage extends AbstractCampaignPage {
         return new CreateNewPurchasePage();
     }
 
-    public PageNewAffiliateMember clickCreateTestOfferForNonPostPurchase() {
+    public PageNewAffiliateMember clickCreateTestOfferNewAffiliateMember() {
         if (campaignNavigationMenu.getCampaignPlacement() == CampaignPlacement.PostPurchase) {
-            Assert.fail("FAILED: You can not use this method for Post Purchase campaign");
+            Assert.fail("FAILED: You can not create Affiliate Member for Post Purchase campaign");
         }
         createTestOfferButton.click();
         return new PageNewAffiliateMember();
