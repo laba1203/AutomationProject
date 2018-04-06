@@ -131,7 +131,7 @@ public class SmokeTest  extends BaseTest{
 // 12. Create test offer.
     @Test
     public void test09_createTestOffer() {
-        CampaignDetailsPage detailsPage = CommonScenarios.createTestOfferForNonPostPurchase("test" + System.currentTimeMillis() + "@test.com");
+        CampaignDetailsPage detailsPage = CommonScenarios.createTestOfferNewAffiliateMember("test" + System.currentTimeMillis() + "@test.com");
         Assert.assertEquals(detailsPage.getAdvocateOffersTotalCount(), expectedAdvocateOffersCount, "FAILED: Incorrect Offers count");
     }
 

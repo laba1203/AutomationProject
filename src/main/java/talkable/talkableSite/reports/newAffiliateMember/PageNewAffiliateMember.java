@@ -35,7 +35,8 @@ public class PageNewAffiliateMember extends AbstractTalkableSitePage{
         DriverConfig.switchToWindow(parentHandle);
         CampaignDetailsPage campaignDetailsPage = new CampaignDetailsPage();
 
-        return (CampaignDetailsPage) campaignDetailsPage.refresh();
+        campaignDetailsPage.refresh();
+        return new CampaignDetailsPage();
     }
 
 }

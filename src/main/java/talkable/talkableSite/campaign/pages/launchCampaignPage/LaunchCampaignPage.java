@@ -41,7 +41,7 @@ public class LaunchCampaignPage extends AbstractTalkableSitePage {
     private boolean isIntegrated(){
         try{
             new DriverConfig()
-                    .getCustomWait(7,500)
+                    .getCustomWait(5,500)
                     .until(ExpectedConditions.numberOfElementsToBe(ElmntAlertIntegrationMsg.getStaticLocator(), 1));
             return false;
         }catch (TimeoutException e){
