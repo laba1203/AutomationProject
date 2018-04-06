@@ -32,9 +32,14 @@ public class LaunchCampaignPage extends AbstractTalkableSitePage {
             noIntegrationFoundPopup.launchNowButton.click();
         }
         else{
-            launchCampaignButton.click();
+//            launchCampaignButton.click();
+            launchIntegratedCampaign();
         }
+        return new CampaignDetailsPage();
+    }
 
+    public CampaignDetailsPage launchIntegratedCampaign(){
+        launchCampaignButton.click();
         return new CampaignDetailsPage();
     }
 

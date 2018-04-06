@@ -50,7 +50,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
         CampaignDetailsPage detailsPage = campaignsPage.createNewCampaign(campaignType, campaignPlacement);
         PageCampaignRules rulesPage = detailsPage.campaignNavigationMenu.openRulesPage();
         //set campaign name and click Launch Campaign
-        LaunchCampaignPage launchPage = rulesPage.setCampaignName(campaignName).campaignNavigationMenu.launchCampaign();
+        LaunchCampaignPage launchPage = rulesPage.setCampaignName(campaignName).campaignNavigationMenu.clickLaunchButton();
         //launch campaign
         launchPage.launchCampaign();
 

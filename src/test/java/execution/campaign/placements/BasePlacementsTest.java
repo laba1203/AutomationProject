@@ -14,6 +14,11 @@ public class BasePlacementsTest extends BaseTest{
     protected static final String SITE_URL = PropertyLoader.loadEnvProperty("test.sites.campaign.placements");
     private static final String USER_EMAIL = PropertyLoader.loadProperty("user.login.campaign.placements");
 
+    protected static final String page1 = "index.html";
+    protected static final String page2 = "page2.html";
+    protected static final String page3 = "pp1.html";
+    protected static final String page4 = "pp2.html";
+
     @BeforeSuite
     public void precondition(){
         //login to Talkable
