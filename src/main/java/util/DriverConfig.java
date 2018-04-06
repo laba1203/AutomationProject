@@ -74,8 +74,16 @@ public class DriverConfig {
     }
 
     public WebDriverWait getExplicitWait(){
+//        if(wait == null){
+//            wait = new WebDriverWait(getDriver(), 15, 500);
+//        }
+//        return wait;
+        return getCustomWait(15, 500);
+    }
+
+    public WebDriverWait getCustomWait(long timeOutInSeconds, long sleepInMillis) {
         if(wait == null){
-            wait = new WebDriverWait(getDriver(), 15, 500);
+            wait = new WebDriverWait(getDriver(), timeOutInSeconds, sleepInMillis);
         }
         return wait;
     }

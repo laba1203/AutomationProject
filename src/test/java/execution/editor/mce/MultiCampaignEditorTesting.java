@@ -48,7 +48,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @BeforeSuite
     public void precondition() {
         //login to Talkable and select site
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
+        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).openCampaignsPage();
         SiteDashboardPage siteDashboardPage = CommonScenarios.switchToSiteByVisibleText(siteName);
         try {
             Thread.sleep(1000);
@@ -61,10 +61,27 @@ public class MultiCampaignEditorTesting extends BaseTest {
         campaignsPage.deleteAllCampaignsWithStatus(DISABLED);
 
         //Create campaigns for testing:
-        campaignsPage = campaignsPage.createNewCampaign(Invite, Standalone).header.openCampaignsPage();
-        campaignsPage = campaignsPage.createNewCampaign(Invite, FloatingWidget).header.openCampaignsPage();
-        campaignsPage = campaignsPage.createNewCampaign(AdvocateDashboard, FloatingWidget).header.openCampaignsPage();
-        campaignsPage.createNewCampaign(Invite, PostPurchase).header.openCampaignsPage();
+        campaignNameSA = campaignsPage.createNewCampaign(Invite, Standalone).campaignNavigationMenu.getCampaignName();
+        campaignsPage = new CampaignDetailsPage().header.openCampaignsPage();
+
+        campaignNameFW_1 = campaignsPage.createNewCampaign(Invite, FloatingWidget).campaignNavigationMenu.getCampaignName();
+        campaignsPage = new CampaignDetailsPage().header.openCampaignsPage();
+
+        campaignNameFW_2 = campaignsPage.createNewCampaign(AdvocateDashboard, FloatingWidget).campaignNavigationMenu.getCampaignName();
+        campaignsPage = new CampaignDetailsPage().header.openCampaignsPage();
+
+        campaignNamePP = campaignsPage.createNewCampaign(Invite, PostPurchase).campaignNavigationMenu.getCampaignName();
+//        new CampaignDetailsPage().header.openCampaignsPage();
+        //
+//        campaignNameSA = CommonScenarios.initiateCampaignCreation(Invite, Standalone)
+//                .campaignNavigationMenu.getCampaignName();
+//        campaignNameFW_1 = CommonScenarios.initiateCampaignCreation(Invite, FloatingWidget)
+//                .campaignNavigationMenu.getCampaignName();
+//        campaignNameFW_2 = CommonScenarios.initiateCampaignCreation(AdvocateDashboard, FloatingWidget)
+//                .campaignNavigationMenu.getCampaignName();
+//        campaignNamePP = CommonScenarios.initiateCampaignCreation(Invite, PostPurchase)
+//                .campaignNavigationMenu.getCampaignName();
+
     }
 
 

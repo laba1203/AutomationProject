@@ -56,6 +56,7 @@ public abstract class AbstractElement implements DrivenElement{
             element.click();
         }catch (TimeoutException e){
             System.out.println("DEBAG: Timeout error received during click() to " + this.getClass().getName());
+            element = driver.findElement(locator);
             element.click();
             System.out.println("DEBAG: Successfully clicked during second attempt");
         }

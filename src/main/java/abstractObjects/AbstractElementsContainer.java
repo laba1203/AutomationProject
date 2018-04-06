@@ -2,11 +2,8 @@ package abstractObjects;
 
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.internal.Coordinates;
-import org.openqa.selenium.internal.Locatable;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import util.DriverConfig;
@@ -26,7 +23,7 @@ public abstract class AbstractElementsContainer
 
     public void isPageOpened(String title){
         if(!verifyPageTitle(title)) {
-            screenshot.getScreenshot();
+            screenshot.makeScreenshot();
         }
         Assert.assertEquals(title, driver.getTitle(), Log.pageNotOpenedMsg(this));
     }

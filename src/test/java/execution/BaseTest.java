@@ -36,7 +36,7 @@ public class BaseTest {
 
         }
 
-        //to be tested:
+
          @BeforeMethod(alwaysRun = true)
         public void logMethodName(Method method) {
             System.err.println("\r\nDEBAG: Method name: <" + method.getName() + ">");
@@ -45,10 +45,10 @@ public class BaseTest {
 
         @AfterMethod
         public void takeScreenshot(ITestResult result){
+            System.out.println("DEBAG: Method ITestResult: <" + result.getStatus() + "> for screenshots");
             if(ITestResult.FAILURE == result.getStatus()){
-                screenshot.getScreenshot();
+                screenshot.makeScreenshot();
             }
-            System.out.println("LOG: Tried to capture screenshot");
         }
 
         @AfterSuite
