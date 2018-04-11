@@ -56,6 +56,7 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
 
     private ArrayList<String> getPlacementsList(CampaignPlacement placement, boolean inclusion){
         PlacementTile placementTile = getPlacement(placement);
+        assert placementTile != null;
         if(inclusion){
             return placementTile.getShownOnList();
         }
@@ -80,8 +81,8 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
         WaitTillChangesAppliedMsg warning = new WaitTillChangesAppliedMsg();
         for (int i = 0; i < 60; i++){
             try{
-                warning = new WaitTillChangesAppliedMsg();
-                new DriverConfig().getCustomWait(10, 1000)
+                new WaitTillChangesAppliedMsg();
+                DriverConfig.getCustomWait(10, 1000)
                         .until(ExpectedConditions.invisibilityOf(warning.getWebElement()));
                 break;
             }

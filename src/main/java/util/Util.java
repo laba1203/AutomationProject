@@ -47,7 +47,7 @@ public class Util {
         String url = removeParametersFromUrl(initialUrl);
         char[] chars = url.toCharArray();
         int size = chars.length;
-        int iterator = 0;
+        int iterator;
         for(int i = size-1; i > 0; i--){
             if(String.valueOf(chars[i]).equals("/")){
                 iterator = i+1;

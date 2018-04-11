@@ -19,8 +19,7 @@ public class BaseTest {
         @BeforeSuite
         public void commonSetup() {
             this.driverFactory = new DriverConfig();
-//            driverFactory.cleanWebDriver();
-            this.driver = this.driverFactory.getDriver();
+            this.driver = DriverConfig.getDriver();
             this.driver.navigate().to(EnvFactory.getEnvUrl());
             System.out.println("*** DEBAG: Before suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
         }
@@ -54,7 +53,7 @@ public class BaseTest {
         @AfterSuite
         public void quit() {
             this.driver.quit();
-            this.driverFactory.cleanWebDriver();
+            DriverConfig.cleanWebDriver();
             System.out.println("*** DEBAG: After Suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
         }
     }

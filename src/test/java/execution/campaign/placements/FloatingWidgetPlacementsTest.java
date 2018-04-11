@@ -1,14 +1,14 @@
 package execution.campaign.placements;
 
 import common.cases.CommonScenarios;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeGroups;
-import org.testng.annotations.Test;
+import org.testng.Assert;
+import org.testng.annotations.*;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.headerFrame.Header;
+import util.DriverConfig;
 import util.EnvFactory;
+import util.logging.Log;
 
 import static talkable.common.CampaignPlacement.FloatingWidget;
 import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
@@ -19,40 +19,38 @@ public class FloatingWidgetPlacementsTest extends BasePlacementsTest{
     private static final String fwCampaignName = "Invite Floating Widget_Placements testing";
 
     @Test
-    public void test0_reactivateFwCampaign(){
+    public void test00_reactivateFwCampaign(){
         CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(fwCampaignName, DISABLED);
         detailsPage.campaignNavigationMenu.clickLaunchButton().launchIntegratedCampaign();
     }
 
     @Test
-    public void test1_openCampaignPlacementsPage(){
+    public void test01_openCampaignPlacementsPage(){
         new Header().openMenu().clickCampaignPlacementsButton();
     }
 
     @Test
-    public void test2_addFwPlacement(){
+    public void test02_addFwPlacement(){
         String inclusionText = "/" + page1;
         PageCampaignPlacements campaignPlacements = new PageCampaignPlacements()
                 .updateFirstPlacementRow(FloatingWidget, true, inclusionText);
-//                .addInclusion(FloatingWidget, false, inclusionText);
-
         campaignPlacements = campaignPlacements.waitTillChangesApplied();
-
         campaignPlacements.assertPlacement(FloatingWidget, true, inclusionText);
     }
 
+
     @Test
-    public void test3_openPage1_onCustomerSite(){
+    public void test03_openPage1_onCustomerSite(){
         positiveVerificationOnSite(FloatingWidget, page1);
     }
 
     @Test
-    public void test4_openPage2_onCustomerSite(){
+    public void test04_openPage2_onCustomerSite(){
         negativeVerificationOnSite(FloatingWidget, page2);
     }
 
     @Test
-    public void test5_openPage3_onCustomerSite(){
+    public void test05_openPage3_onCustomerSite(){
         negativeVerificationOnSite(FloatingWidget, page3);
     }
 
@@ -62,34 +60,47 @@ public class FloatingWidgetPlacementsTest extends BasePlacementsTest{
     }
 
     @Test(groups = "add-second-placement")
-    public void test6_openCampaignPlacementsAndAddRegex(){
+    public void test06_openCampaignPlacementsAndAddRegex(){
         PageCampaignPlacements campaignPlacements = CommonScenarios
                 .addCampaignPlacement(FloatingWidget, true, true, page2);
         campaignPlacements.assertPlacement(FloatingWidget, true, page2);
     }
 
     @Test
-    public void test7_openPage1_onCustomerSite(){
+    public void test07_openPage1_onCustomerSite(){
         positiveVerificationOnSite(FloatingWidget, page1);
     }
 
     @Test
-    public void test8_openPage2_onCustomerSite(){
+    public void test08_openPage2_onCustomerSite(){
         positiveVerificationOnSite(FloatingWidget, page2);
     }
 
     @Test
-    public void test9_openPage3_onCustomerSite(){
+    public void test09_openPage3_onCustomerSite(){
         negativeVerificationOnSite(FloatingWidget, page3);
     }
 
-    @AfterClass
-    public void removePlacementAndDeactivateCampaign(){
+    @Test
+    public void test10_removeCampaignPlacement(){
         openTalkable();
         PageCampaignPlacements campaignPlacements = new Header().openMenu()
                 .clickCampaignPlacementsButton()
                 .removePlacement(FloatingWidget, true, page2);
-        campaignPlacements.header.openCampaignsPage().deactivateAllLiveCampaigns();
+        try {
+            campaignPlacements.assertPlacement(FloatingWidget, true, page2);
+            Assert.fail("FAILED: Campaign placement is not deleted.");
+        }catch (AssertionError e ){
+            Log.testPassed("Campaign placement is deleted.");
+        }
+    }
+
+    @AfterClass
+    public void deactivateCampaign(){
+        driver.navigate().refresh();
+        new Header()
+                .openCampaignsPage()
+                .deactivateAllLiveCampaigns();
     }
 
 }

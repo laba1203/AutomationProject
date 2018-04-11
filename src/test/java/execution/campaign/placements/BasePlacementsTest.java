@@ -11,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import talkable.common.CampaignPlacement;
 import talkable.talkableSite.headerFrame.Header;
+import util.DriverConfig;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.logging.Log;
@@ -21,7 +22,7 @@ import static talkable.common.CampaignPlacement.FloatingWidget;
 public class BasePlacementsTest extends BaseTest{
 
 //    private static final String siteName = PropertyLoader.loadProperty("sites.name.campaign.placements.test");
-    protected static final String SITE_URL = PropertyLoader.loadEnvProperty("test.sites.campaign.placements");
+    private static final String SITE_URL = PropertyLoader.loadEnvProperty("test.sites.campaign.placements");
     private static final String USER_EMAIL = PropertyLoader.loadProperty("user.login.campaign.placements");
 
     static final String page1 = "index.html";
@@ -44,7 +45,7 @@ public class BasePlacementsTest extends BaseTest{
     }
 
     void positiveVerificationOnSite(CampaignPlacement placement, String page){
-        driver.navigate().to(SITE_URL + page);
+        DriverConfig.getDriver().navigate().to(SITE_URL + page);
         try {
             initializedCampaign(placement);
         }
@@ -55,7 +56,7 @@ public class BasePlacementsTest extends BaseTest{
     }
 
     void negativeVerificationOnSite(CampaignPlacement placement, String page){
-        driver.navigate().to(SITE_URL + page);
+        DriverConfig.getDriver().navigate().to(SITE_URL + page);
         try{
             initializedCampaign(placement);
             Assert.fail("FAILED: " + placement.toString() + " campaign is displayed on " + page);
