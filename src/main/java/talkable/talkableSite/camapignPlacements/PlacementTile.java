@@ -4,7 +4,6 @@ import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import talkable.common.CampaignPlacement;
 import talkable.common.CommonMethods;
 
@@ -23,14 +22,29 @@ public class PlacementTile extends AbstractElementsContainer{
     private Element actionButton;
 
     PlacementTile(CampaignPlacement placement){
-
         header = new Element(driver.findElement(By.xpath("//h1[contains(text(), '" + getPlacementName(placement) + "')]")));
 
         tileElmnt = new Element(header.getWebElement().findElement(By.xpath("./../../..")));
         actionButton = new Element(tileElmnt.getWebElement().findElement(By.xpath(".//*[contains(@data-toggle, 'dropdown')]")));
         shownOn = setList(showOnXpath);
         hiddenOn = setList(hiddenOnXpath);
+    }
 
+    public ArrayList<String> getHiddenOnList() {
+        return getPlacementsList(hiddenOn);
+    }
+
+    public ArrayList<String> getShownOnList() {
+        return getPlacementsList(shownOn);
+    }
+
+    private ArrayList<String> getPlacementsList(ArrayList<PlacementRowElement> placementsList){
+        ArrayList<String> out = new ArrayList<>();
+        for (PlacementRowElement row :
+                placementsList) {
+            out.add(row.getText());
+        }
+        return out;
     }
 
     public PageCampaignPlacements addExclusion(boolean regex, String exclusionText){
@@ -41,14 +55,13 @@ public class PlacementTile extends AbstractElementsContainer{
         return edit().add(true, regex, inclusionText);
     }
 
-    public ArrayList<PlacementRowElement> getShownOnList() {
-        return shownOn;
+    public PageCampaignPlacements removePlacement(boolean isInclusion, String name){
+        return edit().remove(isInclusion, name);
     }
 
-    public ArrayList<PlacementRowElement> getHiddenOnList() {
-        return hiddenOn;
+    public PageCampaignPlacements updateFirstPlacement(boolean isInclusion, String newValue){
+        return edit().updateFirstPlacement(isInclusion, newValue);
     }
-
 
     private PopupEditPlacement edit(){
         actionButton.click();
@@ -56,10 +69,12 @@ public class PlacementTile extends AbstractElementsContainer{
         return new PopupEditPlacement();
     }
 
-    public PageCampaignPlacements delete(){
+
+
+    public PageCampaignPlacements deleteTile(){
         actionButton.click();
-        new ActionMenu(tileElmnt).deleteBtn.click();
-        new PageCampaignPlacements().waitSaving();
+        new ActionMenu(tileElmnt).deleteTile();
+        new PageCampaignPlacements();
 
         return new PageCampaignPlacements();
     }
@@ -68,10 +83,9 @@ public class PlacementTile extends AbstractElementsContainer{
     private ArrayList<PlacementRowElement> setList(String xpath){
         ArrayList<PlacementRowElement> elements = new ArrayList<>();
         List<WebElement> webElements = tileElmnt.getWebElement().findElements(By.xpath(xpath));
-
         for (WebElement webElement :
-                webElements) {
-            elements.add(new PlacementRowElement(webElement));
+                    webElements) {
+                elements.add(new PlacementRowElement(webElement));
         }
         return elements;
     }
@@ -79,27 +93,7 @@ public class PlacementTile extends AbstractElementsContainer{
 
     private String getPlacementName(CampaignPlacement placement)
     {
-//        String placementName;
-//        switch (placement){
-//            case PostPurchase:
-//                placementName = "Post Purchase";
-//                break;
-//            case Standalone:
-//                placementName = "Standalone";
-//                break;
-//            case Gleam:
-//                placementName = "Gleam";
-//                break;
-//            case FloatingWidget:
-//                placementName = "Floating Widget";
-//                break;
-//            default:
-//                placementName = null;
-//                Assert.fail("FAILED: Unknown placement type: " + placement.toString());
-//        }
-//        return placementName;
         return CommonMethods.getCampaignPlacementString(placement);
-
     }
 
 

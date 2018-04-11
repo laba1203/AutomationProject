@@ -1,0 +1,10 @@
+<suite name="Campaign Placements Suite" preserve-order="true" group-by-instances="true">
+    <test name="Floating Widget Placement Test" preserve-order="true" >
+        <classes>
+            <class name="execution.campaign.placements.FloatingWidgetPlacementsTest"/>
+        </classes>
+    </test>
+
+
+</suite>
+

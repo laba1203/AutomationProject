@@ -5,6 +5,7 @@ import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPa
 import talkable.addYourSitePage.AddSitePage;
 import talkable.common.CampaignPlacement;
 import talkable.common.CampaignType;
+import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
@@ -23,6 +24,7 @@ import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.logging.Log;
 
+import static talkable.common.CampaignPlacement.FloatingWidget;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
 /*Class to allocate common scenarios in Talkable.
@@ -221,5 +223,25 @@ public class CommonScenarios {
         return editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
     }
 
+
+    /*Scenarios to add Campaign Placement(inclusion or exclusion).
+     * Precondition: Header should be available.
+     * 1. Open Campaign Placement page
+     * 2. Add inclusion oe exclusion (as per @isInclusion)
+     * 3. wait till changes applied
+     * @Returns: PageCampaignPlacements for mentioned parameters.
+     * */
+    public static PageCampaignPlacements addCampaignPlacement(CampaignPlacement placement,
+                                                              boolean isInclusion,
+                                                              boolean regex,
+                                                              String placementText){
+        PageCampaignPlacements campaignPlacements = new Header().openMenu().clickCampaignPlacementsButton();
+        if(isInclusion) {
+            campaignPlacements = campaignPlacements.addInclusion(placement, regex, placementText);
+        }else {
+            campaignPlacements = campaignPlacements.addExclusion(placement, regex, placementText);
+        }
+        return campaignPlacements.waitTillChangesApplied();
+    }
 
 }

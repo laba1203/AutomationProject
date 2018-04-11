@@ -25,18 +25,42 @@ class PopupEditPlacement extends AbstractElementsContainer{
     }
 
     PageCampaignPlacements add(boolean isInclusion, boolean regexMode, String value){
-        PopupEditPlacement updatedPopup = null;
-        if(isInclusion){
-            updatedPopup = inclusionSection.add(regexMode, value);
-        }
-        else {
-            updatedPopup = exclusionSection.add(regexMode, value);
-        }
+        Section section = getSection(isInclusion);
+        PopupEditPlacement updatedPopup = section.add(regexMode, value);
+//        if(isInclusion){
+//            updatedPopup = inclusionSection.add(regexMode, value);
+//        }
+//        else {
+//            updatedPopup = exclusionSection.add(regexMode, value);
+//        }
         updatedPopup.saveChangesButton.click();
-        new PageCampaignPlacements().waitSaving();
 
         return new PageCampaignPlacements();
     }
+
+    PageCampaignPlacements remove(boolean isInclusion, String name){
+        Section section = getSection(isInclusion);
+        PopupEditPlacement updatedPopup = section.remove(name);
+        updatedPopup.saveChangesButton.click();
+        return new PageCampaignPlacements();
+    }
+
+    PageCampaignPlacements updateFirstPlacement(boolean isInclusion, String newValue){
+            Section section = getSection(isInclusion);
+            PopupEditPlacement editPlacementPopup = section.updateFirstRow(newValue);
+            editPlacementPopup.saveChangesButton.click();
+            return new PageCampaignPlacements();
+    }
+
+    private Section getSection(boolean isInclusion){
+        if(isInclusion){
+            return inclusionSection;
+        }
+        else {
+            return exclusionSection;
+        }
+    }
+
 
 
 

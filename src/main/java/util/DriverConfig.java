@@ -24,6 +24,7 @@ public class DriverConfig {
     private static WebDriverWait wait;
 
     private static final long DEFAULT_TIME_OUT = 20;
+    private static final long DEFAULT_PAGE_LOAD_TIME_OUT = 40;
 
     @Parameters()
     private WebDriver setNewLocalDriver()
@@ -90,7 +91,7 @@ public class DriverConfig {
 
     private void setImplicitlyWait(){
         driver.manage().timeouts().implicitlyWait(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(DEFAULT_PAGE_LOAD_TIME_OUT, TimeUnit.SECONDS);
     }
 
     public void cleanWebDriver(){
