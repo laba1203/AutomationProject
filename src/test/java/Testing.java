@@ -1,5 +1,3 @@
-import execution.BaseTest;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import util.Util;
 
@@ -12,11 +10,12 @@ public class Testing {//extends BaseTest{
 //        Assert.fail("FAILED");
 //    }
 
+
     @Test
-    public void test2(){
-        String s = Util.removeParametersFromUrl("https://di6re4dxelnn2.cloudfront.net/static_assets/files/95993/original/tkbl_default_icon-link-color-2x.png?localization_key=advocate_signup_page_background");
-        s = Util.getLastUrlResource(s);
-        System.out.println(s);
+    public void test4(){
+//        Util.getDifference("http://learn.talkable.com/QA-Max/Prod/home.htmlSpecific site pages", "Specific site pages");
+
+        System.out.println(Util.cutFirstPartOfString("http://learn.talkable.com/QA-Max/Prod/home.htmlSpecific site pages", "http://learn.talkable.com/"));
     }
 
 }

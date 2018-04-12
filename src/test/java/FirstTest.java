@@ -1,19 +1,14 @@
 
 import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-import talkable.common.CampaignPlacement;
-import talkable.common.CampaignType;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
-import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
-import talkable.talkableSite.campaignsPage.PageCampaigns;
+import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import util.DriverConfig;
 import util.Util;
 
 import static talkable.common.CampaignPlacement.FloatingWidget;
+import static talkable.common.CampaignPlacement.Standalone;
 import static talkable.common.CampaignType.AdvocateDashboard;
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.CONFIGURATION;
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
@@ -29,20 +24,39 @@ public class FirstTest {
     @BeforeSuite
     public void setup(){
         driver = new DriverConfig().getDriver();
-        driver.navigate().to("https://void.talkable.com");
+        driver.navigate().to("https://talkable.com");
     }
 
     @Test
     public void test1_login(){
         CommonScenarios.login("maxim.laba@talkable.com", "Password@1");
 
-        driver.navigate().to("https://admin.void.talkable.com/sites/test14123434/campaigns");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.navigate().to("https://admin.talkable.com/sites/custom/placements");
     }
 
     @Test
     public void test2() {
-        PageCampaigns campaigns = new PageCampaigns();
-        campaigns.createNewCampaign(AdvocateDashboard, FloatingWidget);
+        PageCampaignPlacements campaignPlacements = new PageCampaignPlacements();
+        campaignPlacements = campaignPlacements.addInclusion(FloatingWidget, false, "/test.2.2.html");
+        campaignPlacements = campaignPlacements.addExclusion(Standalone, true, "test2");
+        campaignPlacements.waitTillChangesApplied();
+        System.out.println("PASSED: Changes are applied !!!");
+    }
+
+    @Test
+    public void test3(){
+        new PageCampaignPlacements().assertPlacement(FloatingWidget, true, "/test.2.2.html");
+    }
+
+    @Test
+    public void test4(){
+        new PageCampaignPlacements().assertPlacement(Standalone, true, "2312121");
     }
 
 }

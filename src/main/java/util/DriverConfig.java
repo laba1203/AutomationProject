@@ -24,6 +24,7 @@ public class DriverConfig {
     private static WebDriverWait wait;
 
     private static final long DEFAULT_TIME_OUT = 20;
+    private static final long DEFAULT_PAGE_LOAD_TIME_OUT = 40;
 
     @Parameters()
     private WebDriver setNewLocalDriver()
@@ -69,7 +70,7 @@ public class DriverConfig {
 //    }
 
 
-    public WebDriver getDriver(){
+    public static WebDriver getDriver(){
         if (driver == null){
             driver = new DriverConfig().setNewLocalDriver(); //for local testing
 //            driver = new DriverConfig().setNewRemoteDriver(); //for remote testing
@@ -77,11 +78,11 @@ public class DriverConfig {
         return driver;
     }
 
-    public WebDriverWait getExplicitWait(){
+    public static WebDriverWait getExplicitWait(){
         return getCustomWait(15, 500);
     }
 
-    public WebDriverWait getCustomWait(long timeOutInSeconds, long sleepInMillis) {
+    public static WebDriverWait getCustomWait(long timeOutInSeconds, long sleepInMillis) {
         if(wait == null){
             wait = new WebDriverWait(getDriver(), timeOutInSeconds, sleepInMillis);
         }
@@ -90,10 +91,10 @@ public class DriverConfig {
 
     private void setImplicitlyWait(){
         driver.manage().timeouts().implicitlyWait(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(DEFAULT_PAGE_LOAD_TIME_OUT, TimeUnit.SECONDS);
     }
 
-    public void cleanWebDriver(){
+    public static void cleanWebDriver(){
         wait = null;
         driver = null;
     }

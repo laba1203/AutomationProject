@@ -7,16 +7,24 @@ import org.testng.Assert;
 
 public class Util {
 
-    public static String getDifference(String string, String endSubString) {
-        int stringSize = string.toCharArray().length;
-        int subStringSize = endSubString.toCharArray().length;
+    public static String cutLastPartOfString(String initialString, String lastText){
+        int endIndex = initialString.toCharArray().length - lastText.toCharArray().length;
 
-        if (!string.substring(subStringSize).equals(endSubString)) {
-            Assert.fail("FAILED: Sub-Text <" + endSubString + "> is not present in the text <" + string + ">");
-
+        String out = initialString.substring(0, endIndex);
+        if(!initialString.substring(endIndex).equals(lastText)){
+            Assert.fail("FAILED: Sub-Text <" + lastText + "> is not present in the text <" + initialString + ">");
         }
-        return string.substring(subStringSize);
+        return out;
+    }
 
+    public static String cutFirstPartOfString(String initialString, String textToBeCut){
+        int beginIndex = textToBeCut.toCharArray().length;
+
+        String out = initialString.substring(beginIndex);
+        if(!initialString.substring(0, beginIndex).equals(textToBeCut)){
+            Assert.fail("FAILED: Sub-Text <" + textToBeCut + "> is not present in the text <" + initialString + ">");
+        }
+        return out;
     }
 
     public static String getDifference(String string, String startSubString, String endSubString) {
@@ -39,7 +47,7 @@ public class Util {
         String url = removeParametersFromUrl(initialUrl);
         char[] chars = url.toCharArray();
         int size = chars.length;
-        int iterator = 0;
+        int iterator;
         for(int i = size-1; i > 0; i--){
             if(String.valueOf(chars[i]).equals("/")){
                 iterator = i+1;
