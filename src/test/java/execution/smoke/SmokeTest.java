@@ -6,6 +6,7 @@ import common.cases.CommonScenarios;
 import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
 import execution.BaseTest;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -19,6 +20,7 @@ import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
+import util.DriverConfig;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
@@ -144,7 +146,7 @@ public class SmokeTest  extends BaseTest{
 // 14. Verify FW on client site
     @Test
     public void test10_verifyCampaignOnSite() {
-        this.driverFactory.getDriver().navigate().to(SITE_URL);
+        DriverConfig.getDriver().navigate().to(SITE_URL);
         try {
             AdvocateTriggerWidgetFrame triggerWidget = new AdvocateTriggerWidgetFrame();
             triggerWidget.click();
@@ -171,7 +173,7 @@ public class SmokeTest  extends BaseTest{
     @Test
     public void test13_verifyFwOnSite() {
         try {
-            this.driverFactory.getDriver().navigate().to(SITE_URL);
+            DriverConfig.getDriver().navigate().to(SITE_URL);
             new AdvocateTriggerWidgetFrame();
             Assert.fail("FAILED: Floating Widget is displayed. Test Failed");
         } catch (NoSuchElementException e) {
