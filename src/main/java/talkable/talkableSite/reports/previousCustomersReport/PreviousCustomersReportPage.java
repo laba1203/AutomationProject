@@ -13,13 +13,25 @@ public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
 //    private UploadedCSVListsTable uploadedCSVLists;
     private ElmntUploadNewCSVButton elmntUploadNewCSVButton = new ElmntUploadNewCSVButton();
     private ElmntTotalCustomersLists elmntTotalCustomersLists = new ElmntTotalCustomersLists();
+    private ExistingCustomersListSection emailList = new ExistingCustomersListSection();
     private SectionUploadedCsvList uploadedCsvList;
     private ElmntDropZoneInput dropZone;
 
 
+
     public PreviousCustomersReportPage() {
-//        elmntUploadNewCSVButton = new ElmntUploadNewCSVButton();
-//        elmntTotalCustomersLists = new ElmntTotalCustomersLists();
+    }
+
+    public PreviousCustomersReportPage searchEmail(String text){
+        return emailList.filter(text);
+    }
+
+    public String getTotalValue(){
+        return emailList.getTotal();
+    }
+
+    public String getFirstEmailValue(){
+        return emailList.getFirstRowValue();
     }
 
     public void uploadFile(String fileName){
@@ -71,6 +83,5 @@ public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
         return value.substring(0, end);
 
     }
-
 
 }

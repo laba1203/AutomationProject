@@ -3,10 +3,12 @@ package execution.reports.previous.customer.upload;
 import common.cases.CommonScenarios;
 import common.cases.ReportsScenarios;
 import execution.BaseTest;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.reportsPage.ReportsPage;
 import util.EnvFactory;
 import util.TestDataConverter;
@@ -44,11 +46,26 @@ public class PreviousCustomerUploadTesting extends BaseTest{
                 .openExistingCustomerReport();
     }
 
-
     @Test(dataProvider = "getTestData", dependsOnMethods = "test2_createNewSiteAndOpenReportsPage")
-    public void uploadFile_3(String fileName, String expectedProgress, String expectedUploadedEmails, String expectedStatus){
+    public void test3_uploadFile(String fileName, String expectedProgress, String expectedUploadedEmails, String expectedStatus){
         ReportsScenarios
                 .previousCustomerUploadTesting(fileName, expectedProgress, expectedUploadedEmails, expectedStatus);
+    }
+
+    @Test(dependsOnMethods = "test3_uploadFile")
+    public void test4_searchEmail(){
+        PreviousCustomersReportPage report = new PreviousCustomersReportPage();
+        String email = report.getFirstEmailValue();
+        String total = report
+                .searchEmail(email)
+                .getTotalValue();
+        Assert.assertEquals(total, "Total: 1", "FAILED: Incorrect total value");
+        Assert.assertEquals(report.getFirstEmailValue(), email, "FAILED: Incorrect email is returned");
+    }
+
+    @Test(dependsOnMethods = "test3_uploadFile")
+    public void test5_verifyPagination(){
+        //TODO ...
     }
 
 
