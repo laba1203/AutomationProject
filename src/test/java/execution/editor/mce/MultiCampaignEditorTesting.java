@@ -4,8 +4,6 @@ import common.cases.CommonScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import talkable.common.CampaignPlacement;
-import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
@@ -48,7 +46,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @BeforeSuite
     public void precondition() {
         //login to Talkable and select site
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword()).openCampaignsPage();
+        CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword()).openCampaignsPage();
         SiteDashboardPage siteDashboardPage = CommonScenarios.switchToSiteByVisibleText(siteName);
         try {
             Thread.sleep(1000);
@@ -240,7 +238,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @BeforeGroups("configurationUpdate")
     public void setUpForConfigurationTests() {
 
-        System.out.println("DEBAG: CONFIGURATION UPDATE Befor group executed");
+        System.out.println("DEBAG: CONFIGURATION UPDATE Before group executed");
 
         driver.navigate().to(EnvFactory.getAdminUrl());
         System.out.println("--   DEBAG: Admin page is opened CONFIG ---");

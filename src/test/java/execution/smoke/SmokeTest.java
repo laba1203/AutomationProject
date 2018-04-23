@@ -6,7 +6,6 @@ import common.cases.CommonScenarios;
 import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
 import execution.BaseTest;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -53,7 +52,7 @@ public class SmokeTest  extends BaseTest{
 // 1. Login to Talkable.
     @Test
     public void test01_login() {
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
+        CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
     }
 
 // 2. Verify site Name

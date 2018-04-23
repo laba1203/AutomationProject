@@ -7,11 +7,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import talkable.common.CampaignPlacement;
-import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
-import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.EnvFactory;
 import util.PropertyLoader;
@@ -30,7 +27,7 @@ public class SimpleEditorTesting extends BaseTest {
     @BeforeClass
     public void precondition(){
         //login to Talkable and select site
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
+        CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
         SiteDashboardPage dashboardPage = CommonScenarios.switchToSiteByVisibleText(siteName);
         //Create new Campaign
         dashboardPage.header.openCampaignsPage().createNewCampaign(Invite, Standalone);

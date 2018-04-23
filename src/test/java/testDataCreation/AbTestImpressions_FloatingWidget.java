@@ -7,7 +7,7 @@ import util.DriverConfig;
 
 public class AbTestImpressions_FloatingWidget {
 
-    WebDriver driver;
+    private WebDriver driver;
 
 //    @BeforeMethod
 //    public void setup(){
@@ -18,14 +18,14 @@ public class AbTestImpressions_FloatingWidget {
 
     @Test
     public void test1_makeImpression(){
-        driver = new DriverConfig().getDriver();
-        driver.navigate().to("http://learn.talkable.com/QA-Max/void/test2003/index.html");
+        driver = DriverConfig.getDriver();
+        driver.navigate().to("http://learn.talkable.com/QA-Max/bastion/testMax-shard2/index.html");
 
         AdvocateTriggerWidgetFrame button = new AdvocateTriggerWidgetFrame();
 //        button.click();
 
         driver.quit();
-        new DriverConfig().cleanWebDriver();
+        DriverConfig.cleanWebDriver();
     }
 
     @Test

@@ -32,7 +32,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
     public void setup() {
         this.driver.navigate().to(EnvFactory.getEnvUrl());
         //Login to env
-        CommonScenarios.login(EnvFactory.getUser(), EnvFactory.getPassword());
+        CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
     }
 
     @Test(dataProvider = "getTestData")

@@ -36,12 +36,13 @@ public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
         int waiter = 0;
         while(!isFileProcessed()){
             try {
-                Thread.sleep(500);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            driver.navigate().refresh();
             waiter++;
-            if(waiter==6){
+            if(waiter==40){
                 Assert.fail(Log.fileIsNotProcessedMsg());
                 break;
             }
