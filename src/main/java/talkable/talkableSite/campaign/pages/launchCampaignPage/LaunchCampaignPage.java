@@ -9,6 +9,7 @@ import talkable.talkableSite.campaign.pages.launchCampaignPage.elements.LaunchCa
 import talkable.talkableSite.campaign.pages.launchCampaignPage.noIntegrationFoundPopup.NoIntegrationFoundPopup;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import util.DriverConfig;
+import util.WaitFactory;
 
 public class LaunchCampaignPage extends AbstractTalkableSitePage {
 
@@ -45,7 +46,7 @@ public class LaunchCampaignPage extends AbstractTalkableSitePage {
 
     private boolean isIntegrated(){
         try{
-            new DriverConfig()
+            WaitFactory
                     .getCustomWait(5,500)
                     .until(ExpectedConditions.numberOfElementsToBe(ElmntAlertIntegrationMsg.getStaticLocator(), 1));
             return false;

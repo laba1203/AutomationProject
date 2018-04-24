@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import util.DriverConfig;
+import util.WaitFactory;
 import util.logging.Log;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ public abstract class AbstractElement implements DrivenElement{
 
     private WebElement webElement;
     private By locator;
-    private WebDriver driver = new DriverConfig().getDriver();
-    protected WebDriverWait wait = new DriverConfig().getExplicitWait();
+    private WebDriver driver = DriverConfig.getDriver();
+    protected WebDriverWait wait = WaitFactory.getExplicitWait();
     private Actions actions = new Actions(driver);
 
 

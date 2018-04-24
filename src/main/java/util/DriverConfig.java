@@ -4,15 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Parameters;
 import util.logging.Log;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
-
 
 
 public class DriverConfig {
@@ -21,10 +18,6 @@ public class DriverConfig {
     private static final String URL = "http://localhost:4444/wd/hub";
 
     private static WebDriver driver;
-    private static WebDriverWait wait;
-
-    private static final long DEFAULT_TIME_OUT = 20;
-    private static final long DEFAULT_PAGE_LOAD_TIME_OUT = 40;
 
     @Parameters()
     private WebDriver setNewLocalDriver()
@@ -34,7 +27,7 @@ public class DriverConfig {
 
         driver = new ChromeDriver(); //launch local webDriver
 
-        setImplicitlyWait();
+        WaitFactory.setDefaultImplicitlyWait();
 
         return driver;
     }
@@ -59,16 +52,10 @@ public class DriverConfig {
             e.printStackTrace();
         }
         //
-        setImplicitlyWait();
+        WaitFactory.setDefaultImplicitlyWait();
 
         return driver;
     }
-
-//    private String getOS(){
-//        System.out.println("Test is running on " + System.getProperty("os.name"));
-//        return System.getProperty("os.name").toLowerCase().substring(0,3);
-//    }
-
 
     public static WebDriver getDriver(){
         if (driver == null){
@@ -78,26 +65,27 @@ public class DriverConfig {
         return driver;
     }
 
-    public static WebDriverWait getExplicitWait(){
-        return getCustomWait(15, 500);
-    }
+//    public static WebDriverWait getExplicitWait(){
+//        return getCustomWait(15, 500);
+//    }
 
-    public static WebDriverWait getCustomWait(long timeOutInSeconds, long sleepInMillis) {
-        if(wait == null){
-            wait = new WebDriverWait(getDriver(), timeOutInSeconds, sleepInMillis);
-        }
-        return wait;
-    }
+//    public static WebDriverWait getCustomWait(long timeOutInSeconds, long sleepInMillis) {
+//        if(wait == null){
+//            wait = new WebDriverWait(getDriver(), timeOutInSeconds, sleepInMillis);
+//        }
+//        return wait;
+//    }
 
-    private void setImplicitlyWait(){
-        driver.manage().timeouts().implicitlyWait(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(DEFAULT_PAGE_LOAD_TIME_OUT, TimeUnit.SECONDS);
-    }
+//    private void setDefaultImplicitlyWait(){
+//        driver.manage().timeouts().implicitlyWait(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
+//        driver.manage().timeouts().pageLoadTimeout(DEFAULT_PAGE_LOAD_TIME_OUT, TimeUnit.SECONDS);
+//    }
 
     public static void cleanWebDriver(){
-        wait = null;
+        WaitFactory.cleanWait();
         driver = null;
     }
+
 
     //to be refactored
 

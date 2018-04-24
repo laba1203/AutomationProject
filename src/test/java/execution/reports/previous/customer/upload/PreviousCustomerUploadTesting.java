@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.reportsPage.ReportsPage;
@@ -22,34 +23,31 @@ public class PreviousCustomerUploadTesting extends BaseTest{
 
     private static final String fileName = "testDataForExistingCustomersReport.csv";
 
-//    @BeforeClass
-//    public void setup(){
-//        driver.navigate().to(EnvFactory.getEnvUrl()); //"https://void.talkable.com"
-////        Header header = CommonScenarios.login(EnvFactory.getReportsUser(), EnvFactory.getPassword());
-//        //Navigate to Existing Customers Report
-////        ReportsPage reportsPage = header.clickReportsButton();
-////        reportsPage.openExistingCustomerReport();
-//    }
-
+    @Override
+    public void quit(){
+        //do nothing
+    }
 
     @Test
     public void test1_login(){
         driver.navigate().to(EnvFactory.getEnvUrl());
-        Header header = CommonScenarios.login(EnvFactory.getReportsUser(), EnvFactory.getPassword());
+        CommonScenarios.login(EnvFactory.getReportsUser(), EnvFactory.getPassword());
     }
+
 
     @Test(dependsOnMethods = "test1_login")
     public void test2_createNewSiteAndOpenReportsPage(){
-        CommonScenarios
-                .createNewSite("ECR_" + TestDataGenerator.getRandomId(), "www.test.com")
-                .header.clickReportsButton()
-                .openExistingCustomerReport();
+//        CommonScenarios
+//                .createNewSite("ECR_" + TestDataGenerator.getRandomId(), "www.test.com")
+//                .header.clickReportsButton()
+//                .openExistingCustomerReport();
     }
 
     @Test(dataProvider = "getTestData", dependsOnMethods = "test2_createNewSiteAndOpenReportsPage")
     public void test3_uploadFile(String fileName, String expectedProgress, String expectedUploadedEmails, String expectedStatus){
-        ReportsScenarios
-                .previousCustomerUploadTesting(fileName, expectedProgress, expectedUploadedEmails, expectedStatus);
+//        ReportsScenarios
+//                .previousCustomerUploadTesting(fileName, expectedProgress, expectedUploadedEmails, expectedStatus);
+        driver.navigate().to("https://admin.talkable.com/sites/ecr-563089371/previous_customers");
     }
 
     @Test(dependsOnMethods = "test3_uploadFile")
@@ -65,7 +63,11 @@ public class PreviousCustomerUploadTesting extends BaseTest{
 
     @Test(dependsOnMethods = "test3_uploadFile")
     public void test5_verifyPagination(){
-        //TODO ...
+        Pagination pagination = new PreviousCustomersReportPage()
+                .searchEmail("")
+                .getUpperPaginationForCsvListsTable();
+
+        CommonScenarios.verifyPagination(pagination);
     }
 
 
@@ -74,4 +76,6 @@ public class PreviousCustomerUploadTesting extends BaseTest{
         TestDataConverter data = new TestDataConverter(fileName);
         return data.getDataFromFile();
     }
+
+
 }

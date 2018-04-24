@@ -1,14 +1,17 @@
 package talkable.talkableSite.reports.previousCustomersReport;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import util.TestArtifactsProvider;
 import util.logging.Log;
 
 public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
 
-    private final static String title = "Existing Customers Lists | Talkable";
+
+    private final static By bottomCSVListsPaginationLctr = By.xpath("");
 
 //    private UploadedCSVListsTable uploadedCSVLists;
     private ElmntUploadNewCSVButton elmntUploadNewCSVButton = new ElmntUploadNewCSVButton();
@@ -16,6 +19,7 @@ public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
     private ExistingCustomersListSection emailList = new ExistingCustomersListSection();
     private SectionUploadedCsvList uploadedCsvList;
     private ElmntDropZoneInput dropZone;
+
 
 
 
@@ -63,13 +67,30 @@ public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
 
 
     private boolean isFileProcessed(){
-        String progress = new SectionUploadedCsvList().getUploadedFileRow(1).getStatus();
+        String progress = new SectionUploadedCsvList().getFirstRow().getStatus();
         return !(progress.equals("Pending") || progress.equals("In progress"));
     }
 
+    public Pagination getButtonPaginationForCsvListsTable(){
+        return new SectionUploadedCsvList().getBottomPagination();
+    }
+
+    public Pagination getUpperPaginationForCsvListsTable(){
+        return new SectionUploadedCsvList().getTopPagination();
+    }
+
+    public Pagination getButtonPaginationForCustomersList(){
+        return new ExistingCustomersListSection().getBottomPagination();
+    }
+
+    public Pagination getUpperPaginationForCustomersList(){
+        return new ExistingCustomersListSection().getTopPagination();
+    }
+
+
 
     public SectionUploadedCsvList.Row getRowWithCsv(int rowNumber){
-        return new SectionUploadedCsvList().getUploadedFileRow(1);
+        return new SectionUploadedCsvList().getFirstRow();
     }
 
 
