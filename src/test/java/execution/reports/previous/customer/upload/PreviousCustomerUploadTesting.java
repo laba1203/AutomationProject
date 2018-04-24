@@ -17,8 +17,7 @@ import java.io.IOException;
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1ONGHch4nOJ28fGgNG4Hz3THlX1NWn8KxwM74fBSLngM/
  * */
 public class PreviousCustomerUploadTesting extends BaseTest{
-
-    private static final String fileName = "testDataForExistingCustomersReport.csv";
+//    private static final String fileName = "testDataForExistingCustomersReport.csv";
 
     @Test
     public void test1_login(){
@@ -43,7 +42,7 @@ public class PreviousCustomerUploadTesting extends BaseTest{
     }
 
     @Test(dependsOnMethods = "test3_uploadFile")
-    public void test4_searchEmail(){
+    public void searchEmail(){
         PreviousCustomersReportPage report = new PreviousCustomersReportPage();
         String email = report.getFirstEmailValue();
         String total = report
@@ -54,7 +53,7 @@ public class PreviousCustomerUploadTesting extends BaseTest{
     }
 
     @Test(dependsOnMethods = "test3_uploadFile")
-    public void test5_verifyPagination(){
+    public void verifyPagination(){
         Pagination pagination = new PreviousCustomersReportPage()
                 .searchEmail("")
                 .getUpperPaginationForCsvListsTable();
@@ -64,9 +63,18 @@ public class PreviousCustomerUploadTesting extends BaseTest{
 
 
     @DataProvider
-    private Object[][] getTestData() throws IOException {
-        TestDataConverter data = new TestDataConverter(fileName);
-        return data.getDataFromFile();
+    private Object[][] getTestData() /*throws IOException*/ {
+//        TestDataConverter data = new TestDataConverter(fileName);
+//        return data.getDataFromFile();
+        return new Object[][]{
+                {"01_positiveSet.csv", "100%", "30", "Completed"},
+                {"02_positiveSetForDuplicatedRecordsTesting.csv", "100%", "1", "Completed"},
+                {"03_positiveWithDuplicates.csv", "100%", "3", "Completed"},
+                {"04_positiveAndNegative.csv", "100%", "2", "Completed"},
+                {"05_negativeWithMultipleTests.csv", "0%", "0", "Failed"},
+                {"08_zipTest.csv.zip" ,"100%", "8", "Completed"}
+        };
+
     }
 
 

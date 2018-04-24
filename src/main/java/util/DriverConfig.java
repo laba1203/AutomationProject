@@ -67,7 +67,6 @@ public class DriverConfig {
         driver = null;
     }
 
-
     //to be refactored
 
     public static String switchToUnknownWindow(String parentHandle){
