@@ -23,11 +23,6 @@ public class PreviousCustomerUploadTesting extends BaseTest{
 
     private static final String fileName = "testDataForExistingCustomersReport.csv";
 
-    @Override
-    public void quit(){
-        //do nothing
-    }
-
     @Test
     public void test1_login(){
         driver.navigate().to(EnvFactory.getEnvUrl());
@@ -37,16 +32,16 @@ public class PreviousCustomerUploadTesting extends BaseTest{
 
     @Test(dependsOnMethods = "test1_login")
     public void test2_createNewSiteAndOpenReportsPage(){
-//        CommonScenarios
-//                .createNewSite("ECR_" + TestDataGenerator.getRandomId(), "www.test.com")
-//                .header.clickReportsButton()
-//                .openExistingCustomerReport();
+        CommonScenarios
+                .createNewSite("ECR_" + TestDataGenerator.getRandomId(), "www.test.com")
+                .header.clickReportsButton()
+                .openExistingCustomerReport();
     }
 
     @Test(dataProvider = "getTestData", dependsOnMethods = "test2_createNewSiteAndOpenReportsPage")
     public void test3_uploadFile(String fileName, String expectedProgress, String expectedUploadedEmails, String expectedStatus){
-//        ReportsScenarios
-//                .previousCustomerUploadTesting(fileName, expectedProgress, expectedUploadedEmails, expectedStatus);
+        ReportsScenarios
+                .previousCustomerUploadTesting(fileName, expectedProgress, expectedUploadedEmails, expectedStatus);
         driver.navigate().to("https://admin.talkable.com/sites/ecr-563089371/previous_customers");
     }
 
