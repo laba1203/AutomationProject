@@ -2,7 +2,6 @@ package abstractObjects;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import util.DriverConfig;
@@ -27,7 +26,6 @@ public abstract class AbstractElement implements DrivenElement{
             this.locator = locator;
         }
         catch (NoSuchElementException e){
-//            System.out.println("FAILED: " + e.getMessage());
             Assert.fail("FAILED Assert:" + e.getMessage());
         }
     }
@@ -38,40 +36,31 @@ public abstract class AbstractElement implements DrivenElement{
 
     public void click()
     {
-        //to be tested (before was only code inside try{} ):
-        try {
-            actions.moveToElement(this.webElement).perform();
-//            this.webElement.click();
-            doubleClickForTimeout(this.webElement);
-        }catch (StaleElementReferenceException e){
-            setWebElement(this.locator);
-            actions.moveToElement(this.webElement).perform();
-            this.webElement.click();
+        if(locator != null){
+            setWebElement(locator);
         }
+        actions.moveToElement(this.webElement).perform();
+            this.webElement.click();
+//        doubleClickForTimeout(this.webElement);
 
         Log.clickMsg(this);
     }
 
-    private void doubleClickForTimeout(WebElement element){
-        try{
-            element.click();
-        }catch (TimeoutException e){
-            System.out.println("DEBAG: Timeout error received during click() to " + this.getClass().getName());
-            element = driver.findElement(locator);
-            element.click();
-            System.out.println("DEBAG: Successfully clicked during second attempt");
-        }
-    }
+//    private void doubleClickForTimeout(WebElement element){
+//        try{
+//            element.click();
+//        }catch (TimeoutException e){
+//            System.out.println("DEBAG: Timeout error received during click() to " + this.getClass().getName());
+//            element = driver.findElement(locator);
+//            element.click();
+//            System.out.println("DEBAG: Successfully clicked during second attempt");
+//        }
+//    }
 
     public void sendKeys(String value)
     {
         this.webElement.sendKeys(value);
         Log.enterValueMsg(value, this);
-    }
-
-    private boolean isElementPresent()
-    {
-        return driver.findElements(locator).size() > 0;
     }
 
     public void enterTextAndClickENTER(String value){
@@ -89,10 +78,6 @@ public abstract class AbstractElement implements DrivenElement{
         }
 
         return webElement.isEnabled();
-    }
-
-    public ArrayList<WebElement> getWebElements(By locator){
-        return (ArrayList<WebElement>) driver.findElements(locator);
     }
 
     public ArrayList<DrivenElement> getElements(){
@@ -123,14 +108,6 @@ public abstract class AbstractElement implements DrivenElement{
         return this.driver;
     }
 
-    public void waitTillElementPopulatedByText(String text){
-        wait.until(ExpectedConditions.textToBePresentInElement(this.webElement, text));
-    }
-
-    public void waitElementWithTextDisappeared(String text){
-        wait.until(ExpectedConditions.invisibilityOfElementWithText(this.locator, text));
-    }
-
     public void moveMouseOver(){
         Actions builder = new Actions(driver);
         builder.moveToElement(webElement).build().perform();
@@ -145,7 +122,6 @@ public abstract class AbstractElement implements DrivenElement{
     public String getAttribute(String attributeName){
         return this.webElement.getAttribute(attributeName);
     }
-
 
 }
 

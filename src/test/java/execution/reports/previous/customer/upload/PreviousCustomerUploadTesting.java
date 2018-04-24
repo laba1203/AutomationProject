@@ -59,6 +59,7 @@ public class PreviousCustomerUploadTesting extends BaseTest{
                 .getUpperPaginationForCsvListsTable();
 
         CommonScenarios.verifyPagination(pagination);
+        CommonScenarios.verifyPagination(new PreviousCustomersReportPage().getUpperPaginationForCustomersList());
     }
 
 
