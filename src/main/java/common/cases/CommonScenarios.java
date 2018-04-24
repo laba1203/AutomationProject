@@ -1,6 +1,7 @@
 package common.cases;
 
 import org.testng.Assert;
+import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
 import talkable.common.CampaignPlacement;
@@ -13,6 +14,7 @@ import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaig
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
+import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.headerFrame.Header;
@@ -242,6 +244,35 @@ public class CommonScenarios {
             campaignPlacements = campaignPlacements.addExclusion(placement, regex, placementText);
         }
         return campaignPlacements.waitTillChangesApplied();
+    }
+
+    public static void verifyPagination(Pagination pagination){
+        int page = 1;
+        String current = pagination.getCurrentPage();
+        Assert.assertEquals(current, String.valueOf(page), "FAILED: Pagination: First page is not opened");
+
+        pagination.next();
+        page++;
+        current = pagination.getCurrentPage();
+        Assert.assertEquals(current, String.valueOf(page), "FAILED: Pagination: Incorrect page value after next() method");
+
+        pagination.first();
+        page = 1;
+        current = pagination.getCurrentPage();
+        Assert.assertEquals(current, String.valueOf(page), "FAILED: Pagination: Incorrect page value after first() method");
+
+        pagination.last();
+        current = pagination.getCurrentPage();
+
+        pagination.previous();
+        Assert.assertNotEquals(pagination.getCurrentPage(), current, "FAILED: Pagination: page is not switched after previous() method");
+
+        pagination.last();
+        pagination.first();
+        page = 1;
+        current = pagination.getCurrentPage();
+        Assert.assertEquals(current, String.valueOf(page), "FAILED: Pagination: Incorrect page value after first() method");
+
     }
 
 }

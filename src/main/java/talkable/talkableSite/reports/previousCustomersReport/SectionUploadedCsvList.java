@@ -2,20 +2,26 @@ package talkable.talkableSite.reports.previousCustomersReport;
 
 import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import talkable.talkableSite.campaignsPage.Table;
+import talkable.common.elements.pagination.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SectionUploadedCsvList extends AbstractElementsContainer{
 
-    private Element sectionElement = new Element(By.xpath("//*[@class='App-container-inner']/*[contains(@class, 'App-layout-container')][1]"));
-    private Element tableElemnt = new Element(sectionElement.getWebElement().findElement(By.xpath(".//table")));
+    private static final String sectionXpath = "//*[@class='App-container-inner']/*[contains(@class, 'App-layout-container')][1]";
+    private static final By firstPaginationLctr = By.xpath(sectionXpath + "//div[@class = 'pagination '][1]/ul");
+    private static final By secondPaginationLctr = By.xpath(sectionXpath + "//div[@class = 'pagination '][2]/ul");
+
+    private Element sectionElement = new Element(By.xpath(sectionXpath));
     private ArrayList<Row> table = new ArrayList<>();
 
+
     SectionUploadedCsvList(){
+        Element tableElemnt = new Element(sectionElement.getWebElement().findElement(By.xpath(".//table")));
         List<WebElement> allRows = tableElemnt.getWebElement().findElements(By.xpath("./tbody/tr"));
 
         //initialize all Rows in the table
@@ -25,8 +31,16 @@ public class SectionUploadedCsvList extends AbstractElementsContainer{
         }
     }
 
-    Row getUploadedFileRow(int rowNumber){
-        return table.get(rowNumber - 1);
+    Row getFirstRow(){
+        return table.get(0);
+    }
+
+    public Pagination getTopPagination(){
+        return new Pagination(firstPaginationLctr);
+    }
+
+    public Pagination getBottomPagination(){
+        return new Pagination(secondPaginationLctr);
     }
 
     public class Row {
@@ -63,6 +77,8 @@ public class SectionUploadedCsvList extends AbstractElementsContainer{
         public String getErrorMessage() {
             return errorMessage.getText();
         }
+
+
 
     }
 

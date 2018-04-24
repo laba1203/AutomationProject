@@ -7,6 +7,7 @@ import org.testng.Assert;
 import talkable.common.CampaignPlacement;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import util.DriverConfig;
+import util.WaitFactory;
 
 import java.util.ArrayList;
 
@@ -82,7 +83,7 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
         for (int i = 0; i < 60; i++){
             try{
                 new WaitTillChangesAppliedMsg();
-                DriverConfig.getCustomWait(10, 1000)
+                WaitFactory.getCustomWait(10, 1000)
                         .until(ExpectedConditions.invisibilityOf(warning.getWebElement()));
                 break;
             }

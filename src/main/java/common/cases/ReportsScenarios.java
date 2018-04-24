@@ -30,6 +30,5 @@ public class ReportsScenarios extends CommonScenarios{
         Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails, "FAILED: Incorrect UploadedEmails");
         Assert.assertEquals(actualStatus, expectedStatus, "FAILED: Incorrect Status");
 
-
     }
 }

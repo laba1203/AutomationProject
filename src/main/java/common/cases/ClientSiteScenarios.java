@@ -32,12 +32,11 @@ public class ClientSiteScenarios {
     /*Technical method to setup new driver instace with clean cookies.
     * Please note: New driver instance will be applied for all further scenarios*/
     public static WebDriver setupDriverWithCleanCookies(WebDriver driver){
-        DriverConfig driverConfig = new DriverConfig();
         driver.manage().deleteAllCookies();
         driver.quit();
-        driverConfig.cleanWebDriver();
+        DriverConfig.cleanWebDriver();
 
-        return new DriverConfig().getDriver();
+        return DriverConfig.getDriver();
     }
 
     /*Verification that campaign is present on customer site
@@ -45,7 +44,7 @@ public class ClientSiteScenarios {
     * 2. Check campaign.
     */
     public static boolean assertCampaignOnCustomerSite(CampaignType campaignType, CampaignPlacement placement, String siteLink){
-        new DriverConfig().getDriver().navigate().to(siteLink);
+        DriverConfig.getDriver().navigate().to(siteLink);
         switch (placement){
             case FloatingWidget:
                 return isFloatingPresent(placement);
@@ -63,7 +62,7 @@ public class ClientSiteScenarios {
 
     private static boolean isFloatingPresent(CampaignPlacement placement){
         try{
-            AdvocateTriggerWidgetFrame frame = new AdvocateTriggerWidgetFrame();
+            new AdvocateTriggerWidgetFrame();
             return true;
         }catch(NoSuchElementException e){
             return false;
@@ -72,7 +71,7 @@ public class ClientSiteScenarios {
 
     private static boolean isStandalonePresent(CampaignPlacement placement){
         try{
-            AdvocateSignupPage frame = new AdvocateSignupPage();
+            new AdvocateSignupPage();
             return true;
         }catch(NoSuchElementException e){
             return false;
@@ -98,12 +97,6 @@ public class ClientSiteScenarios {
         }catch(NoSuchElementException e){
             return false;
         }
-//        try{
-//            AdvocateSharePageForInvite frame = new AdvocateSharePageForInvite();
-//            return true;
-//        }catch(NoSuchElementException e){
-//            return false;
-//        }
     }
 
 

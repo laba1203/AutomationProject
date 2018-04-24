@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import util.DriverConfig;
 import util.Screenshot;
+import util.WaitFactory;
 import util.logging.Log;
 
 import java.util.ArrayList;
@@ -15,10 +16,10 @@ import java.util.List;
 
 public abstract class AbstractElementsContainer
 {
-    protected WebDriver driver = new DriverConfig().getDriver();
+    protected WebDriver driver = DriverConfig.getDriver();
     private Screenshot screenshot;
-    protected WebDriverWait wait = new DriverConfig().getExplicitWait();
-    protected String windowHandle;
+    protected WebDriverWait wait = WaitFactory.getExplicitWait();
+    private String windowHandle;
 
 
     public void isPageOpened(String title){
