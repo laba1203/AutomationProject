@@ -14,7 +14,6 @@ public class Pagination extends AbstractElementsContainer{
     private static final By currentPageLctr = By.xpath("./li[contains(@class, 'active')]/a");
     private By ownElementXpath;
 
-    private Element own;
     private Element currentPage;
 
 
@@ -23,7 +22,7 @@ public class Pagination extends AbstractElementsContainer{
     * */
     public Pagination(By ulElementXpath){
         ownElementXpath = ulElementXpath;
-        own = getOwnElement();
+        getOwnElement();
         setElements();
     }
 
