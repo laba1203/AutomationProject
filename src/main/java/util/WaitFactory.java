@@ -47,6 +47,18 @@ public class WaitFactory {
             setDefaultImplicitlyWait();
         }
     }
+
+    public static void waitUntilVisibilityOfElementLocated(By by, long timeoutInSeconds){
+        setImplicitWait(2, TimeUnit.SECONDS);
+        try{
+            getCustomWait(timeoutInSeconds, 500).until(ExpectedConditions.visibilityOfElementLocated(by));
+        }
+        finally {
+            setDefaultImplicitlyWait();
+        }
+    }
+
+
     //wait.until(ExpectedConditions.invisibilityOfElementWithText(currentPageLctr, currentPageText))
 
 
