@@ -37,26 +37,26 @@ public class Header extends AbstractElementsContainer{
 //    }
 
     public Header selectByVisibleText(String siteName){
-        siteSelect.selectByVisibleText(siteName);
+        new SiteSelect().selectByVisibleText(siteName);
         return new Header();
     }
 
     public String getSiteName(){
-        return siteSelect.getSelectedItemText();
+        return new SiteSelect().getSelectedItemText();
     }
 
     public MenuFrame openMenu(){
-        menuButton.click();
+        new MenuButton().click();
         return new MenuFrame();
     }
 
     public ReportsPage clickReportsButton(){
-        reportsButton.click();
+        new ReportsButton().click();
         return new ReportsPage();
     }
 
     public PageCampaigns openCampaignsPage(){
-        campaignsButton.click();
+        new CampaignsButton().click();
         return new PageCampaigns();
     }
 
