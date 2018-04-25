@@ -1,7 +1,6 @@
 package talkable.talkableSite.headerFrame.elements.menuFrame;
 
 import abstractObjects.AbstractElementsContainer;
-import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import talkable.addYourSitePage.AddSitePage;
@@ -11,26 +10,14 @@ import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 
 public class MenuFrame extends AbstractElementsContainer {
 
-
     private static final By menuIsOpenedElement = By.cssSelector(".dropdown.open");
-
-    //    Elements:
-    private ElmntCreateNewCampaignButton elmntCreateNewCampaignButton;
-    private ElmntCreateNewSiteButton elmntCreateNewSiteButton;
-    private ElmntCampaignPlacementsButton campaignPlacementsButton;
     private ElmntLogoutButton logoutButton;
 
 
     public MenuFrame(){
         verifyIfMenuIsOpened();
-
-//        Initialize containers
-        elmntCreateNewCampaignButton = new ElmntCreateNewCampaignButton();
-        elmntCreateNewSiteButton = new ElmntCreateNewSiteButton();
-        campaignPlacementsButton = new ElmntCampaignPlacementsButton();
         logoutButton = new ElmntLogoutButton();
     }
-
 
     private void verifyIfMenuIsOpened(){
         if(driver.findElements(menuIsOpenedElement).size() == 0){
@@ -40,21 +27,22 @@ public class MenuFrame extends AbstractElementsContainer {
     }
 
     public AddSitePage clickCreateNewSiteButton(){
-        elmntCreateNewSiteButton.click();
+        new ElmntCreateNewSiteButton().click();
         return new AddSitePage();
     }
 
     public CreateNewCampaignPage clickCreateNewCampaignButton() {
-        elmntCreateNewCampaignButton.click();
+        new ElmntCreateNewCampaignButton().click();
         return new CreateNewCampaignPage();
     }
 
     public PageCampaignPlacements clickCampaignPlacementsButton(){
-        campaignPlacementsButton.click();
+        new ElmntCampaignPlacementsButton().click();
         return new PageCampaignPlacements();
     }
 
     public HomePage clickLogout(){
+        logoutButton = new ElmntLogoutButton();
         logoutButton.click();
         return new HomePage();
     }
