@@ -32,10 +32,15 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
     public void setup() {
         this.driver.navigate().to(EnvFactory.getEnvUrl());
         //Login to env
+//        CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
+    }
+
+    @Test
+    public void login(){
         CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
     }
 
-    @Test(dataProvider = "getTestData")
+    @Test(dataProvider = "getTestData", dependsOnMethods = "login")
     public void test(CampaignType campaignType, CampaignPlacement campaignPlacement){
         String campaignName = "AUTO_TEST_" + TestDataGenerator.getRandomId();
 
