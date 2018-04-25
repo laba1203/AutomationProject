@@ -8,59 +8,48 @@ import talkable.talkableSite.campaign.pages.launchCampaignPage.elements.CancelBu
 import talkable.talkableSite.campaign.pages.launchCampaignPage.elements.LaunchCampaignButton;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.noIntegrationFoundPopup.NoIntegrationFoundPopup;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
-import util.DriverConfig;
 import util.WaitFactory;
 
 public class LaunchCampaignPage extends AbstractTalkableSitePage {
 
     public CampaignNavigationMenuOnLaunchCampaignPage campaignNavigationMenu = new CampaignNavigationMenuOnLaunchCampaignPage();
     private LaunchCampaignButton launchCampaignButton= new LaunchCampaignButton();
-    private NoIntegrationFoundPopup noIntegrationFoundPopup;
-    private CancelButton cancelButton = new CancelButton();
-    private ElmntAlertIntegrationMsg alertIntegrationMsg;
+//    private NoIntegrationFoundPopup noIntegrationFoundPopup;
+//    private CancelButton cancelButton = new CancelButton();
+//    private ElmntAlertIntegrationMsg alertIntegrationMsg;
 
 
     public LaunchCampaignPage(){
-//        launchCampaignButton = new LaunchCampaignButton();
-//        cancelButton = new CancelButton();
     }
 
     public CampaignDetailsPage launchCampaign(){
         if(!isIntegrated()){
-            launchCampaignButton.click();
-            System.out.println("DEBUG: No Integration message is displayed present");
-            noIntegrationFoundPopup = new NoIntegrationFoundPopup();
-            noIntegrationFoundPopup.launchNowButton.click();
+            new LaunchCampaignButton().click();
+            System.out.println("DEBUG: No Integration message is displayed");
+            new NoIntegrationFoundPopup().launchNowButton.click();
         }
         else{
-//            launchCampaignButton.click();
             launchIntegratedCampaign();
         }
         return new CampaignDetailsPage();
     }
 
     public CampaignDetailsPage launchIntegratedCampaign(){
-        launchCampaignButton.click();
+        new LaunchCampaignButton().click();
         return new CampaignDetailsPage();
     }
 
     private boolean isIntegrated(){
         try{
-            WaitFactory
-                    .getCustomWait(5,500)
-                    .until(ExpectedConditions.numberOfElementsToBe(ElmntAlertIntegrationMsg.getStaticLocator(), 1));
+//            WaitFactory
+//                    .getCustomWait(5,500)
+//                    .until(ExpectedConditions.numberOfElementsToBe(ElmntAlertIntegrationMsg.getStaticLocator(), 1));
+            WaitFactory.waitUntilVisibilityOfElementLocated(ElmntAlertIntegrationMsg.getStaticLocator(), 1);
             return false;
         }catch (TimeoutException e){
             System.out.println("DEBAG: Integration popup is not displayed");
             return true;
         }
-//        return !isElementPresent(ElmntAlertIntegrationMsg.getStaticLocator());
     }
-
-    public void cancel(){
-        cancelButton.click();
-    }
-
-
 
 }
