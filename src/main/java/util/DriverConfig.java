@@ -19,6 +19,7 @@ public class DriverConfig {
 
     private static WebDriver driver;
 
+
     @Parameters()
     private WebDriver setNewLocalDriver()
     {
@@ -30,10 +31,6 @@ public class DriverConfig {
         WaitFactory.setDefaultImplicitlyWait();
 
         return driver;
-    }
-
-    private WebDriver getLocalChromeDriver(){
-        return new ChromeDriver();
     }
 
 
@@ -65,27 +62,10 @@ public class DriverConfig {
         return driver;
     }
 
-//    public static WebDriverWait getExplicitWait(){
-//        return getCustomWait(15, 500);
-//    }
-
-//    public static WebDriverWait getCustomWait(long timeOutInSeconds, long sleepInMillis) {
-//        if(wait == null){
-//            wait = new WebDriverWait(getDriver(), timeOutInSeconds, sleepInMillis);
-//        }
-//        return wait;
-//    }
-
-//    private void setDefaultImplicitlyWait(){
-//        driver.manage().timeouts().implicitlyWait(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
-//        driver.manage().timeouts().pageLoadTimeout(DEFAULT_PAGE_LOAD_TIME_OUT, TimeUnit.SECONDS);
-//    }
-
     public static void cleanWebDriver(){
         WaitFactory.cleanWait();
         driver = null;
     }
-
 
     //to be refactored
 

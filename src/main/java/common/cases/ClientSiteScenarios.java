@@ -7,11 +7,13 @@ import customerSite.talkableFrame.floatingWidget.advocateSharePage.AdvocateShare
 import customerSite.talkableFrame.floatingWidget.advocateSignupPage.AdvocateSignupPageFW;
 import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import talkable.common.CampaignPlacement;
 import talkable.common.CampaignType;
 import util.DriverConfig;
+import util.WaitFactory;
 
 public class ClientSiteScenarios {
 
@@ -43,7 +45,7 @@ public class ClientSiteScenarios {
     * 1. Open site link.
     * 2. Check campaign.
     */
-    public static boolean assertCampaignOnCustomerSite(CampaignType campaignType, CampaignPlacement placement, String siteLink){
+    public static boolean isCampaignOnCustomerSite(CampaignType campaignType, CampaignPlacement placement, String siteLink){
         DriverConfig.getDriver().navigate().to(siteLink);
         switch (placement){
             case FloatingWidget:
@@ -62,18 +64,20 @@ public class ClientSiteScenarios {
 
     private static boolean isFloatingPresent(CampaignPlacement placement){
         try{
-            new AdvocateTriggerWidgetFrame();
+            WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateTriggerWidgetFrame.getFrameLocator(), 3);
+//            new AdvocateTriggerWidgetFrame();
             return true;
-        }catch(NoSuchElementException e){
+        }catch(TimeoutException e){
             return false;
         }
     }
 
     private static boolean isStandalonePresent(CampaignPlacement placement){
         try{
-            new AdvocateSignupPage();
+//            new AdvocateSignupPage();
+            WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateSignupPage.getFrameLocator(), 5);
             return true;
-        }catch(NoSuchElementException e){
+        }catch(TimeoutException e){
             return false;
         }
     }
@@ -82,10 +86,12 @@ public class ClientSiteScenarios {
         try {
             switch (campaignType){
                 case Invite:
-                    new AdvocateSharePageForInvite();
+//                    new AdvocateSharePageForInvite();
+                    WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateSharePageForInvite.getFrameLocator(), 5);
                     return true;
                 case AdvocateDashboard:
-                    new AdSharePageForAdDashboard();
+                    WaitFactory.waitUntilVisibilityOfElementLocated(AdSharePageForAdDashboard.getFrameLocator(), 5);
+//                    new AdSharePageForAdDashboard();
                     return true;
                 case RewardGleam:
                     Assert.fail("FAILED: Post Purc hase placement is not applicable for Gleam Campaign type.");
@@ -94,7 +100,7 @@ public class ClientSiteScenarios {
                     Assert.fail("FAILED: Unknown campaign type: <" + campaignType + ">.");
                     return false;
             }
-        }catch(NoSuchElementException e){
+        }catch(NoSuchElementException | TimeoutException e){
             return false;
         }
     }

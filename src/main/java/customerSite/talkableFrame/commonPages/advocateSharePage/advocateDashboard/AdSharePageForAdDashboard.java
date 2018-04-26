@@ -25,4 +25,8 @@ public class AdSharePageForAdDashboard extends AbstractTalkableFrame {
     private void setElementsInFrame(){
         emailShareButton = new ElmntEmailShareButton();
     }
+
+    public static By getFrameLocator(){
+        return frameLocator;
+    }
 }

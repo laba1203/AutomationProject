@@ -4,11 +4,15 @@ import common.cases.ClientSiteScenarios;
 import common.cases.CommonScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import talkable.common.CampaignPlacement;
 import talkable.common.CampaignType;
+import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
+import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
+import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
+import talkable.talkableSite.campaignsPage.PageCampaigns;
+import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
@@ -19,7 +23,7 @@ import static talkable.common.CampaignPlacement.PostPurchase;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1FLkr-T2s-mVnG770gLh4imwMnoO0vFtduYquM_49zzQ/edit#gid=0
 * */
-public class SimpleTestForAllCampaignTypes extends BaseTest{
+public class SimpleTestForAllCampaignTypes_old extends BaseTest{
 
     private static final String customerSiteUrl = PropertyLoader.loadEnvProperty("test.sites.simpleTestForAllCampaigns");
     private static final String siteName = PropertyLoader.loadProperty("sites.name.simpleTestForAllCampaigns");
@@ -27,6 +31,8 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
     @BeforeClass
     public void setup() {
         this.driver.navigate().to(EnvFactory.getEnvUrl());
+        //Login to env
+//        CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
     }
 
     @Test
@@ -38,18 +44,21 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
     public void test(CampaignType campaignType, CampaignPlacement campaignPlacement){
         String campaignName = "AUTO_TEST_" + TestDataGenerator.getRandomId();
 
-        //open Talkable admin site:
+        //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
         CommonScenarios.switchToSiteByVisibleText(siteName);
-
-        CommonScenarios.openCampaignsPage();
-        CommonScenarios.deactivateAllCampaigns();
+//        new Header().selectByVisibleText(siteName);
+//        SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
+        //deactivate all live campaigns:
+        PageCampaigns campaignsPage = new SiteDashboardPage().header.openCampaignsPage().deactivateAllLiveCampaigns();
 
         //Create new campaign
-        CommonScenarios.initiateCampaignCreationFromCampaignsPage(campaignType, campaignPlacement);
-        CommonScenarios.openCampaignRulesPage();
-        CommonScenarios.setCampaignNameOnRulesPage(campaignName);
-        CommonScenarios.launchCampaign();
+        CampaignDetailsPage detailsPage = campaignsPage.createNewCampaign(campaignType, campaignPlacement);
+        PageCampaignRules rulesPage = detailsPage.campaignNavigationMenu.openRulesPage();
+        //set campaign name and click Launch Campaign
+        LaunchCampaignPage launchPage = rulesPage.setCampaignName(campaignName).campaignNavigationMenu.clickLaunchButton();
+        //launch campaign
+        launchPage.launchCampaign();
 
         //Verification on Customer Site:
         if (ClientSiteScenarios.isCampaignOnCustomerSite(campaignType, campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
@@ -61,7 +70,8 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
         //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
-        CommonScenarios.switchToSiteByVisibleText(siteName);
+        new Header().selectByVisibleText(siteName);
+        //deactivate campaign:
         CommonScenarios.deactivateCampaign(campaignName);
 
         //Verify that campaign is inactive on the Customer Site:
@@ -81,7 +91,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
                 {CampaignType.AdvocateDashboard, CampaignPlacement.FloatingWidget},
                 {CampaignType.AdvocateDashboard, CampaignPlacement.Standalone},
                 {CampaignType.Invite, PostPurchase},
-                {CampaignType.AdvocateDashboard, PostPurchase}
+                {CampaignType.AdvocateDashboard, PostPurchase}//,
 //                {CampaignType.RewardGleam, CampaignPlacement.Gleam}
                 //TODO: separate test should be added for Gleam
         };
