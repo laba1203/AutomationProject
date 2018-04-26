@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class AdvocateSharePageForInvite extends AbstractTalkableFrame{
 
-    private By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
+    private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
 
 //    private ElmntClosePopupButton elmntClosePopupButton;
     private ElmntShareViaEmailButton shareViaEmailButton;
@@ -63,6 +63,10 @@ public class AdvocateSharePageForInvite extends AbstractTalkableFrame{
         friendEmailInput.sendKeys(friendEmail);
         submitEmailButton = new ElmntSubmitEmailButton();
         submitEmailButton.click();
+    }
+
+    public static By getFrameLocator(){
+        return frameLocator;
     }
 
 }

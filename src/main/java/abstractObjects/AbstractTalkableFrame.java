@@ -8,6 +8,7 @@ import util.logging.Log;
 public abstract class AbstractTalkableFrame extends AbstractElementsContainer{
     private WebElement frameElement;
 
+
     protected void setWebElement(By locator){
         frameElement = driver.findElement(locator);
     }
@@ -26,4 +27,5 @@ public abstract class AbstractTalkableFrame extends AbstractElementsContainer{
         driver.switchTo().parentFrame();
         Log.frameSwitchedMsg();
     }
+
 }

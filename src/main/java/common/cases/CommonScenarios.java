@@ -7,6 +7,7 @@ import talkable.addYourSitePage.AddSitePage;
 import talkable.common.CampaignPlacement;
 import talkable.common.CampaignType;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
+import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
@@ -72,6 +73,23 @@ public class CommonScenarios {
         return siteDashboardPage;
     }
 
+    public static PageCampaigns openCampaignsPage(){
+        return new Header().openCampaignsPage();
+    }
+
+    public static PageCampaigns deactivateAllCampaigns(){
+        return openCampaignsPage().deactivateAllLiveCampaigns();
+    }
+
+    public static PageCampaignRules openCampaignRulesPage(){
+        return new CampaignNavigationMenu().openRulesPage();
+    }
+
+    public static PageCampaignRules setCampaignNameOnRulesPage(String campaignName){
+        PageCampaignRules page = new PageCampaignRules().setCampaignName(campaignName);
+        Assert.assertEquals(page.getCampaignName(), campaignName, "FAILED: Campaign name is not updated on Rules page");
+        return page;
+    }
 
 
     /***

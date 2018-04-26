@@ -5,7 +5,7 @@ import customerSite.talkableFrame.floatingWidget.advocateSignupPage.AdvocateSign
 import org.openqa.selenium.By;
 
 public class AdvocateTriggerWidgetFrame extends AbstractTalkableFrame{
-    private By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
+    private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
     private FloatingWidgetButton button;
 
     public AdvocateTriggerWidgetFrame(){
@@ -20,6 +20,10 @@ public class AdvocateTriggerWidgetFrame extends AbstractTalkableFrame{
         switchToParentFrame();
         return new AdvocateSignupPageFW();
 
+    }
+
+    public static By getFrameLocator(){
+        return frameLocator;
     }
 
 

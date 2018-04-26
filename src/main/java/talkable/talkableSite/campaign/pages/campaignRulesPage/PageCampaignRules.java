@@ -14,7 +14,7 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
 //    public CampaignNavigationMenu navigationMenu;
     private ElmntSaveButton saveChangesButton = new ElmntSaveButton();
-    private ElmntCampaignNameInput campaignNameInput = new ElmntCampaignNameInput();;
+    private ElmntCampaignNameInput campaignNameInput = new ElmntCampaignNameInput();
     private ElmntCampaignDescriptionInput campaignDescription = new ElmntCampaignDescriptionInput();;
     private ElmntAdvocateOfferDeadlineDate advocateOfferDeadlineDate = new ElmntAdvocateOfferDeadlineDate();
     private ElmntFriendOfferDeadlineDate friendOfferDeadlineDate;
@@ -57,10 +57,6 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
     private PageCampaignRules saveChanges(){
         saveChangesButton.click();
-//        waitLoading();
-//        wait.until(ExpectedConditions.invisibilityOfElementWithText(saveChangesButton.getLocator(), "Saving..."));
-//        saveChangesButton = new ElmntSaveButton();
-//        wait.until(ExpectedConditions.textToBePresentInElement(saveChangesButton.getWebElement(), "Save changes"));
         waitSaving();
         Log.changesAreSaved();
 
@@ -74,7 +70,7 @@ public class PageCampaignRules extends AbstractCampaignPage{
     }
 
     public String getCampaignName(){
-//        return campaignNameInput.getText();
+        campaignNameInput = new ElmntCampaignNameInput();
         return campaignNameInput.getAttribute("value");
     }
 
