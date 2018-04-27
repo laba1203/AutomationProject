@@ -44,6 +44,7 @@ public class EnvFactory {
         return COMMON_USER;
     }
 
+
     public static String getReportsUser() {
         return REPORTS_USER;
     }

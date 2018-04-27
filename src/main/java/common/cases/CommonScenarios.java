@@ -14,6 +14,7 @@ import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
+import talkable.talkableSite.fraud.settings.FraudSettingsPage;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
@@ -290,7 +291,12 @@ public class CommonScenarios {
         page = 1;
         current = pagination.getCurrentPage();
         Assert.assertEquals(current, String.valueOf(page), "FAILED: Pagination: Incorrect page value after first() method");
-
     }
+
+
+    public static FraudSettingsPage openFraudSettings(){
+        return new Header().openMenu().clickFraudSettingsButton();
+    }
+
 
 }

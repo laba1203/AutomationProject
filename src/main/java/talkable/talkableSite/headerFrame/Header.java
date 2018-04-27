@@ -63,8 +63,6 @@ public class Header extends AbstractElementsContainer{
     public HomePage logout(){
         return openMenu().clickLogout();
 
-
-
     }
 
 
