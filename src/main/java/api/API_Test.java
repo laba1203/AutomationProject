@@ -9,6 +9,7 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import util.TestDataGenerator;
 
 import static io.restassured.http.ContentType.JSON;
 
@@ -55,6 +56,15 @@ public class API_Test {
 
 
     }
+
+    @Test
+    public void test3(){
+        ViaAPI.createReferral(
+                site,
+                "ad" + TestDataGenerator.getRandomId() + "@gmail.com",
+                "friend" + TestDataGenerator.getRandomId() + "@gmail.com");
+    }
+
 
     @Test
     public void test(){

@@ -48,6 +48,21 @@ public class WaitFactory {
         }
     }
 
+    public static void waitUntilTextToBePresentInElement(By by, String text, long timeoutInSeconds){
+        setImplicitWait(2, TimeUnit.SECONDS);
+        try {
+            getCustomWait(timeoutInSeconds, 500)
+                    .until(ExpectedConditions.textToBePresentInElement(
+                            DriverConfig.getDriver().findElement(by),
+                            text
+                            )
+                    );
+        }
+        finally {
+            setDefaultImplicitlyWait();
+        }
+    }
+
     public static void waitUntilVisibilityOfElementLocated(By by, long timeoutInSeconds){
         setImplicitWait(2, TimeUnit.SECONDS);
         try{

@@ -7,6 +7,8 @@ import talkable.addYourSitePage.AddSitePage;
 import talkable.homePage.HomePage;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
+import talkable.talkableSite.fraud.settings.FraudSettingsPage;
+import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 
 public class MenuFrame extends AbstractElementsContainer {
 
@@ -46,4 +48,16 @@ public class MenuFrame extends AbstractElementsContainer {
         logoutButton.click();
         return new HomePage();
     }
+
+    public FraudSettingsPage clickFraudSettingsButton(){
+        new ElmntFraudSettingsButton().click();
+        return new FraudSettingsPage();
+    }
+
+    public SiteSettingsBasicTab clickSiteSettings(){
+        new ElmntSiteSettingsButton().click();
+        return new SiteSettingsBasicTab();
+    }
+
+
 }

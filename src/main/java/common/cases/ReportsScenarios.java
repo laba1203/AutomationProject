@@ -1,7 +1,9 @@
 package common.cases;
 
 import org.testng.Assert;
+import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
+import talkable.talkableSite.reports.referralsReport.PageReferralsReport;
 
 import java.util.ArrayList;
 
@@ -31,4 +33,32 @@ public class ReportsScenarios extends CommonScenarios{
         Assert.assertEquals(actualStatus, expectedStatus, "FAILED: Incorrect Status");
 
     }
+    /* End of scenarios for Previous Customers Upload */
+
+
+    /*Scenarios for Referrals report
+    * */
+    public static PageReferralsReport openReferralsReport(){
+        return new Header().clickReportsButton().openReferralsReport();
+    }
+
+    public static String getAdvocateEmailFromReferralReportFirstRow(){
+        return new PageReferralsReport().getFirstReferralRow().getAdvocateEmail();
+    }
+
+    public static PageReferralsReport approveFirstRowInReferralsReport(){
+        return new PageReferralsReport().getFirstReferralRow().approve();
+    }
+
+    public static PageReferralsReport voidFirstRowInReferralsReport(){
+        return new PageReferralsReport().getFirstReferralRow().voidReferral();
+    }
+
+    public static String getFirstRowStatusFromReferralReport(){
+        return new PageReferralsReport().getFirstReferralRow().getRowStatus();
+    }
+
+
+
+    /* End of scenarios for Referral report*/
 }

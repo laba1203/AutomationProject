@@ -56,7 +56,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
             Log.testPassed(campaignPlacement.toString() + " is present on the site\r");
         }
         else{
-            Assert.fail("FAILED: " + campaignType.toString() + ": " + campaignPlacement.toString() + " is not displayed on the customer site");
+            Assert.fail("FAILED: " + campaignType.toString() + ": " + campaignPlacement.toString() + " is not displayed on the customer site: " + getCustomerSiteUrl(campaignPlacement));
         }
 
         //re-open Talkable admin site:

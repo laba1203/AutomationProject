@@ -23,7 +23,6 @@ public abstract class AbstractSelectElement extends AbstractElement{
     @Override
     public void setWebElement(WebElement selectWebElement){
         this.selectWebElement = selectWebElement;
-//        button = new Element(selectWebElement.findElement(By.xpath(buttonXpath)));
         button = new Element(findChildWebElement(this.selectWebElement, buttonXpath));
     }
 

@@ -5,21 +5,20 @@ import talkable.talkableSite.customerService.createReferral.PageCreateReferral;
 
 public class PageReferralsReport extends AbstractTalkableSitePage{
 
-//    public Header header;
-    private ElmntCreateReferralManual createReferralManual;
-
     public PageReferralsReport(){
+        setVisibleElements();
+    }
 
-//        header = new Header();
-        createReferralManual = new ElmntCreateReferralManual();
-
-
-
+    private void setVisibleElements(){
+        new ElmntCreateReferralManual();
     }
 
     public PageCreateReferral clickCreateReferral(){
-        createReferralManual.click();
+        new ElmntCreateReferralManual().click();
         return new PageCreateReferral();
+    }
 
+    public FirstRow getFirstReferralRow(){
+        return new FirstRow();
     }
 }

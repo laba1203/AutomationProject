@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
+import talkable.talkableSite.fraud.settings.FraudSettingsPage;
 import util.DriverConfig;
 import util.Util;
 
@@ -23,7 +24,7 @@ public class FirstTest {
 
     @BeforeSuite
     public void setup(){
-        driver = new DriverConfig().getDriver();
+        driver = DriverConfig.getDriver();
         driver.navigate().to("https://talkable.com");
     }
 
@@ -37,26 +38,13 @@ public class FirstTest {
             e.printStackTrace();
         }
 
-        driver.navigate().to("https://admin.talkable.com/sites/custom/placements");
+        driver.navigate().to("https://admin.talkable.com/sites/testmax-shard2/fraud");
     }
 
-    @Test
-    public void test2() {
-        PageCampaignPlacements campaignPlacements = new PageCampaignPlacements();
-        campaignPlacements = campaignPlacements.addInclusion(FloatingWidget, false, "/test.2.2.html");
-        campaignPlacements = campaignPlacements.addExclusion(Standalone, true, "test2");
-        campaignPlacements.waitTillChangesApplied();
-        System.out.println("PASSED: Changes are applied !!!");
-    }
+//    @Test
+//    public void test2() {
+//        new FraudSettingsPage().setHighProfile();
+//    }
 
-    @Test
-    public void test3(){
-        new PageCampaignPlacements().assertPlacement(FloatingWidget, true, "/test.2.2.html");
-    }
-
-    @Test
-    public void test4(){
-        new PageCampaignPlacements().assertPlacement(Standalone, true, "2312121");
-    }
 
 }

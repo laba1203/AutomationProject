@@ -11,21 +11,19 @@ public class ReportsPage extends AbstractTalkableSitePage{
 
     private static final String title = "Support & Reports | Talkable";
 
-    private PreviousCustomersButton previousCustomersButton;
     private PeopleButton peopleButton;
     private ReferralsButton referralsButton;
 
 
 
     public ReportsPage(){
-        previousCustomersButton = new PreviousCustomersButton();
         peopleButton = new PeopleButton();
         referralsButton = new ReferralsButton();
 
     }
 
     public PreviousCustomersReportPage openExistingCustomerReport(){
-        previousCustomersButton.click();
+        new PreviousCustomersButton().click();
         return new PreviousCustomersReportPage();
     }
     public PageReferralsReport openReferralsReport(){

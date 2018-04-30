@@ -1,0 +1,9 @@
+<suite name="Fraud Rules verification" preserve-order="true" group-by-instances="true">
+    <test name="Fraud Settings page. Different actions" preserve-order="true" >
+        <classes>
+            <class name="execution.fraud.settings.FraudSettingsTesting"/>
+        </classes>
+    </test>
+
+</suite>
+
