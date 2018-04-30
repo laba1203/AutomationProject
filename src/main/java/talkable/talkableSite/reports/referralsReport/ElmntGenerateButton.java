@@ -3,11 +3,11 @@ package talkable.talkableSite.reports.referralsReport;
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
-public class ElmntGenerateButton extends AbstractElement {
+class ElmntGenerateButton extends AbstractElement {
 
-    private By locator = By.cssSelector("input[value='Generate']");
+    private static final By locator = By.cssSelector("input[value='Generate']");
 
-    public ElmntGenerateButton(){
+    ElmntGenerateButton(){
         setWebElement(locator);
     }
 

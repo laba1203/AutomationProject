@@ -1,0 +1,59 @@
+package talkable.talkableSite.reports.referralsReport;
+
+import abstractObjects.AbstractElementsContainer;
+import abstractObjects.Element;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NotFoundException;
+import org.testng.Assert;
+import talkable.talkableSite.reports.referralsReport.referralDetailsPage.ReferralDetailsPage;
+import util.WaitFactory;
+
+public class FirstRow extends AbstractElementsContainer{
+
+    private static final By frienEmailLocator = By.xpath("//tbody/tr[1]/td[5]/a");
+    private static final By advocateEmailLocator = By.xpath("//tbody/tr[2]/td[2]/a");
+    private static final By approvedButtonLctr = By.xpath("//tr[1]/td[@class='action']//a[@title = 'Approved']");
+    private static final By voidButtonLctr = By.xpath("//tr[1]/td[@class='action']//a[@title = 'Voided']");
+    private static final By detailsLinkLctr = By.xpath("//tr[1]/td[@class='action']//a[text() = 'Details']");
+    private static final By referralStatusLctr = By.xpath("//tr[1]/td[@class='action']/div");
+
+
+    public String getAdvocateEmail(){
+        return new Element(advocateEmailLocator).getText();
+    }
+
+    public String getFriendEmail(){
+        return new Element(frienEmailLocator).getText();
+    }
+
+    public PageReferralsReport approve(){
+        String oldStatus = getRowStatus();
+        new Element(approvedButtonLctr).click();
+        WaitFactory.waitInvisibilityOfElementWithText(referralStatusLctr, oldStatus);
+        return new PageReferralsReport();
+    }
+
+    public PageReferralsReport voidReferral(){
+        String oldStatus = getRowStatus();
+        new Element(voidButtonLctr).click();
+        WaitFactory.waitInvisibilityOfElementWithText(referralStatusLctr, oldStatus);
+        return new PageReferralsReport();
+    }
+
+    public ReferralDetailsPage openReferralDetails(){
+        new Element(detailsLinkLctr).click();
+        return new ReferralDetailsPage();
+    }
+
+    public String getRowStatus(){
+        try {
+            return new Element(referralStatusLctr).getText();
+        }catch (NotFoundException e){
+            new Element(approvedButtonLctr);
+            Assert.fail("FAILED: Status is not displayed for the first row in Referrals report. 'Approve' action button is displayed");
+            return null;
+        }
+    }
+
+
+}

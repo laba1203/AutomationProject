@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class ElmntExportCSV extends AbstractElement {
 
-    private By locator = By.cssSelector("input[value='Export CSV']");
+    private static final By locator = By.cssSelector("input[value='Export CSV']");
 
     public ElmntExportCSV() {
         setWebElement(locator);
