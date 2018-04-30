@@ -19,6 +19,8 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
 
     public enum ProfileType{HIGH, ELEVATED, MODERATE, LOW, CUSTOM}
 
+    public enum ApprovalMode{AUTOMATIC, MANUAL}
+
 
     public FraudSettingsPage setProfile(ProfileType profileType){
         AbstractElement profile = null;
@@ -79,15 +81,32 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
         return new ElmntProfileNameHeader().getText();
     }
 
-    public FraudSettingsPage setManualReferralApprovalMode(){
-        new ElmntManualReferralApproval().click();
+    public FraudSettingsPage setApprovalMode(ApprovalMode mode){
+        AbstractElement option = null;
+        switch (mode){
+            case MANUAL:
+                option = new ElmntManualReferralApproval();
+                break;
+            case AUTOMATIC:
+                option = new ElmntAutomaticReferralApproval();
+                break;
+            default:
+                Assert.fail("Unknown referral approval mode <" + mode.toString() + ">");
+
+        }
+        option.click();
         return saveChanges();
     }
 
-    public FraudSettingsPage setAutomaticReferralApprovalMode(){
-        new ElmntAutomaticReferralApproval().click();
-        return saveChanges();
-    }
+//    public FraudSettingsPage setManualReferralApprovalMode(){
+//        new ElmntManualReferralApproval().click();
+//        return saveChanges();
+//    }
+//
+//    public FraudSettingsPage setAutomaticReferralApprovalMode(){
+//        new ElmntAutomaticReferralApproval().click();
+//        return saveChanges();
+//    }
 
     public SectionRulesForAdvocate getRulesForAdvocateSection(){
         return new SectionRulesForAdvocate();

@@ -13,7 +13,7 @@ public class SectionRulesForAdvocate extends AbstractElementsContainer{
     private static final By ipAddressOnly = By.xpath("//select[@name = 'self_referral_by_ip']");
     private static final By crossReferralLctr = By.xpath("//select[@name = 'cross_referral']");
 
-    public SectionRulesForAdvocate(){
+    SectionRulesForAdvocate(){
         setAllElements();
     }
 

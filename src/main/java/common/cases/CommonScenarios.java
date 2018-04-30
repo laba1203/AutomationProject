@@ -385,5 +385,9 @@ public class CommonScenarios {
 
     }
 
+    public static FraudSettingsPage setReferralApprovalModeOnFraudSetting(FraudSettingsPage.ApprovalMode mode){
+        return new FraudSettingsPage().setApprovalMode(mode);
+    }
+
 
 }

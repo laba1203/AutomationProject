@@ -1,15 +1,26 @@
 package execution.fraud.settings;
 
+import api.objects.Site;
+import api.scenarios.ViaAPI;
 import common.cases.CommonScenarios;
 import execution.BaseTest;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 import talkable.talkableSite.fraud.settings.pageData.FraudRulesExpectedTextData;
 import util.EnvFactory;
 import util.PropertyLoader;
 
+import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ApprovalMode.AUTOMATIC;
 import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ProfileType.*;
 
 public class FraudSettingsTesting extends BaseTest{
+
+    private Site site;
+
+    @BeforeGroups("api-usage")
+    public void getApiValues(){
+
+    }
 
     @Test
     public void login(){
@@ -68,6 +79,7 @@ public class FraudSettingsTesting extends BaseTest{
         );
 
     }
+
 
     @Test(dependsOnMethods = "login")
     public void setModerateFraudSettingsProfile(){
@@ -142,6 +154,14 @@ public class FraudSettingsTesting extends BaseTest{
                 "Skip",
                 "Skip"
         );
+    }
+
+
+    @Test(groups = "api-usage", dependsOnMethods = "login")
+    public void automaticReferralApprovalMode(){
+        CommonScenarios.openFraudSettings();
+        CommonScenarios.setReferralApprovalModeOnFraudSetting(AUTOMATIC);
+//        ViaAPI.createReferral();
     }
 
 
