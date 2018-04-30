@@ -3,14 +3,18 @@ package execution.fraud.settings;
 import api.objects.Site;
 import api.scenarios.ViaAPI;
 import common.cases.CommonScenarios;
+import common.cases.ReportsScenarios;
 import execution.BaseTest;
+import org.testng.Assert;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 import talkable.talkableSite.fraud.settings.pageData.FraudRulesExpectedTextData;
 import util.EnvFactory;
 import util.PropertyLoader;
+import util.TestDataGenerator;
 
 import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ApprovalMode.AUTOMATIC;
+import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ApprovalMode.MANUAL;
 import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ProfileType.*;
 
 public class FraudSettingsTesting extends BaseTest{
@@ -19,7 +23,7 @@ public class FraudSettingsTesting extends BaseTest{
 
     @BeforeGroups("api-usage")
     public void getApiValues(){
-
+        site = CommonScenarios.getSiteIntegrationValues();
     }
 
     @Test
@@ -139,30 +143,85 @@ public class FraudSettingsTesting extends BaseTest{
                 "Fraud Profile: Custom",
                 FraudRulesExpectedTextData.customProfileDescription
         );
-        CommonScenarios.assertValuesInRulesForAdvocateSection(
-                "Block Advocate",
-                "Skip",
-                "Skip",
-                "Skip",
-                "Skip",
-                "Skip"
-        );
-        CommonScenarios.assertValuesInRulesForFriendSection(
-                "Block Friend",
-                "Skip",
-                "Skip",
-                "Skip",
-                "Skip"
-        );
     }
 
 
     @Test(groups = "api-usage", dependsOnMethods = "login")
     public void automaticReferralApprovalMode(){
+        String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
+
         CommonScenarios.openFraudSettings();
         CommonScenarios.setReferralApprovalModeOnFraudSetting(AUTOMATIC);
-//        ViaAPI.createReferral();
+        ViaAPI.createReferral(
+                site,
+                advocateEmail,
+                "friend" + TestDataGenerator.getRandomId() + "@gmail.com");
+
+        ReportsScenarios.openReferralsReport();
+        Assert.assertEquals(
+                ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),
+                advocateEmail,
+                "FAILED: Referral is not created for advocate: <" + advocateEmail + ">"
+        );
+
+        Assert.assertEquals(
+                ReportsScenarios.getFirstRowStatusFromReferralReport(),
+                "Approved",
+                "FAILED: Incorrect referral status (advocate email = <" + advocateEmail + ">)."
+        );
     }
+
+    @Test(groups = "api-usage", dependsOnMethods = "login")
+    public void manualReferralApprovalMode_ApproveReferral(){
+        String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
+
+        CommonScenarios.openFraudSettings();
+        CommonScenarios.setReferralApprovalModeOnFraudSetting(MANUAL);
+        ViaAPI.createReferral(
+                site,
+                advocateEmail,
+                "friend" + TestDataGenerator.getRandomId() + "@gmail.com"
+        );
+        ReportsScenarios.openReferralsReport();
+        Assert.assertEquals(
+                ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),
+                advocateEmail,
+                "FAILED: Referral is not created for advocate: <" + advocateEmail + ">"
+        );
+        ReportsScenarios.approveFirstRowInReferralsReport();
+        Assert.assertEquals(
+                ReportsScenarios.getFirstRowStatusFromReferralReport(),
+                "Approved",
+                "FAILED: Incorrect referral status(advocate email = <" + advocateEmail + ">)."
+        );
+    }
+
+    @Test(groups = "api-usage", dependsOnMethods = "login")
+    public void manualReferralApprovalMode_VoidReferral(){
+        String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
+
+        CommonScenarios.openFraudSettings();
+        CommonScenarios.setReferralApprovalModeOnFraudSetting(MANUAL);
+        ViaAPI.createReferral(
+                site,
+                advocateEmail,
+                "friend" + TestDataGenerator.getRandomId() + "@gmail.com"
+        );
+        ReportsScenarios.openReferralsReport();
+        Assert.assertEquals(
+                ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),
+                advocateEmail,
+                "FAILED: Referral is not created for advocate: <" + advocateEmail + ">"
+        );
+        ReportsScenarios.voidFirstRowInReferralsReport();
+        Assert.assertEquals(
+                ReportsScenarios.getFirstRowStatusFromReferralReport(),
+                "Voided",
+                "FAILED: Incorrect referral status"
+        );
+    }
+
+
 
 
 

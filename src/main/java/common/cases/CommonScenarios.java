@@ -1,5 +1,6 @@
 package common.cases;
 
+import api.objects.Site;
 import org.testng.Assert;
 import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
@@ -17,9 +18,7 @@ import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.fraud.settings.FraudSettingsPage;
 import talkable.talkableSite.fraud.settings.SectionRulesForAdvocate;
 import talkable.talkableSite.fraud.settings.SectionRulesForFriend;
-import talkable.talkableSite.fraud.settings.pageData.FraudRulesExpectedTextData;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
-import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.headerFrame.Header;
@@ -27,13 +26,12 @@ import talkable.homePage.HomePage;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.loginPage.LoginPage;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
+import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.logging.Log;
 
-import static talkable.common.CampaignPlacement.FloatingWidget;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
-import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ProfileType.ELEVATED;
 
 /*Class to allocate common scenarios in Talkable.
  * */
@@ -293,6 +291,19 @@ public class CommonScenarios {
         Assert.assertEquals(current, String.valueOf(page), "FAILED: Pagination: Incorrect page value after first() method");
     }
 
+    public static SiteSettingsBasicTab openSiteSettingsPage(){
+        return new Header().openMenu().clickSiteSettings();
+    }
+
+    public static Site getSiteIntegrationValues(){
+        SiteSettingsBasicTab basicTab = openSiteSettingsPage();
+        String siteID = basicTab.getSiteID();
+        String apiKey = basicTab
+                .openIntegrationSettingsTab()
+                .getApiKey();
+        return new Site().setData(siteID, apiKey);
+    }
+
     /* Scenarios for Fraud rules */
     public static FraudSettingsPage openFraudSettings() {
         return new Header().openMenu().clickFraudSettingsButton();
@@ -343,22 +354,22 @@ public class CommonScenarios {
                                                              String expectedCrossReferralValue
     ) {
         String selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getMatchingEmailOrCookieValue();
-        Assert.assertEquals(selectedOption, expectedMatchingEmailOrCookieValue, "FAILED: Incorrect selected value in 'Matching Email or Cookie on Friend Purchase' in Advocate Rules");
+        Assert.assertEquals(selectedOption, expectedMatchingEmailOrCookieValue, "FAILED: Incorrect selected value in 'Matching Email or Cookie on Friend Purchase' in Advocate Rules.");
 
         selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getSimilarEmailMatch();
-        Assert.assertEquals(selectedOption, expectedSimilarEmailMatch, "FAILED: Incorrect selected value in 'Similar Email Match' in Advocate Rules");
+        Assert.assertEquals(selectedOption, expectedSimilarEmailMatch, "FAILED: Incorrect selected value in 'Similar Email Match' in Advocate Rules.");
 
         selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getMatchingShippingAddress();
-        Assert.assertEquals(selectedOption, expectedMatchingShippingAddress, "FAILED: Incorrect selected value in 'Similar Email Match' in Advocate Rules");
+        Assert.assertEquals(selectedOption, expectedMatchingShippingAddress, "FAILED: Incorrect selected value in 'Similar Email Match' in Advocate Rules.");
 
         selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getMatchingIpAddressAndUserAgent();
-        Assert.assertEquals(selectedOption, expectedIpAddressAndUserAgentValue, "FAILED: Incorrect selected value in 'Matching by Combination of IP Address & User Agent' in Advocate Rules");
+        Assert.assertEquals(selectedOption, expectedIpAddressAndUserAgentValue, "FAILED: Incorrect selected value in 'Matching by Combination of IP Address & User Agent' in Advocate Rules.");
 
         selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getIpAddressOnly();
-        Assert.assertEquals(selectedOption, expectedIpAddressOnlyValue, "FAILED: Incorrect selected value in 'Matching by IP Address only' in Advocate Rules");
+        Assert.assertEquals(selectedOption, expectedIpAddressOnlyValue, "FAILED: Incorrect selected value in 'Matching by IP Address only' in Advocate Rules.");
 
         selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getFriendAndAdvocateReferEachOther();
-        Assert.assertEquals(selectedOption, expectedCrossReferralValue, "FAILED: Incorrect selected value in 'Friend and Advocate Refer Each Other' in Advocate Rules");
+        Assert.assertEquals(selectedOption, expectedCrossReferralValue, "FAILED: Incorrect selected value in 'Friend and Advocate Refer Each Other' in Advocate Rules.");
 
     }
 
