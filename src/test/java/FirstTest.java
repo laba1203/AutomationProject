@@ -24,7 +24,7 @@ public class FirstTest {
 
     @BeforeSuite
     public void setup(){
-        driver = new DriverConfig().getDriver();
+        driver = DriverConfig.getDriver();
         driver.navigate().to("https://talkable.com");
     }
 
@@ -41,19 +41,10 @@ public class FirstTest {
         driver.navigate().to("https://admin.talkable.com/sites/testmax-shard2/fraud");
     }
 
-    @Test
-    public void test2() {
-        new FraudSettingsPage().setHighProfile();
-    }
+//    @Test
+//    public void test2() {
+//        new FraudSettingsPage().setHighProfile();
+//    }
 
-//    @Test
-//    public void test3(){
-//        new PageCampaignPlacements().assertPlacement(FloatingWidget, true, "/test.2.2.html");
-//    }
-//
-//    @Test
-//    public void test4(){
-//        new PageCampaignPlacements().assertPlacement(Standalone, true, "2312121");
-//    }
 
 }

@@ -1,11 +1,13 @@
 package execution.fraud.settings;
 
 import common.cases.CommonScenarios;
-import common.cases.ReportsScenarios;
 import execution.BaseTest;
 import org.testng.annotations.Test;
+import talkable.talkableSite.fraud.settings.pageData.FraudRulesExpectedTextData;
 import util.EnvFactory;
 import util.PropertyLoader;
+
+import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ProfileType.*;
 
 public class FraudSettingsTesting extends BaseTest{
 
@@ -16,12 +18,133 @@ public class FraudSettingsTesting extends BaseTest{
                 EnvFactory.getPassword());
     }
 
-    @Test
+    @Test(dependsOnMethods = "login")
     public void setHighFraudSettingsProfile(){
-        CommonScenarios.openFraudSettings();
+        CommonScenarios.setFraudProfileAndAssertProfileNameAndDescription(
+                HIGH,
+                "Fraud Profile: High",
+                FraudRulesExpectedTextData.highProfileDescription
+        );
+        CommonScenarios.assertValuesInRulesForAdvocateSection(
+                "Block Advocate",
+                "Block Advocate",
+                "Block Advocate",
+                "Block Advocate",
+                "Skip",
+                "Block Advocate"
+        );
 
+        CommonScenarios.assertValuesInRulesForFriendSection(
+                "Block Friend",
+                "Block Friend",
+                "Skip",
+                "Block Friend",
+                "Block Friend"
+        );
 
     }
+
+    @Test(dependsOnMethods = "login")
+    public void setElevatedFraudSettingsProfile(){
+        CommonScenarios.setFraudProfileAndAssertProfileNameAndDescription(
+                ELEVATED,
+                "Fraud Profile: Elevated",
+                FraudRulesExpectedTextData.elevatedProfileDescription
+        );
+        CommonScenarios.assertValuesInRulesForAdvocateSection(
+                "Block Advocate",
+                "Flag Advocate",
+                "Flag Advocate",
+                "Flag Advocate",
+                "Skip",
+                "Block Advocate"
+        );
+        CommonScenarios.assertValuesInRulesForFriendSection(
+                "Block Friend",
+                "Block Friend",
+                "Skip",
+                "Block Friend",
+                "Block Friend"
+        );
+
+    }
+
+    @Test(dependsOnMethods = "login")
+    public void setModerateFraudSettingsProfile(){
+        CommonScenarios.setFraudProfileAndAssertProfileNameAndDescription(
+                MODERATE,
+                "Fraud Profile: Moderate",
+                FraudRulesExpectedTextData.moderateProfileDescription
+        );
+
+        CommonScenarios.assertValuesInRulesForAdvocateSection(
+                "Block Advocate",
+                "Flag Advocate",
+                "Flag Advocate",
+                "Flag Advocate",
+                "Skip",
+                "Flag Advocate"
+        );
+
+        CommonScenarios.assertValuesInRulesForFriendSection(
+                "Block Friend",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip"
+        );
+    }
+
+    @Test(dependsOnMethods = "login")
+    public void setLowFraudSettingsProfile(){
+        CommonScenarios.setFraudProfileAndAssertProfileNameAndDescription(
+                LOW,
+                "Fraud Profile: Low",
+                FraudRulesExpectedTextData.lowProfileDescription
+        );
+        CommonScenarios.assertValuesInRulesForAdvocateSection(
+                "Block Advocate",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip"
+        );
+
+        CommonScenarios.assertValuesInRulesForFriendSection(
+                "Block Friend",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip"
+        );
+    }
+
+    @Test(dependsOnMethods = "login")
+    public void setCustomFraudSettingsProfile(){
+        CommonScenarios.setFraudProfileAndAssertProfileNameAndDescription(
+                CUSTOM,
+                "Fraud Profile: Custom",
+                FraudRulesExpectedTextData.customProfileDescription
+        );
+        CommonScenarios.assertValuesInRulesForAdvocateSection(
+                "Block Advocate",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip"
+        );
+        CommonScenarios.assertValuesInRulesForFriendSection(
+                "Block Friend",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip"
+        );
+    }
+
+
 
 
 

@@ -8,7 +8,7 @@ public class SectionRulesForAdvocate extends AbstractElementsContainer{
 
     private static final By matchingEmailOrCookieLctr = By.xpath("//select[@name = 'self_referral_by_email_or_visitor']");
     private static final By similarEmailMatchLctr = By.xpath("//select[@name = 'self_referral_by_similar_emails']");
-    private static final By shippingAddressLctr = By.xpath("self_referral_by_shipping_address");
+    private static final By shippingAddressLctr = By.xpath("//select[@name = 'self_referral_by_shipping_address']");
     private static final By matchingByIpAndUserAgentLctr = By.xpath("//select[@name = 'self_referral_by_ip_and_user_agent']");
     private static final By ipAddressOnly = By.xpath("//select[@name = 'self_referral_by_ip']");
     private static final By crossReferralLctr = By.xpath("//select[@name = 'cross_referral']");
