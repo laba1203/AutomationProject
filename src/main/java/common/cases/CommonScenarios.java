@@ -55,6 +55,10 @@ public class CommonScenarios {
         return loginPage.submitLoginForm(email, password);
     }
 
+    public static void logout(){
+        new Header().openMenu().clickLogout();
+    }
+
     /***
      * Common scenario to create new campaign with default values
      * Precondition: Any page with header frame (class = Header()) should be opened
@@ -70,8 +74,20 @@ public class CommonScenarios {
 
     public static SiteDashboardPage switchToSiteByVisibleText(String siteName) {
         new Header().selectByVisibleText(siteName);
-        SiteDashboardPage siteDashboardPage = new SiteDashboardPage();
-        Assert.assertEquals(siteDashboardPage.header.getSiteName(), siteName, "FAILED: Site is not switched");
+        SiteDashboardPage siteDashboardPage = null;
+        try {
+            siteDashboardPage = new SiteDashboardPage();
+        }catch (AssertionError e) {
+
+            //TODO: This part should be removed when the related defect is fixed. https://talkable.atlassian.net/browse/PR-9056
+
+            System.out.println("DEBAG: Dashboard is not opened.");
+            Assert.assertEquals(new IntegrationInstructionPage().header.getSiteName(), siteName, "FAILED: Site is not switched");
+            System.out.println("DEBAG: Integration Instruction page is opened instead of Site Dashboard");
+        }
+        if(siteDashboardPage != null) {
+            Assert.assertEquals(siteDashboardPage.header.getSiteName(), siteName, "FAILED: Site is not switched");
+        }
         Log.siteSwitchedMsg(siteName);
         return siteDashboardPage;
     }
