@@ -47,6 +47,7 @@ public class BaseTest {
             System.out.println("DEBAG: Method ITestResult: <" + result.getStatus() + "> for screenshots");
             if(ITestResult.FAILURE == result.getStatus()){
                 screenshot.makeScreenshot();
+                System.out.println("URL: " + driver.getCurrentUrl());
             }
         }
 
