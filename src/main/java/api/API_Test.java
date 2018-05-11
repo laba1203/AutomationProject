@@ -4,6 +4,8 @@ import api.objects.Site;
 import api.objects.advocateOffers.AdvocateOffers;
 import api.objects.origin.Origin;
 import api.objects.shares.Shares;
+import api.objects.shares.channel.email.SharesEmail;
+import api.objects.shares.channel.social.SharesSocial;
 import api.scenarios.ViaAPI;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -11,11 +13,22 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import util.TestDataGenerator;
 
+import java.util.ArrayList;
+
 import static io.restassured.http.ContentType.JSON;
 
 public class API_Test {
     private static final String myUserAgent = "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5";
-    private Site site = new Site().setData("testmax-shard2", "hCrTR9VmPolibfPHWCvO");
+    private Site site = new Site().setData(
+            /*void data*/
+            "test2003",
+            "mtmTMlAPrzJ6XdEAj1c"
+
+            /*prod data*/
+//            "test2203",
+//            "Th09JOgxeDycS1M2zBBl"
+    );
+
 
     @Test
     public void test1(){
@@ -36,25 +49,58 @@ public class API_Test {
                     .contentType(JSON)
                 .extract().path("result.offer.short_url_code");
 
-        resp = new Shares().postFacebookShare(site, shortUrlCode);
+        //emails test data:
+        ArrayList <String>emails = new ArrayList<>();
+        emails.add("maxim.laba+api.test1@talkable.com");
+        emails.add("maxim.laba+api.test2@talkable.com");
+        emails.add("maxim.laba+api.test3@talkable.com");
+        emails.add("maxim.laba+api.test4@talkable.com");
+        emails.add("maxim.laba+api.test5@talkable.com");
+        emails.add("maxim.laba+api.test5@talkable.com");
+        emails.add("maxim.laba+api.test6@talkable.com");
+        emails.add("maxim.laba+api.test7@talkable.com");
+        emails.add("maxim.laba+api.test8@talkable.com");
+        emails.add("maxim.laba+api.test9@talkable.com");
+        emails.add("maxim.laba+api.test10@talkable.com");
+        emails.add("maxim.laba+api.test11@talkable.com");
+        emails.add("maxim.laba+api.test12@talkable.com");
+        //
 
-        String shareUrl = resp
-                .then()
-                    .contentType(JSON)
-                .extract().path("result.share.short_url");
+//        resp = new Shares().postEmailShare(site, shortUrlCode, emails);
+        resp = new SharesEmail().postEmailShare(site, shortUrlCode, emails);
+        new SharesSocial().postFacebookShare(site, shortUrlCode);
+//        String shareUrl = resp
+//                .then()
+//                    .contentType(JSON)
+//                .extract().path("result.share.short_url");
+//
+//        RestAssured.requestSpecification = new RequestSpecBuilder().addHeader("User-Agent", myUserAgent).build();
+//        resp = RestAssured.get(shareUrl);
+//
+//
+//        String uuid = resp.getCookie("uuid");
+//
+//
+//        System.out.println("LOG: UUID = " + uuid);
+//
+//        resp = new Origin().postOriginPurchaseWithUUID(site, "friend+new5@t.com" , uuid);
 
-        RestAssured.requestSpecification = new RequestSpecBuilder().addHeader("User-Agent", myUserAgent).build();
-        resp = RestAssured.get(shareUrl);
 
+    }
 
-        String uuid = resp.getCookie("uuid");
+    @Test
+    public void temp(){
+        String url = "https://void.talkable.com/api/v2/offers/t547bV/shares";
 
+        UtilAPI.setBearerAuthorisationHeader(site.getApiKey());
+        Response response = RestAssured.given()
+                .body("")
+                .contentType("application/json")
+                .when()
+                .post(url);
 
-        System.out.println("LOG: UUID = " + uuid);
-
-        resp = new Origin().postOriginPurchaseWithUUID(site, "friend+new5@t.com" , uuid);
-
-
+        System.out.println(response.statusLine());
+        response.body().print();
     }
 
     @Test

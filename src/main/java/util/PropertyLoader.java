@@ -68,8 +68,8 @@ public class PropertyLoader {
 //        return System.getProperty("test.environment");
 
         //for local running of the project:
-//        return "VOID";
-        return "PROD";
+        return "VOID";
+//        return "PROD";
 
     }
 
