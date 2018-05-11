@@ -69,16 +69,6 @@ public class MultiCampaignEditorTesting extends BaseTest {
         campaignsPage = new CampaignDetailsPage().header.openCampaignsPage();
 
         campaignNamePP = campaignsPage.createNewCampaign(Invite, PostPurchase).campaignNavigationMenu.getCampaignName();
-//        new CampaignDetailsPage().header.openCampaignsPage();
-        //
-//        campaignNameSA = CommonScenarios.initiateCampaignCreation(Invite, Standalone)
-//                .campaignNavigationMenu.getCampaignName();
-//        campaignNameFW_1 = CommonScenarios.initiateCampaignCreation(Invite, FloatingWidget)
-//                .campaignNavigationMenu.getCampaignName();
-//        campaignNameFW_2 = CommonScenarios.initiateCampaignCreation(AdvocateDashboard, FloatingWidget)
-//                .campaignNavigationMenu.getCampaignName();
-//        campaignNamePP = CommonScenarios.initiateCampaignCreation(Invite, PostPurchase)
-//                .campaignNavigationMenu.getCampaignName();
 
     }
 

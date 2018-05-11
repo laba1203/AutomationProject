@@ -100,6 +100,10 @@ public class CommonScenarios {
         return openCampaignsPage().deactivateAllLiveCampaigns();
     }
 
+    public static PageCampaigns deleteAllCampaignsWithStatus(Table.Status status){
+        return new Header().openCampaignsPage().deleteAllCampaignsWithStatus(status);
+    }
+
     public static PageCampaignRules openCampaignRulesPage() {
         return new CampaignNavigationMenu().openRulesPage();
     }
@@ -415,6 +419,8 @@ public class CommonScenarios {
     public static FraudSettingsPage setReferralApprovalModeOnFraudSetting(FraudSettingsPage.ApprovalMode mode){
         return new FraudSettingsPage().setApprovalMode(mode);
     }
+
+
 
 
 }

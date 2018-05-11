@@ -221,6 +221,13 @@ public class FraudSettingsTesting extends BaseTest{
         );
     }
 
+//    @Test
+//    public void limitOfAdvocateRewards(){
+//        //TODO: add test
+//    }
+
+
+
 
 
 

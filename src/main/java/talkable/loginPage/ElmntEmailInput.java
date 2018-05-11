@@ -9,5 +9,4 @@ class ElmntEmailInput extends AbstractElement {
     ElmntEmailInput(){
         setWebElement(emailFieldLocator);
     }
-
 }
