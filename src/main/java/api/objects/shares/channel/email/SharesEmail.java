@@ -5,6 +5,7 @@ import api.objects.Site;
 import api.objects.shares.AbstractShares;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
@@ -16,10 +17,12 @@ public class SharesEmail extends AbstractShares {
         String emails = arrayToString(recipients);
 
         String requestBody =
-                "{\"site_slug\":\"" + site.getSiteSlug() + "\"," +
-                        "\"channel\":\"email\"," +
-                        "\"recipients\":\""+ emails +"\"," +
-                        "\"email\":{\"subject\":\"AutomationTest_EmailShare_ViaAPI\"}}"
+                "{\"channel\":\"email\"," +
+                "\"recipients\":\"" + emails + "\"," +
+                "\"subject\":\"AutomationTest_EmailShare_ViaAPI\"," +
+                "\"body\":\"Email body test\"," +
+                "\"reminder\":\"false\"" +
+                "}"
                 ;
 
         System.out.println("DEBAG: request body:");

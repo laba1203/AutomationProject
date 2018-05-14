@@ -11,10 +11,8 @@ public class Origin{
     private static final String URL = EnvFactory.getApiUrl() + "/origins";
 
     public Response postOriginPurchaseWithUUID(Site site, String email, String uuid){
-        Response response = RestAssured
-                .given()
-                .contentType("application/json")
-                .body("{\n" +
+        String postBody =
+                "{\n" +
                         "  \"api_key\": \"" + site.getApiKey() + "\",\n" +
                         "  \"site_slug\": \"" + site.getSiteSlug() + "\",\n" +
                         "  \"type\": \"Purchase\",\n" +
@@ -32,7 +30,14 @@ public class Origin{
                         "      }\n" +
                         "    ]\n" +
                         "  }\n" +
-                        "}")
+                        "}"
+                ;
+        System.out.println("DEBAG: " + postBody);
+
+        Response response = RestAssured
+                .given()
+                .contentType("application/json")
+                .body(postBody)
                 .when()
                 .post(URL);
         System.out.println("LOG: Response body for POST to /origin :");

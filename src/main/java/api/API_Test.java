@@ -3,12 +3,10 @@ package api;
 import api.objects.Site;
 import api.objects.advocateOffers.AdvocateOffers;
 import api.objects.origin.Origin;
-import api.objects.shares.Shares;
 import api.objects.shares.channel.email.SharesEmail;
 import api.objects.shares.channel.social.SharesSocial;
 import api.scenarios.ViaAPI;
 import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import util.TestDataGenerator;
@@ -90,17 +88,27 @@ public class API_Test {
 
     @Test
     public void temp(){
-        String url = "https://void.talkable.com/api/v2/offers/t547bV/shares";
+        String url = "https://void.talkable.com/api/v2/offers/t547bV/shares/email";
 
         UtilAPI.setBearerAuthorisationHeader(site.getApiKey());
         Response response = RestAssured.given()
-                .body("")
+                .body("{\"channel\":\"email\"," +
+                        "\"recipients\":\"maxim.laba+test11@talkable.com, maxim.laba+12@talkable.com\"," +
+//                        "\"email\":{" +
+                        "\"subject\":\"AutomationTest_EmailShare_ViaAPI\"," +
+                        "\"body\":\"Email body test\"," +
+                        "\"reminder\":\"test\"" +
+//                            "}" +
+                        "}"
+                )
                 .contentType("application/json")
                 .when()
-                .post(url);
+                .post(url)
+                ;
 
         System.out.println(response.statusLine());
         response.body().print();
+
     }
 
     @Test
@@ -116,4 +124,6 @@ public class API_Test {
     public void test(){
         ViaAPI.createReferral(site, "ad2@t.com", "fr3@t.com");
     }
+
+
 }
