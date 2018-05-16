@@ -41,21 +41,23 @@ public class Table extends AbstractElementsContainer {
 
 
     private WebElement setTableWebElement(Status status){
-        long waitSecondsForElmntToBePresent = 5;
+        long waitSecondsForElmntToBePresent = 3;
+        long sleepMillis = 500;
+
         switch (status){
             case LIVE:
                 return WaitFactory
-                        .getCustomWait(waitSecondsForElmntToBePresent, 500)
+                        .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
                         .until(ExpectedConditions.visibilityOfElementLocated(liveLctr));
 //                return driver.findElement(liveLctr) ;
             case TEST:
                 return WaitFactory
-                        .getCustomWait(waitSecondsForElmntToBePresent, 500)
+                        .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
                         .until(ExpectedConditions.visibilityOfElementLocated(testLctr));
 //                return driver.findElement(testLctr);
             case DISABLED:
                 return WaitFactory
-                        .getCustomWait(waitSecondsForElmntToBePresent, 500)
+                        .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
                         .until(ExpectedConditions.visibilityOfElementLocated(disabledLctr));
 //                return driver.findElement(disabledLctr);
             default:
