@@ -16,6 +16,7 @@ public class Table extends AbstractElementsContainer {
     private static final By disabledLctr = By.xpath("//h2[contains(text(), 'Disabled')]/following::table[1]");
     private static final By liveLctr = By.xpath("//h2[contains(text(), 'Live')]/following::table[1]");
     private static final By testLctr = By.xpath("//h2[contains(text(), 'Test')]/following::table[1]");
+    private static final By rowsXpath = By.xpath("./tbody/tr");
 
     private Status status;
     private ArrayList<Row> table = new ArrayList<>();
@@ -25,7 +26,11 @@ public class Table extends AbstractElementsContainer {
     Table(Status status) {
         WebElement tableElement = setTableWebElement(status);
         assert tableElement != null;
-        List<WebElement> allRows = tableElement.findElements(By.xpath("./tbody/tr"));
+
+//        List<WebElement> allRows = tableElement.findElements(rowsXpath);
+        List<WebElement> allRows = WaitFactory
+                .getCustomWait(2, 500)
+                .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(tableElement, rowsXpath));
 
         this.status = status;
         for (WebElement webElement :
