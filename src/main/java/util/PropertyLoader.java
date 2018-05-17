@@ -68,8 +68,8 @@ public class PropertyLoader {
 //        return System.getProperty("test.environment");
 
         //for local running of the project:
-        String env = "VOID";
-//        String env = "PROD";
+//        String env = "VOID";
+        String env = "PROD";
 
         System.out.println("LOG: Test is running on <" + env + "> environment");
         return env;

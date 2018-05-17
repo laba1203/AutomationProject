@@ -1,7 +1,7 @@
 package execution.reports.previous.customer.upload;
 
 import common.cases.CommonScenarios;
-import common.cases.ReportsScenarios;
+import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -9,10 +9,7 @@ import org.testng.annotations.Test;
 import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import util.EnvFactory;
-import util.TestDataConverter;
 import util.TestDataGenerator;
-
-import java.io.IOException;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1ONGHch4nOJ28fGgNG4Hz3THlX1NWn8KxwM74fBSLngM/
  * */

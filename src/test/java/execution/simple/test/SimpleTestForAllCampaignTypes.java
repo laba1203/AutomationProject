@@ -40,7 +40,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
         //open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
-        CommonScenarios.switchToSiteByVisibleText(siteName);
+        CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
 
         CommonScenarios.openCampaignsPage();
         CommonScenarios.deactivateAllCampaigns();
@@ -61,7 +61,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
         //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
-        CommonScenarios.switchToSiteByVisibleText(siteName);
+        CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
         CommonScenarios.deactivateCampaign(campaignName);
 
         //Verify that campaign is inactive on the Customer Site:

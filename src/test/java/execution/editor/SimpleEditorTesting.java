@@ -28,7 +28,7 @@ public class SimpleEditorTesting extends BaseTest {
     public void precondition(){
         //login to Talkable and select site
         CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
-        SiteDashboardPage dashboardPage = CommonScenarios.switchToSiteByVisibleText(siteName);
+        SiteDashboardPage dashboardPage = CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
         //Create new Campaign
         dashboardPage.header.openCampaignsPage().createNewCampaign(Invite, Standalone);
     }

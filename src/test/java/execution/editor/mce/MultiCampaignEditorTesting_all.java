@@ -1,6 +1,7 @@
 package execution.editor.mce;
 
 import common.cases.CommonScenarios;
+import common.cases.functionalities.MceScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -8,10 +9,6 @@ import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
-import talkable.talkableSite.campaignsPage.PageCampaigns;
-import talkable.talkableSite.campaignsPage.Table;
-import talkable.talkableSite.headerFrame.Header;
-import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 
@@ -33,142 +30,76 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
     private String campaignNameFW_2;
     private String campaignNamePP;
 
-    //Variables for each test set (default values for COPY tests):
-    private String newContentValue = "New Copy Value";
-    private String localizationName = "Advocate trigger cta";
-    private String campaignView = "Advocate trigger widget";
-
-    private PageMultiCampaignEditor mcePage;
-    //data from additional scenarios
-    private static final String incorrectSelectedCampaignsMsg = "FAILED: Incorrect Selected campaigns count";
-    private static final String incorrectUnselectedCampaignsMsg = "FAILED: Incorrect Unselected campaigns count";
-    private static final String incorrectIneligibleCampaignsMsg = "FAILED: Incorrect Ineligible campaigns count";
-    private PreviewPopup previewPopup;
-
-    @Test
+    @Test(groups = "updateContent")
     public void precondition() {
         //login to Talkable and select site
         CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword()).openCampaignsPage();
-        SiteDashboardPage siteDashboardPage = CommonScenarios.switchToSiteByVisibleText(siteName);
+        CommonScenarios.switchToNonIntegratedSiteByVisibleText(siteName);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         //clear data from previous execution:
-        PageCampaigns campaignsPage = new Header().openCampaignsPage().deleteAllCampaignsWithStatus(TEST);
-        campaignsPage = campaignsPage.deleteAllCampaignsWithStatus(LIVE);
-        campaignsPage.deleteAllCampaignsWithStatus(DISABLED);
+        CommonScenarios.openCampaignsPage();
+        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
+        CommonScenarios.deleteAllCampaignsWithStatus(LIVE);
+        CommonScenarios.deleteAllCampaignsWithStatus(DISABLED);
 
         //Create campaigns for testing:
-        campaignNameSA = campaignsPage.createNewCampaign(Invite, Standalone).campaignNavigationMenu.getCampaignName();
-        campaignsPage = new CampaignDetailsPage().header.openCampaignsPage();
+        campaignNameSA = CommonScenarios.createdNewCampaignFromCampaignsPage(Invite, Standalone);
+        CommonScenarios.openCampaignsPage();
 
-        campaignNameFW_1 = campaignsPage.createNewCampaign(Invite, FloatingWidget).campaignNavigationMenu.getCampaignName();
-        campaignsPage = new CampaignDetailsPage().header.openCampaignsPage();
 
-        campaignNameFW_2 = campaignsPage.createNewCampaign(AdvocateDashboard, FloatingWidget).campaignNavigationMenu.getCampaignName();
-        campaignsPage = new CampaignDetailsPage().header.openCampaignsPage();
+        campaignNameFW_1 = CommonScenarios.createdNewCampaignFromCampaignsPage(Invite, FloatingWidget);
+        CommonScenarios.openCampaignsPage();
 
-        campaignNamePP = campaignsPage.createNewCampaign(Invite, PostPurchase).campaignNavigationMenu.getCampaignName();
+        campaignNameFW_2 = CommonScenarios.createdNewCampaignFromCampaignsPage(AdvocateDashboard, FloatingWidget);
+        CommonScenarios.openCampaignsPage();
 
-        //precondition for additional tests
-        CampaignDetailsPage detailsPage = CommonScenarios.createAndLaunchCampaign(AdvocateDashboard, Standalone);
-        detailsPage.campaignNavigationMenu.deactivateCampaign();
-
-        CommonScenarios.createAndLaunchCampaign(Invite, FloatingWidget);
-        CommonScenarios.createAndLaunchCampaign(Invite, Standalone);
-        detailsPage = CommonScenarios.createAndLaunchCampaign(Invite, PostPurchase);
-
-        // open MCE for PP campaign:
-        EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
-        mcePage = editor.clickCopyToOtherCampaigns(COPY, localizationName + "#");
+        campaignNamePP = CommonScenarios.createdNewCampaignFromCampaignsPage(Invite, PostPurchase);
 
     }
 
-//    @BeforeClass
-//    public void testDataSetup(){
-//        // create test data
-//        CampaignDetailsPage detailsPage = CommonScenarios.createAndLaunchCampaign(AdvocateDashboard, Standalone);
-//        detailsPage.campaignNavigationMenu.deactivateCampaign();
-//
-//        CommonScenarios.createAndLaunchCampaign(Invite, FloatingWidget);
-//        CommonScenarios.createAndLaunchCampaign(Invite, Standalone);
-//        detailsPage = CommonScenarios.createAndLaunchCampaign(Invite, PostPurchase);
-//
-//        // open MCE for PP campaign:
-//        EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
-//        mcePage = editor.clickCopyToOtherCampaigns(COPY, localizationName + "#");
-//    }
 
+    @Test(groups = "updateContent", dependsOnMethods = "precondition")
+    public void modifyCOPY() {
+        //test data:
+        EditorPage.LocalizationMode mode = COPY;
+        String newContentValue = "New Copy Value";
+        String localizationName = "Advocate trigger cta";
+        String campaignView = "Advocate trigger widget";
 
-    /*
-     *****  Verification of MCE Page for COPY localization type *******
-     */
-    @Test(dependsOnMethods = "precondition")
-    public void setTestDataCopyUpdate() {
-        driver.navigate().to(EnvFactory.getAdminUrl());
-        new Header();
-        //set values:
-        newContentValue = "New Copy Value";
-        localizationName = "Advocate trigger cta";
-        campaignView = "Advocate trigger widget";
-    }
+        CommonScenarios.navigateToAdminUrl();
 
-    // Open FW campaign.
-    // Navigate to Simple Editor --> Copy (AD Trigger Widget view)
-    // For attribute "Advocate trigger cta" click 'Copy to other campaign' button
-    @Test(groups = "copyUpdate", dependsOnMethods = "setTestDataCopyUpdate")
-    public void test11_openMultiCampaignEditorCOPY() {
-        CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignNameFW_1, TEST);
-        EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
-        mcePage = editor.clickCopyToOtherCampaigns(COPY, localizationName + "#");
+        MceScenarios.openMultiCampaignEditor(campaignNameFW_1, TEST, campaignView, localizationName, mode);
 
         // Verify Campaign view field on MCE screen
-        Assert.assertEquals(mcePage.getCampaignViewValue(), campaignView);
+        Assert.assertEquals(MceScenarios.getCampaignViewValue(mode), campaignView);
         // Verify Content field on MCE screen
-        Assert.assertEquals(mcePage.getContentValue(), localizationName);
-        // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "1", "FAILED: Incorrect count of Selected campaigns");
-        // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "1", "FAILED: Incorrect count of Unselected campaigns");
-        // Verify ineligible campaign list
-        Assert.assertEquals(mcePage.getIneligibleCampaigns().getCampaignCount(), "2", "FAILED: Incorrect count of Ineligible campaigns");
-    }
+        Assert.assertEquals(MceScenarios.getContentValue(mode), localizationName);
 
-    //Select second FW campaign
-    @Test(groups = "copyUpdate", dependsOnMethods = "setTestDataCopyUpdate")
-    public void test12_selectSecondFWCampaignCOPY() {
-        mcePage = mcePage.selectCampaign(campaignNameFW_2);
-        // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2", "FAILED: Incorrect count of Selected campaigns");
-        // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "0", "FAILED: Incorrect count of Unselected campaigns");
-    }
 
-    //Enter new value and click Save localizationName button
-    @Test(groups = "copyUpdate", dependsOnMethods = "setTestDataCopyUpdate")
-    public void test13_updateValueCOPY() {
-        mcePage = mcePage.updateContent(newContentValue);
-        Assert.assertEquals(mcePage.getNewContentValue(), newContentValue, "FAILED: Incorrect new content value");
-    }
+        //Verify campaigns count in Selected, Unselected and Ineligible sections
+        MceScenarios.assertCampaignsCountInGrids(mode,
+                "1",
+                "1",
+                "2");
 
-    @Test(groups = "copyUpdate", dependsOnMethods = "setTestDataCopyUpdate")
-    public void test14_checkValueInFirstCampaignCOPY() {
-        EditorPage editor = mcePage.backToEditor();
-        String value = editor.getLocalizationValue(COPY, localizationName + "#");
-        Assert.assertEquals(value, newContentValue, "FAILED: Incorrect new content value");
-    }
+        //select second campaign:
+        MceScenarios.selectCampaignOnMceScreen(mode, campaignNameFW_2);
 
-    @Test(groups = "copyUpdate", dependsOnMethods = "setTestDataCopyUpdate")
-    public void test15_checkValueInSecondCampaignCOPY() {
-        //open campaignDetailsPage and open second campaign:
-        PageCampaigns campaignsPage = new EditorPage().campaignNavigationMenu
-                .openDetailsPage().header.openCampaignsPage();
-        EditorPage editor = campaignsPage.openCampaignByName(campaignNameFW_2, TEST).campaignNavigationMenu.openEditorPage();
-        // Verify value in Editor:
-        String value = editor.getLocalizationValue(COPY, localizationName + "#");
-        Assert.assertEquals(value, newContentValue, "FAILED: Incorrect new content value");
+        //verify Selected and Unselected campaigns count
+        MceScenarios.assertSelectedAndUnselectedCampaignsCount(mode, "2", "0");
+
+        //update content
+        MceScenarios.updateContentValue(mode, newContentValue);
+
+        //check new content value in the First Campaign
+        MceScenarios.returnToSimpleEditorAndAssertContentValue(mode, localizationName, newContentValue);
+
+        //checkValueInSecondCampaignCOPY
+        MceScenarios.assertContentValueInSimpleEditor(campaignNameFW_2, TEST, campaignView, mode, localizationName, newContentValue);
     }
 
 
@@ -176,369 +107,203 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
      *****  Verification of MCE Page for COLOR localization type *******
 
      */
-    @Test(dependsOnMethods = "precondition")
-    public void setUpForColorTests() {
-        driver.navigate().to(EnvFactory.getAdminUrl());
-        new Header();
-        //set test data
-        localizationName = "Advocate share page email button background";
-        campaignView = "Advocate share page";
-        newContentValue = "#23f908";
-    }
+    @Test(groups = "updateContent", dependsOnMethods = "precondition")
+    public void updateColor() {
+        //test data:
+        EditorPage.LocalizationMode localizationType = COLOR;
+        String newContentValue = "#23f908";
+        String localizationName = "Advocate share page email button background";
+        String campaignView = "Advocate share page";
 
-    // Open PP campaign.
-    // Navigate to Simple Editor --> Color (PP Share page view)
-    // For attribute "Advocate share page email button background" click 'Copy to other campaign' button
-    @Test(groups = "colorUpdate", dependsOnMethods = "setUpForColorTests")
-    public void test21_openMultiCampaignEditorCOLOR() {
-        mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNamePP,
-                TEST,
-                campaignView,
-                localizationName,
-                COLOR,
+        CommonScenarios.navigateToAdminUrl();
+
+        MceScenarios.openMultiCampaignEditor(campaignNamePP, TEST, campaignView, localizationName, localizationType);
+
+        // Verify Campaign view field on MCE screen
+        Assert.assertEquals(MceScenarios.getCampaignViewValue(localizationType), campaignView);
+        // Verify Content field on MCE screen
+        Assert.assertEquals(MceScenarios.getContentValue(localizationType), localizationName);
+
+        //Verify campaigns count in Selected, Unselected and Ineligible sections
+        MceScenarios.assertCampaignsCountInGrids(localizationType,
                 "1",
                 "3",
                 "0");
+
+        MceScenarios.selectCampaignOnMceScreen(localizationType, campaignNameFW_1);
+        MceScenarios.selectCampaignOnMceScreen(localizationType, campaignNameSA);
+        MceScenarios.assertSelectedAndUnselectedCampaignsCount(localizationType, "3", "1");
+
+        MceScenarios.updateContentValue(localizationType, newContentValue);
+
+        MceScenarios.returnToSimpleEditorAndAssertContentValue(localizationType, localizationName, newContentValue);
+        MceScenarios.assertContentValueInSimpleEditor(campaignNameSA, TEST, campaignView, localizationType, localizationName, newContentValue);
+        MceScenarios.assertContentValueInSimpleEditor(campaignNameFW_1, TEST, campaignView, localizationType, localizationName, newContentValue);
+
     }
 
-    //Select campaign FW and SA campaign
-    @Test(groups = "colorUpdate", dependsOnMethods = "setUpForColorTests")
-    public void test22_selectCampaignsCOLOR() {
-        mcePage = mcePage.selectCampaign(campaignNameFW_1);
-        mcePage = mcePage.selectCampaign(campaignNameSA);
-        // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "3");
-        // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "1");
-    }
-
-    // Enter new value and click Save content button
-    @Test(groups = "colorUpdate", dependsOnMethods = "setUpForColorTests")
-    public void test23_updateValueCOLOR() {
-        mcePage = mcePage.updateContent(newContentValue);
-        Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
-    }
-
-    @Test(groups = "colorUpdate", dependsOnMethods = "setUpForColorTests")
-    public void test24_checkValueInFirstCampaignCOLOR() {
-
-        checkValueInFirstCampaign(mcePage,
-                COLOR,
-                localizationName,
-                newContentValue);
-    }
-
-    @Test(groups = "copyUpdate", dependsOnMethods = "setUpForColorTests")
-    public void test25_checkValueInSACampaignCOLOR() {
-        checkValuesInOtherCampaign(new EditorPage(),
-                campaignNameSA,
-                TEST,
-                campaignView,
-                COLOR,
-                localizationName,
-                newContentValue);
-    }
-
-    @Test(groups = "copyUpdate", dependsOnMethods = "setUpForColorTests")
-    public void test26_checkValueInFWCampaignCOLOR() {
-        checkValuesInOtherCampaign(new EditorPage(),
-                campaignNameFW_1,
-                TEST,
-                campaignView,
-                COLOR,
-                localizationName,
-                newContentValue);
-    }
 
     /*
      *****  Verification of MCE Page for CONFIGURATION localization type *******
      */
+    @Test(groups = "updateContent", dependsOnMethods = "precondition")
+    public void updateCONFIG() {
+        //test data:
+        EditorPage.LocalizationMode localizationType = CONFIGURATION;
+        String localizationName = "Automatic font sizing";
+        String campaignView = "Friend claim page";
+        String newContentValue = "Disabled";
 
-    @Test( dependsOnMethods = "precondition")
-    public void setUpForConfigurationTests() {
+        CommonScenarios.navigateToAdminUrl();
 
-        System.out.println("DEBAG: CONFIGURATION UPDATE Before group executed");
+        MceScenarios.openMultiCampaignEditor(campaignNameSA, TEST, campaignView, localizationName, localizationType);
 
-        driver.navigate().to(EnvFactory.getAdminUrl());
-        System.out.println("--   DEBAG: Admin page is opened CONFIG ---");
-        new Header();
-        //set test data
-        localizationName = "Automatic font sizing";
-        campaignView = "Friend claim page";
-        newContentValue = "Disabled";
-    }
+        // Verify Campaign view field on MCE screen
+        Assert.assertEquals(MceScenarios.getCampaignViewValue(localizationType), campaignView);
+        // Verify Content field on MCE screen
+        Assert.assertEquals(MceScenarios.getContentValue(localizationType), localizationName);
 
-//    Open SA campaign.
-//    Navigate to Simple Editor --> Configuration (Friend claim page view)
-//    For attribute "Automatic font sizing" click 'Copy to other campaign' button
-    @Test(groups = "configurationUpdate", dependsOnMethods = "setUpForConfigurationTests")
-    public void test31_openMultiCampaignEditorCONFIG() {
-
-        System.out.println("DEBAG: test31_openMultiCampaignEditorCONFIG START");
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNameSA,
-                TEST,
-                campaignView,
-                localizationName,
-                CONFIGURATION,
+        //Verify campaigns count in Selected, Unselected and Ineligible sections
+        MceScenarios.assertCampaignsCountInGrids(localizationType,
                 "1",
                 "3",
                 "0");
-    }
 
-    //Select PP campaign
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test31_openMultiCampaignEditorCONFIG")
-    public void test32_selectCampaignsCONFIG() {
+        MceScenarios.selectCampaignOnMceScreen(localizationType, campaignNamePP);
+        MceScenarios.assertSelectedAndUnselectedCampaignsCount(localizationType, "2", "2");
 
-        System.out.println("DEBAG: test32_selectCampaignsCONFIG START");
+        MceScenarios.updateContentValue(localizationType, newContentValue);
 
-        mcePage = mcePage.selectCampaign(campaignNamePP);
-        // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2");
-        // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "2");
-    }
+        MceScenarios.returnToSimpleEditorAndAssertContentValue(localizationType, localizationName, newContentValue);
+        MceScenarios.assertContentValueInSimpleEditor(campaignNamePP, TEST, campaignView, localizationType, localizationName, newContentValue);
 
-    // Enter new value and click Save content button
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test32_selectCampaignsCONFIG")
-    public void test33_updateValueCONFIG() {
-        mcePage = mcePage.updateContent(newContentValue);
-        Assert.assertEquals(mcePage.getNewContentValue(), newContentValue);
-    }
-
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test33_updateValueCONFIG")
-    public void test34_checkValueInFirstCampaignCONFIG() {
-        checkValueInFirstCampaign(mcePage,
-                CONFIGURATION,
-                localizationName,
-                newContentValue);
-    }
-
-    @Test(groups = "configurationUpdate", dependsOnMethods = "test34_checkValueInFirstCampaignCONFIG")
-    public void test35_checkValueInSACampaignCONFIG() {
-        checkValuesInOtherCampaign(new EditorPage(),
-                campaignNameSA,
-                TEST,
-                campaignView,
-                CONFIGURATION,
-                localizationName,
-                newContentValue);
     }
 
     /*
      *****  Verification of MCE Page for IMAGES localization type *******
      */
+    @Test(groups = "updateContent", dependsOnMethods = "precondition")
+    public void updateImages() {
+        //test data:
+//        EditorPage.LocalizationMode localizationType = IMAGES;
+        String localizationName = "Advocate signup page background";
+        String campaignView = "Advocate signup page";
+        String newContentValue = "tkbl_default_icon-link-color-2x.png";
 
-    @Test(groups = "imageUpdate", dependsOnMethods = "precondition")
-    public void setUpForImageTests() {
-        driver.navigate().to(EnvFactory.getAdminUrl());
-        System.out.println("--   DEBAG: Admin page is opened  ---");
-        new Header();
-        //set test data
-        localizationName = "Advocate signup page background";
-        campaignView = "Advocate signup page";
-        newContentValue = "tkbl_default_icon-link-color-2x.png";
-    }
+        CommonScenarios.navigateToAdminUrl();
 
-    @Test(groups = "imageUpdate",
-            dependsOnGroups = "configurationUpdate",
-            dependsOnMethods = "setUpForImageTests",
-            alwaysRun = true)
-    public void test41_openMultiCampaignEditorIMAGES() {
-        mcePage = openMultiCampaignEditorAndVerifyCampaignsCount(campaignNameSA,
-                TEST,
-                campaignView,
-                localizationName,
-                IMAGES,
+        MceScenarios.openMultiCampaignEditor(campaignNameSA, TEST, campaignView, localizationName, IMAGES);
+
+        // Verify Campaign view field on MCE screen
+        Assert.assertEquals(MceScenarios.getCampaignViewValue(IMAGES), campaignView);
+        // Verify Content field on MCE screen
+        Assert.assertEquals(MceScenarios.getContentValue(IMAGES), localizationName);
+
+        //Verify campaigns count in Selected, Unselected and Ineligible sections
+        MceScenarios.assertCampaignsCountInGrids(IMAGES,
                 "1",
                 "1",
                 "2");
+
+        MceScenarios.selectCampaignOnMceScreen(IMAGES, campaignNameFW_1);
+        MceScenarios.assertSelectedAndUnselectedCampaignsCount(IMAGES, "2", "0");
+
+        MceScenarios.updateContentValue(IMAGES, newContentValue);
+
+        MceScenarios.returnToSimpleEditorAndAssertContentValue(IMAGES, localizationName, newContentValue);
+        MceScenarios.assertContentValueInSimpleEditor(campaignNameFW_1, TEST, campaignView, IMAGES, localizationName, newContentValue);
+
     }
 
-    @Test(groups = "imageUpdate", dependsOnMethods = "test41_openMultiCampaignEditorIMAGES")
-    public void test42_selectCampaignsIMAGES() {
-        mcePage = mcePage.selectCampaign(campaignNameFW_1);
-        // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "2", "FAILED: Incorrect count of Selected campaigns");
-        // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), "0", "FAILED: Incorrect count of Unselected campaigns");
-    }
 
-    @Test(groups = "imageUpdate", dependsOnMethods = "test42_selectCampaignsIMAGES")
-    public void test43_updateValueIMAGES() {
-        mcePage = mcePage.updateContent(newContentValue);
-        Assert.assertEquals(mcePage.getNewContentValue(), newContentValue, "FAILED: Incorrect New Content Value");
-    }
+    /*
+    Additional Scenarios for MCE: Filtering, Preview
+    */
+    @Test(groups = "additionalCases", dependsOnMethods = "precondition")//dependsOnGroups = "updateContent", alwaysRun = true)
+    public void preconditionForAdditionalScenarios(){
+        CommonScenarios.navigateToAdminUrl();
+        CampaignDetailsPage detailsPage = CommonScenarios.createAndLaunchCampaign(AdvocateDashboard, Standalone);
+        detailsPage.campaignNavigationMenu.deactivateCampaign();
 
-    @Test(groups = "imageUpdate", dependsOnMethods = "test43_updateValueIMAGES")
-    public void test44_checkValueInFirstCampaignIMAGES() {
-        checkValueInFirstCampaign(mcePage,
-                IMAGES,
-                localizationName,
-                newContentValue);
-    }
+        CommonScenarios.createAndLaunchCampaign(Invite, FloatingWidget);
+        CommonScenarios.createAndLaunchCampaign(Invite, Standalone);
+        CommonScenarios.createAndLaunchCampaign(Invite, PostPurchase);
 
-    @Test(groups = "imageUpdate", dependsOnMethods = "test44_checkValueInFirstCampaignIMAGES")
-    public void test45_checkValueInFWCampaignIMAGES() {
-        checkValuesInOtherCampaign(new EditorPage(),
-                campaignNameFW_1,
+        MceScenarios.openMultiCampaignEditorPage(campaignNamePP,
                 TEST,
-                campaignView,
-                IMAGES,
-                localizationName,
-                newContentValue);
+                "Advocate share page",
+                "Advocate pages overlay opacity",
+                COPY );
     }
 
 
-
-
-    @Test(groups = "filtering", dependsOnMethods = "precondition")
-    public void test11_filterByStatus(){
-        mcePage = mcePage.typeToSearch("live");
-        assertCampaignsCount(mcePage, "1", "1", "1");
+    @Test(groups = "additionalCases", dependsOnMethods = "preconditionForAdditionalScenarios")
+    public void filterByStatus(){
+        MceScenarios.typeToSearchField("live");
+        MceScenarios.assertCampaignsCountInGrids(COPY,
+                "1",
+                "1",
+                "1");
     }
 
-    @Test(groups = "filtering", dependsOnMethods = "precondition")
-    public void test12_filterByCampaignName(){
-        mcePage = mcePage.typeToSearch("invite");
-        assertCampaignsCount(mcePage, "1", "3", "2");
+    @Test(groups = "additionalCases", dependsOnMethods = "preconditionForAdditionalScenarios")
+    public void filterByCampaignName(){
+        MceScenarios.typeToSearchField("invite");
+        MceScenarios.assertCampaignsCountInGrids(COPY,
+                "1",
+                "3",
+                "2");
     }
 
-    @Test(groups = "filtering", dependsOnMethods = "precondition")
-    public void test13_filterByCampaignId(){
-        String campaignID = mcePage.getSelectedCampaigns().getCampaignsList().get(0).getId().substring(0, 5);
-        System.out.println("DEBAG: Campaign ID: <" + campaignID + ">");
-        mcePage = mcePage.typeToSearch(campaignID);
-        assertCampaignsCount(mcePage, "1", "0", "0");
-    }
-
-    @AfterGroups("filtering")
-    public void clearFilter(){
-        mcePage = mcePage.typeToSearch("");
-    }
-
-
-    @BeforeGroups("preview")
-    public void selectMultipleCampaigns(){
-        mcePage = mcePage.typeToSearch("invite");
-        mcePage = mcePage.selectCampaign("Invite Floating Widget");
-    }
-
-    @Test(groups = "preview", dependsOnGroups = "filtering", alwaysRun = true)
-    public void test21_verifyPreviewPopup(){
-        String contentValue = mcePage.getNewContentValue();
-        previewPopup = mcePage.openPreviewPopup();
-
-        Assert.assertEquals(previewPopup.getContentName(), localizationName, "FAILED: Incorrect Content Name");
-        Assert.assertEquals(previewPopup.getContentValue(), contentValue, "FAILED: Incorrect Content Value");
-    }
-
-    @Test(groups = "preview", dependsOnMethods = "test21_verifyPreviewPopup", alwaysRun = true)
-    public void test22_closePreviewPopup(){
-        if(previewPopup == null){
-            Assert.fail("FAILED: Preview popup is not opened.");
-        }
-        mcePage = previewPopup.closePopup();
-        assertCampaignsCount(mcePage, "2", "2", "2");
-    }
-
-
-
-//    @AfterClass
-//    public void openCampaignDetailPage(){
-//        new EditorPage().campaignNavigationMenu.openDetailsPage();
+//    @Test(groups = "additionalCases", dependsOnMethods = {"preconditionForAdditionalScenarios", "precondition"})
+//    public void filterByCampaignId() {
+//        String campaignID = new PageMultiCampaignEditor(COPY)
+//                .getSelectedCampaigns()
+//                .getCampaignsList()
+//                .get(0).getId().substring(0, 5);
+//        System.out.println("DEBAG: Campaign ID: <" + campaignID + ">");
+//        MceScenarios.typeToSearchField("invite");
+//        MceScenarios.assertCampaignsCountInGrids(COPY,
+//                "1",
+//                "0",
+//                "0");
 //    }
 
 
-    @AfterClass
+    @Test(groups = "preview", dependsOnGroups = "additionalCases", alwaysRun = true)
+    public void verifyPreview(){
+        new PageMultiCampaignEditor(COPY).typeToSearch("");
+        MceScenarios.typeToSearchField("invite");
+        MceScenarios.selectCampaignOnMceScreen(COPY, "Invite Floating Widget");
+        String contentValue = MceScenarios.getContentValue(COPY);
+
+        MceScenarios.openPreviewPopupOnMCE(COPY);
+
+        Assert.assertEquals(
+                MceScenarios.getContentNameFromPreviewPopup(COPY),
+                "Advocate share page",
+                "FAILED: Incorrect Content Name on Preview Popup");
+        Assert.assertEquals(MceScenarios.getContentValueFromPreviewPopup(COPY),
+                contentValue,
+                "FAILED: Incorrect Content Value");
+
+        MceScenarios.closePreviewPopup(COPY);
+        MceScenarios.assertCampaignsCountInGrids(COPY,
+                "2",
+                "2",
+                "2");
+    }
+
+
+    @Test(groups = "deleteCampaigns",
+            dependsOnGroups = {"updateContent", "additionalCases", "preview"},
+            alwaysRun = true)
     public void deleteTestCampaignsAndLogout() {
+        CommonScenarios.navigateToAdminUrl();
         CommonScenarios.deleteAllCampaignsWithStatus(TEST);
         CommonScenarios.deleteAllCampaignsWithStatus(LIVE);
         CommonScenarios.deleteAllCampaignsWithStatus(DISABLED);
         CommonScenarios.logout();
-    }
-
-
-
-
-
-
-    /*
-    General Scenarios for verifications of MCE page:
-    * */
-    private PageMultiCampaignEditor openMultiCampaignEditorAndVerifyCampaignsCount(String campaignName,
-                                                                Table.Status status,
-                                                                String campaignView,
-                                                                String localizationName,
-                                                                EditorPage.LocalizationMode localizationType,
-                                                                String expectedSelectedCampaignsCount,
-                                                                String expectedUnselectedCampaignsCount,
-                                                                String expectedIneligibleCampaignsCount)
-    {
-        PageMultiCampaignEditor mcePage = CommonScenarios.openMultiCampaignEditorPage(
-                campaignName,
-                status,
-                campaignView,
-                localizationName,
-                localizationType);
-        // Verify Campaign view field on MCE screen
-        Assert.assertEquals(mcePage.getCampaignViewValue(), campaignView);
-        // Verify Content field on MCE screen
-        Assert.assertEquals(mcePage.getContentValue(), localizationName);
-        // Verify selected campaign list
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), expectedSelectedCampaignsCount, "FAILED: Incorrect count of Selected campaigns");
-        // Verify unselected campaigns list
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), expectedUnselectedCampaignsCount, "FAILED: Incorrect count of Unselected campaigns");
-        // Verify ineligible campaign list
-        Assert.assertEquals(mcePage.getIneligibleCampaigns().getCampaignCount(), expectedIneligibleCampaignsCount, "FAILED: Incorrect count of Ineligible campaigns");
-
-        return mcePage;
-    }
-
-    private void checkValueInFirstCampaign(PageMultiCampaignEditor mcePage,
-                                             EditorPage.LocalizationMode localizationType,
-                                             String localizationName,
-                                             String newContentValue){
-        EditorPage editor = mcePage.backToEditor();
-        editor.switchTo(localizationType);
-        String value = editor.getLocalizationValue(localizationType, localizationName + "#");
-        Assert.assertEquals(value, newContentValue, "FAILED: Incorrect New Content Value");
-    }
-
-    private void checkValuesInOtherCampaign(EditorPage editorPage,
-                                            String campaignName,
-                                            Table.Status campaignStatus,
-                                            String campaignViewName,
-                                            EditorPage.LocalizationMode mode,
-                                            String localizationName,
-                                            String newContentValue){
-        //open campaignDetailsPage and open second campaign:
-        PageCampaigns campaignsPage = editorPage.campaignNavigationMenu
-                .openDetailsPage().header.openCampaignsPage();
-        EditorPage editor = campaignsPage.openCampaignByName(campaignName, campaignStatus).
-                campaignNavigationMenu.openEditorPage();
-        //Switch view:
-        editor = editor.switchViewByName(campaignViewName);
-        //Switch content
-        editor.switchTo(mode);
-        // Verify value in Editor:
-        String value = editor.getLocalizationValue(mode, localizationName + "#");
-        Assert.assertEquals(value, newContentValue, "FAILED: Incorrect New Content Value");
-    }
-
-    private void assertCampaignsCount(PageMultiCampaignEditor mcePage,
-                                      String expectedSelectedCount,
-                                      String expectedUnselectedCount,
-                                      String expectedIneligibleCount){
-        Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), expectedSelectedCount, incorrectSelectedCampaignsMsg);
-        Assert.assertEquals(mcePage.getUnselectedCampaigns().getCampaignCount(), expectedUnselectedCount, incorrectUnselectedCampaignsMsg);
-        Assert.assertEquals(mcePage.getIneligibleCampaigns().getCampaignCount(), expectedIneligibleCount, incorrectIneligibleCampaignsMsg);
     }
 
 }

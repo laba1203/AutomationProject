@@ -47,7 +47,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     public void precondition() {
         //login to Talkable and select site
         CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword()).openCampaignsPage();
-        SiteDashboardPage siteDashboardPage = CommonScenarios.switchToSiteByVisibleText(siteName);
+        SiteDashboardPage siteDashboardPage = CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

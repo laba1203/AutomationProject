@@ -46,7 +46,7 @@ public class SimpleTestForAllCampaignTypes_old extends BaseTest{
 
         //re-open Talkable admin site:
         this.driver.navigate().to(EnvFactory.getAdminUrl());
-        CommonScenarios.switchToSiteByVisibleText(siteName);
+        CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
 //        new Header().selectByVisibleText(siteName);
 //        SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
         //deactivate all live campaigns:
