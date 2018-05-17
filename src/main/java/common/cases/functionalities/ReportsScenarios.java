@@ -1,5 +1,6 @@
-package common.cases;
+package common.cases.functionalities;
 
+import common.cases.CommonScenarios;
 import org.testng.Assert;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
@@ -7,7 +8,7 @@ import talkable.talkableSite.reports.referralsReport.PageReferralsReport;
 
 import java.util.ArrayList;
 
-public class ReportsScenarios extends CommonScenarios{
+public class ReportsScenarios extends CommonScenarios {
 
     /*Scenario to test uploading of Previous Customers list
     * Precondition:
