@@ -23,6 +23,7 @@ public class DriverConfig {
     @Parameters()
     private WebDriver setNewLocalDriver()
     {
+        System.out.println("LOG - Util: Start creation of new Local WebDriver");
         final File file = new File(PropertyLoader.loadProperty("path.mac.webDriver"));
         System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
 
@@ -30,12 +31,15 @@ public class DriverConfig {
 
         WaitFactory.setDefaultImplicitlyWait();
 
+        System.out.println("LOG - Util: New Local WebDriver is created");
+
         return driver;
     }
 
 
 
     private WebDriver setNewRemoteDriver(){
+        System.out.println("LOG - Util: Start creation of new Remote WebDriver");
         final File file = new File(PropertyLoader.loadProperty("path.linux.webDriver"));
 //        final File file = new File(PropertyLoader.loadProperty("path.mac.webDriver"));
         System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
@@ -50,6 +54,7 @@ public class DriverConfig {
         }
         //
         WaitFactory.setDefaultImplicitlyWait();
+        System.out.println("LOG - Util: New Remote WebDriver created");
 
         return driver;
     }
