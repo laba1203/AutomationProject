@@ -8,6 +8,7 @@ import org.testng.annotations.Parameters;
 import util.logging.Log;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -17,8 +18,6 @@ public class DriverConfig {
     private static final String SELENOID_URL = "http://selenoid.production:4444/wd/hub";
 
     private static WebDriver driver;
-//    private static RemoteWebDriver driver;
-
 
     @Parameters()
     private WebDriver setNewLocalDriver()
@@ -49,7 +48,6 @@ public class DriverConfig {
         capabilities.setBrowserName("chrome");
         capabilities.setVersion("66.0");
 
-        System.out.println("DEBAG: capabilities created");
 //        capabilities.setBrowserName("firefox");
 //        capabilities.setVersion("60.0");
 
@@ -60,10 +58,9 @@ public class DriverConfig {
                     capabilities
             );
             System.out.println("DEBAG: Driver created");
-        } catch (Exception e) {
+        } catch (MalformedURLException e) {
             System.err.println("Exception found");
             e.printStackTrace();
-
         }
 
 

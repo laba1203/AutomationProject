@@ -45,8 +45,9 @@
                     </systemPropertyVariables>
                     <!--End of chages-->
 
-                    <!--<forkCount>1</forkCount>
-                    <reuseForks>true</reuseForks>-->
+                    <forkCount>1</forkCount>
+                    <reuseForks>true</reuseForks>
+
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>.\src\main\resources\TestSuites\AllTestSuites.xml</suiteXmlFile>
