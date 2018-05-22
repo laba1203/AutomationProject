@@ -45,11 +45,11 @@ public class DriverConfig {
 
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName("chrome");
-        capabilities.setVersion("66.0");
+//        capabilities.setBrowserName("chrome");
+//        capabilities.setVersion("66.0");
 
-//        capabilities.setBrowserName("firefox");
-//        capabilities.setVersion("60.0");
+        capabilities.setBrowserName("firefox");
+        capabilities.setVersion("60.0");
 
         driver = null;
         try {
