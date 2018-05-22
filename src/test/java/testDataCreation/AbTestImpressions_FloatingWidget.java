@@ -8,6 +8,7 @@ import util.DriverConfig;
 public class AbTestImpressions_FloatingWidget {
 
     private WebDriver driver;
+    private static final String URL_TO_FW = "http://learn.talkable.com/QA-Max/bastion/site1001/";
 
 //    @BeforeMethod
 //    public void setup(){
@@ -19,7 +20,7 @@ public class AbTestImpressions_FloatingWidget {
     @Test
     public void test1_makeImpression(){
         driver = DriverConfig.getDriver();
-        driver.navigate().to("http://learn.talkable.com/QA-Max/bastion/testMax-shard2/index.html");
+        driver.navigate().to(URL_TO_FW);
 
         AdvocateTriggerWidgetFrame button = new AdvocateTriggerWidgetFrame();
 //        button.click();

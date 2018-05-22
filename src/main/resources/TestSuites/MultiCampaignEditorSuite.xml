@@ -1,7 +1,7 @@
 <suite name="MultiCampaignEditor" preserve-order="true" group-by-instances="true">
     <test name="Multi-campaign editor" preserve-order="true" group-by-instances="true">
         <classes>
-            <class name="execution.editor.mce.MultiCampaignEditorTesting">
+            <class name="execution.editor.mce.MultiCampaignEditorTesting_all">
                 <!--<groups>-->
                     <!--<run>-->
                         <!--<exclude name = "copyUpdate"/>-->
@@ -14,12 +14,12 @@
             </class>
         </classes>
     </test>
-    <test name="MCE Additional cases" preserve-order="true">
-        <classes>
-            <class name="execution.editor.mce.MceAdditionalScenarios">
-            </class>
-        </classes>
-    </test>
+    <!--<test name="MCE Additional cases" preserve-order="true">-->
+        <!--<classes>-->
+            <!--<class name="execution.editor.mce.MceAdditionalScenarios">-->
+            <!--</class>-->
+        <!--</classes>-->
+    <!--</test>-->
 
 
 </suite>

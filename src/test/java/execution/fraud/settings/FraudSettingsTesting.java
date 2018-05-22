@@ -3,7 +3,8 @@ package execution.fraud.settings;
 import api.objects.Site;
 import api.scenarios.ViaAPI;
 import common.cases.CommonScenarios;
-import common.cases.ReportsScenarios;
+import common.cases.functionalities.FraudRulesScenarios;
+import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeGroups;
@@ -35,12 +36,12 @@ public class FraudSettingsTesting extends BaseTest{
 
     @Test(dependsOnMethods = "login")
     public void setHighFraudSettingsProfile(){
-        CommonScenarios.setFraudProfileAndAssertProfileNameAndDescription(
+        FraudRulesScenarios.setFraudProfileAndAssertProfileNameAndDescription(
                 HIGH,
                 "Fraud Profile: High",
                 FraudRulesExpectedTextData.highProfileDescription
         );
-        CommonScenarios.assertValuesInRulesForAdvocateSection(
+        FraudRulesScenarios.assertValuesInRulesForAdvocateSection(
                 "Block Advocate",
                 "Block Advocate",
                 "Block Advocate",
@@ -49,7 +50,7 @@ public class FraudSettingsTesting extends BaseTest{
                 "Block Advocate"
         );
 
-        CommonScenarios.assertValuesInRulesForFriendSection(
+        FraudRulesScenarios.assertValuesInRulesForFriendSection(
                 "Block Friend",
                 "Block Friend",
                 "Skip",
@@ -61,12 +62,12 @@ public class FraudSettingsTesting extends BaseTest{
 
     @Test(dependsOnMethods = "login")
     public void setElevatedFraudSettingsProfile(){
-        CommonScenarios.setFraudProfileAndAssertProfileNameAndDescription(
+        FraudRulesScenarios.setFraudProfileAndAssertProfileNameAndDescription(
                 ELEVATED,
                 "Fraud Profile: Elevated",
                 FraudRulesExpectedTextData.elevatedProfileDescription
         );
-        CommonScenarios.assertValuesInRulesForAdvocateSection(
+        FraudRulesScenarios.assertValuesInRulesForAdvocateSection(
                 "Block Advocate",
                 "Flag Advocate",
                 "Flag Advocate",
@@ -74,7 +75,7 @@ public class FraudSettingsTesting extends BaseTest{
                 "Skip",
                 "Block Advocate"
         );
-        CommonScenarios.assertValuesInRulesForFriendSection(
+        FraudRulesScenarios.assertValuesInRulesForFriendSection(
                 "Block Friend",
                 "Block Friend",
                 "Skip",
@@ -87,13 +88,13 @@ public class FraudSettingsTesting extends BaseTest{
 
     @Test(dependsOnMethods = "login")
     public void setModerateFraudSettingsProfile(){
-        CommonScenarios.setFraudProfileAndAssertProfileNameAndDescription(
+        FraudRulesScenarios.setFraudProfileAndAssertProfileNameAndDescription(
                 MODERATE,
                 "Fraud Profile: Moderate",
                 FraudRulesExpectedTextData.moderateProfileDescription
         );
 
-        CommonScenarios.assertValuesInRulesForAdvocateSection(
+        FraudRulesScenarios.assertValuesInRulesForAdvocateSection(
                 "Block Advocate",
                 "Flag Advocate",
                 "Flag Advocate",
@@ -102,7 +103,7 @@ public class FraudSettingsTesting extends BaseTest{
                 "Flag Advocate"
         );
 
-        CommonScenarios.assertValuesInRulesForFriendSection(
+        FraudRulesScenarios.assertValuesInRulesForFriendSection(
                 "Block Friend",
                 "Skip",
                 "Skip",
@@ -113,12 +114,12 @@ public class FraudSettingsTesting extends BaseTest{
 
     @Test(dependsOnMethods = "login")
     public void setLowFraudSettingsProfile(){
-        CommonScenarios.setFraudProfileAndAssertProfileNameAndDescription(
+        FraudRulesScenarios.setFraudProfileAndAssertProfileNameAndDescription(
                 LOW,
                 "Fraud Profile: Low",
                 FraudRulesExpectedTextData.lowProfileDescription
         );
-        CommonScenarios.assertValuesInRulesForAdvocateSection(
+        FraudRulesScenarios.assertValuesInRulesForAdvocateSection(
                 "Block Advocate",
                 "Skip",
                 "Skip",
@@ -127,7 +128,7 @@ public class FraudSettingsTesting extends BaseTest{
                 "Skip"
         );
 
-        CommonScenarios.assertValuesInRulesForFriendSection(
+        FraudRulesScenarios.assertValuesInRulesForFriendSection(
                 "Block Friend",
                 "Skip",
                 "Skip",
@@ -138,7 +139,7 @@ public class FraudSettingsTesting extends BaseTest{
 
     @Test(dependsOnMethods = "login")
     public void setCustomFraudSettingsProfile(){
-        CommonScenarios.setFraudProfileAndAssertProfileNameAndDescription(
+        FraudRulesScenarios.setFraudProfileAndAssertProfileNameAndDescription(
                 CUSTOM,
                 "Fraud Profile: Custom",
                 FraudRulesExpectedTextData.customProfileDescription
@@ -150,8 +151,9 @@ public class FraudSettingsTesting extends BaseTest{
     public void automaticReferralApprovalMode(){
         String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
 
-        CommonScenarios.openFraudSettings();
-        CommonScenarios.setReferralApprovalModeOnFraudSetting(AUTOMATIC);
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setReferralApprovalModeOnFraudSetting(AUTOMATIC);
+        FraudRulesScenarios.setReferralApprovalDelay(0);
         ViaAPI.createReferral(
                 site,
                 advocateEmail,
@@ -175,8 +177,8 @@ public class FraudSettingsTesting extends BaseTest{
     public void manualReferralApprovalMode_ApproveReferral(){
         String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
 
-        CommonScenarios.openFraudSettings();
-        CommonScenarios.setReferralApprovalModeOnFraudSetting(MANUAL);
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setReferralApprovalModeOnFraudSetting(MANUAL);
         ViaAPI.createReferral(
                 site,
                 advocateEmail,
@@ -200,8 +202,8 @@ public class FraudSettingsTesting extends BaseTest{
     public void manualReferralApprovalMode_VoidReferral(){
         String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
 
-        CommonScenarios.openFraudSettings();
-        CommonScenarios.setReferralApprovalModeOnFraudSetting(MANUAL);
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setReferralApprovalModeOnFraudSetting(MANUAL);
         ViaAPI.createReferral(
                 site,
                 advocateEmail,
@@ -220,6 +222,13 @@ public class FraudSettingsTesting extends BaseTest{
                 "FAILED: Incorrect referral status"
         );
     }
+
+//    @Test
+//    public void limitOfAdvocateRewards(){
+//        //TODO: add test
+//    }
+
+
 
 
 

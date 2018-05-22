@@ -1,6 +1,7 @@
 package talkable.talkableSite.campaignsPage;
 
 import abstractObjects.AbstractElementsContainer;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.common.elements.alert.Alert;
 import abstractObjects.Element;
 import java.util.ArrayList;
@@ -9,11 +10,13 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import util.WaitFactory;
 
 public class Table extends AbstractElementsContainer {
-    private static final By disabled = By.xpath("//h2[contains(text(), 'Disabled')]/following::table[1]");
-    private static final By live = By.xpath("//h2[contains(text(), 'Live')]/following::table[1]");
-    private static final By test = By.xpath("//h2[contains(text(), 'Test')]/following::table[1]");
+    private static final By disabledLctr = By.xpath("//h2[contains(text(), 'Disabled')]/following::table[1]");
+    private static final By liveLctr = By.xpath("//h2[contains(text(), 'Live')]/following::table[1]");
+    private static final By testLctr = By.xpath("//h2[contains(text(), 'Test')]/following::table[1]");
+    private static final By rowsXpath = By.xpath("./tbody/tr");
 
     private Status status;
     private ArrayList<Row> table = new ArrayList<>();
@@ -23,7 +26,11 @@ public class Table extends AbstractElementsContainer {
     Table(Status status) {
         WebElement tableElement = setTableWebElement(status);
         assert tableElement != null;
-        List<WebElement> allRows = tableElement.findElements(By.xpath("./tbody/tr"));
+
+//        List<WebElement> allRows = tableElement.findElements(rowsXpath);
+        List<WebElement> allRows = WaitFactory
+                .getCustomWait(2, 500)
+                .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(tableElement, rowsXpath));
 
         this.status = status;
         for (WebElement webElement :
@@ -34,13 +41,25 @@ public class Table extends AbstractElementsContainer {
 
 
     private WebElement setTableWebElement(Status status){
+        long waitSecondsForElmntToBePresent = 3;
+        long sleepMillis = 500;
+
         switch (status){
             case LIVE:
-                return driver.findElement(live);
+                return WaitFactory
+                        .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
+                        .until(ExpectedConditions.visibilityOfElementLocated(liveLctr));
+//                return driver.findElement(liveLctr) ;
             case TEST:
-                return driver.findElement(test);
+                return WaitFactory
+                        .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
+                        .until(ExpectedConditions.visibilityOfElementLocated(testLctr));
+//                return driver.findElement(testLctr);
             case DISABLED:
-                return driver.findElement(disabled);
+                return WaitFactory
+                        .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
+                        .until(ExpectedConditions.visibilityOfElementLocated(disabledLctr));
+//                return driver.findElement(disabledLctr);
             default:
                 Assert.fail("FAILED: Unknown campaign status: " + status.toString());
                 return null;

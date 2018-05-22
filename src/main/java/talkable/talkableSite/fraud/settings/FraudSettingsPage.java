@@ -48,30 +48,6 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
         return saveChanges();
     }
 
-//    public FraudSettingsPage setHighProfile(){
-//        new ElmntHighProfileButton().click();
-//        return saveChanges();
-//    }
-//
-//    public FraudSettingsPage setElevatedProfile(){
-//        new ElmntElevatedButton().click();
-//        return saveChanges();
-//    }
-//
-//    public FraudSettingsPage setModerateProfile(){
-//        new ElmntModerateProfileButton().click();
-//        return saveChanges();
-//    }
-//
-//    public FraudSettingsPage setLowProfile(){
-//        new ElmntLowProfileButton().click();
-//        return saveChanges();
-//    }
-//
-//    public FraudSettingsPage setCustomProfile(){
-//        new ElmntCustomProfileButton().click();
-//        return saveChanges();
-//    }
 
     public String getProfileDescription(){
         return new ElmntProfileDescription().getText();
@@ -116,10 +92,21 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
         return new SectionRulesForFriend();
     }
 
+    public FraudSettingsPage setReferralApprovalDelay(int value){
+        new ElmntReferralApprovalDelayInput().clear();
+        new ElmntReferralApprovalDelayInput().sendKeys(String.valueOf(value));
+        return saveChanges();
+    }
+
+    public String getReferralApprovalDelay(){
+        return new ElmntReferralApprovalDelayInput().getAttribute("value");
+    }
+
     private FraudSettingsPage saveChanges(){
         saveChangesButton = new ElmntSaveChangesButton();
         saveChangesButton.click();
         waitSaving();
         return new FraudSettingsPage();
     }
+
 }

@@ -29,8 +29,12 @@ import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
+import util.DriverConfig;
+import util.EnvFactory;
 import util.logging.Log;
 
+import static talkable.common.CampaignPlacement.Standalone;
+import static talkable.common.CampaignType.Invite;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
 /*Class to allocate common scenarios in Talkable.
@@ -55,6 +59,10 @@ public class CommonScenarios {
         return loginPage.submitLoginForm(email, password);
     }
 
+    public static void logout(){
+        new Header().openMenu().clickLogout();
+    }
+
     /***
      * Common scenario to create new campaign with default values
      * Precondition: Any page with header frame (class = Header()) should be opened
@@ -68,13 +76,39 @@ public class CommonScenarios {
         return integrationInstructionPage;
     }
 
-    public static SiteDashboardPage switchToSiteByVisibleText(String siteName) {
+    public static void navigateToAdminUrl(){
+        DriverConfig.getDriver().navigate().to(EnvFactory.getAdminUrl());
+        new Header();
+    }
+
+    public static SiteDashboardPage switchToIntegratedSiteByVisibleText(String siteName) {
         new Header().selectByVisibleText(siteName);
         SiteDashboardPage siteDashboardPage = new SiteDashboardPage();
+//        try {
+//            siteDashboardPage = new SiteDashboardPage();
+//        }catch (AssertionError e) {
+//
+//            System.out.println("DEBAG: Dashboard is not opened.");
+//            Assert.assertEquals(new IntegrationInstructionPage().header.getSiteName(), siteName, "FAILED: Site is not switched");
+//            System.out.println("DEBAG: Integration Instruction page is opened instead of Site Dashboard");
+//        }
+//        if(siteDashboardPage != null) {
         Assert.assertEquals(siteDashboardPage.header.getSiteName(), siteName, "FAILED: Site is not switched");
+//        }
         Log.siteSwitchedMsg(siteName);
         return siteDashboardPage;
     }
+
+    public static IntegrationInstructionPage switchToNonIntegratedSiteByVisibleText(String siteName) {
+        new Header().selectByVisibleText(siteName);
+        IntegrationInstructionPage integrationInstructionPage = new IntegrationInstructionPage();
+        Assert.assertEquals(integrationInstructionPage.header.getSiteName(), siteName, "FAILED: Site is not switched");
+        Log.siteSwitchedMsg(siteName);
+
+        return integrationInstructionPage;
+    }
+
+
 
     public static PageCampaigns openCampaignsPage() {
         return new Header().openCampaignsPage();
@@ -82,6 +116,10 @@ public class CommonScenarios {
 
     public static PageCampaigns deactivateAllCampaigns() {
         return openCampaignsPage().deactivateAllLiveCampaigns();
+    }
+
+    public static PageCampaigns deleteAllCampaignsWithStatus(Table.Status status){
+        return new Header().openCampaignsPage().deleteAllCampaignsWithStatus(status);
     }
 
     public static PageCampaignRules openCampaignRulesPage() {
@@ -108,6 +146,19 @@ public class CommonScenarios {
         //check Campaign Status
         Assert.assertEquals(campaignDetailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusTest);
         return campaignDetailsPage;
+    }
+
+    /***
+     * Scenario to initiate campaign creation from Campaigns Page adn return campaign name.
+     * Precondition: Header should be available. Site should not have any active campaign with the selected campaignType/placementType
+     * @return campaign name
+     * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
+     * */
+    public static String createdNewCampaignFromCampaignsPage(CampaignType campaignType, CampaignPlacement placement){
+        return new PageCampaigns()
+                .createNewCampaign(campaignType, placement)
+                .campaignNavigationMenu
+                .getCampaignName();
     }
 
     /***
@@ -243,6 +294,8 @@ public class CommonScenarios {
     }
 
 
+
+
     /*Scenarios to add Campaign Placement(inclusion or exclusion).
      * Precondition: Header should be available.
      * 1. Open Campaign Placement page
@@ -304,101 +357,12 @@ public class CommonScenarios {
         return new Site().setData(siteID, apiKey);
     }
 
-    /* Scenarios for Fraud rules */
-    public static FraudSettingsPage openFraudSettings() {
-        return new Header().openMenu().clickFraudSettingsButton();
-    }
 
-    public static FraudSettingsPage setFraudSettingsProfile(FraudSettingsPage.ProfileType profileType) {
-        return new FraudSettingsPage().setProfile(profileType);
-    }
 
-    private static String getFraudSettingsProfileDescription() {
-        return new FraudSettingsPage().getProfileDescription();
-    }
 
-    private static String getFraudSettingsProfileName() {
-        return new FraudSettingsPage().getProfileName();
-    }
 
-    public static void setFraudProfileAndAssertProfileNameAndDescription(FraudSettingsPage.ProfileType profileType,
-                                                                         String profileName,
-                                                                         String profileDescription) {
-        openFraudSettings();
-        setFraudSettingsProfile(profileType);
-        Assert.assertEquals(
-                getFraudSettingsProfileName(),
-                profileName,
-                "FAILED: Incorrect fraud settings profile name"
-        );
-        Assert.assertEquals(
-                getFraudSettingsProfileDescription(),
-                profileDescription,
-                "FAILED: Incorrect fraud settings profile description"
-        );
-    }
 
-    public static SectionRulesForAdvocate getAdvocateRuleSectionFromFraudSetting() {
-        return new FraudSettingsPage().getRulesForAdvocateSection();
-    }
 
-    public static SectionRulesForFriend getFriendRulesSectionFromFraudSetting() {
-        return new FraudSettingsPage().getRulesForFriend();
-    }
-
-    public static void assertValuesInRulesForAdvocateSection(String expectedMatchingEmailOrCookieValue,
-                                                             String expectedSimilarEmailMatch,
-                                                             String expectedMatchingShippingAddress,
-                                                             String expectedIpAddressAndUserAgentValue,
-                                                             String expectedIpAddressOnlyValue,
-                                                             String expectedCrossReferralValue
-    ) {
-        String selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getMatchingEmailOrCookieValue();
-        Assert.assertEquals(selectedOption, expectedMatchingEmailOrCookieValue, "FAILED: Incorrect selected value in 'Matching Email or Cookie on Friend Purchase' in Advocate Rules.");
-
-        selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getSimilarEmailMatch();
-        Assert.assertEquals(selectedOption, expectedSimilarEmailMatch, "FAILED: Incorrect selected value in 'Similar Email Match' in Advocate Rules.");
-
-        selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getMatchingShippingAddress();
-        Assert.assertEquals(selectedOption, expectedMatchingShippingAddress, "FAILED: Incorrect selected value in 'Similar Email Match' in Advocate Rules.");
-
-        selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getMatchingIpAddressAndUserAgent();
-        Assert.assertEquals(selectedOption, expectedIpAddressAndUserAgentValue, "FAILED: Incorrect selected value in 'Matching by Combination of IP Address & User Agent' in Advocate Rules.");
-
-        selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getIpAddressOnly();
-        Assert.assertEquals(selectedOption, expectedIpAddressOnlyValue, "FAILED: Incorrect selected value in 'Matching by IP Address only' in Advocate Rules.");
-
-        selectedOption = CommonScenarios.getAdvocateRuleSectionFromFraudSetting().getFriendAndAdvocateReferEachOther();
-        Assert.assertEquals(selectedOption, expectedCrossReferralValue, "FAILED: Incorrect selected value in 'Friend and Advocate Refer Each Other' in Advocate Rules.");
-
-    }
-
-    public static void assertValuesInRulesForFriendSection(String expectedMatchingCookieValue,
-                                                           String expectedIpAddressAndUserAgentValue,
-                                                           String expectedIpAddressOnlyValue,
-                                                           String expectedSimilarEmailMatch,
-                                                           String expectedCrossReferralValue
-    ) {
-        String selectedOption = CommonScenarios.getFriendRulesSectionFromFraudSetting().getMatchingCookieValue();
-        Assert.assertEquals(selectedOption, expectedMatchingCookieValue, "FAILED: Incorrect selected value in 'Matching Cookie on Friend Claim Page' in Rules for Friend section");
-
-        selectedOption = CommonScenarios.getFriendRulesSectionFromFraudSetting().getMatchingIpAddressAndUserAgent();
-        Assert.assertEquals(selectedOption, expectedIpAddressAndUserAgentValue, "FAILED: Incorrect selected value in 'Matching by Combination of IP Address & User Agent' in Rules for Friend section");
-
-        selectedOption = CommonScenarios.getFriendRulesSectionFromFraudSetting().getIpAddressOnly();
-        Assert.assertEquals(selectedOption, expectedIpAddressOnlyValue, "FAILED: Incorrect selected value in 'Matching by IP Address only' in Rules for Friend section");
-
-        selectedOption = CommonScenarios.getFriendRulesSectionFromFraudSetting().getSimilarEmailMatch();
-        Assert.assertEquals(selectedOption, expectedSimilarEmailMatch, "FAILED: Incorrect selected value in 'Similar Email Match' in Rules for Friend section");
-
-        selectedOption = CommonScenarios.getFriendRulesSectionFromFraudSetting().getFriendAndAdvocateReferEachOther();
-        Assert.assertEquals(selectedOption, expectedCrossReferralValue, "FAILED: Incorrect selected value in 'Friend and Advocate Refer Each Other' in Rules for Friend section");
-
-    }
-
-    public static FraudSettingsPage setReferralApprovalModeOnFraudSetting(FraudSettingsPage.ApprovalMode mode){
-        return new FraudSettingsPage().setApprovalMode(mode);
-    }
 
 
 }
