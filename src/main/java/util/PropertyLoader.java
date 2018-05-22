@@ -35,11 +35,11 @@ public class PropertyLoader {
         String env = getMavenEnvName();
         if(env.equals("PROD")){
             props = getPropertiesFile(PROD_PROP_FILE);
-            System.out.println("DEBAG: Property loaded from prod.properties file");
+            System.out.println("DEBAG: Property loaded from prod.properties file. Property name: <" + name + ">");
         }
         else {
             props = getPropertiesFile(VOID_PROP_FILE);
-            System.out.println("DEBAG: Property loaded from void.properties file");
+            System.out.println("DEBAG: Property loaded from void.properties file. Property name: <" + name + ">");
         }
         String value = "";
 
