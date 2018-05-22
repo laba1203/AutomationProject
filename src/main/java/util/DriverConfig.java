@@ -8,16 +8,16 @@ import org.testng.annotations.Parameters;
 import util.logging.Log;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 
 public class DriverConfig {
 
     //URL for selenium
-    private static final String URL = "http://selenoid.production:4444/wd/hub";
+    private static final String SELENOID_URL = "http://selenoid.production:4444/wd/hub";
 
     private static WebDriver driver;
+//    private static RemoteWebDriver driver;
 
 
     @Parameters()
@@ -39,21 +39,54 @@ public class DriverConfig {
 
 
     private WebDriver setNewRemoteDriver(){
-        System.out.println("LOG - Util: Start creation of new Remote WebDriver");
-        final File file = new File(PropertyLoader.loadProperty("path.linux.webDriver"));
-//        final File file = new File(PropertyLoader.loadProperty("path.mac.webDriver"));
-        System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
 
-        //code for remote driver:
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-//        capabilities.setBrowserName("chrome");
+        System.out.println("LOG - Util: Start creation of new Remote WebDriver");
+
+
+
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName("chrome");
+        capabilities.setVersion("66.0");
+
+        System.out.println("DEBAG: capabilities created");
+//        capabilities.setBrowserName("firefox");
+//        capabilities.setVersion("60.0");
+
+        driver = null;
         try {
-            driver = new RemoteWebDriver(new URL(URL), capabilities);
-        } catch (MalformedURLException e) {
+            driver = new RemoteWebDriver(
+                    new URL(SELENOID_URL),
+                    capabilities
+            );
+            System.out.println("DEBAG: Driver created");
+        } catch (Exception e) {
+            System.err.println("Exception found");
             e.printStackTrace();
+
         }
-        //
-        WaitFactory.setDefaultImplicitlyWait();
+
+
+//        final File file = new File(PropertyLoader.loadProperty("path.linux.webDriver"));
+////        final File file = new File(PropertyLoader.loadProperty("path.mac.webDriver"));
+//        System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
+//
+//        //code for remote driver:
+//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+////        capabilities.setBrowserName("chrome");
+//        try {
+//            driver = new RemoteWebDriver(new URL(URL), capabilities);
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+
+        //setup default wait
+        if(driver != null) {
+            System.out.println("DEBAG: Implicitly creation started");
+            WaitFactory.setDefaultImplicitlyWait();
+            System.out.println("DEBAG: Implicitly wait created");
+        }
+
         System.out.println("LOG - Util: New Remote WebDriver created");
 
         return driver;

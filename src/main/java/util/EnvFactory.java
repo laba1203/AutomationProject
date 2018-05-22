@@ -20,14 +20,41 @@ public class EnvFactory {
     private static String getUrl(){
         //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
         String env = PropertyLoader.getMavenEnvName();
-        if(env.equals("PROD")){
+
+        setEnvType(env);
+
+        switch (envType){
+            case PROD:
+                return PROD_LINK;
+            case VOID:
+                return VOID_LINK;
+            default:
+                    return null;
+        }
+
+//        if(env.equals("PROD")){
+//            envType = PROD;
+//            return PROD_LINK;
+//        }
+//        else{
+//            envType = VOID;
+//            return VOID_LINK;
+//        }
+    }
+
+    private static void setEnvType(String envName){
+
+        if(envName == null){
+            System.err.println("ERROR: envType is null from maven variable env.NAME");
+        }
+
+        if(envName.equals("PROD")){
             envType = PROD;
-            return PROD_LINK;
         }
-        else{
+        else {
             envType = VOID;
-            return VOID_LINK;
         }
+        System.out.println("LOG: Test is running on <" + envType.toString() + "> environment");
     }
 
 
