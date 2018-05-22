@@ -2,7 +2,7 @@ package talkable.talkableSite.reports.previousCustomersReport;
 
 import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import talkable.common.elements.pagination.Pagination;
