@@ -63,7 +63,6 @@ public class PropertyLoader {
 
     public static String getMavenEnvName(){
         //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
-
         //correct working:
         return System.getProperty("test.environment");
 

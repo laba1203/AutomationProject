@@ -15,7 +15,7 @@ import java.net.URL;
 public class DriverConfig {
 
     //URL for selenium
-    private static final String URL = "http://localhost:4444/wd/hub";
+    private static final String URL = "http://selenoid.production:4444/wd/hub";
 
     private static WebDriver driver;
 
@@ -36,8 +36,8 @@ public class DriverConfig {
 
 
     private WebDriver setNewRemoteDriver(){
-//        final File file = new File(PropertyLoader.loadProperty("path.linux.webDriver"));
-        final File file = new File(PropertyLoader.loadProperty("path.mac.webDriver"));
+        final File file = new File(PropertyLoader.loadProperty("path.linux.webDriver"));
+//        final File file = new File(PropertyLoader.loadProperty("path.mac.webDriver"));
         System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
 
         //code for remote driver:
@@ -56,8 +56,8 @@ public class DriverConfig {
 
     public static WebDriver getDriver(){
         if (driver == null){
-            driver = new DriverConfig().setNewLocalDriver(); //for local testing
-//            driver = new DriverConfig().setNewRemoteDriver(); //for remote testing
+//            driver = new DriverConfig().setNewLocalDriver(); //for local testing
+            driver = new DriverConfig().setNewRemoteDriver(); //for remote testing
         }
         return driver;
     }
