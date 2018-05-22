@@ -50,8 +50,8 @@
 
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                     <suiteXmlFiles>
-                        <!--<suiteXmlFile>.\src\main\resources\TestSuites\AllTestSuites.xml</suiteXmlFile>-->
-                        <suiteXmlFile>.\src\main\resources\TestSuites\SmokeTest.xml</suiteXmlFile>
+                        <suiteXmlFile>.\src\main\resources\TestSuites\AllTestSuites.xml</suiteXmlFile>
+                        <!--<suiteXmlFile>.\src\main\resources\TestSuites\SmokeTest.xml</suiteXmlFile>-->
                     </suiteXmlFiles>
 
                 </configuration>

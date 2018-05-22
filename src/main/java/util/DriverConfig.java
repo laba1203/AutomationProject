@@ -79,9 +79,7 @@ public class DriverConfig {
 
         //setup default wait
         if(driver != null) {
-            System.out.println("DEBAG: Implicitly creation started");
             WaitFactory.setDefaultImplicitlyWait();
-            System.out.println("DEBAG: Implicitly wait created");
         }
 
         System.out.println("LOG - Util: New Remote WebDriver created");
