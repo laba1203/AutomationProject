@@ -65,14 +65,14 @@ public class PropertyLoader {
         //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
 
         //correct working:
-//        return System.getProperty("test.environment");
+        return System.getProperty("test.environment");
 
         //for local running of the project:
 //        String env = "VOID";
-        String env = "PROD";
-
-        System.out.println("LOG: Test is running on <" + env + "> environment");
-        return env;
+//        String env = "PROD";
+//
+//        System.out.println("LOG: Test is running on <" + env + "> environment");
+//        return env;
 
     }
 
