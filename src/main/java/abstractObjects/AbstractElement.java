@@ -39,7 +39,7 @@ public abstract class AbstractElement implements DrivenElement{
         if(locator != null){
             setWebElement(locator);
         }
-        actions.moveToElement(this.webElement).perform();
+//        actions.moveToElement(this.webElement).perform();
             this.webElement.click();
 //        doubleClickForTimeout(this.webElement);
 
