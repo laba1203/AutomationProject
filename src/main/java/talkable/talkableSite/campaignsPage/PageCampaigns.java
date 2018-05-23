@@ -125,7 +125,7 @@ public class PageCampaigns extends AbstractTalkableSitePage {
 
             new Table(status);
             return true;
-        }catch (NoSuchElementException | TimeoutException e){
+        }catch (/*NoSuchElementException | TimeoutException |*/ AssertionError e){
            Log.tableIsMissed(status.toString());
            return false;
         }

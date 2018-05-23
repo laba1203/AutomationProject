@@ -1,6 +1,7 @@
 package talkable.talkableSite.campaignsPage;
 
 import abstractObjects.AbstractElementsContainer;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.common.elements.alert.Alert;
 import abstractObjects.Element;
@@ -24,6 +25,7 @@ public class Table extends AbstractElementsContainer {
     public enum Status{LIVE, TEST, DISABLED}
 
     Table(Status status) {
+
         WebElement tableElement = setTableWebElement(status);
         assert tableElement != null;
 
@@ -44,25 +46,30 @@ public class Table extends AbstractElementsContainer {
         long waitSecondsForElmntToBePresent = 3;
         long sleepMillis = 500;
 
-        switch (status){
-            case LIVE:
-                return WaitFactory
-                        .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
-                        .until(ExpectedConditions.visibilityOfElementLocated(liveLctr));
+        try {
+            switch (status) {
+                case LIVE:
+                    return WaitFactory
+                            .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
+                            .until(ExpectedConditions.visibilityOfElementLocated(liveLctr));
 //                return driver.findElement(liveLctr) ;
-            case TEST:
-                return WaitFactory
-                        .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
-                        .until(ExpectedConditions.visibilityOfElementLocated(testLctr));
+                case TEST:
+                    return WaitFactory
+                            .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
+                            .until(ExpectedConditions.visibilityOfElementLocated(testLctr));
 //                return driver.findElement(testLctr);
-            case DISABLED:
-                return WaitFactory
-                        .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
-                        .until(ExpectedConditions.visibilityOfElementLocated(disabledLctr));
+                case DISABLED:
+                    return WaitFactory
+                            .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
+                            .until(ExpectedConditions.visibilityOfElementLocated(disabledLctr));
 //                return driver.findElement(disabledLctr);
-            default:
-                Assert.fail("FAILED: Unknown campaign status: " + status.toString());
-                return null;
+                default:
+                    Assert.fail("FAILED: Unknown campaign status: " + status.toString());
+                    return null;
+            }
+        }catch (TimeoutException e){
+            Assert.fail("FAILED: Campaigns with status <" + status + "> are not available on Campaigns Page");
+            return null;
         }
     }
 

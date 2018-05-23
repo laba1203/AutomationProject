@@ -38,11 +38,11 @@ public class BaseTest {
 
          @BeforeMethod(alwaysRun = true)
         public void logMethodName(Method method) {
-            System.err.println("\r\nDEBAG: Method name: <" + method.getName() + ">");
+            System.err.println("\r\nLOG: Method name: <" + method.getName() + ">");
         }
 
 
-        @AfterMethod
+//        @AfterMethod
         public void takeScreenshot(ITestResult result){
             System.out.println("DEBAG: Method ITestResult: <" + result.getStatus() + "> for screenshots");
             if(ITestResult.FAILURE == result.getStatus()){

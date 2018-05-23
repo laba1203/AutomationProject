@@ -1,5 +1,6 @@
 package util;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -19,6 +20,8 @@ public class DriverConfig {
 
     private static WebDriver driver;
 
+    public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
+
     @Parameters()
     private WebDriver setNewLocalDriver()
     {
@@ -37,12 +40,8 @@ public class DriverConfig {
 
 
 
-    private WebDriver setNewRemoteDriver(){
-
+    private static ThreadLocal<WebDriver> setNewRemoteDriver(){
         System.out.println("LOG - Util: Start creation of new Remote WebDriver");
-
-
-
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 //        capabilities.setBrowserName("chrome");
@@ -52,45 +51,36 @@ public class DriverConfig {
         capabilities.setVersion("60.0");
 
         driver = null;
+        URL url = null;
         try {
-            driver = new RemoteWebDriver(
-                    new URL(SELENOID_URL),
-                    capabilities
-            );
-            System.out.println("DEBAG: Driver created");
+             url = new URL(SELENOID_URL);
         } catch (MalformedURLException e) {
             System.err.println("Exception found");
             e.printStackTrace();
         }
-
-
-//        final File file = new File(PropertyLoader.loadProperty("path.linux.webDriver"));
-////        final File file = new File(PropertyLoader.loadProperty("path.mac.webDriver"));
-//        System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
-//
-//        //code for remote driver:
-//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-////        capabilities.setBrowserName("chrome");
-//        try {
-//            driver = new RemoteWebDriver(new URL(URL), capabilities);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
+            driver = new RemoteWebDriver(
+                    url,
+                    capabilities
+            );
+        System.out.println("DEBAG: Driver created");
 
         //setup default wait
         if(driver != null) {
             WaitFactory.setDefaultImplicitlyWait();
         }
+        tlDriver.set(driver);
+        resizeBrowser(tlDriver.get());
 
         System.out.println("LOG - Util: New Remote WebDriver created");
 
-        return driver;
+//        return driver;
+        return tlDriver;
     }
 
     public static WebDriver getDriver(){
         if (driver == null){
 //            driver = new DriverConfig().setNewLocalDriver(); //for local testing
-            driver = new DriverConfig().setNewRemoteDriver(); //for remote testing
+            driver = DriverConfig.setNewRemoteDriver().get(); //for remote testing
         }
         return driver;
     }
@@ -98,6 +88,12 @@ public class DriverConfig {
     public static void cleanWebDriver(){
         WaitFactory.cleanWait();
         driver = null;
+    }
+
+    private static void resizeBrowser(WebDriver driver) {
+        Dimension d = new Dimension(1200,546);
+//Resize current window to the set dimension
+        driver.manage().window().setSize(d);
     }
 
     //to be refactored
