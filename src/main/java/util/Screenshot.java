@@ -17,7 +17,7 @@ public class Screenshot {
     private String fileName = "Screenshot_" + getTimeStamp() + ".png";
     
     public void makeScreenshot(){
-        File srcFile = ((TakesScreenshot)new DriverConfig().getDriver()).getScreenshotAs(OutputType.FILE);
+        File srcFile = ((TakesScreenshot)DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
         copyFile(srcFile);
         //
 //        Log.getScreenshotMsg("file://" + absoluteFilePath);
