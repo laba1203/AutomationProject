@@ -99,22 +99,22 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         switch (mode){
             case COPY:
                 wait.until(ExpectedConditions.elementToBeClickable(copyButton.getWebElement()));
-                copyButton.click();
+                copyButton.moveToElementAndClick();
                 setLocalizationSidebar(COPY);
                 break;
             case COLOR:
                 wait.until(ExpectedConditions.elementToBeClickable(colorButton.getWebElement()));
-                colorButton.click();
+                colorButton.moveToElementAndClick();
                 setLocalizationSidebar(COLOR);
                 break;
             case IMAGES:
                 wait.until(ExpectedConditions.elementToBeClickable(imagesButton.getWebElement()));
-                imagesButton.click();
+                imagesButton.moveToElementAndClick();
                 setLocalizationSidebar(IMAGES);
                 break;
             case CONFIGURATION:
                 wait.until(ExpectedConditions.elementToBeClickable(configurationButton.getWebElement()));
-                configurationButton.click();
+                configurationButton.moveToElementAndClick();
                 setLocalizationSidebar(CONFIGURATION);
                 break;
             default:

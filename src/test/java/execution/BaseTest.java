@@ -38,7 +38,7 @@ public class BaseTest {
 
          @BeforeMethod(alwaysRun = true)
         public void logMethodName(Method method) {
-            System.err.println("\r\nLOG: Method name: <" + method.getName() + ">");
+            System.err.println("\r\n***  TEST-LOG: Method name: <" + method.getName() + ">  ***");
         }
 
 
