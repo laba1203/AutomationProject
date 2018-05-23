@@ -35,11 +35,11 @@ public class PropertyLoader {
         String env = getMavenEnvName();
         if(env.equals("PROD")){
             props = getPropertiesFile(PROD_PROP_FILE);
-            System.out.println("DEBAG: Property loaded from prod.properties file");
+            System.out.println("DEBAG: Property loaded from prod.properties file. Property name: <" + name + ">");
         }
         else {
             props = getPropertiesFile(VOID_PROP_FILE);
-            System.out.println("DEBAG: Property loaded from void.properties file");
+            System.out.println("DEBAG: Property loaded from void.properties file. Property name: <" + name + ">");
         }
         String value = "";
 
@@ -63,16 +63,15 @@ public class PropertyLoader {
 
     public static String getMavenEnvName(){
         //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
-
         //correct working:
-//        return System.getProperty("test.environment");
+        return System.getProperty("test.environment");
 
         //for local running of the project:
 //        String env = "VOID";
-        String env = "PROD";
-
-        System.out.println("LOG: Test is running on <" + env + "> environment");
-        return env;
+//        String env = "PROD";
+//
+//        System.out.println("LOG: Test is running on <" + env + "> environment");
+//        return env;
 
     }
 
