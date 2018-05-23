@@ -23,7 +23,7 @@ public class LocalizationCopyRecord extends AbstractLocalizationRecord{
 
     @Override
     public void update(String text){
-        value.click();
+        value.moveToElementAndClick();
         value.clear();
         value.sendKeys(text);
     }
