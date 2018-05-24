@@ -46,7 +46,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
         CommonScenarios.deactivateAllCampaigns();
 
         //Create new campaign
-        CommonScenarios.initiateCampaignCreationFromCampaignsPage(campaignType, campaignPlacement);
+        CommonScenarios.createNewCampaignFromCampaignsPage(campaignType, campaignPlacement);
         CommonScenarios.openCampaignRulesPage();
         CommonScenarios.setCampaignNameOnRulesPage(campaignName);
         CommonScenarios.launchCampaign();

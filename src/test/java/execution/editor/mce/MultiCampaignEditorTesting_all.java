@@ -8,7 +8,6 @@ import org.testng.annotations.*;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
-import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
 import util.EnvFactory;
 import util.PropertyLoader;
 
@@ -47,17 +46,17 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
         CommonScenarios.deleteAllCampaignsWithStatus(DISABLED);
 
         //Create campaigns for testing:
-        campaignNameSA = CommonScenarios.createdNewCampaignFromCampaignsPage(Invite, Standalone);
+        campaignNameSA = CommonScenarios.createNewCampaignFromCampaignsPage(Invite, Standalone);
         CommonScenarios.openCampaignsPage();
 
 
-        campaignNameFW_1 = CommonScenarios.createdNewCampaignFromCampaignsPage(Invite, FloatingWidget);
+        campaignNameFW_1 = CommonScenarios.createNewCampaignFromCampaignsPage(Invite, FloatingWidget);
         CommonScenarios.openCampaignsPage();
 
-        campaignNameFW_2 = CommonScenarios.createdNewCampaignFromCampaignsPage(AdvocateDashboard, FloatingWidget);
+        campaignNameFW_2 = CommonScenarios.createNewCampaignFromCampaignsPage(AdvocateDashboard, FloatingWidget);
         CommonScenarios.openCampaignsPage();
 
-        campaignNamePP = CommonScenarios.createdNewCampaignFromCampaignsPage(Invite, PostPurchase);
+        campaignNamePP = CommonScenarios.createNewCampaignFromCampaignsPage(Invite, PostPurchase);
 
     }
 

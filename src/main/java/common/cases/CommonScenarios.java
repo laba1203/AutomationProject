@@ -26,6 +26,7 @@ import talkable.homePage.HomePage;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.loginPage.LoginPage;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
+import talkable.talkableSite.siteSettings.SiteSettingsPage;
 import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
@@ -53,10 +54,10 @@ public class CommonScenarios {
      * */
     public static Header login(String email, String password) {
         HomePage homePage = new HomePage();
-//        homePage.loginButton.click();
-//        LoginPage loginPage = new LoginPage();
         LoginPage loginPage = homePage.clickLoginButton();
-        return loginPage.submitLoginForm(email, password);
+        Header header = loginPage.submitLoginForm(email, password);
+        Log.logRecord("User logged into Talkable. Email = <" + email + ">");
+        return header;
     }
 
     public static void logout(){
@@ -72,37 +73,37 @@ public class CommonScenarios {
         Header header = new Header();
         AddSitePage addSitePage = header.openMenu().clickCreateNewSiteButton();
         IntegrationInstructionPage integrationInstructionPage = addSitePage.submitForm(siteName, url);
-        Assert.assertEquals(integrationInstructionPage.header.getSiteName(), siteName);
+        Assert.assertEquals(getSiteNameFromHeader(), siteName);
+        Log.logRecord("New site successfully created. Site name = " + siteName);
         return integrationInstructionPage;
     }
 
     public static void navigateToAdminUrl(){
         DriverConfig.getDriver().navigate().to(EnvFactory.getAdminUrl());
         new Header();
+        Log.logRecord("Navigated to admin URL");
     }
 
     public static SiteDashboardPage switchToIntegratedSiteByVisibleText(String siteName) {
         new Header().selectByVisibleText(siteName);
         SiteDashboardPage siteDashboardPage = new SiteDashboardPage();
-//        try {
-//            siteDashboardPage = new SiteDashboardPage();
-//        }catch (AssertionError e) {
-//
-//            System.out.println("DEBAG: Dashboard is not opened.");
-//            Assert.assertEquals(new IntegrationInstructionPage().header.getSiteName(), siteName, "FAILED: Site is not switched");
-//            System.out.println("DEBAG: Integration Instruction page is opened instead of Site Dashboard");
-//        }
-//        if(siteDashboardPage != null) {
-        Assert.assertEquals(siteDashboardPage.header.getSiteName(), siteName, "FAILED: Site is not switched");
-//        }
+
+        Assert.assertEquals(getSiteNameFromHeader(), siteName, "FAILED: Site is not switched");
+
         Log.siteSwitchedMsg(siteName);
         return siteDashboardPage;
+    }
+
+    public static String getSiteNameFromHeader(){
+        String name = new Header().getSiteName();
+        Log.logRecord("Site name retrieved from Header : " + name);
+        return name;
     }
 
     public static IntegrationInstructionPage switchToNonIntegratedSiteByVisibleText(String siteName) {
         new Header().selectByVisibleText(siteName);
         IntegrationInstructionPage integrationInstructionPage = new IntegrationInstructionPage();
-        Assert.assertEquals(integrationInstructionPage.header.getSiteName(), siteName, "FAILED: Site is not switched");
+        Assert.assertEquals(getSiteNameFromHeader(), siteName, "FAILED: Site is not switched");
         Log.siteSwitchedMsg(siteName);
 
         return integrationInstructionPage;
@@ -111,7 +112,9 @@ public class CommonScenarios {
 
 
     public static PageCampaigns openCampaignsPage() {
-        return new Header().openCampaignsPage();
+        PageCampaigns page = new Header().openCampaignsPage();
+        Log.logRecord("Campaigns Page is opened");
+        return page;
     }
 
     public static PageCampaigns deactivateAllCampaigns() {
@@ -123,12 +126,15 @@ public class CommonScenarios {
     }
 
     public static PageCampaignRules openCampaignRulesPage() {
-        return new CampaignNavigationMenu().openRulesPage();
+        PageCampaignRules page = new CampaignNavigationMenu().openRulesPage();
+        Log.logRecord("Campaign Rules page is opened");
+        return page;
     }
 
     public static PageCampaignRules setCampaignNameOnRulesPage(String campaignName) {
         PageCampaignRules page = new PageCampaignRules().setCampaignName(campaignName);
         Assert.assertEquals(page.getCampaignName(), campaignName, "FAILED: Campaign name is not updated on Rules page");
+        Log.logRecord("Campaign name changed to <" + campaignName + ">");
         return page;
     }
 
@@ -145,6 +151,7 @@ public class CommonScenarios {
         CampaignDetailsPage campaignDetailsPage = createNewCampaignPage.createCampaign(campaignType, placementType);
         //check Campaign Status
         Assert.assertEquals(campaignDetailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusTest);
+        Log.logRecord("New campaign is created. Campaign type = <" + campaignType + ">, placement = <" + placementType + ">");
         return campaignDetailsPage;
     }
 
@@ -154,21 +161,22 @@ public class CommonScenarios {
      * @return campaign name
      * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
      * */
-    public static String createdNewCampaignFromCampaignsPage(CampaignType campaignType, CampaignPlacement placement){
-        return new PageCampaigns()
-                .createNewCampaign(campaignType, placement)
-                .campaignNavigationMenu
-                .getCampaignName();
+    public static String createNewCampaignFromCampaignsPage(CampaignType campaignType, CampaignPlacement placement){
+        Log.logRecord("New campaign is created. Campaign type = <" + campaignType + ">, placement = <" + placement + ">");
+        CampaignDetailsPage detailsPage = new PageCampaigns()
+                .createNewCampaign(campaignType, placement);
+        Log.logRecord("New campaign is created. Campaign type = <" + campaignType + ">, placement = <" + placement + ">");
+        return detailsPage.campaignNavigationMenu.getCampaignName();
     }
 
-    /***
-     * Scenario to initiate campaign creation from Campaigns Page..
-     * Precondition: Header should be available.
-     * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
-     * */
-    public static CampaignDetailsPage initiateCampaignCreationFromCampaignsPage(CampaignType campaignType, CampaignPlacement placementType) {
-        return new Header().openCampaignsPage().createNewCampaign(campaignType, placementType);
-    }
+//    /***
+//     * Scenario to initiate campaign creation from Campaigns Page..
+//     * Precondition: Header should be available.
+//     * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
+//     * */
+//    public static CampaignDetailsPage initiateCampaignCreationFromCampaignsPage(CampaignType campaignType, CampaignPlacement placementType) {
+//        return new Header().openCampaignsPage().createNewCampaign(campaignType, placementType);
+//    }
 
 
     /***
@@ -184,6 +192,7 @@ public class CommonScenarios {
         CampaignDetailsPage campaignDetailsPage = launchCampaignPage.launchCampaign();
         //check Campaign Status
         Assert.assertEquals(campaignDetailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusActive);
+        Log.logRecord("Campaign is launched. Campaign Name = " + campaignDetailsPage.campaignNavigationMenu.getCampaignName());
         return new CampaignDetailsPage();
     }
 
@@ -192,7 +201,7 @@ public class CommonScenarios {
      * Post-condition: Details page of launched campaign.
      * */
     public static CampaignDetailsPage createAndLaunchCampaign(CampaignType campaignType, CampaignPlacement placementType) {
-        initiateCampaignCreationFromCampaignsPage(campaignType, placementType);
+        createNewCampaignFromCampaignsPage(campaignType, placementType);
         try {
             // This part is added due to an existing defect. Error 500 is returned when campaign is launched directly after creation.
             Thread.sleep(4000);
@@ -217,8 +226,8 @@ public class CommonScenarios {
         IntegrationInstructionPage integrationInstructionPage = createAccountPage.populateAndSubmitForm(email, password, siteName, siteUrl);
 //        Verify that site is created:
 //        IntegrationInstructionPage integrationInstructionPage = new IntegrationInstructionPage();
-        Assert.assertEquals(integrationInstructionPage.header.getSiteName(), siteName);
-        Log.userAndSiteCreatedMsg(email, siteName);
+        Assert.assertEquals(getSiteNameFromHeader(), siteName);
+        Log.logRecord("New user is registered. User name = <" + email + ">. Site = <" + siteName + ">");
 
         return integrationInstructionPage;
     }
@@ -234,7 +243,9 @@ public class CommonScenarios {
         CampaignDetailsPage detailsPage = new CampaignDetailsPage();
 
         CreateNewPurchasePage createNewPurchasePage = detailsPage.clickCreateTestOfferForPostPurchase();
-        return createNewPurchasePage.createOfferAndSwitchToCampaign();
+        createNewPurchasePage.createOfferAndSwitchToCampaign();
+        Log.logRecord("Test offer created (New Purchase)");
+        return new CampaignDetailsPage();
     }
 
     /*Scenarios to create Test Offer for campaign with non Post Purchase placement (FW, SA, GR).
@@ -249,7 +260,9 @@ public class CommonScenarios {
         CampaignDetailsPage detailsPage = new CampaignDetailsPage();
         PageNewAffiliateMember newAffiliateMember = detailsPage.clickCreateTestOfferNewAffiliateMember();
 
-        return newAffiliateMember.createMemberAndSwitchToCampaign(newAffiliatedMemberEmail);
+        newAffiliateMember.createMemberAndSwitchToCampaign(newAffiliatedMemberEmail);
+        Log.logRecord("Test offer created (New Affiliate Member)");
+        return new CampaignDetailsPage();
     }
 
 
@@ -266,6 +279,7 @@ public class CommonScenarios {
         CampaignDetailsPage detailsPage = campaignsPage.openCampaignByName(campaignName, LIVE);
         CampaignNavigationMenu menu = detailsPage.campaignNavigationMenu.deactivateCampaign();
         Assert.assertEquals(menu.getCampaignStatus(), "Status: Disabled", "FAILED: Campaign is not deactivated");
+        Log.logRecord("Campaign <" + campaignName + "> is deactivated");
 
         return new CampaignDetailsPage();
     }
@@ -290,7 +304,9 @@ public class CommonScenarios {
         EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
         editor = editor.switchViewByName(pageViewName);
         editor.switchTo(contentType);
-        return editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
+        PageMultiCampaignEditor mceEditor =  editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
+        Log.logRecord("Multi-Campaign Editor page is opened for campaign = <" + campaignName + ">, localization = <" + contentType + " --> " + localizationName + ">.");
+        return mceEditor;
     }
 
 
@@ -313,7 +329,9 @@ public class CommonScenarios {
         } else {
             campaignPlacements = campaignPlacements.addExclusion(placement, regex, placementText);
         }
-        return campaignPlacements.waitTillChangesApplied();
+         campaignPlacements = campaignPlacements.waitTillChangesApplied();
+        Log.logRecord("<" +placement + "> campaign placement has been added. Regex = <" + regex + ">, IsInclusion = <" + isInclusion + ">, placement value = <" + placementText + ">.");
+        return campaignPlacements;
     }
 
     public static void verifyPagination(Pagination pagination) {
@@ -342,10 +360,14 @@ public class CommonScenarios {
         page = 1;
         current = pagination.getCurrentPage();
         Assert.assertEquals(current, String.valueOf(page), "FAILED: Pagination: Incorrect page value after first() method");
+
+        Log.testPassed("Pagination successfully verified");
     }
 
     public static SiteSettingsBasicTab openSiteSettingsPage(){
-        return new Header().openMenu().clickSiteSettings();
+        SiteSettingsBasicTab page = new Header().openMenu().clickSiteSettings();
+        Log.logRecord("Site Settings page is opened (Basic Tab)");
+        return page;
     }
 
     public static Site getSiteIntegrationValues(){
@@ -356,12 +378,6 @@ public class CommonScenarios {
                 .getApiKey();
         return new Site().setData(siteID, apiKey);
     }
-
-
-
-
-
-
 
 
 
