@@ -20,7 +20,7 @@ public class DriverConfig {
 
     private static WebDriver driver;
 
-    public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
+    private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
     @Parameters()
     private WebDriver setNewLocalDriver()
