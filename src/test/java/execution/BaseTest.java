@@ -42,12 +42,12 @@ public class BaseTest {
         }
 
 
-//        @AfterMethod
+        @AfterMethod
         public void takeScreenshot(ITestResult result){
             System.out.println("DEBAG: Method ITestResult: <" + result.getStatus() + "> for screenshots");
             if(ITestResult.FAILURE == result.getStatus()){
-                screenshot.makeScreenshot();
-                System.out.println("URL: " + driver.getCurrentUrl());
+//                screenshot.makeScreenshot(); //TODO: re-work capturing screenshots
+                System.out.println("URL on fail: " + driver.getCurrentUrl());
             }
         }
 
