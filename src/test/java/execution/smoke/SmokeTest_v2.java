@@ -2,6 +2,8 @@
 
 package execution.smoke;
 
+import api.objects.Site;
+import api.scenarios.ViaAPI;
 import common.cases.ClientSiteScenarios;
 import common.cases.CommonScenarios;
 import execution.BaseTest;

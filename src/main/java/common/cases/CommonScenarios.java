@@ -15,9 +15,6 @@ import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
-import talkable.talkableSite.fraud.settings.FraudSettingsPage;
-import talkable.talkableSite.fraud.settings.SectionRulesForAdvocate;
-import talkable.talkableSite.fraud.settings.SectionRulesForFriend;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
@@ -26,7 +23,6 @@ import talkable.homePage.HomePage;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.loginPage.LoginPage;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
-import talkable.talkableSite.siteSettings.SiteSettingsPage;
 import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
@@ -34,8 +30,6 @@ import util.DriverConfig;
 import util.EnvFactory;
 import util.logging.Log;
 
-import static talkable.common.CampaignPlacement.Standalone;
-import static talkable.common.CampaignType.Invite;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
 /*Class to allocate common scenarios in Talkable.
@@ -117,6 +111,19 @@ public class CommonScenarios {
         return page;
     }
 
+
+    public static void openCampaignDetailsPage(String campaignName, Table.Status campaignStatus){
+        PageCampaigns page = openCampaignsPage();
+        page.openCampaignByName(campaignName, campaignStatus);
+        Log.logRecord("Details page is opened for campaign <" + campaignName + "> with status = <" + campaignStatus + ">.");
+    }
+
+    public static void deleteCampaignFromDetailsPage(){
+        new CampaignDetailsPage().delete();
+        Log.logRecord("Campaign deleted");
+    }
+
+
     public static PageCampaigns deactivateAllCampaigns() {
         return openCampaignsPage().deactivateAllLiveCampaigns();
     }
@@ -186,7 +193,6 @@ public class CommonScenarios {
      * Post-condition: Campaign Details page of newly created campaign(as per input parameters)
      * */
     public static String createNewCampaignFromCampaignsPage(CampaignType campaignType, CampaignPlacement placement){
-        Log.logRecord("New campaign is created. Campaign type = <" + campaignType + ">, placement = <" + placement + ">");
         CampaignDetailsPage detailsPage = new PageCampaigns()
                 .createNewCampaign(campaignType, placement);
         Log.logRecord("New campaign is created. Campaign type = <" + campaignType + ">, placement = <" + placement + ">");
@@ -327,7 +333,7 @@ public class CommonScenarios {
                                                                       Table.Status status,
                                                                       String pageViewName,
                                                                       String localizationName,
-                                                                      EditorPage.LocalizationMode contentType) {
+                                                                      EditorPage.LocalizationType contentType) {
         CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
         EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
         editor = editor.switchViewByName(pageViewName);

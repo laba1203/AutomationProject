@@ -3,17 +3,7 @@ import common.cases.CommonScenarios;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
-import talkable.talkableSite.fraud.settings.FraudSettingsPage;
 import util.DriverConfig;
-import util.Util;
-
-import static talkable.common.CampaignPlacement.FloatingWidget;
-import static talkable.common.CampaignPlacement.Standalone;
-import static talkable.common.CampaignType.AdvocateDashboard;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.CONFIGURATION;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.IMAGES;
 
 
 public class FirstTest {

@@ -8,7 +8,7 @@ import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.Local
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.*;
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.*;
 
 public class EditorPage extends AbstractTkblSitePageWithoutHeader{
 
@@ -22,20 +22,20 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
     private ElmntConfigurationButton configurationButton = new ElmntConfigurationButton();
     private PreviewFrame previewFrame = new PreviewFrame();
 
-    public enum LocalizationMode{COPY, IMAGES, COLOR, CONFIGURATION}
-    private LocalizationMode mode;
+    public enum LocalizationType {COPY, IMAGES, COLOR, CONFIGURATION}
+    private LocalizationType mode;
 
     public EditorPage(){
         switchTo(COPY);
         setLocalizationSidebar(COPY);
     }
 
-    private void setLocalizationSidebar(LocalizationMode mode){
+    private void setLocalizationSidebar(LocalizationType mode){
         localizationSidebar = new LocalizationSidebar(mode);
         this.mode = mode;
     }
 
-    public EditorPage(LocalizationMode mode){
+    public EditorPage(LocalizationType mode){
         switchTo(mode);
         localizationSidebar = new LocalizationSidebar(mode);
         this.mode = mode;
@@ -67,25 +67,19 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         return elmntSelectedViewField.getText().equals(toBeSelected);
     }
 
-    public EditorPage updateLocalization(LocalizationMode type, String localizationName, String newValue){
+    public EditorPage updateLocalization(LocalizationType type, String localizationName, String newValue){
         verifyLocalizationMode(type);
         localizationSidebar.updateRecord(type, localizationName, newValue);
         saveChanges();
         return new EditorPage(type);
     }
 
-    public EditorPage uploadAndSelectNewImage(String localizationName, String fileName){
-        verifyLocalizationMode(IMAGES);
-        //todo: add steps to upload new image
-        Assert.fail("FAILED: Method is not yet implemented");
-        return null;
-    }
 
-    public String getLocalizationValue(LocalizationMode type, String localizationName){
+    public String getLocalizationValue(LocalizationType type, String localizationName){
         return localizationSidebar.getRecord(type, localizationName).getValueText();
     }
 
-    private void verifyLocalizationMode(LocalizationMode mode){
+    private void verifyLocalizationMode(LocalizationType mode){
         Assert.assertEquals(mode, this.mode, "FAILED: Incorrect Localization type used in the method");
     }
 
@@ -95,7 +89,7 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         return new EditorPage(this.mode);
     }
 
-    public void switchTo(LocalizationMode mode){
+    public void switchTo(LocalizationType mode){
         switch (mode){
             case COPY:
                 wait.until(ExpectedConditions.elementToBeClickable(copyButton.getWebElement()));
@@ -123,12 +117,12 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         }
     }
 
-    public PageMultiCampaignEditor clickCopyToOtherCampaigns(LocalizationMode type, String localizationName){
+    public PageMultiCampaignEditor clickCopyToOtherCampaigns(LocalizationType type, String localizationName){
         localizationSidebar.getRecord(type, localizationName).copyToOtherCampaigns();
         return new PageMultiCampaignEditor(mode);
     }
 
-    public void clickCreateABTest(LocalizationMode type, String localizationName){
+    public void clickCreateABTest(LocalizationType type, String localizationName){
         localizationSidebar.getRecord(type, localizationName).createABTest();
         //TODO: Return action to be added after implementation of AB Test editor page
     }

@@ -1,15 +1,11 @@
 
 package talkable.talkableSite.campaignsPage;
 
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.common.CampaignPlacement;
 import talkable.common.CampaignType;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
-import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
-import util.WaitFactory;
 import util.logging.Log;
 
 import java.util.ArrayList;
