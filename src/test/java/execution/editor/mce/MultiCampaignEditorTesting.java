@@ -19,7 +19,7 @@ import static talkable.common.CampaignPlacement.PostPurchase;
 import static talkable.common.CampaignPlacement.Standalone;
 import static talkable.common.CampaignType.AdvocateDashboard;
 import static talkable.common.CampaignType.Invite;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.*;
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.*;
 import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
@@ -386,7 +386,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
                                                                 Table.Status status,
                                                                 String campaignView,
                                                                 String localizationName,
-                                                                EditorPage.LocalizationMode localizationType,
+                                                                EditorPage.LocalizationType localizationType,
                                                                 String expectedSelectedCampaignsCount,
                                                                 String expectedUnselectedCampaignsCount,
                                                                 String expectedIneligibleCampaignsCount)
@@ -412,7 +412,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     }
 
     private void checkValueInFirstCampaign(PageMultiCampaignEditor mcePage,
-                                             EditorPage.LocalizationMode localizationType,
+                                             EditorPage.LocalizationType localizationType,
                                              String localizationName,
                                              String newContentValue){
         EditorPage editor = mcePage.backToEditor();
@@ -425,7 +425,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
                                             String campaignName,
                                             Table.Status campaignStatus,
                                             String campaignViewName,
-                                            EditorPage.LocalizationMode mode,
+                                            EditorPage.LocalizationType mode,
                                             String localizationName,
                                             String newContentValue){
         //open campaignDetailsPage and open second campaign:

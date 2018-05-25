@@ -15,7 +15,7 @@ import util.PropertyLoader;
 
 import static talkable.common.CampaignPlacement.Standalone;
 import static talkable.common.CampaignType.Invite;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.*;
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.*;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1jjxHr_cLNaSq3HVBgU_y6k_llNDpNyTZUoWPAJ9Aw20/edit
  * */
@@ -45,7 +45,7 @@ public class SimpleEditorTesting extends BaseTest {
     // Edit configuration content
     // Edit image content
     @Test(dataProvider = "editContentTestData")
-    public void test2_editContent(EditorPage.LocalizationMode mode, String localizationName, String newValue)
+    public void test2_editContent(EditorPage.LocalizationType mode, String localizationName, String newValue)
     {
         editContentTest(mode, localizationName, newValue);
     }
@@ -63,7 +63,7 @@ public class SimpleEditorTesting extends BaseTest {
 
     }
 
-    private void editContentTest(EditorPage.LocalizationMode mode, String localizationName, String newValue){
+    private void editContentTest(EditorPage.LocalizationType mode, String localizationName, String newValue){
         editorPage = new EditorPage(mode);
         editorPage = editorPage.updateLocalization(mode, localizationName, newValue);
         Assert.assertEquals(editorPage.getLocalizationValue(mode, localizationName), newValue);

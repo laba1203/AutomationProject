@@ -12,18 +12,18 @@ import java.util.List;
 public class LocalizationSidebar extends AbstractElementsContainer{
 
     private static final String localizationItemsXpath = "//div[contains(@class, 'Locale-entries-localizations-item')]";
-    private EditorPage.LocalizationMode mode;
+    private EditorPage.LocalizationType mode;
     private ArrayList<RecordFactory> copyRecords = new ArrayList<>();
     private ArrayList<RecordFactory> colorRecords = new ArrayList<>();
     private ArrayList<RecordFactory> imagesRecords = new ArrayList<>();
     private ArrayList<RecordFactory> configRecords = new ArrayList<>();
 
-    public LocalizationSidebar(EditorPage.LocalizationMode mode){
+    public LocalizationSidebar(EditorPage.LocalizationType mode){
         setRecords(mode);
         this.mode = mode;
     }
 
-    private void setRecords(EditorPage.LocalizationMode mode){
+    private void setRecords(EditorPage.LocalizationType mode){
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(localizationItemsXpath)));
         List<WebElement> items = driver.findElements(By.xpath(localizationItemsXpath));
         for (WebElement webElement :
@@ -33,11 +33,11 @@ public class LocalizationSidebar extends AbstractElementsContainer{
     }
 
 
-    public void updateRecord(EditorPage.LocalizationMode mode, String localizationName, String newValue){
+    public void updateRecord(EditorPage.LocalizationType mode, String localizationName, String newValue){
         getRecord(mode, localizationName).update(newValue);
     }
 
-    public RecordFactory getRecord(EditorPage.LocalizationMode mode, String localizationName){
+    public RecordFactory getRecord(EditorPage.LocalizationType mode, String localizationName){
         verifyMode(mode);
         switch (mode){
             case CONFIGURATION:
@@ -64,7 +64,7 @@ public class LocalizationSidebar extends AbstractElementsContainer{
         return null;
     }
 
-    private void verifyMode(EditorPage.LocalizationMode actualMode){
+    private void verifyMode(EditorPage.LocalizationType actualMode){
         Assert.assertEquals(actualMode, this.mode, "FAILED: Incorrect localization mode");
     }
 
@@ -72,7 +72,7 @@ public class LocalizationSidebar extends AbstractElementsContainer{
         Assert.fail("FAILED: There is no view copyRecords with name : <" + localizationName + ">");
     }
 
-    private void addRecord(EditorPage.LocalizationMode mode, WebElement webElement){
+    private void addRecord(EditorPage.LocalizationType mode, WebElement webElement){
         switch (mode){
             case COPY:
                 copyRecords.add(new LocalizationCopyRecord(webElement));

@@ -14,7 +14,7 @@ public class Screenshot {
 
     private static final String PATH_TO_SAVE = "src/test/output/screenshots/";
     private String absoluteFilePath;
-    private String fileName = "Screenshot_" + getTimeStamp() + ".png";
+    private String fileName;
     
     public void makeScreenshot(){
         File srcFile = ((TakesScreenshot)DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
@@ -25,6 +25,7 @@ public class Screenshot {
     }
 
     private void copyFile(File file){
+        fileName =  "Screenshot_" + getTimeStamp() + ".png";
         String filePath = PATH_TO_SAVE + fileName;
         try {
             File newFile = new File(filePath);

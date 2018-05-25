@@ -2,13 +2,10 @@ package execution.registration;
 
 import common.cases.CommonScenarios;
 import execution.BaseTest;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
-import util.DriverConfig;
 import util.EnvFactory;
 import util.TestDataGenerator;
 

@@ -10,7 +10,7 @@ import util.Screenshot;
 import java.lang.reflect.Method;
 
 public class BaseTest {
-//        private DriverConfig driverFactory;
+
         public WebDriver driver;
         private Screenshot screenshot = new Screenshot();
 
@@ -18,7 +18,6 @@ public class BaseTest {
         //setup driver and open Talkable site.
         @BeforeSuite
         public void commonSetup() {
-//            this.driverFactory = new DriverConfig();
             this.driver = DriverConfig.getDriver();
             this.driver.navigate().to(EnvFactory.getEnvUrl());
             System.out.println("*** DEBAG: Before suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
@@ -42,12 +41,11 @@ public class BaseTest {
         }
 
 
-//        @AfterMethod
+        @AfterMethod
         public void takeScreenshot(ITestResult result){
-            System.out.println("DEBAG: Method ITestResult: <" + result.getStatus() + "> for screenshots");
             if(ITestResult.FAILURE == result.getStatus()){
-                screenshot.makeScreenshot();
-                System.out.println("URL: " + driver.getCurrentUrl());
+//                screenshot.makeScreenshot(); //TODO: re-work capturing screenshots
+                System.out.println("URL on fail: " + driver.getCurrentUrl());
             }
         }
 

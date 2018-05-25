@@ -16,7 +16,7 @@ import static talkable.common.CampaignPlacement.PostPurchase;
 import static talkable.common.CampaignPlacement.Standalone;
 import static talkable.common.CampaignType.AdvocateDashboard;
 import static talkable.common.CampaignType.Invite;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.COPY;
 import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 import static talkable.talkableSite.campaignsPage.Table.Status.TEST;

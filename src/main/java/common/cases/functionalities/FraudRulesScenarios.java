@@ -104,7 +104,7 @@ public class FraudRulesScenarios extends CommonScenarios{
 
     public static FraudSettingsPage setReferralApprovalDelay(int period){
         FraudSettingsPage page = new FraudSettingsPage().setReferralApprovalDelay(period);
-        Assert.assertEquals(page.getReferralApprovalDelay(), String.valueOf(period));
+        Assert.assertEquals(page.getReferralApprovalDelay(), "0" + period);
         return page;
     }
 

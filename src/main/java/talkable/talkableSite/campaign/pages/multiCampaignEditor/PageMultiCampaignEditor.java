@@ -5,14 +5,14 @@ import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
 
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.COPY;
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.COPY;
 import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.INELIGIBLE;
 import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.SELECTED;
 import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.UNSELECTED;
 
 public class PageMultiCampaignEditor extends AbstractTalkableSitePage
 {
-    private EditorPage.LocalizationMode mode;
+    private EditorPage.LocalizationType mode;
     private ElmntBackToEditor backToEditorButton = new ElmntBackToEditor();
     private ElmntCampaignViewField campaignViewField = new ElmntCampaignViewField();
     private ElmntContentField contentField = new ElmntContentField();
@@ -26,7 +26,7 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
 
     private ContentValueRecord contentRecord;
 
-    public PageMultiCampaignEditor(EditorPage.LocalizationMode mode){
+    public PageMultiCampaignEditor(EditorPage.LocalizationType mode){
         this.mode = mode;
         contentRecord = getContentValueRecord(mode);
         setCampaignsLists();
@@ -34,7 +34,7 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
         System.out.println("DEBAG: MCE page is opened");
     }
 
-    private ContentValueRecord getContentValueRecord(EditorPage.LocalizationMode mode){
+    private ContentValueRecord getContentValueRecord(EditorPage.LocalizationType mode){
         switch (mode){
             case COPY:
                 return new ContentCopyInput();
