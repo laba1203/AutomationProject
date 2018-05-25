@@ -86,7 +86,7 @@ public class CommonScenarios {
 
     public static SiteDashboardPage switchToIntegratedSiteByVisibleText(String siteName) {
         new Header().selectByVisibleText(siteName);
-        SiteDashboardPage siteDashboardPage = new SiteDashboardPage();
+        SiteDashboardPage siteDashboardPage = new SiteDashboardPage().verifySiteName(siteName);
 
         Assert.assertEquals(getSiteNameFromHeader(), siteName, "FAILED: Site is not switched");
 
@@ -136,6 +136,30 @@ public class CommonScenarios {
         Assert.assertEquals(page.getCampaignName(), campaignName, "FAILED: Campaign name is not updated on Rules page");
         Log.logRecord("Campaign name changed to <" + campaignName + ">");
         return page;
+    }
+
+//    public static String getCampaignNameFromRulesPage(){
+//        return new PageCampaignRules().getCampaignName();
+//    }
+
+    public static void setCampaignDescriptionOnRulesPage(String campaignDesc){
+        PageCampaignRules page = new PageCampaignRules().setCampaignDescription(campaignDesc);
+        Assert.assertEquals(page.getCampaignDescription(), campaignDesc, "FAILED: Campaign description is not updated on Rules page");
+        Log.logRecord("Campaign description changed to <" + campaignDesc + ">");
+    }
+
+    public static void setDeadlinesOnRulesPage(String advocateOfferDeadlineDate, String adOfferEndTime, String friendDeadlineDate, String frOfferEndTime){
+        PageCampaignRules rulesPage = new PageCampaignRules();
+        rulesPage = rulesPage.setDeadlineDates(advocateOfferDeadlineDate, adOfferEndTime, friendDeadlineDate, frOfferEndTime);
+
+        Assert.assertEquals(rulesPage.getAdvocateDeadlineDate(), advocateOfferDeadlineDate, "FAILED: Incorrect Advocate Deadline Date on Campaign Rules page");
+        Assert.assertEquals(rulesPage.getAdvocateDeadlineTime(), adOfferEndTime, "FAILED: Incorrect Advocate Deadline Time on Campaign Rules page");
+        Log.logRecord("Advocate deadline date and time have been changed to " + advocateOfferDeadlineDate + ", " + adOfferEndTime + "on Campaign Rules page");
+
+        Assert.assertEquals(rulesPage.getFriendDeadlineDate(), friendDeadlineDate, "FAILED: Incorrect Friend Deadline Date on Campaign Rules page");
+        Assert.assertEquals(rulesPage.getFriendDeadlineTime(), frOfferEndTime,  "FAILED: Incorrect Friend Deadline Time on Campaign Rules page");
+        Log.logRecord("Friend deadline date and time have been changed to " + friendDeadlineDate + ", " + frOfferEndTime + "on Campaign Rules page");
+
     }
 
 
@@ -209,6 +233,10 @@ public class CommonScenarios {
             e.printStackTrace();
         }
         return launchCampaign();
+    }
+
+    public static String getAdvocateOfferTotalCountFromCampaignDetailsPage(){
+        return new CampaignDetailsPage().getAdvocateOffersTotalCount();
     }
 
 
@@ -307,6 +335,10 @@ public class CommonScenarios {
         PageMultiCampaignEditor mceEditor =  editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
         Log.logRecord("Multi-Campaign Editor page is opened for campaign = <" + campaignName + ">, localization = <" + contentType + " --> " + localizationName + ">.");
         return mceEditor;
+    }
+
+    public static String getCampaignStatusFromMenu(){
+        return new CampaignNavigationMenu().getCampaignStatus();
     }
 
 
