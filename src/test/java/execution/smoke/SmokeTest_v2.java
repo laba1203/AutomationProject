@@ -116,8 +116,13 @@ public class SmokeTest_v2 extends BaseTest{
 
     private void addIncentive() {
         PageCampaignRules rulesPage = new PageCampaignRules();
-        rulesPage = rulesPage.createNewIncentive(IncentiveType.AdvocateSignupIncentive, 25, DiscountType.FixedAmount, CouponCodeType.MultiUse);
-        rulesPage.createNewIncentive(IncentiveType.FriendIncentive_NewCustomer, 10, DiscountType.Percentage, CouponCodeType.MultiUse);
+        rulesPage = rulesPage.createNewIncentive(
+                IncentiveType.AdvocateSignupIncentive,
+                25, DiscountType.FixedAmount,
+                CouponCodeType.MultiUse);
+        rulesPage.createNewIncentive(IncentiveType.FriendIncentive_NewCustomer,
+                10, DiscountType.Percentage,
+                CouponCodeType.MultiUse);
     }
 
 }
