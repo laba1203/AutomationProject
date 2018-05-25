@@ -16,7 +16,7 @@ import static talkable.userRegistration.chosePlatformPage.ChosePlatformPage.Plat
 public class CreateNewUserWithSite extends BaseTest{
 
     private static final String email = "maxim.laba+auto.test" + TestDataGenerator.getRandomId() + "@talkable.com";
-    private static final String password = "Password1";
+    private static final String password = "Password@1";
     private static final String siteName = "autoSite" + TestDataGenerator.getRandomId();
     private static final String siteUrl = "https://auto.test.site.com";
 
