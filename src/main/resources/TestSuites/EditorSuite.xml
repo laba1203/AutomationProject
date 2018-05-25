@@ -1,11 +1,10 @@
 <suite name="Editor Suite" preserve-order="true" group-by-instances="true">
     <test name="Simple Editor" preserve-order="true" >
         <classes>
-            <class name="execution.editor.SimpleEditorTesting"/>
+            <!--<class name="execution.editor.SimpleEditorTesting"/>-->
+            <class name="execution.editor.SimpleEditorTesting_v2"/>
         </classes>
     </test>
-
-
 
 </suite>
 

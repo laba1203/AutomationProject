@@ -3,7 +3,6 @@ package api.scenarios;
 import api.objects.Site;
 import api.objects.advocateOffers.AdvocateOffers;
 import api.objects.origin.Origin;
-import api.objects.shares.Shares;
 import api.objects.shares.channel.email.SharesEmail;
 import api.objects.shares.channel.social.SharesSocial;
 import io.restassured.RestAssured;
@@ -49,18 +48,17 @@ public class ViaAPI {
                 .extract().path("result.offer.short_url_code");
     }
 
-    //TODO: remove after implementation. switch to getFacebookShareShortURL_v2()
-    @Deprecated
+//    @Deprecated
+//    private static String getFacebookShareShortURL(Site site, String shortUrlCode){
+//        Response resp = new Shares().postFacebookShare(site, shortUrlCode);
+//
+//        return resp
+//                .then()
+//                .contentType(JSON)
+//                .extract().path("result.share.short_url");
+//    }
+
     private static String getFacebookShareShortURL(Site site, String shortUrlCode){
-        Response resp = new Shares().postFacebookShare(site, shortUrlCode);
-
-        return resp
-                .then()
-                .contentType(JSON)
-                .extract().path("result.share.short_url");
-    }
-
-    private static String getFacebookShareShortURL_v2(Site site, String shortUrlCode){
         Response resp = new SharesSocial().postFacebookShare(site, shortUrlCode);
 
         return resp

@@ -6,6 +6,7 @@ import org.testng.annotations.*;
 import util.DriverConfig;
 import util.EnvFactory;
 import util.Screenshot;
+import util.logging.Log;
 
 import java.lang.reflect.Method;
 
@@ -18,6 +19,7 @@ public class BaseTest {
         //setup driver and open Talkable site.
         @BeforeSuite
         public void commonSetup() {
+            Log.logRecord("Class name: " + this.getClass().getName());
             this.driver = DriverConfig.getDriver();
             this.driver.navigate().to(EnvFactory.getEnvUrl());
             System.out.println("*** DEBAG: Before suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");

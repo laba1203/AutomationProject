@@ -1,7 +1,8 @@
 <suite name="SmokeTest" preserve-order="true" group-by-instances="true">
     <test name="Smoke Test" preserve-order="true" >
         <classes>
-            <class name="execution.smoke.SmokeTest"/>
+            <!--<class name="execution.smoke.SmokeTest"/>-->
+            <class name="execution.smoke.SmokeTest_v2"/>
         </classes>
     </test>
 
