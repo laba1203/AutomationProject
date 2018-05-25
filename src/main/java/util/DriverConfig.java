@@ -22,6 +22,10 @@ public class DriverConfig {
 
     private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
+    /*The flag indicates whether the test will be executed on Local or Remote machine.
+    !!! Please note always put the flag to TRUE before creation of pull request to origin/master !!!*/
+    private static final boolean remoteExecution = false;
+
     @Parameters()
     private WebDriver setNewLocalDriver()
     {
@@ -79,8 +83,11 @@ public class DriverConfig {
 
     public static WebDriver getDriver(){
         if (driver == null){
-//            driver = new DriverConfig().setNewLocalDriver(); //for local testing
-            driver = DriverConfig.setNewRemoteDriver().get(); //for remote testing
+            if(remoteExecution) {
+                driver = DriverConfig.setNewRemoteDriver().get(); //for remote testing
+            }else {
+                driver = new DriverConfig().setNewLocalDriver(); //for local testing
+            }
         }
         return driver;
     }

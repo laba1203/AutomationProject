@@ -11,7 +11,7 @@ import util.TestArtifactsProvider;
 
 import java.util.ArrayList;
 
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationMode.IMAGES;
+import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.IMAGES;
 
 public class PopupSelectImage extends AbstractElementsContainer{
 //    private static final By popUpDiv = By.xpath("//div[contains(@class, 'Locale-entries-popup ')]");

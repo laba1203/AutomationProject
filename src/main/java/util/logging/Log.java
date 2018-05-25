@@ -12,6 +12,17 @@ public class Log {
     private static final String screenshotMsg = "Screenshot is available by the following path: ";
 
 
+    public static void testFailed(String msg){
+        System.out.println("FAILED: " + msg);
+    }
+
+    public static void logRecord(String msg){
+        System.out.println("LOG: " + msg);
+    }
+
+    public static void debagRecord(String msg){
+        System.out.println("DEBAG: " + msg);
+    }
 
     public static String clickMsg(Object obj){
         String msg = clickMsg + obj.getClass().getName();
@@ -117,11 +128,6 @@ public class Log {
         return msg;
     }
 
-    public static String userAndSiteCreatedMsg(String userName, String siteName){
-        String msg = "LOG: The following user successfully registered: " + userName + "\r\nThe following site created for the above user: " + siteName + "\r\n*****";
-        System.out.println(msg);
-        return msg;
-    }
 
     public static String elementClearedMsg(AbstractElement element){
         String msg = "LOG: Text is cleared in element: " + element.getClass().getName();
