@@ -21,7 +21,8 @@ public class ViaAPI {
         String advocateUUID = getRandomUUID();
         int offerID = getOfferIdFromOrigin(site, adEmail, advocateUUID);
         String shortUrlCode = getShortUrlCodeFromAdvocateOffer(site, offerID);
-        String shortURL = getFacebookShareShortURL(site, shortUrlCode);
+//        String shortURL = getFacebookShareShortURL(site, shortUrlCode);
+        String shortURL = getFacebookShareShortURL_v2(site, shortUrlCode);
         String friendUUID = getUuidAfterVisitToShortURL(shortURL);
         new Origin().postOriginPurchaseWithUUID(site, frEmail , friendUUID);
     }
