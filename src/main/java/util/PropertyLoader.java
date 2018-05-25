@@ -64,10 +64,10 @@ public class PropertyLoader {
     public static String getMavenEnvName(){
         //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
         //correct working:
-//        String env = System.getProperty("test.environment");
+        String env = System.getProperty("test.environment");
         //for local running of the project:
 //        String env = "VOID";
-        String env = "PROD";
+//        String env = "PROD";
 //
         System.out.println("LOG - PropertyLoader: Test is running on <" + env + "> environment");
         return env;
