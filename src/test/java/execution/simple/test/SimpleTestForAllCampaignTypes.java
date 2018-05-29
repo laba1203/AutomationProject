@@ -35,7 +35,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
     }
 
     @Test(dataProvider = "getTestData", dependsOnMethods = "login")
-    public void test(CampaignType campaignType, CampaignPlacement campaignPlacement){
+    public void createCampaign(CampaignType campaignType, CampaignPlacement campaignPlacement){
         String campaignName = "AUTO_TEST_" + TestDataGenerator.getRandomId();
 
         //open Talkable admin site:
@@ -53,7 +53,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
         //Verification on Customer Site:
         if (ClientSiteScenarios.isCampaignOnCustomerSite(campaignType, campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
-            Log.testPassed(campaignPlacement.toString() + " is present on the site\r");
+            Log.testPassed(campaignPlacement.toString() + " is present on the site\r\n");
         }
         else{
             Assert.fail("FAILED: " + campaignType.toString() + ": " + campaignPlacement.toString() + " is not displayed on the customer site: " + getCustomerSiteUrl(campaignPlacement));
@@ -66,7 +66,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
         //Verify that campaign is inactive on the Customer Site:
         if (!ClientSiteScenarios.isCampaignOnCustomerSite(campaignType, campaignPlacement, getCustomerSiteUrl(campaignPlacement))){
-            Log.testPassed(campaignPlacement.toString() + " is not displayed on the site\r");
+            Log.testPassed(campaignPlacement.toString() + " is not displayed on the site\r\n");
         }
         else{
             Assert.fail("FAILED: " + campaignType.toString() + ": " + campaignPlacement.toString() + " is displayed on the customer site after deactivation");
