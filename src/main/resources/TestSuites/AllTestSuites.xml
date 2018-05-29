@@ -1,16 +1,14 @@
 <suite name="All Test Suites">
 
     <suite-file path="SmokeTest.xml"/>
-
     <suite-file path="SimpleTestForAllCampaignsTypes.xml"/>
     <suite-file path="EditorSuite.xml"/>
-    <!--<suite-file path="MultiCampaignEditorSuite.xml"/>  &lt;!&ndash;TODO: MCE suite should be fixed&ndash;&gt;-->
-
     <suite-file path="FraudRulesTestSuite.xml"/>
     <!--<suite-file path="ReportsSuite.xml"/>-->
 
     <!--Please note: Below suite will create new site-->
     <suite-file path="AccountAndSiteCreation.xml"/>
+    <suite-file path="MultiCampaignEditorSuite.xml"/>  <!--TODO: MCE suite should be fixed-->
 
 </suite>
 
