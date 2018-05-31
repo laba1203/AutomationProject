@@ -19,6 +19,8 @@ public class Table extends AbstractElementsContainer {
     private static final By testLctr = By.xpath("//h2[contains(text(), 'Test')]/following::table[1]");
     private static final By rowsXpath = By.xpath("./tbody/tr");
 
+    private static final By campaignsCountXpath = By.xpath("./preceding::h2[1]/span[@class='Campaign-management-list-header-count']");
+
     private Status status;
     private ArrayList<Row> table = new ArrayList<>();
 
@@ -71,6 +73,12 @@ public class Table extends AbstractElementsContainer {
             Assert.fail("FAILED: Campaigns with status <" + status + "> are not available on Campaigns Page");
             return null;
         }
+    }
+
+    public String getCampaignsCount(){
+        return setTableWebElement(status)
+                .findElement(campaignsCountXpath)
+                .getText();
     }
 
     public Status getStatus() {

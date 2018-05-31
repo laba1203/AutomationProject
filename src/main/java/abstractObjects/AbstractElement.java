@@ -44,7 +44,7 @@ public abstract class AbstractElement implements DrivenElement{
     {
         initializeWebElement();
 //        actions.moveToElement(this.webElement).perform();
-            this.webElement.click();
+        this.webElement.click();
 
         Log.clickMsg(this);
     }

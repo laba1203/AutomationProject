@@ -19,24 +19,18 @@ public class PageCampaigns extends AbstractTalkableSitePage {
     private static final String testCampaignsTableXpath = "//h2[contains(text(), 'Test')]/following::table[1]";
     private static final String disabledCampaignsTableXpath = "//h2[contains(text(), 'Disabled')]/following::table[1]";
     private ElmntCreateNewCampaignButton createNewCampaignButton = new ElmntCreateNewCampaignButton();
-    private Table liveCampaigns;
-    private Table testCampaigns;
-    private Table disabledCampaigns;
 
     public PageCampaigns() {
     }
 
-    private Table getLiveCampaignsTable() {
-        return new Table(LIVE);
+//    private Table getLiveCampaignsTable() {
+//        return new Table(LIVE);
+//    }
+
+    public Table getCampaignsTable(Table.Status status){
+        return new Table(status);
     }
 
-    public Table getTestCampaignsTable() {
-        return new Table(TEST);
-    }
-
-    public Table getDisabledCampaignsTable() {
-        return new Table(DISABLED);
-    }
 
     public CampaignDetailsPage createNewCampaign(CampaignType type, CampaignPlacement placement) {
         this.createNewCampaignButton.click();
@@ -54,7 +48,7 @@ public class PageCampaigns extends AbstractTalkableSitePage {
 
     public PageCampaigns deactivateAllLiveCampaigns(){
         if(isTablePresent(LIVE)) {
-            ArrayList<Table.Row> campaigns = getLiveCampaignsTable().getAllRows();
+            ArrayList<Table.Row> campaigns = getCampaignsTable(LIVE).getAllRows();
             for (Table.Row row :
                     campaigns) {
                 String campaignName = row.name.getText();
@@ -69,33 +63,9 @@ public class PageCampaigns extends AbstractTalkableSitePage {
     public PageCampaigns deleteAllCampaignsWithStatus(Table.Status status){
         if(isTablePresent(status)){
             deleteAllCampaigns(new Table(status));
-//            int count = getTestCampaignsTable().getAllRows().size();
-//            System.out.println("DEBAG: Found " + count + " Test campaign for deletion");
-//            for(int i = 0; i < count; i++){
-//                Table.Row row = getTestCampaignsTable().getAllRows().get(0);
-//                String campaignName = row.name.getText();
-//                row.delete();
-//                waitDeletion();
-//                Log.campaignDeleted(campaignName);
-//            }
         }
         return new PageCampaigns();
     }
-
-//    public PageCampaigns deleteAllLiveCampaigns(){
-//        if(isTablePresent(LIVE)){
-//            deleteAllCampaigns(getLiveCampaignsTable());
-//        }
-//        return new PageCampaigns();
-//    }
-
-//    public PageCampaigns deleteAllDisabledCampaigns(){
-//        Table.Status status = DISABLED;
-//        if(isTablePresent(status)){
-//            deleteAllCampaigns(getDisabledCampaignsTable(), status);
-//        }
-//        return new PageCampaigns();
-//    }
 
     private void deleteAllCampaigns(Table table){
         Table.Status status = table.getStatus();
