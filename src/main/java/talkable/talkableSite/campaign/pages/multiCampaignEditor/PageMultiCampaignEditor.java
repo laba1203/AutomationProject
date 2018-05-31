@@ -17,21 +17,12 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
     private ElmntCampaignViewField campaignViewField = new ElmntCampaignViewField();
     private ElmntContentField contentField = new ElmntContentField();
     private ElmntCampaignFilter campaignFilter = new ElmntCampaignFilter();
-    private ElmntSaveContentButton saveContentButton = new ElmntSaveContentButton();
-    private CampaignsList selectedCampaigns;
-    private CampaignsList unselectedCampaigns;
-    private CampaignsList ineligibleCampaigns;
-
     private ElmntPreviewButton previewButton = new ElmntPreviewButton();
-
-    private ContentValueRecord contentRecord;
 
     public PageMultiCampaignEditor(EditorPage.LocalizationType mode){
         this.mode = mode;
-        contentRecord = getContentValueRecord(mode);
-        setCampaignsLists();
-
-        System.out.println("DEBAG: MCE page is opened");
+        getContentValueRecord(mode);
+        new ElmntSaveContentButton();
     }
 
     private ContentValueRecord getContentValueRecord(EditorPage.LocalizationType mode){
@@ -51,11 +42,11 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
     }
 
     public String getNewContentValue(){
-        return contentRecord.getText();
+        return getContentValueRecord(mode).getText();
     }
 
     public PageMultiCampaignEditor updateContent(String newValue){
-        contentRecord.update(newValue);
+        getContentValueRecord(mode).update(newValue);
         return saveChanges();
     }
 
@@ -68,37 +59,29 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
         return campaignViewField.getText();
     }
 
-    public String getContentValue() {
+    public String getContentValueName() {
         return contentField.getText();
     }
 
     public CampaignsList getIneligibleCampaigns() {
-        return ineligibleCampaigns;
+        return new CampaignsList(INELIGIBLE);
     }
 
     public CampaignsList getSelectedCampaigns() {
-        return selectedCampaigns;
+        return new CampaignsList(SELECTED);
     }
 
     public CampaignsList getUnselectedCampaigns() {
-        return unselectedCampaigns;
-    }
-
-    private void setCampaignsLists(){
-        selectedCampaigns = new CampaignsList(SELECTED);
-        unselectedCampaigns = new CampaignsList(UNSELECTED);
-        ineligibleCampaigns = new CampaignsList(INELIGIBLE);
+        return new CampaignsList(UNSELECTED);
     }
 
     public PageMultiCampaignEditor selectCampaign(String campaignName){
-        unselectedCampaigns.findCampaign(campaignName).select();
-        setCampaignsLists();
+        getUnselectedCampaigns().findCampaign(campaignName).select();
         return new PageMultiCampaignEditor(this.mode);
     }
 
     public PageMultiCampaignEditor unselectCampaign(String campaignName){
-        selectedCampaigns.findCampaign(campaignName).select();
-        setCampaignsLists();
+        getSelectedCampaigns().findCampaign(campaignName).select();
         return new PageMultiCampaignEditor(this.mode);
     }
 
@@ -109,9 +92,8 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
     }
 
     public PageMultiCampaignEditor typeToSearch(String text){
-        campaignFilter.clear();
-        campaignFilter.sendKeys(text);
-        setCampaignsLists();
+        new ElmntCampaignFilter().clear();
+        new ElmntCampaignFilter().sendKeys(text);
         return new PageMultiCampaignEditor(this.mode);
     }
 

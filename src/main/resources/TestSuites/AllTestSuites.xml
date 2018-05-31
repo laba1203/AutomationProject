@@ -8,7 +8,7 @@
 
     <!--Please note: Below suite will create new site-->
     <suite-file path="AccountAndSiteCreation.xml"/>
-    <suite-file path="MultiCampaignEditorSuite.xml"/>  <!--TODO: MCE suite should be fixed-->
+    <suite-file path="MultiCampaignEditorSuite.xml"/>
 
 </suite>
 

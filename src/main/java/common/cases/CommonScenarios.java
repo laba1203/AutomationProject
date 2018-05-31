@@ -111,6 +111,14 @@ public class CommonScenarios {
         return page;
     }
 
+    public static String getCampaignsCountFromCampaignsPage(Table.Status status){
+        try {
+            return new PageCampaigns().getCampaignsTable(status).getCampaignsCount();
+        }catch (AssertionError e){
+            return "0";
+        }
+    }
+
 
     public static void openCampaignDetailsPage(String campaignName, Table.Status campaignStatus){
         PageCampaigns page = openCampaignsPage();
