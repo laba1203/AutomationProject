@@ -98,7 +98,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
         // Verify Campaign view field on MCE screen
         Assert.assertEquals(mcePage.getCampaignViewValue(), campaignView);
         // Verify Content field on MCE screen
-        Assert.assertEquals(mcePage.getContentValue(), localizationName);
+        Assert.assertEquals(mcePage.getContentValueName(), localizationName);
         // Verify selected campaign list
         Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), "1", "FAILED: Incorrect count of Selected campaigns");
         // Verify unselected campaigns list
@@ -400,7 +400,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
         // Verify Campaign view field on MCE screen
         Assert.assertEquals(mcePage.getCampaignViewValue(), campaignView);
         // Verify Content field on MCE screen
-        Assert.assertEquals(mcePage.getContentValue(), localizationName);
+        Assert.assertEquals(mcePage.getContentValueName(), localizationName);
         // Verify selected campaign list
         Assert.assertEquals(mcePage.getSelectedCampaigns().getCampaignCount(), expectedSelectedCampaignsCount, "FAILED: Incorrect count of Selected campaigns");
         // Verify unselected campaigns list

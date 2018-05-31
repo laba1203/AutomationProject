@@ -7,7 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
-import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import util.EnvFactory;
 import util.PropertyLoader;
 
@@ -24,10 +23,10 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
     private static final String siteName = PropertyLoader.loadProperty("sites.name.multiCampaignEditorTesting");
 
     //name of campaigns used in test:
-    private String campaignNameFW_1;
-    private String campaignNameSA;
-    private String campaignNameFW_2;
-    private String campaignNamePP;
+    private String campaignNameFW_1 = "Invite Floating Widget";
+    private String campaignNameSA = "Invite Standalone";
+    private String campaignNameFW_2 = "Advocate Dashboard Floating Widget";
+    private String campaignNamePP = "Invite Post Purchase";
 
     @Test(groups = "updateContent")
     public void precondition() {
@@ -39,29 +38,44 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //clear data from previous execution:
-        CommonScenarios.openCampaignsPage();
-        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
-        CommonScenarios.deleteAllCampaignsWithStatus(LIVE);
-        CommonScenarios.deleteAllCampaignsWithStatus(DISABLED);
 
-        //Create campaigns for testing:
-        campaignNameSA = CommonScenarios.createNewCampaignFromCampaignsPage(Invite, Standalone);
         CommonScenarios.openCampaignsPage();
 
+        //verify existing test data nad if
+       if(!CommonScenarios.getCampaignsCountFromCampaignsPage(LIVE).equals("3")){
+           CommonScenarios.deleteAllCampaignsWithStatus(LIVE);
 
-        campaignNameFW_1 = CommonScenarios.createNewCampaignFromCampaignsPage(Invite, FloatingWidget);
-        CommonScenarios.openCampaignsPage();
+           CommonScenarios.createAndLaunchCampaign(Invite, FloatingWidget);
+           CommonScenarios.openCampaignsPage();
+           CommonScenarios.createAndLaunchCampaign(Invite, Standalone);
+           CommonScenarios.openCampaignsPage();
+           CommonScenarios.createAndLaunchCampaign(Invite, PostPurchase);
+       }
 
-        campaignNameFW_2 = CommonScenarios.createNewCampaignFromCampaignsPage(AdvocateDashboard, FloatingWidget);
-        CommonScenarios.openCampaignsPage();
+       CommonScenarios.openCampaignsPage();
+       if(!CommonScenarios.getCampaignsCountFromCampaignsPage(TEST).equals("4")){
+           CommonScenarios.deleteAllCampaignsWithStatus(TEST);
 
-        campaignNamePP = CommonScenarios.createNewCampaignFromCampaignsPage(Invite, PostPurchase);
+           campaignNameSA = CommonScenarios.createNewCampaignFromCampaignsPage(Invite, Standalone);
+           CommonScenarios.openCampaignsPage();
+           campaignNameFW_1 = CommonScenarios.createNewCampaignFromCampaignsPage(Invite, FloatingWidget);
+           CommonScenarios.openCampaignsPage();
+           campaignNameFW_2 = CommonScenarios.createNewCampaignFromCampaignsPage(AdvocateDashboard, FloatingWidget);
+           CommonScenarios.openCampaignsPage();
+           campaignNamePP = CommonScenarios.createNewCampaignFromCampaignsPage(Invite, PostPurchase);
+       }
 
+       CommonScenarios.openCampaignsPage();
+       if(!CommonScenarios.getCampaignsCountFromCampaignsPage(DISABLED).equals("1")){
+           CommonScenarios.deleteAllCampaignsWithStatus(DISABLED);
+
+           CampaignDetailsPage detailsPage = CommonScenarios.createAndLaunchCampaign(AdvocateDashboard, Standalone);
+           detailsPage.campaignNavigationMenu.deactivateCampaign();
+       }
     }
 
 
-    @Test(groups = "updateContent", dependsOnMethods = "precondition")
+    @Test (groups = "updateContent", dependsOnMethods = "precondition")
     public void modifyCOPY() {
         //test data:
         EditorPage.LocalizationType mode = COPY;
@@ -82,14 +96,14 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
         //Verify campaigns count in Selected, Unselected and Ineligible sections
         MceScenarios.assertCampaignsCountInGrids(mode,
                 "1",
-                "1",
-                "2");
+                "2",
+                "5");
 
         //select second campaign:
         MceScenarios.selectCampaignOnMceScreen(mode, campaignNameFW_2);
 
         //verify Selected and Unselected campaigns count
-        MceScenarios.assertSelectedAndUnselectedCampaignsCount(mode, "2", "0");
+        MceScenarios.assertSelectedAndUnselectedCampaignsCount(mode, "2", "1");
 
         //update content
         MceScenarios.updateContentValue(mode, newContentValue);
@@ -126,12 +140,14 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
         //Verify campaigns count in Selected, Unselected and Ineligible sections
         MceScenarios.assertCampaignsCountInGrids(localizationType,
                 "1",
-                "3",
+                "7",
                 "0");
 
+        MceScenarios.typeToSearchField("test", COLOR);
         MceScenarios.selectCampaignOnMceScreen(localizationType, campaignNameFW_1);
         MceScenarios.selectCampaignOnMceScreen(localizationType, campaignNameSA);
-        MceScenarios.assertSelectedAndUnselectedCampaignsCount(localizationType, "3", "1");
+        MceScenarios.typeToSearchField(" ", COLOR);
+        MceScenarios.assertSelectedAndUnselectedCampaignsCount(localizationType, "3", "5");
 
         MceScenarios.updateContentValue(localizationType, newContentValue);
 
@@ -165,11 +181,13 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
         //Verify campaigns count in Selected, Unselected and Ineligible sections
         MceScenarios.assertCampaignsCountInGrids(localizationType,
                 "1",
-                "3",
+                "7",
                 "0");
 
+        MceScenarios.typeToSearchField("test", CONFIGURATION);
         MceScenarios.selectCampaignOnMceScreen(localizationType, campaignNamePP);
-        MceScenarios.assertSelectedAndUnselectedCampaignsCount(localizationType, "2", "2");
+        MceScenarios.typeToSearchField(" ", CONFIGURATION);
+        MceScenarios.assertSelectedAndUnselectedCampaignsCount(localizationType, "2", "6");
 
         MceScenarios.updateContentValue(localizationType, newContentValue);
 
@@ -201,11 +219,13 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
         //Verify campaigns count in Selected, Unselected and Ineligible sections
         MceScenarios.assertCampaignsCountInGrids(IMAGES,
                 "1",
-                "1",
-                "2");
+                "3",
+                "4");
 
+        MceScenarios.typeToSearchField("test", IMAGES);
         MceScenarios.selectCampaignOnMceScreen(IMAGES, campaignNameFW_1);
-        MceScenarios.assertSelectedAndUnselectedCampaignsCount(IMAGES, "2", "0");
+        MceScenarios.typeToSearchField(" ", IMAGES);
+        MceScenarios.assertSelectedAndUnselectedCampaignsCount(IMAGES, "2", "2");
 
         MceScenarios.updateContentValue(IMAGES, newContentValue);
 
@@ -218,69 +238,57 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
     /*
     Additional Scenarios for MCE: Filtering, Preview
     */
-    @Test(groups = "additionalCases", dependsOnMethods = "precondition")//dependsOnGroups = "updateContent", alwaysRun = true)
-    public void preconditionForAdditionalScenarios(){
+
+
+    @Test(groups = "additionalCases", dependsOnMethods = "precondition")
+    public void filterByStatus(){
         CommonScenarios.navigateToAdminUrl();
-        CampaignDetailsPage detailsPage = CommonScenarios.createAndLaunchCampaign(AdvocateDashboard, Standalone);
-        detailsPage.campaignNavigationMenu.deactivateCampaign();
-
-        CommonScenarios.createAndLaunchCampaign(Invite, FloatingWidget);
-        CommonScenarios.createAndLaunchCampaign(Invite, Standalone);
-        CommonScenarios.createAndLaunchCampaign(Invite, PostPurchase);
-
         MceScenarios.openMultiCampaignEditorPage(campaignNamePP,
                 TEST,
                 "Advocate share page",
                 "Advocate pages overlay opacity",
                 COPY );
-    }
-
-
-    @Test(groups = "additionalCases", dependsOnMethods = "preconditionForAdditionalScenarios")
-    public void filterByStatus(){
-        MceScenarios.typeToSearchField("live");
+        MceScenarios.typeToSearchField("live", COPY);
         MceScenarios.assertCampaignsCountInGrids(COPY,
-                "1",
-                "1",
+                "0",
+                "2",
                 "1");
     }
 
-    @Test(groups = "additionalCases", dependsOnMethods = "preconditionForAdditionalScenarios")
+    @Test(groups = "additionalCases", dependsOnMethods = "precondition")
     public void filterByCampaignName(){
-        MceScenarios.typeToSearchField("invite");
+        CommonScenarios.navigateToAdminUrl();
+        MceScenarios.openMultiCampaignEditorPage(campaignNamePP,
+                TEST,
+                "Advocate share page",
+                "Advocate pages overlay opacity",
+                COPY );
+        MceScenarios.typeToSearchField("invite", COPY);
         MceScenarios.assertCampaignsCountInGrids(COPY,
                 "1",
                 "3",
                 "2");
     }
 
-//    @Test(groups = "additionalCases", dependsOnMethods = {"preconditionForAdditionalScenarios", "precondition"})
-//    public void filterByCampaignId() {
-//        String campaignID = new PageMultiCampaignEditor(COPY)
-//                .getSelectedCampaigns()
-//                .getCampaignsList()
-//                .get(0).getId().substring(0, 5);
-//        System.out.println("DEBAG: Campaign ID: <" + campaignID + ">");
-//        MceScenarios.typeToSearchField("invite");
-//        MceScenarios.assertCampaignsCountInGrids(COPY,
-//                "1",
-//                "0",
-//                "0");
-//    }
-
-
     @Test(groups = "preview", dependsOnGroups = "additionalCases", alwaysRun = true)
     public void verifyPreview(){
-        new PageMultiCampaignEditor(COPY).typeToSearch("");
-        MceScenarios.typeToSearchField("invite");
+        CommonScenarios.navigateToAdminUrl();
+        MceScenarios.openMultiCampaignEditorPage(campaignNamePP,
+                TEST,
+                "Advocate share page",
+                "Advocate pages overlay opacity",
+                COPY );
+//        new PageMultiCampaignEditor(COPY).typeToSearch("");
+        MceScenarios.typeToSearchField("invite", COPY);
         MceScenarios.selectCampaignOnMceScreen(COPY, "Invite Floating Widget");
-        String contentValue = MceScenarios.getContentValue(COPY);
+        String contentValue = MceScenarios.getNewContentValue(COPY);
 
         MceScenarios.openPreviewPopupOnMCE(COPY);
 
         Assert.assertEquals(
                 MceScenarios.getContentNameFromPreviewPopup(COPY),
-                "Advocate share page",
+//                "Advocate share page",
+                "Advocate pages overlay opacity",
                 "FAILED: Incorrect Content Name on Preview Popup");
         Assert.assertEquals(MceScenarios.getContentValueFromPreviewPopup(COPY),
                 contentValue,
@@ -294,9 +302,9 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
     }
 
 
-    @Test(groups = "deleteCampaigns",
-            dependsOnGroups = {"updateContent", "additionalCases", "preview"},
-            alwaysRun = true)
+//    @Test(groups = "deleteCampaigns",
+//            dependsOnGroups = {"updateContent", "additionalCases", "preview"},
+//            alwaysRun = true)
     public void deleteTestCampaignsAndLogout() {
         CommonScenarios.navigateToAdminUrl();
         CommonScenarios.deleteAllCampaignsWithStatus(TEST);

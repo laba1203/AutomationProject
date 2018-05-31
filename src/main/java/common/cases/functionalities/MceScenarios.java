@@ -13,7 +13,6 @@ import talkable.talkableSite.headerFrame.Header;
 import static common.cases.functionalities.MceScenarios.State.INELIGIBLE;
 import static common.cases.functionalities.MceScenarios.State.SELECTED;
 import static common.cases.functionalities.MceScenarios.State.UNSELECTED;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.COPY;
 
 
 public class MceScenarios extends CommonScenarios{
@@ -70,8 +69,13 @@ public class MceScenarios extends CommonScenarios{
     }
 
     public static String getContentValue(EditorPage.LocalizationType mode){
-        return new PageMultiCampaignEditor(mode).getContentValue();
+        return new PageMultiCampaignEditor(mode).getContentValueName();
     }
+
+    public static String getNewContentValue(EditorPage.LocalizationType mode){
+        return new PageMultiCampaignEditor(mode).getNewContentValue();
+    }
+
 
     public static String getCampaignViewValue(EditorPage.LocalizationType localizationType){
         return new PageMultiCampaignEditor(localizationType).getCampaignViewValue();
@@ -123,20 +127,19 @@ public class MceScenarios extends CommonScenarios{
     public static void assertCampaignsCountInGrids(EditorPage.LocalizationType localizationType, String expectedSelectedCount, String expectedUnselectedCount, String expectedIneligibleCount){
         assertSelectedAndUnselectedCampaignsCount(localizationType, expectedSelectedCount, expectedUnselectedCount);
          // Verify ineligible campaign list
-        Assert.assertEquals(getCampaignsCountFromMce(INELIGIBLE, localizationType), expectedIneligibleCount, "FAILED: Incorrect count of Ineligible campaigns on MCE page. Mode: " + localizationType);
+        Assert.assertEquals(getCampaignsCountFromMce(INELIGIBLE, localizationType), expectedIneligibleCount, "FAILED: Incorrect count of Ineligible campaigns on MCE page. Mode: " + localizationType + ".");
     }
 
     public static void assertSelectedAndUnselectedCampaignsCount(EditorPage.LocalizationType localizationType, String expectedSelectedCount, String expectedUnselectedCount){
         // Verify selected campaign list
-        Assert.assertEquals(getCampaignsCountFromMce(SELECTED, localizationType), expectedSelectedCount, "FAILED: Incorrect count of Selected campaigns on MCE page. Mode: " + localizationType);
+        Assert.assertEquals(getCampaignsCountFromMce(SELECTED, localizationType), expectedSelectedCount, "FAILED: Incorrect count of Selected campaigns on MCE page. Mode: " + localizationType + ".");
         // Verify unselected campaigns list
-        Assert.assertEquals(getCampaignsCountFromMce(UNSELECTED, localizationType), expectedUnselectedCount, "FAILED: Incorrect count of Unselected campaigns on MCE page. Mode: " + localizationType);
+        Assert.assertEquals(getCampaignsCountFromMce(UNSELECTED, localizationType), expectedUnselectedCount, "FAILED: Incorrect count of Unselected campaigns on MCE page. Mode: " + localizationType + ".");
     }
 
 
-    public static void typeToSearchField(String searchInput){
-        new PageMultiCampaignEditor(COPY).typeToSearch(searchInput);
-
+    public static void typeToSearchField(String searchInput, EditorPage.LocalizationType contentMode){
+        new PageMultiCampaignEditor(contentMode).typeToSearch(searchInput);
     }
 
     public static void openPreviewPopupOnMCE(EditorPage.LocalizationType localizationType){

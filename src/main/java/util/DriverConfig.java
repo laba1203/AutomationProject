@@ -24,7 +24,7 @@ public class DriverConfig {
 
     /*The flag indicates whether the test will be executed on Local or Remote machine.
     !!! Please note always put the flag to TRUE before creation of pull request to origin/master !!!*/
-    private static final boolean remoteExecution = false;
+    private static final boolean remoteExecution = true;
 
     @Parameters()
     private WebDriver setNewLocalDriver()
