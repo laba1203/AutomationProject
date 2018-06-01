@@ -24,10 +24,13 @@ public class Log {
         System.out.println("DEBAG: " + msg);
     }
 
-    public static String clickMsg(Object obj){
-        String msg = clickMsg + obj.getClass().getName();
+    public static void clickMsg(Object obj){
+        clickMsg(obj.getClass().getName());
+    }
+
+    public static void clickMsg(String elementName){
+        String msg = clickMsg + elementName;
         System.out.println(msg);
-        return msg;
     }
 
     public static String enterValueMsg(String value, Object obj){
