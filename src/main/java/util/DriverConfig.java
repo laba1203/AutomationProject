@@ -98,7 +98,7 @@ public class DriverConfig {
     }
 
     private static void resizeBrowser(WebDriver driver) {
-        Dimension d = new Dimension(1200,546);
+        Dimension d = new Dimension(1200,800);
 //Resize current window to the set dimension
         driver.manage().window().setSize(d);
     }
