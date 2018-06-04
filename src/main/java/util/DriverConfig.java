@@ -16,7 +16,7 @@ import java.net.URL;
 public class DriverConfig {
 
     //URL for selenium
-    private static final String SELENOID_URL = "http://selenoid.production:4444/wd/hub";
+    private static final String SELENOID_URL = "http://selenoid.internal:4444/wd/hub";
 
     private static WebDriver driver;
 
