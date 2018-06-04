@@ -41,6 +41,8 @@ public class Origin{
                 .when()
                 .post(URL);
         System.out.println("LOG: Response body for POST to /origin :");
+//        response.then().assertThat().statusCode(200);
+        System.out.println("DEBAG: Status line: " +  response.getStatusLine());
         response.body().print();
         return response;
     }
