@@ -5,12 +5,14 @@ import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import util.logging.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class Section extends AbstractElementsContainer
 {
+
     private Element sectionElement;
     ArrayList<PlacementRow> rows;
     Element addButton;
@@ -18,12 +20,12 @@ class Section extends AbstractElementsContainer
 
     Section(Element sectionElement){
         this.sectionElement = sectionElement;
-        rows = addRows(sectionElement);
+        rows = getRows(sectionElement);
         addButton = new Element(sectionElement.getWebElement().findElement(By.xpath(".//*[@class = 'Routes-form-new']/span")));
 
     }
 
-    private ArrayList<PlacementRow> addRows(Element parentSection){
+    private ArrayList<PlacementRow> getRows(Element parentSection){
         ArrayList<PlacementRow> rows = new ArrayList<>();
         List<WebElement> webElements = parentSection.getWebElement().findElements(By.xpath(".//*[@type = 'checkbox']/../../.."));
         for (WebElement webElement :
@@ -36,7 +38,7 @@ class Section extends AbstractElementsContainer
     PopupEditPlacement add(boolean regexMode, String value){
         addButton.click();
 
-        rows = addRows(sectionElement);
+        rows = getRows(sectionElement);
 
         int lastRow = rows.size() - 1;
         PlacementRow newRow = rows.get(lastRow);
@@ -59,6 +61,27 @@ class Section extends AbstractElementsContainer
     PopupEditPlacement remove(String name){
         findPlacementRow(name).delete();
         return new PopupEditPlacement();
+    }
+
+    //doesn't work correctly
+    PopupEditPlacement removeAll(boolean isInclusion){
+        ArrayList<PlacementRow> rows = getRows();
+        if (isInclusion){
+            for (int i = 0; i < rows.size() - 1; i++){
+                rows.get(i).delete();
+            }
+        }else{
+            for (PlacementRow row : rows) {
+                row.delete();
+            }
+        }
+        return new PopupEditPlacement();
+
+    }
+
+
+    private ArrayList<PlacementRow> getRows(){
+        return getRows(sectionElement);
     }
 
     PlacementRow findPlacementRow(String name){
@@ -87,7 +110,10 @@ class Section extends AbstractElementsContainer
         }
 
         void delete(){
-            new Element(rowElement.findElement(By.xpath(".//*[contains(@data-balloon, 'Delete this rule')]"))).click();
+            new Element(rowElement
+                    .findElement(By.xpath(".//*[contains(@data-balloon, 'Delete this rule')]")))
+                    .click();
+            Log.debagRecord("Row deleted");
         }
 
 
