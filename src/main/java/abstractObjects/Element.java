@@ -30,4 +30,9 @@ public class Element extends AbstractElement{
     protected void logClick(){
         Log.clickMsg(elementNameForLog);
     }
+
+    @Override
+    protected void logSendKeys(String value){
+        Log.enterValueMsg(value, elementNameForLog);
+    }
 }
