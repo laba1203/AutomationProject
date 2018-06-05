@@ -25,16 +25,33 @@ public class ViaAPI {
         new Origin().postOriginPurchaseWithUUID(site, frEmail , friendUUID);
     }
 
+    public static void createReferral(Site site, String adEmail, String frEmail, String advocateUUID, String advocateIP, String friendIp ){
+        int offerID = getOfferIdFromOrigin(site, adEmail, advocateUUID, advocateIP);
+        String shortUrlCode = getShortUrlCodeFromAdvocateOffer(site, offerID);
+        String shortURL = getFacebookShareShortURL(site, shortUrlCode);
+        String friendUUID = getUuidAfterVisitToShortURL(shortURL);
+        new Origin().postOriginPurchase(site, frEmail , friendUUID, friendIp);
+    }
+
     private static int getOfferIdFromOrigin(Site site, String advocateEmail, String advocateUUID){
         Response resp = new Origin().postOriginPurchaseWithUUID(site, advocateEmail, advocateUUID);
-        return resp
+        return getOfferIdFromResponse(resp);
+    }
+
+    private static int getOfferIdFromOrigin(Site site, String advocateEmail, String advocateUUID, String ipAddress){
+        Response resp = new Origin().postOriginPurchase(site, advocateEmail, advocateUUID, ipAddress);
+        return getOfferIdFromResponse(resp);
+    }
+
+    private static int getOfferIdFromResponse(Response originResponse){
+        return originResponse
                 .then()
                 .contentType(JSON)
                 .extract()
                 .path("result.offer.id");
     }
 
-    private static String getRandomUUID(){
+    public static String getRandomUUID(){
         return "b3567d87-3e7f-44bc-92b6-" +
                 String.valueOf(System.currentTimeMillis()).substring(5) +
                 "cd6a";
@@ -47,16 +64,6 @@ public class ViaAPI {
                 .contentType(JSON)
                 .extract().path("result.offer.short_url_code");
     }
-
-//    @Deprecated
-//    private static String getFacebookShareShortURL(Site site, String shortUrlCode){
-//        Response resp = new Shares().postFacebookShare(site, shortUrlCode);
-//
-//        return resp
-//                .then()
-//                .contentType(JSON)
-//                .extract().path("result.share.short_url");
-//    }
 
     private static String getFacebookShareShortURL(Site site, String shortUrlCode){
         Response resp = new SharesSocial().postFacebookShare(site, shortUrlCode);
@@ -73,7 +80,9 @@ public class ViaAPI {
     }
 
     private static String getUuidAfterVisitToShortURL(String shareUrl){
-        RestAssured.requestSpecification = new RequestSpecBuilder().addHeader("User-Agent", myUserAgent).build();
+        RestAssured.requestSpecification = new RequestSpecBuilder()
+                .addHeader("User-Agent", myUserAgent)
+                .build();
         return RestAssured
                 .get(shareUrl)
                 .getCookie("uuid");

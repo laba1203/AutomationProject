@@ -14,6 +14,7 @@ import talkable.talkableSite.fraud.settings.pageData.FraudRulesExpectedTextData;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
+import util.logging.Log;
 
 import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ApprovalMode.AUTOMATIC;
 import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ApprovalMode.MANUAL;
@@ -224,17 +225,25 @@ public class FraudSettingsTesting extends BaseTest{
         );
     }
 
+
+
+    ////New test////
+
     @Test(groups = "api-usage", dependsOnMethods = "login")
-    public void verifySimilarCookies(){
+    public void verifySimilarIP(){
+        String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String friendEmail = "friend" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String ipAddress = "91.90.23.94";
+        String advocateUUID = ViaAPI.getRandomUUID();
 
         FraudRulesScenarios.openFraudSettings();
         FraudRulesScenarios.setFraudSettingsProfile(CUSTOM);
         FraudRulesScenarios.setAdvocateRules(
+                "Skip",
+                "Skip",
+                "Skip",
                 "Block Advocate",
-                "Skip",
-                "Skip",
-                "Skip",
-                "Skip",
+                "Block Advocate",
                 "Skip");
 
         FraudRulesScenarios.setFriendRules(
@@ -244,8 +253,38 @@ public class FraudSettingsTesting extends BaseTest{
                 "Skip",
                 "Skip");
 
+        ViaAPI.createReferral(site, advocateEmail, friendEmail, advocateUUID, ipAddress, ipAddress);
 
+        ReportsScenarios.openReferralsReport();
+        Assert.assertEquals(
+                ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),
+                advocateEmail,
+                "FAILED: Referral is not created for advocate: <" + advocateEmail + ">"
+        );
+
+        Assert.assertEquals(
+                ReportsScenarios.getFirstRowStatusFromReferralReport(),
+                "Blocked",
+                "FAILED: Incorrect referral status (advocate email = <" + advocateEmail + ">)."
+        );
+
+        Log.testPassed("Referral is blocked by IP address only");
     }
+
+    //temp verification:
+
+//    @Test(groups = "api-usage", dependsOnMethods = "login")
+//    public void apiTest(){
+//        String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
+//        String friendEmail = "friend" + TestDataGenerator.getRandomId() + "@gmail.com";
+//        String ipAddress = "91.90.23.94";
+//        String advocateUUID = ViaAPI.getRandomUUID();
+//
+//        ViaAPI.createReferral(site, advocateEmail, friendEmail, advocateUUID, ipAddress, ipAddress);
+//
+//        ReportsScenarios.openReferralsReport();
+//
+//    }
 
 //    @Test
 //    public void limitOfAdvocateRewards(){

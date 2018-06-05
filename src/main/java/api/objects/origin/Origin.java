@@ -34,6 +34,38 @@ public class Origin{
                 ;
         System.out.println("DEBAG: " + postBody);
 
+        return postAndLogResponse(postBody);
+    }
+
+    public Response postOriginPurchase(Site site, String email, String uuid, String ipAddress){
+        String postBody =
+                "{\n" +
+                        "  \"api_key\": \"" + site.getApiKey() + "\",\n" +
+                        "  \"site_slug\": \"" + site.getSiteSlug() + "\",\n" +
+                        "  \"type\": \"Purchase\",\n" +
+                        "  \"data\": {\n" +
+                        "    \"email\": \"" + email + "\",\n" +
+                        "    \"order_number\": " + String.valueOf(System.currentTimeMillis()).substring(7) + ",\n" +
+                        "    \"subtotal\": 100,\n" +
+                        "    \"uuid\": \"" + uuid + "\",\n" +
+                        "    \"ip_address\": \"" + ipAddress + "\",\n" +
+                        "    \"campaign_tags\": \"api\",\n" +
+                        "    \"items\": [\n" +
+                        "      {\n" +
+                        "        \"price\": 25,\n" +
+                        "        \"quantity\": 4,\n" +
+                        "        \"product_id\": \"TSHIRT\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  }\n" +
+                        "}"
+                ;
+        System.out.println("DEBAG: " + postBody);
+
+        return postAndLogResponse(postBody);
+    }
+
+    private Response postAndLogResponse(String postBody){
         Response response = RestAssured
                 .given()
                 .contentType("application/json")
@@ -41,11 +73,11 @@ public class Origin{
                 .when()
                 .post(URL);
         System.out.println("LOG: Response body for POST to /origin :");
-//        response.then().assertThat().statusCode(200);
         System.out.println("DEBAG: Status line: " +  response.getStatusLine());
         response.body().print();
         return response;
     }
+
 
 
     public Response postOriginPurchase(Site site){
