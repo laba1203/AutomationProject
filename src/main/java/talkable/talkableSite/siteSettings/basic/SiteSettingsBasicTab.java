@@ -10,7 +10,7 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
     private static final By elmntSiteId = By.xpath("//*[@name = 'cached_slug']");
     private static final By elmntSiteName = By.xpath("//*[@name='name']");
     private static final By elmntSiteURL = By.xpath("//*[@name='url']");
-    private static final By elmntSaveButton = By.xpath("//*[@class='mll ac-site-save sc-gzVnrw jZZBez']");
+    private static final By elmntSaveButton = By.xpath("//button[contains(@class,'ac-site-save')]");
     //
     public SiteSettingsBasicTab(){
         setVisibleElements();
