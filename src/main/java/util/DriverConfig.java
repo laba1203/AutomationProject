@@ -16,7 +16,8 @@ import java.net.URL;
 public class DriverConfig {
 
     //URL for selenium
-    private static final String SELENOID_URL = "http://selenoid.internal:4444/wd/hub";
+    private static final String SELENOID_URL = "http://selenoid.tkbl:4444//wd/hub";
+
 
     private static WebDriver driver;
 
@@ -51,8 +52,9 @@ public class DriverConfig {
 //        capabilities.setBrowserName("chrome");
 //        capabilities.setVersion("66.0");
 
-        capabilities.setBrowserName("firefox");
-        capabilities.setVersion("60.0");
+        capabilities.setBrowserName("chrome");
+        capabilities.setVersion("66.0");
+        capabilities.setCapability("enableVNC", true);
 
         driver = null;
         URL url = null;
