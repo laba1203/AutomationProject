@@ -416,6 +416,12 @@ public class CommonScenarios {
         return page;
     }
 
+
+//    public static void editSiteBasic(){
+//        new SiteSettingsBasicTab().edit();
+//        Log.logRecord("");
+//    }
+
     public static Site getSiteIntegrationValues(){
         SiteSettingsBasicTab basicTab = openSiteSettingsPage();
         String siteID = basicTab.getSiteID();

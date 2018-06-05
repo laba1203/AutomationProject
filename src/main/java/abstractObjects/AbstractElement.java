@@ -121,6 +121,11 @@ public abstract class AbstractElement implements DrivenElement{
         Log.elementClearedMsg(this);
     }
 
+    public void clearAndSendKeys(String text){
+        clear();
+        sendKeys(text);
+    }
+
     public String getAttribute(String attributeName){
         return this.webElement.getAttribute(attributeName);
     }
