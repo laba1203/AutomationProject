@@ -417,10 +417,15 @@ public class CommonScenarios {
     }
 
 
-//    public static void editSiteBasic(){
-//        new SiteSettingsBasicTab().edit();
-//        Log.logRecord("");
-//    }
+    public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL){
+        new SiteSettingsBasicTab().editMandatoryFields(siteName, siteID, siteURL);
+        Log.logRecord("Site Settings Basic Tab updated");
+    }
+
+    public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL, String platform ){
+        new SiteSettingsBasicTab().updateAll(siteName, siteID, siteURL, platform);
+        Log.logRecord("Site Settings Basic Tab updated");
+    }
 
     public static Site getSiteIntegrationValues(){
         SiteSettingsBasicTab basicTab = openSiteSettingsPage();

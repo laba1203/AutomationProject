@@ -6,8 +6,8 @@ import org.openqa.selenium.By;
 
 class PopupEditPlacement extends AbstractElementsContainer{
 
-    private Element shownOnSection = new Element(By.xpath("//*[contains(@class, 'is-edit')]//div[@class = 'Routes-form'][1]"));
-    private Element hiddenOnSection = new Element(By.xpath("//*[contains(@class, 'is-edit')]//div[@class = 'Routes-form'][2]"));
+    private Element shownOnSection = new Element(By.xpath("//*[contains(@class, 'is-editMandatoryFields')]//div[@class = 'Routes-form'][1]"));
+    private Element hiddenOnSection = new Element(By.xpath("//*[contains(@class, 'is-editMandatoryFields')]//div[@class = 'Routes-form'][2]"));
     private ElmntSaveChangesButton saveChangesButton = new ElmntSaveChangesButton();
 
     private Section inclusionSection = new Section(shownOnSection);

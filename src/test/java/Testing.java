@@ -10,7 +10,7 @@ public class Testing extends BaseTest {
     public void login(){
         CommonScenarios.login("hutornoy@talkable.com", "organ_Telo23" );
         CommonScenarios.openSiteSettingsPage();
-        new SiteSettingsBasicTab().edit("testName","testID2","http://testqaautomation2.com");
+        CommonScenarios.updateSiteSettingsBasicTab("nameb2latest", "ididibladqa", "https://blabla.com/","Custom");
     }
 
 
