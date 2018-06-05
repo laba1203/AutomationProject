@@ -6,6 +6,7 @@ import talkable.talkableSite.fraud.settings.FraudSettingsPage;
 import talkable.talkableSite.fraud.settings.SectionRulesForAdvocate;
 import talkable.talkableSite.fraud.settings.SectionRulesForFriend;
 import talkable.talkableSite.headerFrame.Header;
+import util.logging.Log;
 
 public class FraudRulesScenarios extends CommonScenarios{
 
@@ -113,4 +114,38 @@ public class FraudRulesScenarios extends CommonScenarios{
     public static FraudSettingsPage setReferralApprovalModeOnFraudSetting(FraudSettingsPage.ApprovalMode mode){
         return new FraudSettingsPage().setApprovalMode(mode);
     }
+
+    public static void setAdvocateRules(String matchingEmailOrCookiesOnPurchase,
+                                              String similarEmailMatch,
+                                              String matchingShippingAddress,
+                                              String matchingByIpAndAgent,
+                                              String matchingByIpOnly,
+                                              String crossReferral){
+        new FraudSettingsPage().setAdvocateRules(matchingEmailOrCookiesOnPurchase,
+                similarEmailMatch,
+                matchingShippingAddress,
+                matchingByIpAndAgent,
+                matchingByIpOnly,
+                crossReferral);
+
+        Log.logRecord("Fraud Setting have been updated for Advocate");
+    }
+
+    public static void setFriendRules(String matchingCookies,
+                                            String matchingByIpAndAgent,
+                                            String matchingByIpOnly,
+                                            String similarEmailMatch,
+                                            String crossReferral)
+    {
+        new FraudSettingsPage().setFriendRules(matchingCookies,
+                matchingByIpAndAgent,
+                matchingByIpOnly,
+                similarEmailMatch,
+                crossReferral);
+
+        Log.logRecord("Fraud Setting have been updated for Friend");
+    }
+
+
+
 }

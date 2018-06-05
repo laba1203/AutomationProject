@@ -88,6 +88,42 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
         return new SectionRulesForAdvocate();
     }
 
+    public FraudSettingsPage setAdvocateRules(String matchingEmailOrCookiesOnPurchase,
+                                              String similarEmailMatch,
+                                              String matchingShippingAddress,
+                                              String matchingByIpAndAgent,
+                                              String matchingByIpOnly,
+                                              String crossReferral)
+    {
+        getRulesForAdvocateSection().setMatchingEmailOrCookieValue(matchingEmailOrCookiesOnPurchase);
+        getRulesForAdvocateSection().setSimilarEmailMatch(similarEmailMatch);
+        getRulesForAdvocateSection().setMatchingShippingAddress(matchingShippingAddress);
+        getRulesForAdvocateSection().setMatchingIpAddressAndUserAgent(matchingByIpAndAgent);
+        getRulesForAdvocateSection().setIpAddressOnly(matchingByIpOnly);
+        getRulesForAdvocateSection().setFriendAndAdvocateReferEachOther(crossReferral);
+
+        return saveChanges();
+    }
+
+    public FraudSettingsPage setFriendRules(String matchingCookies,
+                                            String matchingByIpAndAgent,
+                                            String matchingByIpOnly,
+                                            String similarEmailMatch,
+                                            String crossReferral)
+    {
+        getRulesForFriend().setFriendAndAdvocateReferEachOther(crossReferral);
+        getRulesForFriend().setSimilarEmailMatch(similarEmailMatch);
+        getRulesForFriend().setIpAddressOnly(matchingByIpOnly);
+        getRulesForFriend().setMatchingCookieValue(matchingCookies);
+        getRulesForFriend().setMatchingIpAddressAndUserAgent(matchingByIpAndAgent);
+
+
+
+
+        return saveChanges();
+    }
+
+
     public SectionRulesForFriend getRulesForFriend() {
         return new SectionRulesForFriend();
     }

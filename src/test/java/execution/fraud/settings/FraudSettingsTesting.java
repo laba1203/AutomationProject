@@ -9,6 +9,7 @@ import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
+import talkable.talkableSite.fraud.settings.FraudSettingsPage;
 import talkable.talkableSite.fraud.settings.pageData.FraudRulesExpectedTextData;
 import util.EnvFactory;
 import util.PropertyLoader;
@@ -221,6 +222,29 @@ public class FraudSettingsTesting extends BaseTest{
                 "Voided",
                 "FAILED: Incorrect referral status"
         );
+    }
+
+    @Test(groups = "api-usage", dependsOnMethods = "login")
+    public void verifySimilarCookies(){
+
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setFraudSettingsProfile(CUSTOM);
+        FraudRulesScenarios.setAdvocateRules(
+                "Block Advocate",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip");
+
+        FraudRulesScenarios.setFriendRules(
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip");
+
+
     }
 
 //    @Test
