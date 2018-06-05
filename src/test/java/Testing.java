@@ -1,21 +1,17 @@
+import common.cases.CommonScenarios;
+import execution.BaseTest;
 import org.testng.annotations.Test;
+import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 import util.Util;
 
-public class Testing {//extends BaseTest{
-
-
-//    @Test
-//    public void test(){
-//        driver.navigate().to("https://admin.void.talkable.com/sites/custom2501/");
-//        Assert.fail("FAILED");
-//    }
-
+public class Testing extends BaseTest {
 
     @Test
-    public void test4(){
-//        Util.getDifference("http://learn.talkable.com/QA-Max/Prod/home.htmlSpecific site pages", "Specific site pages");
-
-        System.out.println(Util.cutFirstPartOfString("http://learn.talkable.com/QA-Max/Prod/home.htmlSpecific site pages", "http://learn.talkable.com/"));
+    public void login(){
+        CommonScenarios.login("hutornoy@talkable.com", "organ_Telo23" );
+        CommonScenarios.openSiteSettingsPage();
+        new SiteSettingsBasicTab().edit("testName","testID","http://testqaautomation.com");
     }
 
-}
+
+        }
