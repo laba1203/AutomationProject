@@ -5,10 +5,11 @@
     <suite-file path="EditorSuite.xml"/>
     <suite-file path="FraudRulesTestSuite.xml"/>
     <!--<suite-file path="ReportsSuite.xml"/>-->
+    <!--<suite-file path="MultiCampaignEditorSuite.xml"/>-->
 
     <!--Please note: Below suite will create new site-->
     <suite-file path="AccountAndSiteCreation.xml"/>
-    <suite-file path="MultiCampaignEditorSuite.xml"/>
+
 
 </suite>
 
