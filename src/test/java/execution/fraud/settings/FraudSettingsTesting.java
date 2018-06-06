@@ -251,45 +251,6 @@ public class FraudSettingsTesting extends BaseTest{
         Log.testPassed("Referral is blocked by IP address only");
     }
 
-    @Test(groups = "api-usage", dependsOnMethods = "login"
-            ,expectedExceptions = java.lang.AssertionError.class) //Expected exception has been added for bug investigation
-    public void verifyMatchingByIpForFriend(){
-        String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
-        String friendEmail = "friend" + TestDataGenerator.getRandomId() + "@gmail.com";
-        String ipAddress = "91.90.23.94";
-        String advocateUUID = ViaAPI.getRandomUUID();
-
-        FraudRulesScenarios.openFraudSettings();
-        FraudRulesScenarios.setFraudSettingsProfile(CUSTOM);
-        FraudRulesScenarios.setAdvocateRules(
-                "Skip",
-                "Skip",
-                "Skip",
-                "Skip",
-                "Skip",
-                "Skip");
-
-        FraudRulesScenarios.setFriendRules(
-                "Skip",
-                "Block Friend",
-                "Block Friend",
-                "Skip",
-                "Skip");
-
-        ViaAPI.createReferral(site, advocateEmail, friendEmail, advocateUUID, ipAddress, ipAddress);
-
-        ReportsScenarios.openReferralsReport();
-        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
-
-        Assert.assertEquals(
-                ReportsScenarios.getFriendUnpaidReasonFromTheFirstRow(),
-                "Campaign doesn't offer Self-Referral Incentive",
-                "FAILED: Incorrect Friend reward unpaid reason in the Referral Report (Advocate email = <" + advocateEmail + ">)."
-        );
-
-        Log.testPassed("Friend Reward was not given because of similar IP address");
-    }
-
 
     @Test(groups = "api-usage", dependsOnMethods = "login")
     public void verifyMatchingByEmailForAdvocateAndFriend() {
@@ -389,6 +350,49 @@ public class FraudSettingsTesting extends BaseTest{
         );
 
     }
+
+
+    /*
+     * Scenario for Matching By Ip Address For Friend should be removed or reworked as it doesn't work as it designed now.
+
+    @Test(groups = "api-usage", dependsOnMethods = "login"
+            ,expectedExceptions = java.lang.AssertionError.class) //Expected exception has been added for bug investigation
+    public void verifyMatchingByIpForFriend(){
+        String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String friendEmail = "friend" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String ipAddress = "91.90.23.94";
+        String advocateUUID = ViaAPI.getRandomUUID();
+
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setFraudSettingsProfile(CUSTOM);
+        FraudRulesScenarios.setAdvocateRules(
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip");
+
+        FraudRulesScenarios.setFriendRules(
+                "Skip",
+                "Block Friend",
+                "Block Friend",
+                "Skip",
+                "Skip");
+
+        ViaAPI.createReferral(site, advocateEmail, friendEmail, advocateUUID, ipAddress, ipAddress);
+
+        ReportsScenarios.openReferralsReport();
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
+
+        Assert.assertEquals(
+                ReportsScenarios.getFriendUnpaidReasonFromTheFirstRow(),
+                "Campaign doesn't offer Self-Referral Incentive",
+                "FAILED: Incorrect Friend reward unpaid reason in the Referral Report (Advocate email = <" + advocateEmail + ">)."
+        );
+
+        Log.testPassed("Friend Reward was not given because of similar IP address");
+    }*/
 
 
 
