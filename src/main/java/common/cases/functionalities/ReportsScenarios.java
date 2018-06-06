@@ -1,6 +1,7 @@
 package common.cases.functionalities;
 
 import common.cases.CommonScenarios;
+import org.openqa.selenium.NotFoundException;
 import org.testng.Assert;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
@@ -57,6 +58,16 @@ public class ReportsScenarios extends CommonScenarios {
 
     public static String getFirstRowStatusFromReferralReport(){
         return new PageReferralsReport().getFirstReferralRow().getRowStatus();
+    }
+
+    public static String getFriendUnpaidReasonFromTheFirstRow(){
+        try {
+            return new PageReferralsReport().getFirstReferralRow().getFriendRewardUnpaidReason();
+        }catch (NotFoundException | AssertionError e){
+            String friendEmail = new PageReferralsReport().getFirstReferralRow().getFriendEmail();
+            Assert.fail("FAILED: Reward Unpaid Reason is not available for the Friend (Friend email = <"+friendEmail+">). Possibly the reward was given to the Friend.");
+            return null;
+        }
     }
 
 

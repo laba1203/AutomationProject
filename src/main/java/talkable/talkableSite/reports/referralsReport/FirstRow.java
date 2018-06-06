@@ -16,6 +16,7 @@ public class FirstRow extends AbstractElementsContainer{
     private static final By voidButtonLctr = By.xpath("//tr[1]/td[@class='action']//a[@title = 'Voided']");
     private static final By detailsLinkLctr = By.xpath("//tr[1]/td[@class='action']//a[text() = 'Details']");
     private static final By referralStatusLctr = By.xpath("//tr[1]/td[@class='action']/div");
+    private static final By friendRewardUnpaidReasonLctr = By.xpath("//tr[1]//span[@class='unredeem_reason']");
 
 
     public String getAdvocateEmail(){
@@ -53,6 +54,10 @@ public class FirstRow extends AbstractElementsContainer{
             Assert.fail("FAILED: Status is not displayed for the first row in Referrals report. 'Approve' action button is displayed");
             return null;
         }
+    }
+
+    public String getFriendRewardUnpaidReason(){
+        return new Element(friendRewardUnpaidReasonLctr).getText();
     }
 
 

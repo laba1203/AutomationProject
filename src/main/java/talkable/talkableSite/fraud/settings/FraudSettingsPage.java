@@ -113,9 +113,10 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
     {
         getRulesForFriend().setFriendAndAdvocateReferEachOther(crossReferral);
         getRulesForFriend().setSimilarEmailMatch(similarEmailMatch);
+        getRulesForFriend().setMatchingIpAddressAndUserAgent(matchingByIpAndAgent);
         getRulesForFriend().setIpAddressOnly(matchingByIpOnly);
         getRulesForFriend().setMatchingCookieValue(matchingCookies);
-        getRulesForFriend().setMatchingIpAddressAndUserAgent(matchingByIpAndAgent);
+
 
 
 
