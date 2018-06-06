@@ -6,6 +6,7 @@ import org.testng.Assert;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.referralsReport.PageReferralsReport;
+import util.logging.Log;
 
 import java.util.ArrayList;
 
@@ -68,6 +69,15 @@ public class ReportsScenarios extends CommonScenarios {
             Assert.fail("FAILED: Reward Unpaid Reason is not available for the Friend (Friend email = <"+friendEmail+">). Possibly the reward was given to the Friend.");
             return null;
         }
+    }
+
+    public static void assertThatReferralCreatedForTheAdvocate(String advocateEmail){
+        Assert.assertEquals(
+                ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),
+                advocateEmail,
+                "FAILED: Referral is not created for advocate: <" + advocateEmail + ">"
+        );
+        Log.logRecord("Referral created for advocate <" + advocateEmail + ">");
     }
 
 
