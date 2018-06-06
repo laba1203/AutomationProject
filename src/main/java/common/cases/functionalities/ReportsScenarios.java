@@ -1,10 +1,12 @@
 package common.cases.functionalities;
 
 import common.cases.CommonScenarios;
+import org.openqa.selenium.NotFoundException;
 import org.testng.Assert;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.referralsReport.PageReferralsReport;
+import util.logging.Log;
 
 import java.util.ArrayList;
 
@@ -57,6 +59,35 @@ public class ReportsScenarios extends CommonScenarios {
 
     public static String getFirstRowStatusFromReferralReport(){
         return new PageReferralsReport().getFirstReferralRow().getRowStatus();
+    }
+
+    public static String getFriendUnpaidReasonFromTheFirstRow(){
+        try {
+            return new PageReferralsReport().getFirstReferralRow().getFriendRewardUnpaidReason();
+        }catch (NotFoundException | AssertionError e){
+            String friendEmail = new PageReferralsReport().getFirstReferralRow().getFriendEmail();
+            Assert.fail("FAILED: Reward Unpaid Reason is not available for the Friend (Friend email = <"+friendEmail+">). Possibly the reward was given to the Friend.");
+            return null;
+        }
+    }
+
+    public static String getAdvocateUnpaidReasonFromTheFirstRow(){
+        try {
+            return new PageReferralsReport().getFirstReferralRow().getAdvocateRewardUnpaidReason();
+        }catch (NotFoundException | AssertionError e){
+            String advocateEmail = new PageReferralsReport().getFirstReferralRow().getAdvocateEmail();
+            Assert.fail("FAILED: Reward Unpaid Reason is not available for the Advocate (email = <"+advocateEmail+">). Possibly the reward was given to the Advocate.");
+            return null;
+        }
+    }
+
+    public static void assertThatReferralCreatedForTheAdvocate(String advocateEmail){
+        Assert.assertEquals(
+                ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),
+                advocateEmail,
+                "FAILED: Referral is not created for advocate: <" + advocateEmail + ">"
+        );
+        Log.logRecord("Referral created for advocate <" + advocateEmail + ">");
     }
 
 

@@ -1,10 +1,15 @@
 package talkable.talkableSite.fraud.settings;
 
 import abstractObjects.AbstractElement;
+import abstractObjects.Element;
+import common.cases.functionalities.FraudRulesScenarios;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
 
 public class FraudSettingsPage extends AbstractTalkableSitePage{
+
+    private static final By advocateRewardLimitLctr = By.xpath("//input[@name='limit_rds_month']");
 
     private ElmntSaveChangesButton saveChangesButton = new ElmntSaveChangesButton();
     private ElmntHighProfileButton highProfileButton = new ElmntHighProfileButton();
@@ -88,6 +93,43 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
         return new SectionRulesForAdvocate();
     }
 
+    public FraudSettingsPage setAdvocateRules(String matchingEmailOrCookiesOnPurchase,
+                                              String similarEmailMatch,
+                                              String matchingShippingAddress,
+                                              String matchingByIpAndAgent,
+                                              String matchingByIpOnly,
+                                              String crossReferral)
+    {
+        getRulesForAdvocateSection().setMatchingEmailOrCookieValue(matchingEmailOrCookiesOnPurchase);
+        getRulesForAdvocateSection().setSimilarEmailMatch(similarEmailMatch);
+        getRulesForAdvocateSection().setMatchingShippingAddress(matchingShippingAddress);
+        getRulesForAdvocateSection().setMatchingIpAddressAndUserAgent(matchingByIpAndAgent);
+        getRulesForAdvocateSection().setIpAddressOnly(matchingByIpOnly);
+        getRulesForAdvocateSection().setFriendAndAdvocateReferEachOther(crossReferral);
+
+        return saveChanges();
+    }
+
+    public FraudSettingsPage setFriendRules(String matchingCookies,
+                                            String matchingByIpAndAgent,
+                                            String matchingByIpOnly,
+                                            String similarEmailMatch,
+                                            String crossReferral)
+    {
+        getRulesForFriend().setFriendAndAdvocateReferEachOther(crossReferral);
+        getRulesForFriend().setSimilarEmailMatch(similarEmailMatch);
+        getRulesForFriend().setMatchingIpAddressAndUserAgent(matchingByIpAndAgent);
+        getRulesForFriend().setIpAddressOnly(matchingByIpOnly);
+        getRulesForFriend().setMatchingCookieValue(matchingCookies);
+
+
+
+
+
+        return saveChanges();
+    }
+
+
     public SectionRulesForFriend getRulesForFriend() {
         return new SectionRulesForFriend();
     }
@@ -107,6 +149,16 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
         saveChangesButton.click();
         waitSaving();
         return new FraudSettingsPage();
+    }
+
+    public FraudSettingsPage setAdvocateLimitReferralRewards(String limitValue){
+        new Element(advocateRewardLimitLctr, "'Limit the # of Advocate Referral Incentive rewards in 30 days' field")
+                .clearAndSendKeys(limitValue);
+        return saveChanges();
+    }
+
+    public String getAdvocateLimitReferralRewardsIn30days(){
+        return new Element(advocateRewardLimitLctr).getAttribute("value");
     }
 
 }
