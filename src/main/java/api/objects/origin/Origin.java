@@ -3,6 +3,7 @@ package api.objects.origin;
 import api.objects.Site;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import util.EnvFactory;
 
 
@@ -72,6 +73,10 @@ public class Origin{
                 .body(postBody)
                 .when()
                 .post(URL);
+        Assert.assertEquals(response.getStatusCode(), 201, "FAILED: Incorrect status code in response for post Origin. " +
+                "Response status line: " + response.getStatusLine() + "\r\n" +
+                "Response body: " + response.body().print());
+
         System.out.println("LOG: Response body for POST to /origin :");
         System.out.println("DEBAG: Status line: " +  response.getStatusLine());
         response.body().print();
