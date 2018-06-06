@@ -71,6 +71,16 @@ public class ReportsScenarios extends CommonScenarios {
         }
     }
 
+    public static String getAdvocateUnpaidReasonFromTheFirstRow(){
+        try {
+            return new PageReferralsReport().getFirstReferralRow().getAdvocateRewardUnpaidReason();
+        }catch (NotFoundException | AssertionError e){
+            String advocateEmail = new PageReferralsReport().getFirstReferralRow().getAdvocateEmail();
+            Assert.fail("FAILED: Reward Unpaid Reason is not available for the Advocate (email = <"+advocateEmail+">). Possibly the reward was given to the Advocate.");
+            return null;
+        }
+    }
+
     public static void assertThatReferralCreatedForTheAdvocate(String advocateEmail){
         Assert.assertEquals(
                 ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),

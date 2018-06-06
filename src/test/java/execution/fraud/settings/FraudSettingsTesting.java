@@ -327,7 +327,7 @@ public class FraudSettingsTesting extends BaseTest{
     }
 
     @Test(groups = "api-usage", dependsOnMethods = "login")
-    public void verifyCrossReferralDetection(){
+    public void verifyCrossReferralDetectionFroAdvocate(){
         String user1 = "user1." + TestDataGenerator.getRandomId() + "@gmail.com";
         String user2 = "user2." + TestDataGenerator.getRandomId() + "@gmail.com";
 
@@ -366,13 +366,28 @@ public class FraudSettingsTesting extends BaseTest{
 
 
 
-    //temp verification:
 
 
-//    @Test
-//    public void limitOfAdvocateRewards(){
-//        //TODO: add test
-//    }
+    @Test(groups = "api-usage", dependsOnMethods = "login")
+    public void limitOfAdvocateRewards(){
+        String advocateEmail = "advocate.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
+
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setAdvocateLimitReferralRewards("2");
+        //Create 3 referrals for the same AD:
+        ViaAPI.createReferral(site, advocateEmail, "friend1" + TestDataGenerator.getRandomId() + "@gmail.com");
+        ViaAPI.createReferral(site, advocateEmail, "friend2" + TestDataGenerator.getRandomId() + "@gmail.com");
+        ViaAPI.createReferral(site, advocateEmail, "friend3" + TestDataGenerator.getRandomId() + "@gmail.com");
+        //Verify values in Referral report:
+        ReportsScenarios.openReferralsReport();
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
+        Assert.assertEquals(
+                ReportsScenarios.getAdvocateUnpaidReasonFromTheFirstRow(),
+                "Advocate has reached maximum rewards",
+                "FAILED: Incorrect Advocate reward unpaid reason in the Referral Report (Advocate email = <" + advocateEmail + ">)."
+        );
+
+    }
 
 
 

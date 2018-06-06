@@ -147,5 +147,14 @@ public class FraudRulesScenarios extends CommonScenarios{
     }
 
 
+    public static void setAdvocateLimitReferralRewards(String limitValue){
+        String updatedValue = new FraudSettingsPage()
+                .setAdvocateLimitReferralRewards(limitValue)
+                .getAdvocateLimitReferralRewardsIn30days();
+        Assert.assertEquals(updatedValue, limitValue, "FAILED: 'Limit the # of Advocate Referral Incentive rewards in 30 days' filed is not updated on the Fraud Setting page");
+        Log.logRecord("'Limit the # of Advocate Referral Incentive rewards in 30 days' value is changed to <" +limitValue + ">");
+    }
+
+
 
 }

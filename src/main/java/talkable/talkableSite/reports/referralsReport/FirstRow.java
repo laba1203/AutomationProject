@@ -17,6 +17,7 @@ public class FirstRow extends AbstractElementsContainer{
     private static final By detailsLinkLctr = By.xpath("//tr[1]/td[@class='action']//a[text() = 'Details']");
     private static final By referralStatusLctr = By.xpath("//tr[1]/td[@class='action']/div");
     private static final By friendRewardUnpaidReasonLctr = By.xpath("//tr[1]//span[@class='unredeem_reason']");
+    private static final By advocateRewardUnpaidReasonLctr = By.xpath("//tr[2]//span[@class='unredeem_reason']");
 
 
     public String getAdvocateEmail(){
@@ -58,6 +59,10 @@ public class FirstRow extends AbstractElementsContainer{
 
     public String getFriendRewardUnpaidReason(){
         return new Element(friendRewardUnpaidReasonLctr).getText();
+    }
+
+    public String getAdvocateRewardUnpaidReason(){
+        return new Element(advocateRewardUnpaidReasonLctr).getText();
     }
 
 
