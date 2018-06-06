@@ -4,6 +4,7 @@
     <suite-file path="SimpleTestForAllCampaignsTypes.xml"/>
     <suite-file path="EditorSuite.xml"/>
     <suite-file path="FraudRulesTestSuite.xml"/>
+    <suite-file path="CampaignActions.xml"/>
     <!--<suite-file path="ReportsSuite.xml"/>-->
     <!--<suite-file path="MultiCampaignEditorSuite.xml"/>-->
 
