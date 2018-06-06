@@ -141,7 +141,7 @@ public abstract class AbstractElement implements DrivenElement{
     }
 
     protected void setElementNameForLog(String name){
-        this.elementName = elementName;
+        this.elementName = name;
     }
 
 }
