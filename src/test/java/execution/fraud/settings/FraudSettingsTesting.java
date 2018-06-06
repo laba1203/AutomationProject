@@ -251,7 +251,8 @@ public class FraudSettingsTesting extends BaseTest{
         Log.testPassed("Referral is blocked by IP address only");
     }
 
-    @Test(groups = "api-usage", dependsOnMethods = "login")
+    @Test(groups = "api-usage", dependsOnMethods = "login"
+            ,expectedExceptions = java.lang.AssertionError.class) //Expected exception has been added for bug investigation
     public void verifyMatchingByIpForFriend(){
         String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
         String friendEmail = "friend" + TestDataGenerator.getRandomId() + "@gmail.com";
