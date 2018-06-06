@@ -1,6 +1,8 @@
 package talkable.talkableSite.campaign.pages.campaignRulesPage;
 
 import abstractObjects.DrivenElement;
+import abstractObjects.Element;
+import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -12,7 +14,13 @@ import java.util.ArrayList;
 
 public class PageCampaignRules extends AbstractCampaignPage{
 
-//    public CampaignNavigationMenu navigationMenu;
+    private Element redirectOnExpiredClaimCheckbox = new Element(By.xpath("//label/input[@name='redirect_on_expired_claim']/.."), "'RedirectOnExpiredClaim' Checkbox");
+    private Element redirectOnExpiredClaimCheckboxValue = new Element(By.xpath("//label/input[@name='redirect_on_expired_claim']"));
+    private Element useFacebookAppIdCheckbox = new Element(By.xpath("//label/input[@name='use_facebook_app_id']/.."), "'UseFacebookAppId' checkbox");
+    private Element useFacebookAppIdCheckboxValue = new Element(By.xpath("//label/input[@name='use_facebook_app_id']"));
+    private Element enablePlainTextVersionCheckbox = new Element(By.xpath("//label/input[@name='enable_plain_text_emails']/.."), "'EnablePlainTextVersion' Checkbox" );
+    private Element enablePlainTextVersionCheckboxValue = new Element(By.xpath("//label/input[@name='enable_plain_text_emails']"));
+
     private ElmntSaveButton saveChangesButton = new ElmntSaveButton();
     private ElmntCampaignNameInput campaignNameInput = new ElmntCampaignNameInput();
     private ElmntCampaignDescriptionInput campaignDescription = new ElmntCampaignDescriptionInput();;
@@ -180,7 +188,32 @@ public class PageCampaignRules extends AbstractCampaignPage{
         System.out.println("LOG: Rules Page is loaded");
     }
 
+    public PageCampaignRules switchRedirectOnExpiredClaimCheckbox(){
+        redirectOnExpiredClaimCheckbox.click();
+        return saveChanges();
+    }
 
+    public String getRedirectOnExpiredClaimCheckbox() {
+        return redirectOnExpiredClaimCheckboxValue.getAttribute("value");
+    }
+
+    public PageCampaignRules switchUseFacebookAppIdCheckbox(){
+        useFacebookAppIdCheckbox.moveToElementAndClick();
+        return saveChanges();
+    }
+
+    public String getUseFacebookAppIdCheckbox() {
+        return useFacebookAppIdCheckboxValue.getAttribute("value");
+    }
+
+    public PageCampaignRules switchPlainTextVersionCheckbox(){
+        enablePlainTextVersionCheckbox.moveToElementAndClick();
+        return saveChanges();
+    }
+
+    public String getPlainTextVersionCheckbox(){
+        return enablePlainTextVersionCheckboxValue.getAttribute("value");
+    }
 
     static String getIncentiveTypeName(IncentiveType incentiveType){
 

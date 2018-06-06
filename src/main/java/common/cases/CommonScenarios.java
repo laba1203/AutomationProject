@@ -164,20 +164,50 @@ public class CommonScenarios {
         Log.logRecord("Campaign description changed to <" + campaignDesc + ">");
     }
 
+    public static String getCampaignDescriptionOnRulesPage(){
+        return new PageCampaignRules().getCampaignDescription();
+    }
+
     public static void setDeadlinesOnRulesPage(String advocateOfferDeadlineDate, String adOfferEndTime, String friendDeadlineDate, String frOfferEndTime){
         PageCampaignRules rulesPage = new PageCampaignRules();
-        rulesPage = rulesPage.setDeadlineDates(advocateOfferDeadlineDate, adOfferEndTime, friendDeadlineDate, frOfferEndTime);
+        rulesPage.setDeadlineDates(advocateOfferDeadlineDate, adOfferEndTime, friendDeadlineDate, frOfferEndTime);
+        assertDeadlinesOnRulesPage(advocateOfferDeadlineDate, adOfferEndTime, friendDeadlineDate, frOfferEndTime);
+        Log.logRecord("Friend deadline date and time have been changed to " + friendDeadlineDate + ", " + frOfferEndTime + "on Campaign Rules page");
+    }
 
+    public static void assertDeadlinesOnRulesPage(String advocateOfferDeadlineDate, String adOfferEndTime, String friendDeadlineDate, String frOfferEndTime){
+        PageCampaignRules rulesPage = new PageCampaignRules();
         Assert.assertEquals(rulesPage.getAdvocateDeadlineDate(), advocateOfferDeadlineDate, "FAILED: Incorrect Advocate Deadline Date on Campaign Rules page");
         Assert.assertEquals(rulesPage.getAdvocateDeadlineTime(), adOfferEndTime, "FAILED: Incorrect Advocate Deadline Time on Campaign Rules page");
         Log.logRecord("Advocate deadline date and time have been changed to " + advocateOfferDeadlineDate + ", " + adOfferEndTime + "on Campaign Rules page");
 
         Assert.assertEquals(rulesPage.getFriendDeadlineDate(), friendDeadlineDate, "FAILED: Incorrect Friend Deadline Date on Campaign Rules page");
         Assert.assertEquals(rulesPage.getFriendDeadlineTime(), frOfferEndTime,  "FAILED: Incorrect Friend Deadline Time on Campaign Rules page");
-        Log.logRecord("Friend deadline date and time have been changed to " + friendDeadlineDate + ", " + frOfferEndTime + "on Campaign Rules page");
-
     }
 
+    public static void switchUseFacebookAppIdCheckboxOnRulesPage(){
+        new PageCampaignRules().switchUseFacebookAppIdCheckbox();
+    }
+
+    public static String getUseFacebookAppIdCheckboxValueFromRulesPage(){
+        return new PageCampaignRules().getUseFacebookAppIdCheckbox();
+    }
+
+    public static void switchPlainTextVersionCheckboxOnRulesPage(){
+        new PageCampaignRules().switchPlainTextVersionCheckbox();
+    }
+
+    public static String getPlainTextVersionCheckboxOnRulesPage(){
+        return new PageCampaignRules().getPlainTextVersionCheckbox();
+    }
+
+    public static void switchRedirectOnExpiredClaimCheckboxOnRulesPage(){
+        new PageCampaignRules().switchRedirectOnExpiredClaimCheckbox();
+    }
+
+    public static String getRedirectOnExpiredClaimCheckbox(){
+        return new PageCampaignRules().getRedirectOnExpiredClaimCheckbox();
+    }
 
     /***
      * Scenario to initiate campaign creation.
@@ -275,7 +305,8 @@ public class CommonScenarios {
         return integrationInstructionPage;
     }
 
-    /*Scenarios to create Test Offer for campaign with Post Purchase placement.
+    /**
+     * Scenarios to create Test Offer for campaign with Post Purchase placement.
      * Precondition: Campaign Details page should be opened.
      * 1. Click Create Test Offer button
      * 2. Click Create Origin button with default values on Create Test Offer page
@@ -291,7 +322,22 @@ public class CommonScenarios {
         return new CampaignDetailsPage();
     }
 
-    /*Scenarios to create Test Offer for campaign with non Post Purchase placement (FW, SA, GR).
+    public static void copyCampaignFromDetailsPage(){
+        new CampaignDetailsPage().copyCampaign();
+        Log.logRecord("Campaign copied.");
+    }
+
+    public static String getCampaignNameFromNavigationMenu(){
+        return new CampaignNavigationMenu().getCampaignName();
+    }
+
+    public static CampaignPlacement getCampaignPlacementFromNavigationMenu(){
+        return new CampaignNavigationMenu().getCampaignPlacement();
+    }
+
+
+    /**
+     * Scenarios to create Test Offer for campaign with non Post Purchase placement (FW, SA, GR).
      * Precondition: Campaign Details page should be opened.
      * 1. Click Create Test Offer button
      * 2. Populate email on New Affiliated Member page

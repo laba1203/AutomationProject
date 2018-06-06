@@ -19,6 +19,7 @@ import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.Localiz
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1jjxHr_cLNaSq3HVBgU_y6k_llNDpNyTZUoWPAJ9Aw20/edit
  * */
+@Deprecated
 public class SimpleEditorTesting extends BaseTest {
 
     private static final String siteName = PropertyLoader.loadProperty("sites.name.editorTesting");

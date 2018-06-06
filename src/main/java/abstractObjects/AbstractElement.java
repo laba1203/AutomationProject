@@ -17,6 +17,7 @@ public abstract class AbstractElement implements DrivenElement{
     private WebDriver driver = DriverConfig.getDriver();
     protected WebDriverWait wait = WaitFactory.getExplicitWait();
     private Actions actions = new Actions(driver);
+    private String elementName = this.getClass().getName();
 
 
     protected void setWebElement(By locator)
@@ -50,10 +51,10 @@ public abstract class AbstractElement implements DrivenElement{
     }
 
     protected void logClick(){
-        Log.clickMsg(this);
+        Log.clickMsg(elementName);
     }
     protected void logSendKeys(String value){
-        Log.enterValueMsg(value, this.getClass().getName());
+        Log.enterValueMsg(value, elementName);
     }
 
     private void initializeWebElement(){
@@ -64,6 +65,7 @@ public abstract class AbstractElement implements DrivenElement{
 
     public void sendKeys(String value)
     {
+        initializeWebElement();
         this.webElement.sendKeys(value);
         logSendKeys(value);
     }
@@ -74,6 +76,7 @@ public abstract class AbstractElement implements DrivenElement{
     }
 
     public String getText(){
+        initializeWebElement();
         return this.webElement.getText();
     }
 
@@ -102,6 +105,7 @@ public abstract class AbstractElement implements DrivenElement{
     }
 
     public WebElement getWebElement() {
+        initializeWebElement();
         return webElement;
     }
 
@@ -114,12 +118,14 @@ public abstract class AbstractElement implements DrivenElement{
     }
 
     public void moveMouseOver(){
+        initializeWebElement();
         Actions builder = new Actions(driver);
         builder.moveToElement(webElement).build().perform();
         Log.moveMouseOverMsg(this);
     }
 
     public void clear(){
+        initializeWebElement();
         webElement.clear();
         Log.elementClearedMsg(this);
     }
@@ -130,7 +136,12 @@ public abstract class AbstractElement implements DrivenElement{
     }
 
     public String getAttribute(String attributeName){
+        initializeWebElement();
         return this.webElement.getAttribute(attributeName);
+    }
+
+    protected void setElementNameForLog(String name){
+        this.elementName = name;
     }
 
 }
