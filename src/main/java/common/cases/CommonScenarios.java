@@ -30,6 +30,7 @@ import util.DriverConfig;
 import util.EnvFactory;
 import util.logging.Log;
 
+import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
 /*Class to allocate common scenarios in Talkable.
@@ -326,6 +327,16 @@ public class CommonScenarios {
         return new CampaignDetailsPage();
     }
 
+    public static void reactivateCampaignFromCampaignsPage(String campaignName){
+        new PageCampaigns()
+                .openCampaignByName(campaignName, DISABLED)
+                .campaignNavigationMenu.clickLaunchButton()
+                .launchCampaign();
+        Log.logRecord("Campaign <" + campaignName + "> is reactivated");
+    }
+
+
+
     /*Scenarios to open Multi-Campaign Editor page for some campaign.
      * Precondition: Page with header should opened. Campaign with @campaignName should exist with defined @status.
      * 1. Navigate to Campaigns page
@@ -357,28 +368,6 @@ public class CommonScenarios {
 
 
 
-
-    /*Scenarios to add Campaign Placement(inclusion or exclusion).
-     * Precondition: Header should be available.
-     * 1. Open Campaign Placement page
-     * 2. Add inclusion oe exclusion (as per @isInclusion)
-     * 3. wait till changes applied
-     * @Returns: PageCampaignPlacements for mentioned parameters.
-     * */
-    public static PageCampaignPlacements addCampaignPlacement(CampaignPlacement placement,
-                                                              boolean isInclusion,
-                                                              boolean regex,
-                                                              String placementText) {
-        PageCampaignPlacements campaignPlacements = new Header().openMenu().clickCampaignPlacementsButton();
-        if (isInclusion) {
-            campaignPlacements = campaignPlacements.addInclusion(placement, regex, placementText);
-        } else {
-            campaignPlacements = campaignPlacements.addExclusion(placement, regex, placementText);
-        }
-         campaignPlacements = campaignPlacements.waitTillChangesApplied();
-        Log.logRecord("<" +placement + "> campaign placement has been added. Regex = <" + regex + ">, IsInclusion = <" + isInclusion + ">, placement value = <" + placementText + ">.");
-        return campaignPlacements;
-    }
 
     public static void verifyPagination(Pagination pagination) {
         int page = 1;

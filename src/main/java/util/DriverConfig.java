@@ -18,7 +18,6 @@ public class DriverConfig {
     //URL for selenium
     private static final String SELENOID_URL = "http://selenoid.tkbl:4444//wd/hub";
 
-
     private static WebDriver driver;
 
     private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
@@ -49,11 +48,11 @@ public class DriverConfig {
         System.out.println("LOG - Util: Start creation of new Remote WebDriver");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-//        capabilities.setBrowserName("chrome");
-//        capabilities.setVersion("66.0");
-
         capabilities.setBrowserName("chrome");
         capabilities.setVersion("66.0");
+
+//        capabilities.setBrowserName("firefox");
+//        capabilities.setVersion("60.0");
         capabilities.setCapability("enableVNC", true);
 
         driver = null;
@@ -100,7 +99,7 @@ public class DriverConfig {
     }
 
     private static void resizeBrowser(WebDriver driver) {
-        Dimension d = new Dimension(1200,800);
+        Dimension d = new Dimension(1300,1200);
 //Resize current window to the set dimension
         driver.manage().window().setSize(d);
     }

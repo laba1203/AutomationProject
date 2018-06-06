@@ -33,8 +33,8 @@ public class Log {
         System.out.println(msg);
     }
 
-    public static String enterValueMsg(String value, Object obj){
-        String msg = enterValueMsg + value + "' to " + obj.getClass().getName();
+    public static String enterValueMsg(String value, String  objName){
+        String msg = enterValueMsg + value + "' to " + objName;
         System.out.println(msg);
         return msg;
     }

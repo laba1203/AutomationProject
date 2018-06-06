@@ -52,6 +52,9 @@ public abstract class AbstractElement implements DrivenElement{
     protected void logClick(){
         Log.clickMsg(this);
     }
+    protected void logSendKeys(String value){
+        Log.enterValueMsg(value, this.getClass().getName());
+    }
 
     private void initializeWebElement(){
         if(locator != null){
@@ -62,7 +65,7 @@ public abstract class AbstractElement implements DrivenElement{
     public void sendKeys(String value)
     {
         this.webElement.sendKeys(value);
-        Log.enterValueMsg(value, this);
+        logSendKeys(value);
     }
 
     public void enterTextAndClickENTER(String value){

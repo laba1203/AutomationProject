@@ -1,24 +1,28 @@
 package talkable.talkableSite.camapignPlacements;
 
-import org.openqa.selenium.NotFoundException;
+import abstractObjects.Element;
+import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 import talkable.common.CampaignPlacement;
+import talkable.common.CommonMethods;
 import talkable.talkableSite.AbstractTalkableSitePage;
-import util.DriverConfig;
 import util.WaitFactory;
+import util.logging.Log;
 
 import java.util.ArrayList;
 
 import static talkable.common.CampaignPlacement.*;
 
 public class PageCampaignPlacements extends AbstractTalkableSitePage{
+    private static final By createTileLctr = By.xpath("//*[text() = 'Create']");
+    private static final String dropDownElementLctr = "//*[@class = 'dropdown-link' and text() = '";
 
-    private PlacementTile postPurchaseSection = new PlacementTile(PostPurchase);
-    private PlacementTile floatingWidgetSection = new PlacementTile(FloatingWidget);
-    private PlacementTile standaloneSection = new PlacementTile(Standalone);
-    private PlacementTile gleamSection = new PlacementTile(Gleam);
+
+    public PageCampaignPlacements(){
+        //initiate element to ensure that the page is opened:
+        new PlacementTile(FloatingWidget);
+    }
 
     public PageCampaignPlacements addInclusion(CampaignPlacement placement, boolean regex, String inclusionText){
         PlacementTile placementTile = getPlacement(placement);
@@ -39,7 +43,6 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
 
     public PageCampaignPlacements updateFirstPlacementRow(CampaignPlacement placement, boolean isInclusion, String newValue){
         PlacementTile placementTile = getPlacement(placement);
-        assert placementTile != null;
         placementTile.updateFirstPlacement(isInclusion, newValue);
         waitSaving();
         return new PageCampaignPlacements();
@@ -47,17 +50,14 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
 
     public PageCampaignPlacements removePlacement(CampaignPlacement placement, boolean isInclusion, String placementText){
         PlacementTile placementTile = getPlacement(placement);
-        assert placementTile != null;
         placementTile.removePlacement(isInclusion, placementText);
         waitSaving();
         return new PageCampaignPlacements();
     }
 
 
-
     private ArrayList<String> getPlacementsList(CampaignPlacement placement, boolean inclusion){
         PlacementTile placementTile = getPlacement(placement);
-        assert placementTile != null;
         if(inclusion){
             return placementTile.getShownOnList();
         }
@@ -71,10 +71,11 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
         for (String item :
                 list) {
             if (item.equals(expectedPlacement)){
+                Log.logRecord("Placement with text: <" + expectedPlacement + "> is displayed");
                 return true;
             }
         }
-        Assert.fail("FAILED: Not found Placement with text: <" + expectedPlacement + ">.\r\n Available placements: " + list.toString());
+        Log.logRecord("Placement with text: <" + expectedPlacement + "> is not found.\r\n Available placements: " + list.toString());
         return false;
     }
 
@@ -93,22 +94,36 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
         return new PageCampaignPlacements();
     }
 
+    public PageCampaignPlacements deletePlacementTileWithActivateCampaign(CampaignPlacement placement){
+        getPlacement(placement).deleteTile();
+        new CampaignsAttentionPopup().deactivate();
+        return new PageCampaignPlacements();
+    }
 
     private PlacementTile getPlacement(CampaignPlacement placement){
-        switch (placement){
-            case FloatingWidget:
-                return floatingWidgetSection;
-            case PostPurchase:
-                return postPurchaseSection;
-            case Standalone:
-                return standaloneSection;
-            case Gleam:
-                return gleamSection;
-            default:
-                Assert.fail("Unknown placement type: " + placement.toString());
-                return null;
-        }
-
+        return new PlacementTile(placement);
     }
+
+//    public CampaignPlacement createNewPlacementTile(CampaignPlacement placement, String campaignToBeAttached){
+//        String placementName = CommonMethods.getCampaignPlacementString(placement);
+//        new Element(createTileLctr, "Create Placement Tile button")
+//                .click();
+//        getDropDownElement(placement).click();
+//        new PopupEditPlacement().changePlacementName(placementName);
+//        //todo: to be completed
+//    }
+
+    private Element getDropDownElement(CampaignPlacement placement){
+        return new Element(By.xpath(
+                dropDownElementLctr + CommonMethods.getCampaignPlacementString(placement) + "']"),
+                CommonMethods.getCampaignPlacementString(placement) + " record"
+        );
+    }
+
+    public void deleteAllPlacements(CampaignPlacement placement){
+        getPlacement(placement).deleteAllPlacements();
+    }
+
+
 
 }

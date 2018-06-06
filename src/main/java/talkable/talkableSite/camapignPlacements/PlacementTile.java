@@ -17,8 +17,8 @@ public class PlacementTile extends AbstractElementsContainer{
     private Element header;
     private static final String showOnXpath = ".//*[contains(@class, 'is-on')]/following-sibling::div//div[contains(@class, 'Routes-form-row')]";
     private static final String hiddenOnXpath = ".//*[contains(@class, 'is-off')]/following-sibling::div//div[contains(@class, 'Routes-form-row')]";
-    private ArrayList<PlacementRowElement> shownOn;
-    private ArrayList<PlacementRowElement> hiddenOn;
+//    private ArrayList<PlacementRowElement> shownOn;
+//    private ArrayList<PlacementRowElement> hiddenOn;
     private Element actionButton;
 
     PlacementTile(CampaignPlacement placement){
@@ -26,16 +26,20 @@ public class PlacementTile extends AbstractElementsContainer{
 
         tileElmnt = new Element(header.getWebElement().findElement(By.xpath("./../../..")));
         actionButton = new Element(tileElmnt.getWebElement().findElement(By.xpath(".//*[contains(@data-toggle, 'dropdown')]")));
-        shownOn = setList(showOnXpath);
-        hiddenOn = setList(hiddenOnXpath);
+//        shownOn = setList(showOnXpath);
+//        hiddenOn = setList(hiddenOnXpath);
+    }
+
+    PlacementTile(String tileName){
+
     }
 
     public ArrayList<String> getHiddenOnList() {
-        return getPlacementsList(hiddenOn);
+        return getPlacementsList(setList(hiddenOnXpath));
     }
 
     public ArrayList<String> getShownOnList() {
-        return getPlacementsList(shownOn);
+        return getPlacementsList(setList(showOnXpath));
     }
 
     private ArrayList<String> getPlacementsList(ArrayList<PlacementRowElement> placementsList){
@@ -47,6 +51,7 @@ public class PlacementTile extends AbstractElementsContainer{
         return out;
     }
 
+
     public PageCampaignPlacements addExclusion(boolean regex, String exclusionText){
         return edit().add(false, regex, exclusionText);
     }
@@ -56,7 +61,7 @@ public class PlacementTile extends AbstractElementsContainer{
     }
 
     public PageCampaignPlacements removePlacement(boolean isInclusion, String name){
-        return edit().remove(isInclusion, name);
+        return edit().removeAndSave(isInclusion, name);
     }
 
     public PageCampaignPlacements updateFirstPlacement(boolean isInclusion, String newValue){
@@ -71,12 +76,10 @@ public class PlacementTile extends AbstractElementsContainer{
 
 
 
-    public PageCampaignPlacements deleteTile(){
+    public void deleteTile(){
         actionButton.click();
         new ActionMenu(tileElmnt).deleteTile();
-        new PageCampaignPlacements();
 
-        return new PageCampaignPlacements();
     }
 
 
@@ -94,6 +97,10 @@ public class PlacementTile extends AbstractElementsContainer{
     private String getPlacementName(CampaignPlacement placement)
     {
         return CommonMethods.getCampaignPlacementString(placement);
+    }
+
+    PageCampaignPlacements deleteAllPlacements(){
+        return edit().deleteAllPlacements();
     }
 
 
