@@ -9,7 +9,7 @@ import util.logging.Log;
 public class EditorScenarios extends CommonScenarios{
 
     public static void openSimpleEditorForCampaign(String campaignName, Table.Status campaignStatus){
-        openCampaignDetailsPage(campaignName, campaignStatus);
+        openCampaignDetailsPageFor(campaignName, campaignStatus);
         openSimpleEditor();
     }
 
