@@ -2,7 +2,7 @@ package talkable.talkableSite.reports.newAffiliateMember;
 
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
-import talkable.talkableSite.reports.advocateOffersReport.advocateOfferDetailsPage.AdvocateOfferDetailsPage;
+import talkable.talkableSite.reports.advocateOffers.advocateOfferDetailsPage.AdvocateOfferDetailsPage;
 import util.DriverConfig;
 
 public class PageNewAffiliateMember extends AbstractTalkableSitePage{

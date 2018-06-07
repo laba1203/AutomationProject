@@ -1,5 +1,6 @@
 
 import common.cases.CommonScenarios;
+import io.restassured.RestAssured;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -35,6 +36,7 @@ public class FirstTest {
 //    public void test2() {
 //        new FraudSettingsPage().setHighProfile();
 //    }
+
 
 
 }

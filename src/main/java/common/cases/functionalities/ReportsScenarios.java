@@ -5,10 +5,9 @@ import org.openqa.selenium.NotFoundException;
 import org.testng.Assert;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
-import talkable.talkableSite.reports.referralsReport.PageReferralsReport;
+import talkable.talkableSite.reports.referrals.PageReferralsReport;
+import talkable.talkableSite.reports.rewards.RewardsReportPage;
 import util.logging.Log;
-
-import java.util.ArrayList;
 
 public class ReportsScenarios extends CommonScenarios {
 
@@ -90,7 +89,26 @@ public class ReportsScenarios extends CommonScenarios {
         Log.logRecord("Referral created for advocate <" + advocateEmail + ">");
     }
 
+    public static String getReferralsReportTotal(){
+        return new PageReferralsReport().getTotalRowsCount();
+    }
+
 
 
     /* End of scenarios for Referral report*/
+
+    /*  --- Scenairios for Rewards Report ---   */
+
+    public static void openRewardsReport(){
+        new Header().clickReportsButton().openRewardsReport();
+        Log.logRecord("Rewards Report is opened.");
+    }
+
+    public static String getRewardsReportTotal(){
+        return new RewardsReportPage().getTotalRowsCount();
+    }
+
+
+
+    /* End of scenarios for Rewards report*/
 }

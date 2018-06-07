@@ -1,0 +1,6 @@
+package talkable.talkableSite.customerServicePortal.personLookup;
+
+import talkable.talkableSite.customerServicePortal.AbstractCustomerServicePortalPage;
+
+public class PersonLookupPage extends AbstractCustomerServicePortalPage{
+}
