@@ -7,7 +7,6 @@ import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPa
 import talkable.addYourSitePage.AddSitePage;
 import talkable.common.CampaignPlacement;
 import talkable.common.CampaignType;
-import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
@@ -15,6 +14,7 @@ import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
+import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
@@ -103,6 +103,26 @@ public class CommonScenarios {
 
         return integrationInstructionPage;
     }
+
+    public static SiteDashboardPage openDashboardPage(){
+        SiteDashboardPage page = new Header().openSiteDashboard();
+        Log.logRecord("Site Dashboard page is opened.");
+        return page;
+    }
+
+    public static SiteDashboardPage openDashboardPageForNonIntegratedSite(){
+        new Header()
+                .openSiteDashboardForNonIntegratedSite()
+                .dontShowItAgain();
+        return new SiteDashboardPage();
+    }
+
+    public static PersonLookupPage openCustomerServicePortal(){
+        PersonLookupPage page = new Header().openCustomerServicePortal();
+        Log.logRecord("Customer Service Portal is opened. (Person Lookup page is displayed)");
+        return page;
+    }
+
 
 
 
@@ -329,6 +349,10 @@ public class CommonScenarios {
     public static void copyCampaignFromDetailsPage(){
         new CampaignDetailsPage().copyCampaign();
         Log.logRecord("Campaign copied.");
+    }
+
+    public static void flushCampaignDataFromDetailsPage(){
+        new CampaignDetailsPage().flushAllData();
     }
 
     public static String getCampaignNameFromNavigationMenu(){

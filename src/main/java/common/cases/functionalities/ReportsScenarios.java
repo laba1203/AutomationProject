@@ -90,6 +90,10 @@ public class ReportsScenarios extends CommonScenarios {
         Log.logRecord("Referral created for advocate <" + advocateEmail + ">");
     }
 
+    public static String getTotalRowsCountFromReferralReport(){
+        return new PageReferralsReport().getTotalRowsCount();
+    }
+
 
 
     /* End of scenarios for Referral report*/
