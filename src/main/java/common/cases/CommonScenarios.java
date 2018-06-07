@@ -120,8 +120,12 @@ public class CommonScenarios {
         }
     }
 
+    public static void openCampaignDetailsPage(){
+        new CampaignNavigationMenu().openDetailsPage();
+        Log.logRecord("Campaign Details page is opened.");
+    }
 
-    public static void openCampaignDetailsPage(String campaignName, Table.Status campaignStatus){
+    public static void openCampaignDetailsPageFor(String campaignName, Table.Status campaignStatus){
         PageCampaigns page = openCampaignsPage();
         page.openCampaignByName(campaignName, campaignStatus);
         Log.logRecord("Details page is opened for campaign <" + campaignName + "> with status = <" + campaignStatus + ">.");
@@ -352,6 +356,17 @@ public class CommonScenarios {
         newAffiliateMember.createMemberAndSwitchToCampaign(newAffiliatedMemberEmail);
         Log.logRecord("Test offer created (New Affiliate Member)");
         return new CampaignDetailsPage();
+    }
+
+    /**
+     * Verification of Advocate Total Offers Count on Campaign Details page.
+     * @expectedAdvocateOffersCount should be String value, e.g. "Total: 2"
+    */
+    public static void assertAdvocateOffersCountOnCampaignDetailsPage(String expectedAdvocateOffersCount){
+        Assert.assertEquals(
+                CommonScenarios.getAdvocateOfferTotalCountFromCampaignDetailsPage(),
+                expectedAdvocateOffersCount,
+                "FAILED: Incorrect Offers count on Campaign Details page");
     }
 
 
