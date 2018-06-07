@@ -1,4 +1,4 @@
-package talkable.talkableSite.customerService.createReferral;
+package talkable.talkableSite.customerServicePortal.createReferral;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
