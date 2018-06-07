@@ -6,7 +6,6 @@ import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import util.DriverConfig;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
@@ -16,7 +15,6 @@ import static talkable.common.CampaignPlacement.FloatingWidget;
 import static talkable.common.CampaignPlacement.PostPurchase;
 import static talkable.common.CampaignType.AdvocateDashboard;
 import static talkable.common.CampaignType.Invite;
-import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
 
 public class CampaignActionsTesting extends BaseTest{
@@ -27,8 +25,6 @@ public class CampaignActionsTesting extends BaseTest{
                 PropertyLoader.loadProperty("talkable.user.campaignActionsTest"),
                 EnvFactory.getPassword()
         );
-//        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
-//        CommonScenarios.deleteAllCampaignsWithStatus(LIVE);
     }
 
     @Test(dependsOnMethods = "login")
@@ -105,16 +101,15 @@ public class CampaignActionsTesting extends BaseTest{
         CommonScenarios.assertAdvocateOffersCountOnCampaignDetailsPage("Total: 0");
         ReportsScenarios.openReferralsReport();
         Assert.assertEquals(
-                ReportsScenarios.getTotalRowsCountFromReferralReport(),
+                ReportsScenarios.getReferralsReportTotal(),
                 "Not found",
                 "FAILED: Incorrect total rows count on the Referrals Report.");
-        //todo: add verification of reward
 
-
-
-
-
-
+        ReportsScenarios.openRewardsReport();
+        Assert.assertEquals(
+                ReportsScenarios.getRewardsReportTotal(),
+                "Not found",
+                "FAILED: Incorrect total rows count on the Rewards Report.");
 
     }
 

@@ -1,4 +1,4 @@
-package talkable.talkableSite.reports.referralsReport;
+package talkable.talkableSite.reports.referrals;
 
 import abstractObjects.Element;
 import org.openqa.selenium.By;

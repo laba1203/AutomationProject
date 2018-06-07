@@ -1,8 +1,8 @@
-package talkable.talkableSite.reports.purchasesReport.createNewPurchasePage;
+package talkable.talkableSite.reports.purchases.createNewPurchasePage;
 
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
-import talkable.talkableSite.reports.advocateOffersReport.advocateOfferDetailsPage.AdvocateOfferDetailsPage;
+import talkable.talkableSite.reports.advocateOffers.advocateOfferDetailsPage.AdvocateOfferDetailsPage;
 import util.DriverConfig;
 
 public class CreateNewPurchasePage extends AbstractTalkableSitePage{

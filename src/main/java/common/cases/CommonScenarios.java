@@ -16,7 +16,7 @@ import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
-import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
+import talkable.talkableSite.reports.purchases.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.homePage.HomePage;
@@ -307,6 +307,7 @@ public class CommonScenarios {
     public static String getAdvocateOfferTotalCountFromCampaignDetailsPage(){
         return new CampaignDetailsPage().getAdvocateOffersTotalCount();
     }
+
 
 
     /***

@@ -1,4 +1,4 @@
-package talkable.talkableSite.reports.advocateOffersReport.advocateOfferDetailsPage;
+package talkable.talkableSite.reports.advocateOffers.advocateOfferDetailsPage;
 
 import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;

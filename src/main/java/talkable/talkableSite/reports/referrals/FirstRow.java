@@ -1,11 +1,11 @@
-package talkable.talkableSite.reports.referralsReport;
+package talkable.talkableSite.reports.referrals;
 
 import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
 import org.testng.Assert;
-import talkable.talkableSite.reports.referralsReport.referralDetailsPage.ReferralDetailsPage;
+import talkable.talkableSite.reports.referrals.referralDetailsPage.ReferralDetailsPage;
 import util.WaitFactory;
 
 public class FirstRow extends AbstractElementsContainer{

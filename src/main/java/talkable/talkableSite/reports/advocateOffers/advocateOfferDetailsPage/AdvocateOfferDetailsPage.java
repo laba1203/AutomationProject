@@ -1,4 +1,4 @@
-package talkable.talkableSite.reports.advocateOffersReport.advocateOfferDetailsPage;
+package talkable.talkableSite.reports.advocateOffers.advocateOfferDetailsPage;
 
 import talkable.talkableSite.AbstractTalkableSitePage;
 

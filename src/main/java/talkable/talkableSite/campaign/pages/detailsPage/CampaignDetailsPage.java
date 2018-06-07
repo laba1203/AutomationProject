@@ -8,7 +8,7 @@ import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
 import talkable.common.CampaignPlacement;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
-import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
+import talkable.talkableSite.reports.purchases.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.campaign.pages.detailsPage.containers.copyCampaignPopup.CopyCampaignPopup;
 import util.logging.Log;
 

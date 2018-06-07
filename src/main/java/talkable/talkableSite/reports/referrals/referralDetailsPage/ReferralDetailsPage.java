@@ -1,4 +1,4 @@
-package talkable.talkableSite.reports.referralsReport.referralDetailsPage;
+package talkable.talkableSite.reports.referrals.referralDetailsPage;
 
 import talkable.talkableSite.AbstractTalkableSitePage;
 
