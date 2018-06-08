@@ -1,6 +1,5 @@
 package talkable.talkableSite.campaign.pages.campaignRulesPage;
 
-import abstractObjects.DrivenElement;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -13,6 +12,8 @@ import util.logging.Log;
 import java.util.ArrayList;
 
 public class PageCampaignRules extends AbstractCampaignPage{
+
+    private static final By incentiveNamesFromDropDownLctr = By.cssSelector(".Rules-incentives-dropdown a>div:nth-of-type(1)");
 
     private Element redirectOnExpiredClaimCheckbox = new Element(By.xpath("//label/input[@name='redirect_on_expired_claim']/.."), "'RedirectOnExpiredClaim' Checkbox");
     private Element redirectOnExpiredClaimCheckboxValue = new Element(By.xpath("//label/input[@name='redirect_on_expired_claim']"));
@@ -46,10 +47,6 @@ public class PageCampaignRules extends AbstractCampaignPage{
         FriendIncentive_NewSubscriber,
         FriendReferredIncentive
     }
-
-    ElmntCreateNewIncentiveButton createNewIncentiveButton;
-    ArrayList<DrivenElement> incentiveTypeItems;
-
 
     public PageCampaignRules(){
 
@@ -111,11 +108,9 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
 
     public PageCampaignRules createNewIncentive(IncentiveType incentiveType, int rewardAmount, DiscountType discountType, CouponCodeType couponCodeType){
-        createNewIncentiveButton = new ElmntCreateNewIncentiveButton();
-        createNewIncentiveButton.click();
+        new ElmntCreateNewIncentiveButton().click();
         PopupIncentiveFactory incentivePopup = selectIncentive(incentiveType);
         incentivePopup.createIncentive(rewardAmount, discountType, couponCodeType);
-
 
         return waitLoading();
     }
@@ -123,7 +118,7 @@ public class PageCampaignRules extends AbstractCampaignPage{
    /*Note: Format of dates should be MM/DD/YYYY,
    * Hours and Minute format should be equal to values from relevant dropdown lists on UI(Rules page)
    * */
-    public PageCampaignRules setDeadlineDates(String advocateOfferDeadlineDate, String adHours, String adMinute, String friendOfferDeadlineDate, String frHour, String frMinute){
+    private PageCampaignRules setDeadlineDates(String advocateOfferDeadlineDate, String adHours, String adMinute, String friendOfferDeadlineDate, String frHour, String frMinute){
         //advocate Deadline Offer values:
         this.advocateOfferDeadlineDate.sendKeys(advocateOfferDeadlineDate);
         adOfferDeadlineHours.searchAndSelect(adHours);
@@ -141,8 +136,9 @@ public class PageCampaignRules extends AbstractCampaignPage{
     }
 
     private PopupIncentiveFactory selectIncentive(IncentiveType incentiveType){
-        ArrayList<DrivenElement> incentiveTypeItems = new ElmntIncentiveTypeItem().getElements();
-        String incentiveName = getIncentiveTypeName(incentiveType);
+        ArrayList<Element> incentiveTypeItems = getElementsList(incentiveNamesFromDropDownLctr);
+        Log.debagRecord("size: " + incentiveTypeItems.size());
+                String incentiveName = getIncentiveTypeName(incentiveType);
         selectByText(incentiveName, incentiveTypeItems);
 
         return getIncentivePopup(incentiveType);
@@ -166,14 +162,11 @@ public class PageCampaignRules extends AbstractCampaignPage{
         IncentiveTile incentive = getIncentiveTile(incentiveType, value);
         incentive.delete();
 
-//        wait.until(ExpectedConditions.visibilityOf(new ElmntLoadingMessage().getWebElement()));
         return waitLoading();
     }
 
     private PageCampaignRules waitLoading(){
-        ElmntLoadingMessage loadingMessage = new ElmntLoadingMessage();
-//        wait.until(ExpectedConditions.visibilityOf(loadingMessage.getWebElement()));
-//        wait.until(ExpectedConditions.invisibilityOf(loadingMessage.getWebElement()));
+        new ElmntLoadingMessage();
         firstLoading();
         return new PageCampaignRules();
     }
@@ -183,9 +176,8 @@ public class PageCampaignRules extends AbstractCampaignPage{
         try {
             wait.until(ExpectedConditions.invisibilityOf(loadingMessage.getWebElement()));
         }catch (TimeoutException e){
-            Assert.fail("FAILED: "+"org.openqa.selenium.TimeoutException:");
+            Assert.fail("FAILED: org.openqa.selenium.TimeoutException:");
         }
-        System.out.println("LOG: Rules Page is loaded");
     }
 
     public PageCampaignRules switchRedirectOnExpiredClaimCheckbox(){

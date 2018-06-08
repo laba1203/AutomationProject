@@ -1,35 +1,46 @@
 
 import common.cases.CommonScenarios;
+import execution.BaseTest;
 import io.restassured.RestAssured;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
+import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import util.DriverConfig;
+import util.EnvFactory;
+import util.Screenshot;
+import util.logging.Log;
+
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.CouponCodeType.MultiUse;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType.Percentage;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType.AdvocateReferralIncentive;
 
 
-public class FirstTest {
+public class FirstTest{
 
-    private WebDriver driver;
+//    private WebDriver driver;
 
-    private String siteName = "automationSite";
+//    private String siteName = "automationSite";
+
+    public WebDriver driver;
 
     @BeforeSuite
     public void setup(){
-        driver = DriverConfig.getDriver();
-        driver.navigate().to("https://talkable.com");
+        Log.logRecord("Class name: " + this.getClass().getName());
+        this.driver = DriverConfig.getDriver();
+        this.driver.navigate().to(EnvFactory.getEnvUrl());
+        CommonScenarios.login("maxim.laba@talkable.com", "Password@1");
+        driver.navigate().to("https://admin.talkable.com/sites/custom/campaigns/60628/edit#/");
     }
 
     @Test
-    public void test1_login(){
-        CommonScenarios.login("maxim.laba@talkable.com", "Password@1");
+    public void test1(){
+        new PageCampaignRules().createNewIncentive(
+                AdvocateReferralIncentive,
+                6,
+                Percentage,
+                MultiUse);
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        driver.navigate().to("https://admin.talkable.com/sites/testmax-shard2/fraud");
     }
 
 //    @Test
