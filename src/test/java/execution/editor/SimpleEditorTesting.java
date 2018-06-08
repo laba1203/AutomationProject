@@ -59,7 +59,7 @@ public class SimpleEditorTesting extends BaseTest {
         String localizationName = "Friend share email copy#";
         String newValue = "Updated value for auto-test";
 
-        editorPage = new EditorPage(COPY).switchViewByName("Friend share email");
+        editorPage = new EditorPage(COPY).switchViewByNameOnSimpleEditor("Friend share email");
         editContentTest(COPY, localizationName, newValue);
 
     }

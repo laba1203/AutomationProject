@@ -435,7 +435,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
         EditorPage editor = campaignsPage.openCampaignByName(campaignName, campaignStatus).
                 campaignNavigationMenu.openEditorPage();
         //Switch view:
-        editor = editor.switchViewByName(campaignViewName);
+        editor = editor.switchViewByNameOnSimpleEditor(campaignViewName);
         //Switch content
         editor.switchTo(mode);
         // Verify value in Editor:

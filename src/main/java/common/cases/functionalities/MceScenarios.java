@@ -38,7 +38,7 @@ public class MceScenarios extends CommonScenarios{
         CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
         EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
 
-        editor = editor.switchViewByName(pageViewName);
+        editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
         editor.switchTo(contentType);
         return editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
     }
@@ -116,7 +116,7 @@ public class MceScenarios extends CommonScenarios{
                 .campaignNavigationMenu
                 .openEditorPage();
 
-        editor = editor.switchViewByName(pageViewName);
+        editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
         editor.switchTo(localizationType);
         // Verify value in Editor:
         String value = editor.getLocalizationValue(localizationType, localizationName + "#");

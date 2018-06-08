@@ -441,7 +441,7 @@ public class CommonScenarios {
                                                                       EditorPage.LocalizationType contentType) {
         CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
         EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
-        editor = editor.switchViewByName(pageViewName);
+        editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
         editor.switchTo(contentType);
         PageMultiCampaignEditor mceEditor =  editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
         Log.logRecord("Multi-Campaign Editor page is opened for campaign = <" + campaignName + ">, localization = <" + contentType + " --> " + localizationName + ">.");
