@@ -1,6 +1,7 @@
 package talkable.talkableSite.campaign.pages.editorPage;
 
 import abstractObjects.Element;
+import org.apache.tools.ant.taskdefs.Javadoc;
 import org.openqa.selenium.By;
 import talkable.talkableSite.AbstractTkblSitePageWithoutHeader;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
@@ -52,10 +53,9 @@ public abstract class AbstractEditorPage extends AbstractTkblSitePageWithoutHead
         return new SimpleEditorPage();
     }
 
-    public HtmlEditorPage createNewPreset(String presetName){
-        openPresetDropDown()
-                .findPresetByName(presetName);
-        //todo: methos is not completed!!!!
-        return null;
+    public HtmlEditorPage createNewPreset(String presetName, String jsonVariables){
+        return openPresetDropDown()
+                .clickCreateNewPreset()
+                .closeParentWindowAndCreateNewPreview(presetName, jsonVariables);
     }
 }

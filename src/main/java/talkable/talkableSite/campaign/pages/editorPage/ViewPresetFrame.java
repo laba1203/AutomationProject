@@ -7,7 +7,7 @@ import org.testng.Assert;
 
 import java.util.ArrayList;
 
-public class ViewPresetFrame extends AbstractElementsContainer{
+class ViewPresetFrame extends AbstractElementsContainer{
     private final By presetNamesLctr = By.xpath("//*[contains(@class, 'presets-link')]/..");
 
     private Element createNewPresetBtn = new Element(By.xpath("//*[contains(text(), 'Create new preset')]"), "<Create New Preset>");
@@ -24,8 +24,9 @@ public class ViewPresetFrame extends AbstractElementsContainer{
         return null;
     }
 
-    public CreateNewPresetPage clickCreateNewPreset(){
+    CreateNewPresetPage clickCreateNewPreset(){
         createNewPresetBtn.click();
+
         return new CreateNewPresetPage();
     }
 
