@@ -9,10 +9,10 @@ import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaig
 
 import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.*;
 
-public class SimpleEditorPage extends AbstractEditorPage{//AbstractTkblSitePageWithoutHeader{
+public class SimpleEditorPage extends AbstractEditorPage{ //AbstractTkblSitePageWithoutHeader{
 
-    private static final By presetDropDownBtnLctr = By.xpath("//*[@data-editor-toggle = 'presets']");
-    private static final By presetWasRemovedMsg = By.xpath("//*[contains(text(), 'Preset was removed')]");
+//    private static final By presetDropDownBtnLctr = By.xpath("//*[@data-editor-toggle = 'presets']");
+//    private static final By presetWasRemovedMsg = By.xpath("//*[contains(text(), 'Preset was removed')]");
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
     private LocalizationSidebar localizationSidebar;
@@ -68,9 +68,14 @@ public class SimpleEditorPage extends AbstractEditorPage{//AbstractTkblSitePageW
 //    }
 
     public SimpleEditorPage switchViewByNameOnSimpleEditor(String name){
-        super.switchViewByName(name);
+        switchViewByName(name);
         return new SimpleEditorPage(this.mode);
     }
+
+     public SimpleEditorPage deleteViewPreset(String presetName) {
+        deletePreset(presetName);
+        return new SimpleEditorPage(this.mode);
+     }
 
     private boolean isViewSelected(String toBeSelected){
         return elmntSelectedViewField.getText().equals(toBeSelected);

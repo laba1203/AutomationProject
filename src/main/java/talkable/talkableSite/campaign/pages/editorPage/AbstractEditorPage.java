@@ -13,7 +13,7 @@ public abstract class AbstractEditorPage extends AbstractTkblSitePageWithoutHead
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
     private ElmntSelectedViewField elmntSelectedViewField = new ElmntSelectedViewField();
 
-    public void switchViewByName(String name){
+    void switchViewByName(String name){
         if(isViewSelected(name)) {
             System.out.println("DEBAG: View <" + name + "> is already selected");
         }else{
@@ -34,7 +34,7 @@ public abstract class AbstractEditorPage extends AbstractTkblSitePageWithoutHead
         return elmntSelectedViewField.getText().equals(toBeSelected);
     }
 
-    private ViewPresetFrame openPresetDropDown(){
+    ViewPresetFrame openPresetDropDown(){
         new Element(presetDropDownBtnLctr, "Preset Dropdown").click();
         return new ViewPresetFrame();
     }
@@ -43,7 +43,7 @@ public abstract class AbstractEditorPage extends AbstractTkblSitePageWithoutHead
         return new Element(presetDropDownBtnLctr, "Preset Dropdown").getText();
     }
 
-    public SimpleEditorPage deletePreset(String presetName) {
+    SimpleEditorPage deletePreset(String presetName) {
         openPresetDropDown()
                 .findPresetByName(presetName)
                 .deletePreset();
@@ -52,7 +52,7 @@ public abstract class AbstractEditorPage extends AbstractTkblSitePageWithoutHead
         return new SimpleEditorPage();
     }
 
-    public SimpleEditorPage createNewPreset(String presetName){
+    public HtmlEditorPage createNewPreset(String presetName){
         openPresetDropDown()
                 .findPresetByName(presetName);
         //todo: methos is not completed!!!!
