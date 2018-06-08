@@ -9,10 +9,7 @@ import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaig
 
 import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.*;
 
-public class SimpleEditorPage extends AbstractEditorPage{ //AbstractTkblSitePageWithoutHeader{
-
-//    private static final By presetDropDownBtnLctr = By.xpath("//*[@data-editor-toggle = 'presets']");
-//    private static final By presetWasRemovedMsg = By.xpath("//*[contains(text(), 'Preset was removed')]");
+public class SimpleEditorPage extends AbstractEditorPage{
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
     private LocalizationSidebar localizationSidebar;
@@ -47,25 +44,6 @@ public class SimpleEditorPage extends AbstractEditorPage{ //AbstractTkblSitePage
         return previewFrame.getElementText(locator);
     }
 
-//    public SimpleEditorPage switchViewByIndex(int index){
-//        elmntSelectedViewField.click();
-//        new ContainerViewRecords().selectByIndex(index);
-//        return new SimpleEditorPage();
-//    }
-
-    /*commented due to new parent class*/
-
-//    public SimpleEditorPage switchViewByName(String name){
-//        if(isViewSelected(name)) {
-//            System.out.println("DEBAG: View <" + name + "> is already selected");
-//        }else{
-//            elmntSelectedViewField.click();
-//            new ContainerViewRecords().selectViewByText(name);
-//            System.out.println("DEBAG: View changed to : " + name);
-//        }
-//
-//        return new SimpleEditorPage(this.mode);
-//    }
 
     public SimpleEditorPage switchViewByNameOnSimpleEditor(String name){
         switchViewByName(name);
@@ -102,35 +80,6 @@ public class SimpleEditorPage extends AbstractEditorPage{ //AbstractTkblSitePage
         waitSaving();
         return new SimpleEditorPage(this.mode);
     }
-
-    /*commented due to new parent class*/
-//    private ViewPresetFrame openPresetDropDown(){
-//        new Element(presetDropDownBtnLctr, "Preset Dropdown").click();
-//        return new ViewPresetFrame();
-//    }
-
-    /*commented due to new parent class*/
-//    public String getSelectedPresetName(){
-//        return new Element(presetDropDownBtnLctr, "Preset Dropdown").getText();
-//    }
-
-    /*commented due to new parent class*/
-//    public SimpleEditorPage deletePreset(String presetName) {
-//        openPresetDropDown()
-//                .findPresetByName(presetName)
-//                .deletePreset();
-//        new Element(presetWasRemovedMsg);
-//        Log.logRecord("View Preset with name <" + presetName + "> is deleted");
-//        return new SimpleEditorPage();
-//    }
-
-    /*commented due to new parent class*/
-//    public SimpleEditorPage createNewPreset(String presetName){
-//        openPresetDropDown()
-//                .findPresetByName(presetName)
-//                .
-//    }
-
 
     public void switchTo(LocalizationType mode){
         switch (mode){
