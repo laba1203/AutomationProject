@@ -88,21 +88,21 @@ public abstract class AbstractElement implements DrivenElement{
         return webElement.isEnabled();
     }
 
-    public ArrayList<DrivenElement> getElements(){
-        ArrayList<DrivenElement> output = new ArrayList<>();
-        for (WebElement element:
-                driver.findElements(locator)) {
-            try {
-                AbstractElement abstractElement = this.getClass().newInstance();
-                abstractElement.setWebElement(element);
-                output.add(abstractElement);
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-                Assert.fail();
-            }
-        }
-        return output;
-    }
+//    public ArrayList<DrivenElement> getElements(){
+//        ArrayList<DrivenElement> output = new ArrayList<>();
+//        for (WebElement element:
+//                driver.findElements(locator)) {
+//            try {
+//                AbstractElement abstractElement = this.getClass().newInstance();
+//                abstractElement.setWebElement(element);
+//                output.add(abstractElement);
+//            } catch (InstantiationException | IllegalAccessException e) {
+//                e.printStackTrace();
+//                Assert.fail();
+//            }
+//        }
+//        return output;
+//    }
 
     public WebElement getWebElement() {
         initializeWebElement();
