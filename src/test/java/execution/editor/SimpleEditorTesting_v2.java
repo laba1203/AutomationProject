@@ -46,7 +46,20 @@ public class SimpleEditorTesting_v2 extends BaseTest {
         Log.testPassed("Value is updated in Simple Editor. <" +type + "." + localizationName + ">.\r\n");
     }
 
-    @Test(dependsOnMethods = {"loginAndCreateNewCampaign", "updateContent"}, alwaysRun = true)
+    @Test(dependsOnMethods = "loginAndCreateNewCampaign")
+    public void createNewPreset(){
+        driver.navigate().to(campaignDetailsPageUrl);
+//        EditorScenarios
+    }
+
+
+
+    @Test(dependsOnMethods = {
+            "loginAndCreateNewCampaign",
+            "updateContent",
+            "createNewPreset"
+    },
+            alwaysRun = true)
     public void cleanUpTestData(){
         driver.navigate().to(campaignDetailsPageUrl);
         CommonScenarios.deleteCampaignFromDetailsPage();

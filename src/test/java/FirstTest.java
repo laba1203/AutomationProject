@@ -30,16 +30,26 @@ public class FirstTest{
         this.driver = DriverConfig.getDriver();
         this.driver.navigate().to(EnvFactory.getEnvUrl());
         CommonScenarios.login("maxim.laba@talkable.com", "Password@1");
-        driver.navigate().to("https://admin.talkable.com/sites/custom/campaigns/60628/edit#/");
+        driver.navigate().to("https://admin.void.talkable.com/sites/custom/campaigns/45135/edit#/");
     }
 
     @Test
     public void test1(){
-        new PageCampaignRules().createNewIncentive(
-                AdvocateReferralIncentive,
-                6,
-                Percentage,
-                MultiUse);
+//        new PageCampaignRules().createNewIncentive(
+//                AdvocateReferralIncentive,
+//                6,
+//                Percentage,
+//                MultiUse);
+
+        PageCampaignRules rulesPage = new PageCampaignRules();
+        rulesPage = rulesPage.createNewIncentive(
+                PageCampaignRules.IncentiveType.AdvocateSignupIncentive,
+                25, PageCampaignRules.DiscountType.FixedAmount,
+                PageCampaignRules.CouponCodeType.MultiUse);
+
+        rulesPage.createNewIncentive(PageCampaignRules.IncentiveType.FriendIncentive_NewCustomer,
+                10, PageCampaignRules.DiscountType.Percentage,
+                PageCampaignRules.CouponCodeType.MultiUse);
 
     }
 

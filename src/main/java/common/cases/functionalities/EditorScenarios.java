@@ -20,7 +20,7 @@ public class EditorScenarios extends CommonScenarios{
 
     public static void updateLocalization(EditorPage.LocalizationType type, String view, String localizationName, String newValue){
         EditorPage editorPage = new EditorPage(type);
-        editorPage = editorPage.switchViewByName(view);
+        editorPage = editorPage.switchViewByNameOnSimpleEditor(view);
         editorPage.updateLocalization(type, localizationName, newValue);
         Log.logRecord("Localization <" + type + "." + localizationName + "> changed to <" + newValue + "> on view <" + view + ">");
     }

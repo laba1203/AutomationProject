@@ -1,5 +1,6 @@
 package talkable.talkableSite.campaign.pages.editorPage;
 
+import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -7,13 +8,17 @@ import talkable.talkableSite.AbstractTkblSitePageWithoutHeader;
 import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
+import util.logging.Log;
 
 import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.*;
 
-public class EditorPage extends AbstractTkblSitePageWithoutHeader{
+public class EditorPage extends AbstractEditorPage{//AbstractTkblSitePageWithoutHeader{
+
+    private static final By presetDropDownBtnLctr = By.xpath("//*[@data-editor-toggle = 'presets']");
+    private static final By presetWasRemovedMsg = By.xpath("//*[contains(text(), 'Preset was removed')]");
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
-    public LocalizationSidebar localizationSidebar;
+    private LocalizationSidebar localizationSidebar;
     private ElmntSaveButton saveButton = new ElmntSaveButton();
     private ElmntSelectedViewField elmntSelectedViewField = new ElmntSelectedViewField();
     private ElmntCopyButton copyButton = new ElmntCopyButton();
@@ -45,21 +50,28 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         return previewFrame.getElementText(locator);
     }
 
-    public EditorPage switchViewByIndex(int index){
-        elmntSelectedViewField.click();
-        new ContainerViewRecords().selectByIndex(index);
-        return new EditorPage();
-    }
+//    public EditorPage switchViewByIndex(int index){
+//        elmntSelectedViewField.click();
+//        new ContainerViewRecords().selectByIndex(index);
+//        return new EditorPage();
+//    }
 
-    public EditorPage switchViewByName(String name){
-        if(isViewSelected(name)) {
-            System.out.println("DEBAG: View <" + name + "> is already selected");
-        }else{
-            elmntSelectedViewField.click();
-            new ContainerViewRecords().selectViewByText(name);
-            System.out.println("DEBAG: View changed to : " + name);
-        }
+    /*commented due to new parent class*/
 
+//    public EditorPage switchViewByName(String name){
+//        if(isViewSelected(name)) {
+//            System.out.println("DEBAG: View <" + name + "> is already selected");
+//        }else{
+//            elmntSelectedViewField.click();
+//            new ContainerViewRecords().selectViewByText(name);
+//            System.out.println("DEBAG: View changed to : " + name);
+//        }
+//
+//        return new EditorPage(this.mode);
+//    }
+
+    public EditorPage switchViewByNameOnSimpleEditor(String name){
+        super.switchViewByName(name);
         return new EditorPage(this.mode);
     }
 
@@ -88,6 +100,35 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         waitSaving();
         return new EditorPage(this.mode);
     }
+
+    /*commented due to new parent class*/
+//    private ViewPresetFrame openPresetDropDown(){
+//        new Element(presetDropDownBtnLctr, "Preset Dropdown").click();
+//        return new ViewPresetFrame();
+//    }
+
+    /*commented due to new parent class*/
+//    public String getSelectedPresetName(){
+//        return new Element(presetDropDownBtnLctr, "Preset Dropdown").getText();
+//    }
+
+    /*commented due to new parent class*/
+//    public EditorPage deletePreset(String presetName) {
+//        openPresetDropDown()
+//                .findPresetByName(presetName)
+//                .deletePreset();
+//        new Element(presetWasRemovedMsg);
+//        Log.logRecord("View Preset with name <" + presetName + "> is deleted");
+//        return new EditorPage();
+//    }
+
+    /*commented due to new parent class*/
+//    public EditorPage createNewPreset(String presetName){
+//        openPresetDropDown()
+//                .findPresetByName(presetName)
+//                .
+//    }
+
 
     public void switchTo(LocalizationType mode){
         switch (mode){
