@@ -2,7 +2,7 @@ package talkable.talkableSite.campaign.pages.campaignNavigationMenu;
 
 import abstractObjects.AbstractElementsContainer;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 
 public class CampaignNavigationMenuOnLaunchCampaignPage extends AbstractElementsContainer{
@@ -22,9 +22,9 @@ public class CampaignNavigationMenuOnLaunchCampaignPage extends AbstractElements
     }
 
 
-    public EditorPage openEditorPage(){
+    public SimpleEditorPage openEditorPage(){
         elmntEditorButton.click();
-        return new EditorPage();
+        return new SimpleEditorPage();
     }
 
     public CampaignDetailsPage openDetailsPage(){

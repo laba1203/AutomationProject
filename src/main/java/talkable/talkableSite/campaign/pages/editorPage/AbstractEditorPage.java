@@ -24,10 +24,10 @@ public abstract class AbstractEditorPage extends AbstractTkblSitePageWithoutHead
 
     }
 
-    //    public EditorPage switchViewByIndex(int index){
+    //    public SimpleEditorPage switchViewByIndex(int index){
 //        elmntSelectedViewField.click();
 //        new ContainerViewRecords().selectByIndex(index);
-//        return new EditorPage();
+//        return new SimpleEditorPage();
 //    }
 
     private boolean isViewSelected(String toBeSelected){
@@ -43,16 +43,16 @@ public abstract class AbstractEditorPage extends AbstractTkblSitePageWithoutHead
         return new Element(presetDropDownBtnLctr, "Preset Dropdown").getText();
     }
 
-    public EditorPage deletePreset(String presetName) {
+    public SimpleEditorPage deletePreset(String presetName) {
         openPresetDropDown()
                 .findPresetByName(presetName)
                 .deletePreset();
         new Element(presetWasRemovedMsg);
         Log.logRecord("View Preset with name <" + presetName + "> is deleted");
-        return new EditorPage();
+        return new SimpleEditorPage();
     }
 
-    public EditorPage createNewPreset(String presetName){
+    public SimpleEditorPage createNewPreset(String presetName){
         openPresetDropDown()
                 .findPresetByName(presetName);
         //todo: methos is not completed!!!!

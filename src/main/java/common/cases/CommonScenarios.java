@@ -10,7 +10,7 @@ import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
@@ -438,9 +438,9 @@ public class CommonScenarios {
                                                                       Table.Status status,
                                                                       String pageViewName,
                                                                       String localizationName,
-                                                                      EditorPage.LocalizationType contentType) {
+                                                                      SimpleEditorPage.LocalizationType contentType) {
         CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
-        EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
+        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
         editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
         editor.switchTo(contentType);
         PageMultiCampaignEditor mceEditor =  editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");

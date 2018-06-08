@@ -1,18 +1,15 @@
 package talkable.talkableSite.campaign.pages.editorPage;
 
-import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import talkable.talkableSite.AbstractTkblSitePageWithoutHeader;
 import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
-import util.logging.Log;
 
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.*;
+import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.*;
 
-public class EditorPage extends AbstractEditorPage{//AbstractTkblSitePageWithoutHeader{
+public class SimpleEditorPage extends AbstractEditorPage{//AbstractTkblSitePageWithoutHeader{
 
     private static final By presetDropDownBtnLctr = By.xpath("//*[@data-editor-toggle = 'presets']");
     private static final By presetWasRemovedMsg = By.xpath("//*[contains(text(), 'Preset was removed')]");
@@ -30,7 +27,7 @@ public class EditorPage extends AbstractEditorPage{//AbstractTkblSitePageWithout
     public enum LocalizationType {COPY, IMAGES, COLOR, CONFIGURATION}
     private LocalizationType mode;
 
-    public EditorPage(){
+    public SimpleEditorPage(){
         switchTo(COPY);
         setLocalizationSidebar(COPY);
     }
@@ -40,7 +37,7 @@ public class EditorPage extends AbstractEditorPage{//AbstractTkblSitePageWithout
         this.mode = mode;
     }
 
-    public EditorPage(LocalizationType mode){
+    public SimpleEditorPage(LocalizationType mode){
         switchTo(mode);
         localizationSidebar = new LocalizationSidebar(mode);
         this.mode = mode;
@@ -50,15 +47,15 @@ public class EditorPage extends AbstractEditorPage{//AbstractTkblSitePageWithout
         return previewFrame.getElementText(locator);
     }
 
-//    public EditorPage switchViewByIndex(int index){
+//    public SimpleEditorPage switchViewByIndex(int index){
 //        elmntSelectedViewField.click();
 //        new ContainerViewRecords().selectByIndex(index);
-//        return new EditorPage();
+//        return new SimpleEditorPage();
 //    }
 
     /*commented due to new parent class*/
 
-//    public EditorPage switchViewByName(String name){
+//    public SimpleEditorPage switchViewByName(String name){
 //        if(isViewSelected(name)) {
 //            System.out.println("DEBAG: View <" + name + "> is already selected");
 //        }else{
@@ -67,23 +64,23 @@ public class EditorPage extends AbstractEditorPage{//AbstractTkblSitePageWithout
 //            System.out.println("DEBAG: View changed to : " + name);
 //        }
 //
-//        return new EditorPage(this.mode);
+//        return new SimpleEditorPage(this.mode);
 //    }
 
-    public EditorPage switchViewByNameOnSimpleEditor(String name){
+    public SimpleEditorPage switchViewByNameOnSimpleEditor(String name){
         super.switchViewByName(name);
-        return new EditorPage(this.mode);
+        return new SimpleEditorPage(this.mode);
     }
 
     private boolean isViewSelected(String toBeSelected){
         return elmntSelectedViewField.getText().equals(toBeSelected);
     }
 
-    public EditorPage updateLocalization(LocalizationType type, String localizationName, String newValue){
+    public SimpleEditorPage updateLocalization(LocalizationType type, String localizationName, String newValue){
         verifyLocalizationMode(type);
         localizationSidebar.updateRecord(type, localizationName, newValue);
         saveChanges();
-        return new EditorPage(type);
+        return new SimpleEditorPage(type);
     }
 
 
@@ -95,10 +92,10 @@ public class EditorPage extends AbstractEditorPage{//AbstractTkblSitePageWithout
         Assert.assertEquals(mode, this.mode, "FAILED: Incorrect Localization type used in the method");
     }
 
-    private EditorPage saveChanges(){
+    private SimpleEditorPage saveChanges(){
         saveButton.click();
         waitSaving();
-        return new EditorPage(this.mode);
+        return new SimpleEditorPage(this.mode);
     }
 
     /*commented due to new parent class*/
@@ -113,17 +110,17 @@ public class EditorPage extends AbstractEditorPage{//AbstractTkblSitePageWithout
 //    }
 
     /*commented due to new parent class*/
-//    public EditorPage deletePreset(String presetName) {
+//    public SimpleEditorPage deletePreset(String presetName) {
 //        openPresetDropDown()
 //                .findPresetByName(presetName)
 //                .deletePreset();
 //        new Element(presetWasRemovedMsg);
 //        Log.logRecord("View Preset with name <" + presetName + "> is deleted");
-//        return new EditorPage();
+//        return new SimpleEditorPage();
 //    }
 
     /*commented due to new parent class*/
-//    public EditorPage createNewPreset(String presetName){
+//    public SimpleEditorPage createNewPreset(String presetName){
 //        openPresetDropDown()
 //                .findPresetByName(presetName)
 //                .

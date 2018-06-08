@@ -6,12 +6,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.common.elements.dropzone.DropZoneInput;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import util.TestArtifactsProvider;
 
 import java.util.ArrayList;
 
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.IMAGES;
+import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.IMAGES;
 
 public class PopupSelectImage extends AbstractElementsContainer{
 //    private static final By popUpDiv = By.xpath("//div[contains(@class, 'Locale-entries-popup ')]");
@@ -25,9 +25,9 @@ public class PopupSelectImage extends AbstractElementsContainer{
     }
 
 
-    public EditorPage selectImageFromEditor(String imageName){
+    public SimpleEditorPage selectImageFromEditor(String imageName){
         selectImage(imageName);
-        return new EditorPage(IMAGES);
+        return new SimpleEditorPage(IMAGES);
     }
 
     public void selectImage(String imageName){
@@ -62,7 +62,7 @@ public class PopupSelectImage extends AbstractElementsContainer{
         return new PopupSelectImage();
     }
 
-    public EditorPage uploadAndSelect(String fileName){
+    public SimpleEditorPage uploadAndSelect(String fileName){
         PopupSelectImage popup = uploadImage(fileName);
         return popup.selectImageFromEditor(fileName);
     }
