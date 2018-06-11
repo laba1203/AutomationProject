@@ -1,0 +1,9 @@
+<suite name="Campaign Actions" preserve-order="true" group-by-instances="true">
+    <test name="Campaign Actions" preserve-order="true" >
+        <classes>
+            <class name="execution.campaign.actions.CampaignActionsTesting"/>
+        </classes>
+    </test>
+
+</suite>
+

@@ -23,6 +23,7 @@ import static talkable.common.CampaignPlacement.PostPurchase;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1FLkr-T2s-mVnG770gLh4imwMnoO0vFtduYquM_49zzQ/edit#gid=0
 * */
+@Deprecated
 public class SimpleTestForAllCampaignTypes_old extends BaseTest{
 
     private static final String customerSiteUrl = PropertyLoader.loadEnvProperty("test.sites.simpleTestForAllCampaigns");

@@ -2,10 +2,13 @@ package talkable.talkableSite.headerFrame;
 
 import abstractObjects.AbstractElementsContainer;
 import talkable.homePage.HomePage;
+import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
+import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.headerFrame.elements.*;
 import talkable.talkableSite.headerFrame.elements.menuFrame.MenuFrame;
 import talkable.talkableSite.reports.reportsPage.ReportsPage;
+import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 
 public class Header extends AbstractElementsContainer{
 
@@ -58,6 +61,21 @@ public class Header extends AbstractElementsContainer{
     public PageCampaigns openCampaignsPage(){
         new CampaignsButton().click();
         return new PageCampaigns();
+    }
+
+    public SiteDashboardPage openSiteDashboard() {
+        dashboardButton.click();
+        return new SiteDashboardPage();
+    }
+
+    public IntegrationInstructionPage openSiteDashboardForNonIntegratedSite() {
+        dashboardButton.click();
+        return new IntegrationInstructionPage();
+    }
+
+    public PersonLookupPage openCustomerServicePortal(){
+        customerServicesButton.click();
+        return new PersonLookupPage();
     }
 
     public HomePage logout(){

@@ -13,6 +13,7 @@ import talkable.talkableSite.fraud.settings.pageData.FraudRulesExpectedTextData;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
+import util.logging.Log;
 
 import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ApprovalMode.AUTOMATIC;
 import static talkable.talkableSite.fraud.settings.FraudSettingsPage.ApprovalMode.MANUAL;
@@ -160,11 +161,7 @@ public class FraudSettingsTesting extends BaseTest{
                 "friend" + TestDataGenerator.getRandomId() + "@gmail.com");
 
         ReportsScenarios.openReferralsReport();
-        Assert.assertEquals(
-                ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),
-                advocateEmail,
-                "FAILED: Referral is not created for advocate: <" + advocateEmail + ">"
-        );
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
 
         Assert.assertEquals(
                 ReportsScenarios.getFirstRowStatusFromReferralReport(),
@@ -185,11 +182,7 @@ public class FraudSettingsTesting extends BaseTest{
                 "friend" + TestDataGenerator.getRandomId() + "@gmail.com"
         );
         ReportsScenarios.openReferralsReport();
-        Assert.assertEquals(
-                ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),
-                advocateEmail,
-                "FAILED: Referral is not created for advocate: <" + advocateEmail + ">"
-        );
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
         ReportsScenarios.approveFirstRowInReferralsReport();
         Assert.assertEquals(
                 ReportsScenarios.getFirstRowStatusFromReferralReport(),
@@ -210,11 +203,7 @@ public class FraudSettingsTesting extends BaseTest{
                 "friend" + TestDataGenerator.getRandomId() + "@gmail.com"
         );
         ReportsScenarios.openReferralsReport();
-        Assert.assertEquals(
-                ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),
-                advocateEmail,
-                "FAILED: Referral is not created for advocate: <" + advocateEmail + ">"
-        );
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
         ReportsScenarios.voidFirstRowInReferralsReport();
         Assert.assertEquals(
                 ReportsScenarios.getFirstRowStatusFromReferralReport(),
@@ -223,10 +212,187 @@ public class FraudSettingsTesting extends BaseTest{
         );
     }
 
-//    @Test
-//    public void limitOfAdvocateRewards(){
-//        //TODO: add test
-//    }
+
+    @Test(groups = "api-usage", dependsOnMethods = "login")
+    public void verifyMatchingByIpForAdvocate(){
+        String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String friendEmail = "friend" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String ipAddress = "91.90.23.94";
+        String advocateUUID = ViaAPI.getRandomUUID();
+
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setFraudSettingsProfile(CUSTOM);
+        FraudRulesScenarios.setAdvocateRules(
+                "Skip",
+                "Skip",
+                "Skip",
+                "Block Advocate",
+                "Block Advocate",
+                "Skip");
+
+        FraudRulesScenarios.setFriendRules(
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip");
+
+        ViaAPI.createReferral(site, advocateEmail, friendEmail, advocateUUID, ipAddress, ipAddress);
+
+        ReportsScenarios.openReferralsReport();
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
+
+        Assert.assertEquals(
+                ReportsScenarios.getFirstRowStatusFromReferralReport(),
+                "Blocked",
+                "FAILED: Incorrect referral status (advocate email = <" + advocateEmail + ">)."
+        );
+
+        Log.testPassed("Referral is blocked by IP address only");
+    }
+
+
+    @Test(groups = "api-usage", dependsOnMethods = "login")
+    public void verifyMatchingByEmailForAdvocateAndFriend() {
+        String advocateEmail = "some.fraud.user." + TestDataGenerator.getRandomId() + "@gmail.com";
+        String friendEmail = "some.fraud.user." + TestDataGenerator.getRandomId() + "@gmail.com";
+
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setFraudSettingsProfile(CUSTOM);
+        FraudRulesScenarios.setAdvocateRules(
+                "Skip",
+                "Block Advocate",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip");
+
+        FraudRulesScenarios.setFriendRules(
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip");
+
+        ViaAPI.createReferral(site, advocateEmail, friendEmail);
+
+        ReportsScenarios.openReferralsReport();
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
+
+        Assert.assertEquals(
+                ReportsScenarios.getFirstRowStatusFromReferralReport(),
+                "Blocked",
+                "FAILED: Incorrect referral status (advocate email = <" + advocateEmail + ">)."
+        );
+
+        Log.testPassed("Friend Reward was not given because of similar IP address");
+    }
+
+    @Test(groups = "api-usage", dependsOnMethods = "login")
+    public void verifyCrossReferralDetectionFroAdvocate(){
+        String user1 = "user1." + TestDataGenerator.getRandomId() + "@gmail.com";
+        String user2 = "user2." + TestDataGenerator.getRandomId() + "@gmail.com";
+
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setFraudSettingsProfile(CUSTOM);
+        FraudRulesScenarios.setAdvocateRules(
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Block Advocate");
+
+        FraudRulesScenarios.setFriendRules(
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Block Friend");
+
+        ViaAPI.createReferral(site, user1, user2);
+        ReportsScenarios.openReferralsReport();
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(user1);
+        ViaAPI.createReferral(site, user2, user1);
+        ReportsScenarios.openReferralsReport();
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(user2);
+
+        Assert.assertEquals(
+                ReportsScenarios.getFirstRowStatusFromReferralReport(),
+                "Blocked",
+                "FAILED: Incorrect referral status (advocate email = <" + user2 + ">). Referral is not blocked for Advocate Cross Referral rule."
+        );
+
+        Log.testPassed("Referral blocked by Advocate Cross Referral rule.");
+    }
+
+
+
+
+
+    @Test(groups = "api-usage", dependsOnMethods = "login")
+    public void limitOfAdvocateRewards(){
+        String advocateEmail = "advocate.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
+
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setAdvocateLimitReferralRewards("2");
+        //Create 3 referrals for the same AD:
+        ViaAPI.createReferral(site, advocateEmail, "friend1" + TestDataGenerator.getRandomId() + "@gmail.com");
+        ViaAPI.createReferral(site, advocateEmail, "friend2" + TestDataGenerator.getRandomId() + "@gmail.com");
+        ViaAPI.createReferral(site, advocateEmail, "friend3" + TestDataGenerator.getRandomId() + "@gmail.com");
+        //Verify values in Referral report:
+        ReportsScenarios.openReferralsReport();
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
+        Assert.assertEquals(
+                ReportsScenarios.getAdvocateUnpaidReasonFromTheFirstRow(),
+                "Advocate has reached maximum rewards",
+                "FAILED: Incorrect Advocate reward unpaid reason in the Referral Report (Advocate email = <" + advocateEmail + ">)."
+        );
+
+    }
+
+
+    /*
+     * Scenario for Matching By Ip Address For Friend should be removed or reworked as it doesn't work as it designed now.
+
+    @Test(groups = "api-usage", dependsOnMethods = "login"
+            ,expectedExceptions = java.lang.AssertionError.class) //Expected exception has been added for bug investigation
+    public void verifyMatchingByIpForFriend(){
+        String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String friendEmail = "friend" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String ipAddress = "91.90.23.94";
+        String advocateUUID = ViaAPI.getRandomUUID();
+
+        FraudRulesScenarios.openFraudSettings();
+        FraudRulesScenarios.setFraudSettingsProfile(CUSTOM);
+        FraudRulesScenarios.setAdvocateRules(
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip",
+                "Skip");
+
+        FraudRulesScenarios.setFriendRules(
+                "Skip",
+                "Block Friend",
+                "Block Friend",
+                "Skip",
+                "Skip");
+
+        ViaAPI.createReferral(site, advocateEmail, friendEmail, advocateUUID, ipAddress, ipAddress);
+
+        ReportsScenarios.openReferralsReport();
+        ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
+
+        Assert.assertEquals(
+                ReportsScenarios.getFriendUnpaidReasonFromTheFirstRow(),
+                "Campaign doesn't offer Self-Referral Incentive",
+                "FAILED: Incorrect Friend reward unpaid reason in the Referral Report (Advocate email = <" + advocateEmail + ">)."
+        );
+
+        Log.testPassed("Friend Reward was not given because of similar IP address");
+    }*/
 
 
 

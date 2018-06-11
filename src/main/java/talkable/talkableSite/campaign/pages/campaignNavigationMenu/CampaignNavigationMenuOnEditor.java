@@ -24,9 +24,9 @@ public class CampaignNavigationMenuOnEditor extends CampaignNavigationMenuOnLaun
         return elmntCampaignStatusField.getText();
     }
 
-//    public EditorPage openEditorPage(){
+//    public SimpleEditorPage openEditorPage(){
 //        elmntEditorButton.click();
-//        return new EditorPage();
+//        return new SimpleEditorPage();
 //    }
 //
 //    public CampaignDetailsPage openDetailsPage(){

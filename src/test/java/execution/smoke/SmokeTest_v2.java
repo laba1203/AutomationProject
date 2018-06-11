@@ -1,9 +1,6 @@
 
-
 package execution.smoke;
 
-import api.objects.Site;
-import api.scenarios.ViaAPI;
 import common.cases.ClientSiteScenarios;
 import common.cases.CommonScenarios;
 import execution.BaseTest;
@@ -36,6 +33,7 @@ public class SmokeTest_v2 extends BaseTest{
     /*Link to test scenario: https://drive.google.com/open?id=1rnq3vo9qQ25vtTwPF7hwXRt7zMBiK28VuAyPc50_X7s
     * */
 
+//    todo: test should be adapted for new incentives
     @Test
     public void createAndActivateCampaign(){
         //1. Login to Talkable.
@@ -87,10 +85,11 @@ public class SmokeTest_v2 extends BaseTest{
 
         // 12. Create test offer
         CommonScenarios.createTestOfferNewAffiliateMember("test" + System.currentTimeMillis() + "@test.com");
-        Assert.assertEquals(
-                CommonScenarios.getAdvocateOfferTotalCountFromCampaignDetailsPage(),
-                expectedAdvocateOffersCount,
-                "FAILED: Incorrect Offers count on Campaign Details page");
+        CommonScenarios.assertAdvocateOffersCountOnCampaignDetailsPage(expectedAdvocateOffersCount);
+//        Assert.assertEquals(
+//                CommonScenarios.getAdvocateOfferTotalCountFromCampaignDetailsPage(),
+//                expectedAdvocateOffersCount,
+//                "FAILED: Incorrect Offers count on Campaign Details page");
 
         // 13. Verify campaign on site
         if(ClientSiteScenarios.isCampaignOnCustomerSite(Invite, FloatingWidget, SITE_URL)){

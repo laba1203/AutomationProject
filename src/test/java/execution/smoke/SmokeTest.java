@@ -27,6 +27,7 @@ import util.TestDataGenerator;
 import static talkable.common.CampaignType.Invite;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 
+@Deprecated
 public class SmokeTest  extends BaseTest{
 
 //    private static final String SITE_URL = "http://learn.talkable.com/QA-Max/void/automation-smoke-test/index.html";

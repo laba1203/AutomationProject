@@ -1,12 +1,13 @@
 package common.cases.functionalities;
 
 import common.cases.CommonScenarios;
+import org.openqa.selenium.NotFoundException;
 import org.testng.Assert;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
-import talkable.talkableSite.reports.referralsReport.PageReferralsReport;
-
-import java.util.ArrayList;
+import talkable.talkableSite.reports.referrals.PageReferralsReport;
+import talkable.talkableSite.reports.rewards.RewardsReportPage;
+import util.logging.Log;
 
 public class ReportsScenarios extends CommonScenarios {
 
@@ -59,7 +60,55 @@ public class ReportsScenarios extends CommonScenarios {
         return new PageReferralsReport().getFirstReferralRow().getRowStatus();
     }
 
+    public static String getFriendUnpaidReasonFromTheFirstRow(){
+        try {
+            return new PageReferralsReport().getFirstReferralRow().getFriendRewardUnpaidReason();
+        }catch (NotFoundException | AssertionError e){
+            String friendEmail = new PageReferralsReport().getFirstReferralRow().getFriendEmail();
+            Assert.fail("FAILED: Reward Unpaid Reason is not available for the Friend (Friend email = <"+friendEmail+">). Possibly the reward was given to the Friend.");
+            return null;
+        }
+    }
+
+    public static String getAdvocateUnpaidReasonFromTheFirstRow(){
+        try {
+            return new PageReferralsReport().getFirstReferralRow().getAdvocateRewardUnpaidReason();
+        }catch (NotFoundException | AssertionError e){
+            String advocateEmail = new PageReferralsReport().getFirstReferralRow().getAdvocateEmail();
+            Assert.fail("FAILED: Reward Unpaid Reason is not available for the Advocate (email = <"+advocateEmail+">). Possibly the reward was given to the Advocate.");
+            return null;
+        }
+    }
+
+    public static void assertThatReferralCreatedForTheAdvocate(String advocateEmail){
+        Assert.assertEquals(
+                ReportsScenarios.getAdvocateEmailFromReferralReportFirstRow(),
+                advocateEmail,
+                "FAILED: Referral is not created for advocate: <" + advocateEmail + ">"
+        );
+        Log.logRecord("Referral created for advocate <" + advocateEmail + ">");
+    }
+
+    public static String getReferralsReportTotal(){
+        return new PageReferralsReport().getTotalRowsCount();
+    }
+
 
 
     /* End of scenarios for Referral report*/
+
+    /*  --- Scenairios for Rewards Report ---   */
+
+    public static void openRewardsReport(){
+        new Header().clickReportsButton().openRewardsReport();
+        Log.logRecord("Rewards Report is opened.");
+    }
+
+    public static String getRewardsReportTotal(){
+        return new RewardsReportPage().getTotalRowsCount();
+    }
+
+
+
+    /* End of scenarios for Rewards report*/
 }

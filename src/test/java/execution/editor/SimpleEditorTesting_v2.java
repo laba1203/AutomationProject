@@ -6,14 +6,15 @@ import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import util.EnvFactory;
 import util.PropertyLoader;
+import util.TestDataGenerator;
 import util.logging.Log;
 
 import static talkable.common.CampaignPlacement.Standalone;
 import static talkable.common.CampaignType.Invite;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.*;
+import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.*;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1jjxHr_cLNaSq3HVBgU_y6k_llNDpNyTZUoWPAJ9Aw20/edit
  * */
@@ -32,7 +33,7 @@ public class SimpleEditorTesting_v2 extends BaseTest {
     }
 
     @Test(dataProvider = "editContentTestData", dependsOnMethods = "loginAndCreateNewCampaign")
-    public void updateContent(EditorPage.LocalizationType type, String view, String localizationName, String newValue){
+    public void updateContent(SimpleEditorPage.LocalizationType type, String view, String localizationName, String newValue){
         Log.logRecord("\r\nSimple Editor test started for <" +type + "." + localizationName + ">.");
         //open CampaignDetails page
         driver.navigate().to(campaignDetailsPageUrl);
@@ -46,7 +47,30 @@ public class SimpleEditorTesting_v2 extends BaseTest {
         Log.testPassed("Value is updated in Simple Editor. <" +type + "." + localizationName + ">.\r\n");
     }
 
-    @Test(dependsOnMethods = {"loginAndCreateNewCampaign", "updateContent"}, alwaysRun = true)
+    @Test(dependsOnMethods = "loginAndCreateNewCampaign"
+            , expectedExceptions = AssertionError.class)//scenarios is failed because of the defect https://talkable.atlassian.net/browse/PR-9336
+    public void createNewPreset(){
+        String presetName = "testPreset" + TestDataGenerator.getRandomId();
+        driver.navigate().to(campaignDetailsPageUrl);
+        EditorScenarios.openSimpleEditor();
+        EditorScenarios.createNewPreset(presetName, " ");
+        EditorScenarios.deletePresetOnHtmlEditor(presetName);
+        Assert.assertEquals(
+                EditorScenarios.isPresetPreset(presetName),
+                false,
+                "FAILED: View Preset is not deleted on Editor (Preset name = <" + presetName + ">)."
+        );
+        Log.testPassed("Create new Preset Test. Preset was created and removed.");
+    }
+
+
+
+    @Test(dependsOnMethods = {
+            "loginAndCreateNewCampaign",
+            "updateContent",
+            "createNewPreset"
+    },
+            alwaysRun = true)
     public void cleanUpTestData(){
         driver.navigate().to(campaignDetailsPageUrl);
         CommonScenarios.deleteCampaignFromDetailsPage();

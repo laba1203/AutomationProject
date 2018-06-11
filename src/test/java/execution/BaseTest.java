@@ -21,7 +21,16 @@ public class BaseTest {
         public void commonSetup() {
             Log.logRecord("Class name: " + this.getClass().getName());
             this.driver = DriverConfig.getDriver();
-            this.driver.navigate().to(EnvFactory.getEnvUrl());
+            try {
+                this.driver.navigate().to(EnvFactory.getEnvUrl());
+            }catch (org.openqa.selenium.TimeoutException e){
+                Log.logRecord("Timeout received during navigation to Env URL in BaseTest.commonSetup(). Second attempt to open URL.");
+                DriverConfig.getDriver().quit();
+                DriverConfig.cleanWebDriver();
+                this.driver = DriverConfig.getDriver();
+                this.driver.navigate().to(EnvFactory.getEnvUrl());
+                Log.logRecord("Successfully opened URL from the second attempt");
+            }
             System.out.println("*** DEBAG: Before suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
         }
 

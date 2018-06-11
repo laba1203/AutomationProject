@@ -6,14 +6,14 @@ import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 
 import static talkable.common.CampaignPlacement.*;
 import static talkable.common.CampaignType.AdvocateDashboard;
 import static talkable.common.CampaignType.Invite;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.*;
+import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.*;
 import static talkable.talkableSite.campaignsPage.Table.Status.*;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1NlY_NBmvKIRjmqb2d7oQPuDZEs6s7fToZkrSJPhwOaY
@@ -78,7 +78,7 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
     @Test (groups = "updateContent", dependsOnMethods = "precondition")
     public void modifyCOPY() {
         //test data:
-        EditorPage.LocalizationType mode = COPY;
+        SimpleEditorPage.LocalizationType mode = COPY;
         String newContentValue = "New Copy Value";
         String localizationName = "Advocate trigger cta";
         String campaignView = "Advocate trigger widget";
@@ -123,7 +123,7 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
     @Test(groups = "updateContent", dependsOnMethods = "precondition")
     public void updateColor() {
         //test data:
-        EditorPage.LocalizationType localizationType = COLOR;
+        SimpleEditorPage.LocalizationType localizationType = COLOR;
         String newContentValue = "#23f908";
         String localizationName = "Advocate share page email button background";
         String campaignView = "Advocate share page";
@@ -164,7 +164,7 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
     @Test(groups = "updateContent", dependsOnMethods = "precondition")
     public void updateCONFIG() {
         //test data:
-        EditorPage.LocalizationType localizationType = CONFIGURATION;
+        SimpleEditorPage.LocalizationType localizationType = CONFIGURATION;
         String localizationName = "Automatic font sizing";
         String campaignView = "Friend claim page";
         String newContentValue = "Disabled";
@@ -202,7 +202,7 @@ public class MultiCampaignEditorTesting_all extends BaseTest {
     @Test(groups = "updateContent", dependsOnMethods = "precondition")
     public void updateImages() {
         //test data:
-//        EditorPage.LocalizationType localizationType = IMAGES;
+//        SimpleEditorPage.LocalizationType localizationType = IMAGES;
         String localizationName = "Advocate signup page background";
         String campaignView = "Advocate signup page";
         String newContentValue = "tkbl_default_icon-link-color-2x.png";

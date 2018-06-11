@@ -3,6 +3,7 @@ package talkable.talkableSite.camapignPlacements;
 import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
+import talkable.common.CampaignPlacement;
 
 class PopupEditPlacement extends AbstractElementsContainer{
 
@@ -16,7 +17,7 @@ class PopupEditPlacement extends AbstractElementsContainer{
 
 
     PopupEditPlacement(){
-
+        new ElmntPlacementName();
     }
 
     PageCampaignPlacements add(boolean isInclusion, boolean regexMode, String value){
@@ -27,11 +28,16 @@ class PopupEditPlacement extends AbstractElementsContainer{
         return new PageCampaignPlacements();
     }
 
-    PageCampaignPlacements remove(boolean isInclusion, String name){
-        Section section = getSection(isInclusion);
-        PopupEditPlacement updatedPopup = section.remove(name);
+    PageCampaignPlacements removeAndSave(boolean isInclusion, String name){
+        PopupEditPlacement updatedPopup = removePlacement(isInclusion, name);
         updatedPopup.saveChangesButton.click();
         return new PageCampaignPlacements();
+    }
+
+
+    PopupEditPlacement removePlacement(boolean isInclusion, String name){
+        Section section = getSection(isInclusion);
+        return section.remove(name);
     }
 
     PageCampaignPlacements updateFirstPlacement(boolean isInclusion, String newValue){
@@ -41,13 +47,28 @@ class PopupEditPlacement extends AbstractElementsContainer{
             return new PageCampaignPlacements();
     }
 
+    public PageCampaignPlacements deleteAllPlacements(){
+        getSection(true).removeAll(true);
+        getSection(false).removeAll(false);
+        saveChangesButton.click();
+        return new PageCampaignPlacements();
+    }
+
+//    void changePlacementName(String newName){
+//        ElmntPlacementName placementName = new ElmntPlacementName();
+//        placementName.clear();
+//        placementName.sendKeys(newName);
+//    }
+
     private Section getSection(boolean isInclusion){
         if(isInclusion){
-            return inclusionSection;
+            return new Section(shownOnSection);
         }
         else {
-            return exclusionSection;
+            return new Section(hiddenOnSection);
         }
     }
+
+
 
 }
