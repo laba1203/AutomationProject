@@ -13,8 +13,17 @@ class CreateNewPresetPage extends AbstractTalkableSitePage{
     private String parentHandle;
     private String ownHandle;
 
-
     CreateNewPresetPage(){
+//        switchToThisWindow();
+    }
+
+    @Override
+    protected void beforeSupperActions(){
+        switchToThisWindow();
+    }
+
+
+    private void switchToThisWindow(){
         parentHandle = driver.getWindowHandle();
         ownHandle = DriverConfig.switchToUnknownWindow(parentHandle);
     }
@@ -29,8 +38,8 @@ class CreateNewPresetPage extends AbstractTalkableSitePage{
     HtmlEditorPage closeParentWindowAndCreateNewPreview(String presetName, String jsonVariables){
         closeParentWindow();
         new Element(nameLctr, "'Preset Name' field").sendKeys(presetName);
-        new Element(jsonVariablesFieldLctr, "'Json interpolation variables' field").sendKeys(jsonVariables);
-        new Element(createBtnLctr, "'Create' button");
+        new Element(jsonVariablesFieldLctr, "'Json interpolation variables' field").clearAndSendKeys(jsonVariables);
+        new Element(createBtnLctr, "'Create' button").moveToElementAndClick();
         return new HtmlEditorPage();
     }
 

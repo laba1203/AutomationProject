@@ -4,27 +4,38 @@ import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import util.WaitFactory;
+import util.logging.Log;
 
 import java.util.ArrayList;
 
 class ViewPresetFrame extends AbstractElementsContainer{
     private final By presetNamesLctr = By.xpath("//*[contains(@class, 'presets-link')]/..");
 
-    private Element createNewPresetBtn = new Element(By.xpath("//*[contains(text(), 'Create new preset')]"), "<Create New Preset>");
+    private Element createNewPresetBtn = new Element(By.xpath("//*[contains(@class, 'editor-preset')]//li[@class='is-last']/a"), "<Create New Preset>");
+//    private Element createNewPresetBtn = new Element(By.xpath("//*[contains(text(), 'Create new preset')]"), "<Create New Preset>");
 
 
     PresetRow findPresetByName(String name){
+        Log.debagRecord("Start serching of preset with name <" + name + ">.");
+        Log.debagRecord("Rows count = " + getRows().size());
         for (PresetRow row :
                 getRows()) {
+            //debag:
+            Log.debagRecord("<" + row.getPresetName() + ">");
+
             if (row.getPresetName().equals(name)){
+                Log.debagRecord("Preset with name <" + name + "> is found");
                 return row;
             }
         }
+        Log.debagRecord("Preset with name <" + name + "> is not found");
         Assert.fail("FAILED: View Preset with name <" + name + "> is not found in Editor page --> Presets list");
         return null;
     }
 
     CreateNewPresetPage clickCreateNewPreset(){
+        WaitFactory.waitUntilVisibilityOfElementLocated(createNewPresetBtn.getLocator(), 5);
         createNewPresetBtn.click();
 
         return new CreateNewPresetPage();

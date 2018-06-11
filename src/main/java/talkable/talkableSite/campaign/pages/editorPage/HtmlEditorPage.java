@@ -8,9 +8,9 @@ public class HtmlEditorPage extends AbstractEditorPage{
         return new HtmlEditorPage();
     }
 
-    public HtmlEditorPage deleteViewPreset(String presetName) {
-        deletePreset(presetName);
-        return new HtmlEditorPage();
-    }
+//    public HtmlEditorPage deleteViewPreset(String presetName) {
+//        deletePresetOnSimpleEditor(presetName);
+//        return new HtmlEditorPage();
+//    }
 
 }

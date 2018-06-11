@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import util.EnvFactory;
 import util.PropertyLoader;
+import util.TestDataGenerator;
 import util.logging.Log;
 
 import static talkable.common.CampaignPlacement.Standalone;
@@ -46,10 +47,20 @@ public class SimpleEditorTesting_v2 extends BaseTest {
         Log.testPassed("Value is updated in Simple Editor. <" +type + "." + localizationName + ">.\r\n");
     }
 
-    @Test(dependsOnMethods = "loginAndCreateNewCampaign")
+    @Test(dependsOnMethods = "loginAndCreateNewCampaign"
+            , expectedExceptions = AssertionError.class)//scenarios is failed because of the defect https://talkable.atlassian.net/browse/PR-9336
     public void createNewPreset(){
+        String presetName = "testPreset" + TestDataGenerator.getRandomId();
         driver.navigate().to(campaignDetailsPageUrl);
-//        EditorScenarios
+        EditorScenarios.openSimpleEditor();
+        EditorScenarios.createNewPreset(presetName, " ");
+        EditorScenarios.deletePresetOnHtmlEditor(presetName);
+        Assert.assertEquals(
+                EditorScenarios.isPresetPreset(presetName),
+                false,
+                "FAILED: View Preset is not deleted on Editor (Preset name = <" + presetName + ">)."
+        );
+        Log.testPassed("Create new Preset Test. Preset was created and removed.");
     }
 
 

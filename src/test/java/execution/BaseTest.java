@@ -60,7 +60,7 @@ public class BaseTest {
             }
         }
 
-        @AfterSuite
+//        @AfterSuite
         public void quit() {
             this.driver.quit();
             DriverConfig.cleanWebDriver();

@@ -51,7 +51,7 @@ public class SimpleEditorPage extends AbstractEditorPage{
     }
 
      public SimpleEditorPage deleteViewPreset(String presetName) {
-        deletePreset(presetName);
+        deletePresetOnSimpleEditor(presetName);
         return new SimpleEditorPage(this.mode);
      }
 

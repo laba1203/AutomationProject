@@ -1,7 +1,11 @@
 package common.cases.functionalities;
 
 import common.cases.CommonScenarios;
+
+import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
+import talkable.talkableSite.campaign.pages.editorPage.AbstractEditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.HtmlEditorPage;
 import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaignsPage.Table;
 import util.logging.Log;
@@ -28,6 +32,33 @@ public class EditorScenarios extends CommonScenarios{
     public static String getLocalizationValue(SimpleEditorPage.LocalizationType type, String localizationName){
         return new SimpleEditorPage(type).getLocalizationValue(type, localizationName);
     }
+
+    public static void createNewPreset(String presetName, String jsonVariables){
+        HtmlEditorPage page = new AbstractEditorPage()
+                .createNewPreset(presetName, jsonVariables);
+        Assert.assertEquals(
+                page.getSelectedPresetName(),
+                presetName,
+                "FAILED: New View Preset is not created. ");
+        Log.logRecord("New Preset created. Name = <" + presetName + ">");
+    }
+
+    public static void deletePresetOnSimpleEditor(String presetName){
+        new SimpleEditorPage().deletePresetOnSimpleEditor(presetName);
+    }
+
+    public static void deletePresetOnHtmlEditor(String presetName){
+        new HtmlEditorPage().deletePresetOnHtmlEditor(presetName);
+    }
+
+    public static boolean isPresetPreset(String presetName){
+        boolean result = new AbstractEditorPage().isPresetPreset(presetName);
+        new AbstractEditorPage().clickToPresetDropDown();
+
+        return result;
+    }
+
+
 
 
 

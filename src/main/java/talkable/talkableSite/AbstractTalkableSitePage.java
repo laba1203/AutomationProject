@@ -7,12 +7,12 @@ public abstract class AbstractTalkableSitePage extends AbstractTkblSitePageWitho
     public Header header;
 
     public AbstractTalkableSitePage(){
-        setElements();
+        beforeSupperActions();
         header = new Header();
     }
 
 
-    protected void setElements(){
+    protected void beforeSupperActions(){
     }
 
 

@@ -10,13 +10,13 @@ public class SiteDashboardPage extends AbstractTalkableSitePage{
 //    public Header header;
 
     public SiteDashboardPage(){
-        setElements();
+        beforeSupperActions();
 //        header = new Header();
         siteName = new ElmntSiteNameField();
     }
 
     @Override
-    protected void setElements(){
+    protected void beforeSupperActions(){
         siteName = new ElmntSiteNameField();
     }
 
