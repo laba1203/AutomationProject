@@ -3,17 +3,16 @@ package talkable.talkableSite.campaign.pages.editorPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import talkable.talkableSite.AbstractTkblSitePageWithoutHeader;
 import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.*;
+import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.*;
 
-public class EditorPage extends AbstractTkblSitePageWithoutHeader{
+public class SimpleEditorPage extends AbstractEditorPage{
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
-    public LocalizationSidebar localizationSidebar;
+    private LocalizationSidebar localizationSidebar;
     private ElmntSaveButton saveButton = new ElmntSaveButton();
     private ElmntSelectedViewField elmntSelectedViewField = new ElmntSelectedViewField();
     private ElmntCopyButton copyButton = new ElmntCopyButton();
@@ -25,7 +24,7 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
     public enum LocalizationType {COPY, IMAGES, COLOR, CONFIGURATION}
     private LocalizationType mode;
 
-    public EditorPage(){
+    public SimpleEditorPage(){
         switchTo(COPY);
         setLocalizationSidebar(COPY);
     }
@@ -35,7 +34,7 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         this.mode = mode;
     }
 
-    public EditorPage(LocalizationType mode){
+    public SimpleEditorPage(LocalizationType mode){
         switchTo(mode);
         localizationSidebar = new LocalizationSidebar(mode);
         this.mode = mode;
@@ -45,33 +44,26 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         return previewFrame.getElementText(locator);
     }
 
-    public EditorPage switchViewByIndex(int index){
-        elmntSelectedViewField.click();
-        new ContainerViewRecords().selectByIndex(index);
-        return new EditorPage();
+
+    public SimpleEditorPage switchViewByNameOnSimpleEditor(String name){
+        switchViewByName(name);
+        return new SimpleEditorPage(this.mode);
     }
 
-    public EditorPage switchViewByName(String name){
-        if(isViewSelected(name)) {
-            System.out.println("DEBAG: View <" + name + "> is already selected");
-        }else{
-            elmntSelectedViewField.click();
-            new ContainerViewRecords().selectViewByText(name);
-            System.out.println("DEBAG: View changed to : " + name);
-        }
-
-        return new EditorPage(this.mode);
-    }
+     public SimpleEditorPage deleteViewPreset(String presetName) {
+        deletePresetOnSimpleEditor(presetName);
+        return new SimpleEditorPage(this.mode);
+     }
 
     private boolean isViewSelected(String toBeSelected){
         return elmntSelectedViewField.getText().equals(toBeSelected);
     }
 
-    public EditorPage updateLocalization(LocalizationType type, String localizationName, String newValue){
+    public SimpleEditorPage updateLocalization(LocalizationType type, String localizationName, String newValue){
         verifyLocalizationMode(type);
         localizationSidebar.updateRecord(type, localizationName, newValue);
         saveChanges();
-        return new EditorPage(type);
+        return new SimpleEditorPage(type);
     }
 
 
@@ -83,10 +75,10 @@ public class EditorPage extends AbstractTkblSitePageWithoutHeader{
         Assert.assertEquals(mode, this.mode, "FAILED: Incorrect Localization type used in the method");
     }
 
-    private EditorPage saveChanges(){
+    private SimpleEditorPage saveChanges(){
         saveButton.click();
         waitSaving();
-        return new EditorPage(this.mode);
+        return new SimpleEditorPage(this.mode);
     }
 
     public void switchTo(LocalizationType mode){

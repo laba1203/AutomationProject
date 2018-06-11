@@ -5,7 +5,7 @@ import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
@@ -19,7 +19,7 @@ import static talkable.common.CampaignPlacement.PostPurchase;
 import static talkable.common.CampaignPlacement.Standalone;
 import static talkable.common.CampaignType.AdvocateDashboard;
 import static talkable.common.CampaignType.Invite;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.*;
+import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.*;
 import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
@@ -93,7 +93,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @Test(groups = "copyUpdate")
     public void test11_openMultiCampaignEditorCOPY() {
         CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignNameFW_1, TEST);
-        EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
+        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
         mcePage = editor.clickCopyToOtherCampaigns(COPY, localizationName + "#");
 
         // Verify Campaign view field on MCE screen
@@ -127,7 +127,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @Test(groups = "copyUpdate")
     public void test14_checkValueInFirstCampaignCOPY() {
-        EditorPage editor = mcePage.backToEditor();
+        SimpleEditorPage editor = mcePage.backToEditor();
         String value = editor.getLocalizationValue(COPY, localizationName + "#");
         Assert.assertEquals(value, newContentValue, "FAILED: Incorrect new content value");
     }
@@ -135,9 +135,9 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @Test(groups = "copyUpdate")
     public void test15_checkValueInSecondCampaignCOPY() {
         //open campaignDetailsPage and open second campaign:
-        PageCampaigns campaignsPage = new EditorPage().campaignNavigationMenu
+        PageCampaigns campaignsPage = new SimpleEditorPage().campaignNavigationMenu
                 .openDetailsPage().header.openCampaignsPage();
-        EditorPage editor = campaignsPage.openCampaignByName(campaignNameFW_2, TEST).campaignNavigationMenu.openEditorPage();
+        SimpleEditorPage editor = campaignsPage.openCampaignByName(campaignNameFW_2, TEST).campaignNavigationMenu.openEditorPage();
         // Verify value in Editor:
         String value = editor.getLocalizationValue(COPY, localizationName + "#");
         Assert.assertEquals(value, newContentValue, "FAILED: Incorrect new content value");
@@ -202,7 +202,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @Test(groups = "copyUpdate")
     public void test25_checkValueInSACampaignCOLOR() {
-        checkValuesInOtherCampaign(new EditorPage(),
+        checkValuesInOtherCampaign(new SimpleEditorPage(),
                 campaignNameSA,
                 TEST,
                 campaignView,
@@ -213,7 +213,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @Test(groups = "copyUpdate")
     public void test26_checkValueInFWCampaignCOLOR() {
-        checkValuesInOtherCampaign(new EditorPage(),
+        checkValuesInOtherCampaign(new SimpleEditorPage(),
                 campaignNameFW_1,
                 TEST,
                 campaignView,
@@ -294,7 +294,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @Test(groups = "configurationUpdate", dependsOnMethods = "test34_checkValueInFirstCampaignCONFIG")
     public void test35_checkValueInSACampaignCONFIG() {
-        checkValuesInOtherCampaign(new EditorPage(),
+        checkValuesInOtherCampaign(new SimpleEditorPage(),
                 campaignNameSA,
                 TEST,
                 campaignView,
@@ -355,7 +355,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @Test(groups = "imageUpdate", dependsOnMethods = "test44_checkValueInFirstCampaignIMAGES")
     public void test45_checkValueInFWCampaignIMAGES() {
-        checkValuesInOtherCampaign(new EditorPage(),
+        checkValuesInOtherCampaign(new SimpleEditorPage(),
                 campaignNameFW_1,
                 TEST,
                 campaignView,
@@ -366,7 +366,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
 
     @AfterClass
     public void openCampaignDetailPage(){
-        new EditorPage().campaignNavigationMenu.openDetailsPage();
+        new SimpleEditorPage().campaignNavigationMenu.openDetailsPage();
     }
 
 
@@ -387,7 +387,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
                                                                 Table.Status status,
                                                                 String campaignView,
                                                                 String localizationName,
-                                                                EditorPage.LocalizationType localizationType,
+                                                                SimpleEditorPage.LocalizationType localizationType,
                                                                 String expectedSelectedCampaignsCount,
                                                                 String expectedUnselectedCampaignsCount,
                                                                 String expectedIneligibleCampaignsCount)
@@ -413,29 +413,29 @@ public class MultiCampaignEditorTesting extends BaseTest {
     }
 
     private void checkValueInFirstCampaign(PageMultiCampaignEditor mcePage,
-                                             EditorPage.LocalizationType localizationType,
+                                             SimpleEditorPage.LocalizationType localizationType,
                                              String localizationName,
                                              String newContentValue){
-        EditorPage editor = mcePage.backToEditor();
+        SimpleEditorPage editor = mcePage.backToEditor();
         editor.switchTo(localizationType);
         String value = editor.getLocalizationValue(localizationType, localizationName + "#");
         Assert.assertEquals(value, newContentValue, "FAILED: Incorrect New Content Value");
     }
 
-    private void checkValuesInOtherCampaign(EditorPage editorPage,
+    private void checkValuesInOtherCampaign(SimpleEditorPage editorPage,
                                             String campaignName,
                                             Table.Status campaignStatus,
                                             String campaignViewName,
-                                            EditorPage.LocalizationType mode,
+                                            SimpleEditorPage.LocalizationType mode,
                                             String localizationName,
                                             String newContentValue){
         //open campaignDetailsPage and open second campaign:
         PageCampaigns campaignsPage = editorPage.campaignNavigationMenu
                 .openDetailsPage().header.openCampaignsPage();
-        EditorPage editor = campaignsPage.openCampaignByName(campaignName, campaignStatus).
+        SimpleEditorPage editor = campaignsPage.openCampaignByName(campaignName, campaignStatus).
                 campaignNavigationMenu.openEditorPage();
         //Switch view:
-        editor = editor.switchViewByName(campaignViewName);
+        editor = editor.switchViewByNameOnSimpleEditor(campaignViewName);
         //Switch content
         editor.switchTo(mode);
         // Verify value in Editor:

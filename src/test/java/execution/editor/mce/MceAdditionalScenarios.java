@@ -5,7 +5,7 @@ import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
@@ -16,7 +16,7 @@ import static talkable.common.CampaignPlacement.PostPurchase;
 import static talkable.common.CampaignPlacement.Standalone;
 import static talkable.common.CampaignType.AdvocateDashboard;
 import static talkable.common.CampaignType.Invite;
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.COPY;
+import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.COPY;
 import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
@@ -48,7 +48,7 @@ public class MceAdditionalScenarios extends BaseTest{
         detailsPage = CommonScenarios.createAndLaunchCampaign(Invite, PostPurchase);
 
         // open MCE for PP campaign:
-        EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
+        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
         mcePage = editor.clickCopyToOtherCampaigns(COPY, localizationName + "#");
     }
 

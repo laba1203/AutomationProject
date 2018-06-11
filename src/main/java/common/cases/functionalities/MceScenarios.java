@@ -3,7 +3,7 @@ package common.cases.functionalities;
 import common.cases.CommonScenarios;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
@@ -34,27 +34,27 @@ public class MceScenarios extends CommonScenarios{
                                                                       Table.Status status,
                                                                       String pageViewName,
                                                                       String localizationName,
-                                                                      EditorPage.LocalizationType contentType) {
+                                                                      SimpleEditorPage.LocalizationType contentType) {
         CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
-        EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
+        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
 
-        editor = editor.switchViewByName(pageViewName);
+        editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
         editor.switchTo(contentType);
         return editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
     }
 
-//    public static void openMultiCampaignEditor(String campaignName, Table.Status campaignStatus, EditorPage.LocalizationType localizationType, String localizationName){
+//    public static void openMultiCampaignEditor(String campaignName, Table.Status campaignStatus, SimpleEditorPage.LocalizationType localizationType, String localizationName){
 //        CampaignDetailsPage detailsPage = new Header().openCampaignsPage()
 //                .openCampaignByName(campaignName, campaignStatus);
-//        EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
+//        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
 //        editor.clickCopyToOtherCampaigns(localizationType, localizationName + "#");
 //    }
 
-    public static void selectCampaignOnMceScreen(EditorPage.LocalizationType localizationType, String campaignName){
+    public static void selectCampaignOnMceScreen(SimpleEditorPage.LocalizationType localizationType, String campaignName){
         new PageMultiCampaignEditor(localizationType).selectCampaign(campaignName);
     }
 
-    public static String getCampaignsCountFromMce(State campaignState, EditorPage.LocalizationType localizationMode){
+    public static String getCampaignsCountFromMce(State campaignState, SimpleEditorPage.LocalizationType localizationMode){
         switch (campaignState){
             case SELECTED:
                 return new PageMultiCampaignEditor(localizationMode).getSelectedCampaigns().getCampaignCount();
@@ -68,27 +68,27 @@ public class MceScenarios extends CommonScenarios{
         }
     }
 
-    public static String getContentValue(EditorPage.LocalizationType mode){
+    public static String getContentValue(SimpleEditorPage.LocalizationType mode){
         return new PageMultiCampaignEditor(mode).getContentValueName();
     }
 
-    public static String getNewContentValue(EditorPage.LocalizationType mode){
+    public static String getNewContentValue(SimpleEditorPage.LocalizationType mode){
         return new PageMultiCampaignEditor(mode).getNewContentValue();
     }
 
 
-    public static String getCampaignViewValue(EditorPage.LocalizationType localizationType){
+    public static String getCampaignViewValue(SimpleEditorPage.LocalizationType localizationType){
         return new PageMultiCampaignEditor(localizationType).getCampaignViewValue();
     }
 
-    public static void updateContentValue(EditorPage.LocalizationType localizationType, String newContentValue){
+    public static void updateContentValue(SimpleEditorPage.LocalizationType localizationType, String newContentValue){
         PageMultiCampaignEditor mcePage = new PageMultiCampaignEditor(localizationType)
                 .updateContent(newContentValue);
         Assert.assertEquals(mcePage.getNewContentValue(), newContentValue, "FAILED: Incorrect new content value on MCE page when the value was updated");
     }
 
-    public static void returnToSimpleEditorAndAssertContentValue(EditorPage.LocalizationType localizationType, String localizationName, String expectedContentValue){
-        EditorPage editor = new PageMultiCampaignEditor(localizationType).backToEditor();
+    public static void returnToSimpleEditorAndAssertContentValue(SimpleEditorPage.LocalizationType localizationType, String localizationName, String expectedContentValue){
+        SimpleEditorPage editor = new PageMultiCampaignEditor(localizationType).backToEditor();
         editor.switchTo(localizationType);
         String value = editor.getLocalizationValue(localizationType, localizationName + "#");
         Assert.assertEquals(
@@ -102,21 +102,21 @@ public class MceScenarios extends CommonScenarios{
     public static void assertContentValueInSimpleEditor(String campaignName,
                                                         Table.Status campaignStatus,
                                                         String pageViewName,
-                                                        EditorPage.LocalizationType localizationType,
+                                                        SimpleEditorPage.LocalizationType localizationType,
                                                         String localizationName,
                                                         String expectedContentValue){
-        PageCampaigns campaignsPage = new EditorPage()
+        PageCampaigns campaignsPage = new SimpleEditorPage()
                 .campaignNavigationMenu
                 .openDetailsPage()
                 .header
                 .openCampaignsPage();
 
-        EditorPage editor = campaignsPage
+        SimpleEditorPage editor = campaignsPage
                 .openCampaignByName(campaignName, campaignStatus)
                 .campaignNavigationMenu
                 .openEditorPage();
 
-        editor = editor.switchViewByName(pageViewName);
+        editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
         editor.switchTo(localizationType);
         // Verify value in Editor:
         String value = editor.getLocalizationValue(localizationType, localizationName + "#");
@@ -124,13 +124,13 @@ public class MceScenarios extends CommonScenarios{
                 "FAILED: Incorrect new content value in Simple Editor when it was updated in MCE for campaign: <" + campaignName + ">");
     }
 
-    public static void assertCampaignsCountInGrids(EditorPage.LocalizationType localizationType, String expectedSelectedCount, String expectedUnselectedCount, String expectedIneligibleCount){
+    public static void assertCampaignsCountInGrids(SimpleEditorPage.LocalizationType localizationType, String expectedSelectedCount, String expectedUnselectedCount, String expectedIneligibleCount){
         assertSelectedAndUnselectedCampaignsCount(localizationType, expectedSelectedCount, expectedUnselectedCount);
          // Verify ineligible campaign list
         Assert.assertEquals(getCampaignsCountFromMce(INELIGIBLE, localizationType), expectedIneligibleCount, "FAILED: Incorrect count of Ineligible campaigns on MCE page. Mode: " + localizationType + ".");
     }
 
-    public static void assertSelectedAndUnselectedCampaignsCount(EditorPage.LocalizationType localizationType, String expectedSelectedCount, String expectedUnselectedCount){
+    public static void assertSelectedAndUnselectedCampaignsCount(SimpleEditorPage.LocalizationType localizationType, String expectedSelectedCount, String expectedUnselectedCount){
         // Verify selected campaign list
         Assert.assertEquals(getCampaignsCountFromMce(SELECTED, localizationType), expectedSelectedCount, "FAILED: Incorrect count of Selected campaigns on MCE page. Mode: " + localizationType + ".");
         // Verify unselected campaigns list
@@ -138,23 +138,23 @@ public class MceScenarios extends CommonScenarios{
     }
 
 
-    public static void typeToSearchField(String searchInput, EditorPage.LocalizationType contentMode){
+    public static void typeToSearchField(String searchInput, SimpleEditorPage.LocalizationType contentMode){
         new PageMultiCampaignEditor(contentMode).typeToSearch(searchInput);
     }
 
-    public static void openPreviewPopupOnMCE(EditorPage.LocalizationType localizationType){
+    public static void openPreviewPopupOnMCE(SimpleEditorPage.LocalizationType localizationType){
         new PageMultiCampaignEditor(localizationType).openPreviewPopup();
     }
 
-    public static String getContentNameFromPreviewPopup(EditorPage.LocalizationType localizationType){
+    public static String getContentNameFromPreviewPopup(SimpleEditorPage.LocalizationType localizationType){
         return new PreviewPopup(localizationType).getContentName();
     }
 
-    public static String getContentValueFromPreviewPopup(EditorPage.LocalizationType localizationType){
+    public static String getContentValueFromPreviewPopup(SimpleEditorPage.LocalizationType localizationType){
         return new PreviewPopup(localizationType).getContentValue();
     }
 
-    public static void closePreviewPopup(EditorPage.LocalizationType localizationType){
+    public static void closePreviewPopup(SimpleEditorPage.LocalizationType localizationType){
         new PreviewPopup(localizationType).closePopup();
     }
 }

@@ -24,7 +24,7 @@ class ExistingCustomersListSection extends AbstractElementsContainer{
     private Element firstResult;
 
     ExistingCustomersListSection(){
-//        setElements();
+//        beforeSupperActions();
     }
 
     private void setElements(){
