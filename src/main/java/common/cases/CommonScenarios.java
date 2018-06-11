@@ -233,6 +233,18 @@ public class CommonScenarios {
         return new PageCampaignRules().getRedirectOnExpiredClaimCheckbox();
     }
 
+    public static void addNewIncentive(PageCampaignRules.IncentiveType incentiveType,
+                                          int rewardAmount,
+                                          PageCampaignRules.DiscountType discountType,
+                                          PageCampaignRules.CouponCodeType couponCodeType
+                                          ){
+        new PageCampaignRules().createNewIncentive(
+                incentiveType,
+                rewardAmount,
+                discountType,
+                couponCodeType);
+    }
+
     /***
      * Scenario to initiate campaign creation.
      * Precondition: Header should be available. Site should not have any active campaign with the selected campaignType/placementType

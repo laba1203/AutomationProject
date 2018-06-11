@@ -17,6 +17,11 @@ import util.logging.Log;
 
 import static talkable.common.CampaignPlacement.FloatingWidget;
 import static talkable.common.CampaignType.Invite;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.CouponCodeType.MultiUse;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType.FixedAmount;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType.Percentage;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType.AdvocateSignupIncentive;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType.FriendIncentive_NewCustomer;
 
 
 public class SmokeTest_v2 extends BaseTest{
@@ -32,8 +37,6 @@ public class SmokeTest_v2 extends BaseTest{
 
     /*Link to test scenario: https://drive.google.com/open?id=1rnq3vo9qQ25vtTwPF7hwXRt7zMBiK28VuAyPc50_X7s
     * */
-
-//    todo: test should be adapted for new incentives
     @Test
     public void createAndActivateCampaign(){
         //1. Login to Talkable.
@@ -77,7 +80,8 @@ public class SmokeTest_v2 extends BaseTest{
                 endTime);
 
         // 8. Add incentive (Type = Sign Up)
-        addIncentive();
+        CommonScenarios.addNewIncentive(AdvocateSignupIncentive, 25, FixedAmount, MultiUse);
+        CommonScenarios.addNewIncentive(FriendIncentive_NewCustomer, 10, Percentage, MultiUse);
 
         // 11. Launch Campaign
         CommonScenarios.launchCampaign();
@@ -112,18 +116,6 @@ public class SmokeTest_v2 extends BaseTest{
         }else {
             Log.testPassed("Campaign is present on Customer site.\r\n");
         }
-    }
-
-
-    private void addIncentive() {
-        PageCampaignRules rulesPage = new PageCampaignRules();
-        rulesPage = rulesPage.createNewIncentive(
-                IncentiveType.AdvocateSignupIncentive,
-                25, DiscountType.FixedAmount,
-                CouponCodeType.MultiUse);
-        rulesPage.createNewIncentive(IncentiveType.FriendIncentive_NewCustomer,
-                10, DiscountType.Percentage,
-                CouponCodeType.MultiUse);
     }
 
 }
