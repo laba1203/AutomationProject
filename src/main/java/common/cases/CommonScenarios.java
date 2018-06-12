@@ -50,7 +50,15 @@ public class CommonScenarios {
     public static Header login(String email, String password) {
         HomePage homePage = new HomePage();
         LoginPage loginPage = homePage.clickLoginButton();
-        Header header = loginPage.submitLoginForm(email, password);
+
+//        Header header = loginPage.submitLoginForm(email, password);
+//        Log.logRecord("User logged into Talkable. Email = <" + email + ">");
+//        return header;
+        return submitLoginForm(email, password);
+    }
+
+    public static Header submitLoginForm(String email, String password){
+        Header header = new LoginPage().submitLoginForm(email, password);
         Log.logRecord("User logged into Talkable. Email = <" + email + ">");
         return header;
     }

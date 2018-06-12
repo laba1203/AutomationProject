@@ -1,10 +1,13 @@
 package util;
 
+import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class WaitFactory {
@@ -71,6 +74,17 @@ public class WaitFactory {
         finally {
             setDefaultImplicitlyWait();
         }
+    }
+
+    public static List<WebElement> waitChildElementsForElement(Element parentElement, By childrenLocator){
+        setImplicitWait(2, TimeUnit.SECONDS);
+        try{
+            return parentElement.getWebElement().findElements(childrenLocator);
+        }
+        finally {
+            setDefaultImplicitlyWait();
+        }
+
     }
 
 
