@@ -8,12 +8,10 @@ import customerSite.talkableFrame.floatingWidget.advocateSignupPage.AdvocateSign
 import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import talkable.common.CampaignPlacement;
 import talkable.common.CampaignType;
 import util.DriverConfig;
-import util.WaitFactory;
 
 public class ClientSiteScenarios {
 
@@ -29,16 +27,6 @@ public class ClientSiteScenarios {
         AdvocateSignupPageFW advocateSignupPageFW = advocateTriggerWidget.click();
         AdvocateSharePageFW advocateSharePageFW = advocateSignupPageFW.submitForm(advocateName, advocateEmail);
         return advocateSharePageFW.getShareLink();
-    }
-
-    /*Technical method to setup new driver instace with clean cookies.
-    * Please note: New driver instance will be applied for all further scenarios*/
-    public static WebDriver setupDriverWithCleanCookies(WebDriver driver){
-        driver.manage().deleteAllCookies();
-        driver.quit();
-        DriverConfig.cleanWebDriver();
-
-        return DriverConfig.getDriver();
     }
 
     /*Verification that campaign is present on customer site
@@ -64,8 +52,8 @@ public class ClientSiteScenarios {
 
     private static boolean isFloatingPresent(CampaignPlacement placement){
         try{
-            WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateTriggerWidgetFrame.getFrameLocator(), 3);
-//            new AdvocateTriggerWidgetFrame();
+//            waitFactory().waitUntilVisibilityOfElementLocated(AdvocateTriggerWidgetFrame.getFrameLocator(), 3);
+            new AdvocateTriggerWidgetFrame();
             return true;
         }catch(TimeoutException e){
             return false;
@@ -74,8 +62,8 @@ public class ClientSiteScenarios {
 
     private static boolean isStandalonePresent(CampaignPlacement placement){
         try{
-//            new AdvocateSignupPage();
-            WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateSignupPage.getFrameLocator(), 5);
+            new AdvocateSignupPage();
+//            WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateSignupPage.getFrameLocator(), 5);
             return true;
         }catch(TimeoutException e){
             return false;
@@ -86,12 +74,12 @@ public class ClientSiteScenarios {
         try {
             switch (campaignType){
                 case Invite:
-//                    new AdvocateSharePageForInvite();
-                    WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateSharePageForInvite.getFrameLocator(), 5);
+                    new AdvocateSharePageForInvite();
+//                    WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateSharePageForInvite.getFrameLocator(), 5);
                     return true;
                 case AdvocateDashboard:
-                    WaitFactory.waitUntilVisibilityOfElementLocated(AdSharePageForAdDashboard.getFrameLocator(), 5);
-//                    new AdSharePageForAdDashboard();
+//                    WaitFactory.waitUntilVisibilityOfElementLocated(AdSharePageForAdDashboard.getFrameLocator(), 5);
+                    new AdSharePageForAdDashboard();
                     return true;
                 case RewardGleam:
                     Assert.fail("FAILED: Post Purc hase placement is not applicable for Gleam Campaign type.");

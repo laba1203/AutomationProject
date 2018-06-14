@@ -6,30 +6,23 @@ import org.openqa.selenium.support.ui.Select;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 
 public class Log {
-//    for containers:
-    private static final String clickMsg = "LOG: Click to ";
-    private static final String enterValueMsg = "LOG: Enter value: '";
-    private static final String screenshotMsg = "Screenshot is available by the following path: ";
 
+    private static final String enterValueMsg = "LOG: Enter value: '";
 
     public static void testFailed(String msg){
         System.out.println("FAILED: " + msg);
     }
 
     public static void logRecord(String msg){
-        System.out.println("LOG: " + msg);
+        System.out.println("LOG(#" + Thread.currentThread().getId() + "): "  + msg);
     }
 
     public static void debagRecord(String msg){
-        System.out.println("DEBAG: " + msg);
-    }
-
-    public static void clickMsg(Object obj){
-        clickMsg(obj.getClass().getName());
+        System.out.println("DEBAG(#" + Thread.currentThread().getId() + "): " + msg);
     }
 
     public static void clickMsg(String elementName){
-        String msg = clickMsg + elementName;
+        String msg = "LOG(#"+ Thread.currentThread().getId() +": Click to " + elementName;
         System.out.println(msg);
     }
 

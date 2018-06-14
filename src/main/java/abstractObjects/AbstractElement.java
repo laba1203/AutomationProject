@@ -15,7 +15,7 @@ public abstract class AbstractElement implements DrivenElement{
     private WebElement webElement;
     private By locator;
     private WebDriver driver = DriverConfig.getDriver();
-    protected WebDriverWait wait = WaitFactory.getExplicitWait();
+//    protected WebDriverWait wait = WaitFactory.getExplicitWait();
     private Actions actions = new Actions(driver);
     private String elementName = this.getClass().getName();
 

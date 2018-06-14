@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import util.logging.Log;
 
@@ -18,7 +19,7 @@ public class DriverConfig {
     //URL for selenium
     private static final String SELENOID_URL = "http://selenoid.tkbl:4444//wd/hub";
 
-    private static WebDriver driver;
+    private WebDriver driver;
 
     private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
@@ -27,25 +28,24 @@ public class DriverConfig {
     private static final boolean remoteExecution = true;
 
     @Parameters()
-    private WebDriver setNewLocalDriver()
+    private void setNewLocalDriver()
     {
         System.out.println("LOG - Util: Start creation of new Local WebDriver");
         final File file = new File(PropertyLoader.loadProperty("path.mac.webDriver"));
         System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
 
-        driver = new ChromeDriver(); //launch local webDriver
+        tlDriver.set(new ChromeDriver());
 
         WaitFactory.setDefaultImplicitlyWait();
 
         System.out.println("LOG - Util: New Local WebDriver is created");
 
-        return driver;
     }
 
 
 
-    private static ThreadLocal<WebDriver> setNewRemoteDriver(){
-        System.out.println("LOG - Util: Start creation of new Remote WebDriver");
+    private static void setNewRemoteDriver(){
+        System.out.println("LOG - Util: Start creation of new Remote WebDriver. Thread ID: <" + Thread.currentThread().getId() + ">");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("chrome");
@@ -55,7 +55,6 @@ public class DriverConfig {
 //        capabilities.setVersion("60.0");
         capabilities.setCapability("enableVNC", true);
 
-        driver = null;
         URL url = null;
         try {
              url = new URL(SELENOID_URL);
@@ -63,52 +62,64 @@ public class DriverConfig {
             System.err.println("Exception found");
             e.printStackTrace();
         }
-            driver = new RemoteWebDriver(
+        WebDriver driver = new RemoteWebDriver(
                     url,
                     capabilities
             );
-        System.out.println("DEBAG: Driver created");
-
-        //setup default wait
-        if(driver != null) {
-            WaitFactory.setDefaultImplicitlyWait();
-        }
         tlDriver.set(driver);
         resizeBrowser(tlDriver.get());
 
-        System.out.println("LOG - Util: New Remote WebDriver created");
-
-//        return driver;
-        return tlDriver;
+        System.out.println("LOG - Util: New Remote WebDriver created. Thread ID: <" + Thread.currentThread().getId() + ">");
     }
 
     public static WebDriver getDriver(){
-        if (driver == null){
-            if(remoteExecution) {
-                driver = DriverConfig.setNewRemoteDriver().get(); //for remote testing
-            }else {
-                driver = new DriverConfig().setNewLocalDriver(); //for local testing
-            }
+        if(tlDriver.get() != null){
+            return tlDriver.get();
+        }else {
+            Assert.fail("FAILED in DriverConfig. getting browser when it was not created. Thread <" + Thread.currentThread().getId() + ">");
+            return null;
         }
-        return driver;
+
+//        if (tlDriver.get() == null){
+//            if(remoteExecution) {
+//                DriverConfig.setNewRemoteDriver(); //for remote testing
+//                WaitFactory.setDefaultImplicitlyWait();
+//            }else {
+//                new DriverConfig().setNewLocalDriver(); //for local testing
+//                WaitFactory.setDefaultImplicitlyWait();
+//            }
+//        }
+//        System.out.println("LOG - Util: Driver assigned to Thread <" + Thread.currentThread().getId() + ">");
+//        return tlDriver.get();
+    }
+
+    public static void createDriver(){
+        if(remoteExecution) {
+            DriverConfig.setNewRemoteDriver(); //for remote testing
+            WaitFactory.setDefaultImplicitlyWait();
+        }else {
+            new DriverConfig().setNewLocalDriver(); //for local testing
+            WaitFactory.setDefaultImplicitlyWait();
+        }
     }
 
     public static void cleanWebDriver(){
-        WaitFactory.cleanWait();
-        driver = null;
+//        WaitFactory.cleanWait();
+        tlDriver.remove();
     }
 
     private static void resizeBrowser(WebDriver driver) {
         Dimension d = new Dimension(1300,1200);
 //Resize current window to the set dimension
         driver.manage().window().setSize(d);
+        tlDriver.set(driver);
     }
 
     //to be refactored
 
     public static String switchToUnknownWindow(String parentHandle){
         String switchedChildHandle = null;
-        for(String childHandle : driver.getWindowHandles()){
+        for(String childHandle : getDriver().getWindowHandles()){
             switchToUnknownWindow(parentHandle, childHandle);
             switchedChildHandle = childHandle;
         }
@@ -117,13 +128,13 @@ public class DriverConfig {
 
     private static void switchToUnknownWindow(String parentHandle, String childHandle){
         if (!childHandle.equals(parentHandle)){
-            driver.switchTo().window(childHandle);
+            getDriver().switchTo().window(childHandle);
             Log.switchedToWindowMsg(childHandle);
         }
     }
 
     public static void switchToWindow(String windowHandle){
-        driver.switchTo().window(windowHandle);
+        getDriver().switchTo().window(windowHandle);
         Log.switchedToWindowMsg(windowHandle);
     }
 

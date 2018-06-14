@@ -34,7 +34,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
         CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
     }
 
-    @Test(dataProvider = "getTestData", dependsOnMethods = "login")
+    @Test(dataProvider = "getTestData", dependsOnMethods = "login", threadPoolSize = 1)
     public void createCampaign(CampaignType campaignType, CampaignPlacement campaignPlacement){
         String campaignName = "AUTO_TEST_" + TestDataGenerator.getRandomId();
 

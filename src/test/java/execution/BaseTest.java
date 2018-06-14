@@ -10,7 +10,7 @@ import util.logging.Log;
 
 import java.lang.reflect.Method;
 
-public class BaseTest {
+public class BaseTest{
 
         public WebDriver driver;
         private Screenshot screenshot = new Screenshot();
@@ -19,14 +19,19 @@ public class BaseTest {
         //setup driver and open Talkable site.
         @BeforeSuite
         public void commonSetup() {
+
+//            new abstractObjects.DriverPoint();
+
             Log.logRecord("Class name: " + this.getClass().getName());
+            DriverConfig.createDriver();
             this.driver = DriverConfig.getDriver();
             try {
                 this.driver.navigate().to(EnvFactory.getEnvUrl());
             }catch (org.openqa.selenium.TimeoutException e){
-                Log.logRecord("Timeout received during navigation to Env URL in BaseTest.commonSetup(). Second attempt to open URL.");
+                Log.logRecord("Timeout received during navigation to Env URL in DriverPoint.commonSetup(). Second attempt to open URL.");
                 DriverConfig.getDriver().quit();
                 DriverConfig.cleanWebDriver();
+                DriverConfig.createDriver();
                 this.driver = DriverConfig.getDriver();
                 this.driver.navigate().to(EnvFactory.getEnvUrl());
                 Log.logRecord("Successfully opened URL from the second attempt");
@@ -40,9 +45,9 @@ public class BaseTest {
         public void verifyDriver() {
             if(driver==null){
                 commonSetup();
-                System.out.println("DEBAG: WebDriver assigned for particular class: " + getClass().getName());
+//                System.out.println("DEBAG: WebDriver assigned for particular class: " + getClass().getName() + ".Thread ID: " + Thread.currentThread().getId());
             }
-
+            Log.debagRecord("DriverPoint. WebDriver assigned for particular class: " + getClass().getName() + ".Thread ID: " + Thread.currentThread().getId());
         }
 
 
@@ -60,7 +65,7 @@ public class BaseTest {
             }
         }
 
-//        @AfterSuite
+        @AfterSuite
         public void quit() {
             this.driver.quit();
             DriverConfig.cleanWebDriver();

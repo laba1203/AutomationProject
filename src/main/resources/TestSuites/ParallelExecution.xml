@@ -1,0 +1,40 @@
+<suite name="All Test In Parallel" parallel="tests" thread-count="5">
+
+    <test name="Smoke Test" preserve-order="true" >
+        <classes>
+            <class name="execution.smoke.SmokeTest_v2"/>
+        </classes>
+    </test>
+
+    <test name="Simple Test" preserve-order="true" >
+        <classes>
+            <class name="execution.simple.test.SimpleTestForAllCampaignTypes"/>
+        </classes>
+    </test>
+
+    <test name="Simple Editor" preserve-order="true" >
+        <classes>
+            <class name="execution.editor.SimpleEditorTesting_v2"/>
+        </classes>
+    </test>
+
+    <test name="Fraud Settings tests" preserve-order="true" >
+        <classes>
+            <class name="execution.fraud.settings.FraudSettingsTesting"/>
+        </classes>
+    </test>
+
+    <test name="Campaign Actions" preserve-order="true" >
+        <classes>
+            <class name="execution.campaign.actions.CampaignActionsTesting"/>
+        </classes>
+    </test>
+
+    <test name="New user registration. Positive case" preserve-order="true" >
+        <classes>
+            <class name="execution.registration.CreateNewUserWithSite"/>
+        </classes>
+    </test>
+
+</suite>
+

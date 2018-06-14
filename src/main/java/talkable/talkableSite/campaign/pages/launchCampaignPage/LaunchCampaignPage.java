@@ -44,7 +44,7 @@ public class LaunchCampaignPage extends AbstractTalkableSitePage {
 //            WaitFactory
 //                    .getCustomWait(5,500)
 //                    .until(ExpectedConditions.numberOfElementsToBe(ElmntAlertIntegrationMsg.getStaticLocator(), 1));
-            WaitFactory.waitUntilVisibilityOfElementLocated(ElmntAlertIntegrationMsg.getStaticLocator(), 1);
+            waitFactory().waitUntilVisibilityOfElementLocated(ElmntAlertIntegrationMsg.getStaticLocator(), 1);
             return false;
         }catch (TimeoutException e){
             System.out.println("DEBAG: Integration popup is not displayed");
