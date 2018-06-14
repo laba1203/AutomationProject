@@ -36,6 +36,8 @@ public class SmokeTest_v2 extends BaseTest{
 //    todo: test should be adapted for new incentives
     @Test
     public void createAndActivateCampaign(){
+
+        CommonScenarios.acceptCookiesUsage();
         //1. Login to Talkable.
         CommonScenarios.login(
                 EnvFactory.getCommonUser(),

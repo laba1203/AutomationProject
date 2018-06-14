@@ -24,6 +24,7 @@ public class CreateNewUserWithSite extends BaseTest{
     @BeforeClass
     public void setup() {
         this.driver.navigate().to(EnvFactory.getRegistrationURL());
+        CommonScenarios.acceptCookiesUsage();
     }
 
     //Select Custom platform

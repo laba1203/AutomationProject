@@ -30,6 +30,7 @@ public class FraudSettingsTesting extends BaseTest{
 
     @Test
     public void login(){
+        CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(
                 PropertyLoader.loadProperty("talkable.user.fraudRules"),
                 EnvFactory.getPassword());
