@@ -2,6 +2,7 @@ package common.cases;
 
 import api.objects.Site;
 import org.testng.Assert;
+import talkable.common.elements.WeUseCookieMsg;
 import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
@@ -61,6 +62,10 @@ public class CommonScenarios {
         Header header = new LoginPage().submitLoginForm(email, password);
         Log.logRecord("User logged into Talkable. Email = <" + email + ">");
         return header;
+    }
+
+    public static void acceptCookiesUsage(){
+        new WeUseCookieMsg().accept();
     }
 
     public static void logout(){
