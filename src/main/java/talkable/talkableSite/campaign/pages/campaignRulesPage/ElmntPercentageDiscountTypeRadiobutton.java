@@ -4,7 +4,7 @@ import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
 class ElmntPercentageDiscountTypeRadiobutton extends AbstractElement{
-    private static final  By locator = By.cssSelector("input[name = 'discount_type'][value='true']");
+    private static final  By locator = By.xpath("//button[text() = '%']");
 
     ElmntPercentageDiscountTypeRadiobutton(){
         setWebElement(locator);

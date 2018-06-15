@@ -11,6 +11,5 @@
     <!--Please note: Below suite will create new site-->
     <suite-file path="AccountAndSiteCreation.xml"/>
 
-
 </suite>
 

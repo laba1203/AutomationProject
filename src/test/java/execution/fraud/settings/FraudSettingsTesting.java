@@ -30,6 +30,7 @@ public class FraudSettingsTesting extends BaseTest{
 
     @Test
     public void login(){
+        CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(
                 PropertyLoader.loadProperty("talkable.user.fraudRules"),
                 EnvFactory.getPassword());
@@ -274,7 +275,13 @@ public class FraudSettingsTesting extends BaseTest{
                 "Skip",
                 "Skip");
 
-        ViaAPI.createReferral(site, advocateEmail, friendEmail);
+        try {
+            ViaAPI.createReferral(site, advocateEmail, friendEmail);
+        }catch (AssertionError e){
+            Log.logRecord("Failed to create referral due to AssertionError: " + e.getMessage());
+            ViaAPI.createReferral(site, advocateEmail, friendEmail);
+            Log.logRecord("Referral created from the second attempt");
+        }
 
         ReportsScenarios.openReferralsReport();
         ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);

@@ -4,7 +4,7 @@ import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
 class ElmntNonMonetaryRewardTypeRadiobutton extends AbstractElement{
-    private static final  By locator = By.cssSelector("input[value = 'other']");
+    private static final  By locator = By.cssSelector("label[for = 'other']");
 
     ElmntNonMonetaryRewardTypeRadiobutton(){
         setWebElement(locator);

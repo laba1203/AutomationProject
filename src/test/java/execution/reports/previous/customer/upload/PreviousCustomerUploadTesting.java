@@ -19,6 +19,7 @@ public class PreviousCustomerUploadTesting extends BaseTest{
     @Test
     public void test1_login(){
         driver.navigate().to(EnvFactory.getEnvUrl());
+        CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(EnvFactory.getReportsUser(), EnvFactory.getPassword());
     }
 

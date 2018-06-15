@@ -21,6 +21,7 @@ public class CampaignActionsTesting extends BaseTest{
 
     @Test
     public void login(){
+        CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(
                 PropertyLoader.loadProperty("talkable.user.campaignActionsTest"),
                 EnvFactory.getPassword()

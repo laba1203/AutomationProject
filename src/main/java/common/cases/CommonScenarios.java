@@ -2,6 +2,7 @@ package common.cases;
 
 import api.objects.Site;
 import org.testng.Assert;
+import talkable.common.elements.WeUseCookieMsg;
 import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
@@ -61,6 +62,10 @@ public class CommonScenarios {
         Header header = new LoginPage().submitLoginForm(email, password);
         Log.logRecord("User logged into Talkable. Email = <" + email + ">");
         return header;
+    }
+
+    public static void acceptCookiesUsage(){
+        new WeUseCookieMsg().accept();
     }
 
     public static void logout(){
@@ -239,6 +244,18 @@ public class CommonScenarios {
 
     public static String getRedirectOnExpiredClaimCheckbox(){
         return new PageCampaignRules().getRedirectOnExpiredClaimCheckbox();
+    }
+
+    public static void addNewIncentive(PageCampaignRules.IncentiveType incentiveType,
+                                          int rewardAmount,
+                                          PageCampaignRules.DiscountType discountType,
+                                          PageCampaignRules.CouponCodeType couponCodeType
+                                          ){
+        new PageCampaignRules().createNewIncentive(
+                incentiveType,
+                rewardAmount,
+                discountType,
+                couponCodeType);
     }
 
     /***

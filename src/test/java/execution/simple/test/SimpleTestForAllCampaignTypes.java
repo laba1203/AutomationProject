@@ -31,6 +31,7 @@ public class SimpleTestForAllCampaignTypes extends BaseTest{
 
     @Test
     public void login(){
+        CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
     }
 
