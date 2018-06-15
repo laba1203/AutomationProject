@@ -154,8 +154,9 @@ public class FraudSettingsTesting extends BaseTest{
         String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
 
         FraudRulesScenarios.openFraudSettings();
-        FraudRulesScenarios.setReferralApprovalModeOnFraudSetting(AUTOMATIC);
-        FraudRulesScenarios.setReferralApprovalDelay(0);
+//        FraudRulesScenarios.setReferralApprovalModeOnFraudSetting(AUTOMATIC);
+//        FraudRulesScenarios.setReferralApprovalDelay(0);
+        FraudRulesScenarios.setApprovalModeAndDelay(AUTOMATIC, 0);
         try {
             ViaAPI.createReferral(
                     site,
