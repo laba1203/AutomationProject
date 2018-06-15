@@ -14,7 +14,7 @@ public class WaitFactory {
 
     private static WebDriverWait wait;
 
-    private static final long DEFAULT_TIME_OUT = 15;
+    private static final long DEFAULT_TIME_OUT = 20;
     private static final long DEFAULT_PAGE_LOAD_TIME_OUT = 30;
 
     static void setDefaultImplicitlyWait(){
