@@ -18,7 +18,6 @@ public class Testing extends BaseTest {
         String platform = "Custom";
         String currency = "UAH";
 
-        CommonScenarios
         CommonScenarios.login("hutornoy@talkable.com", "organ_Telo23" );
         CommonScenarios.openSiteSettingsPage();
         CommonScenarios.updateSiteSettingsBasicTab(siteName, siteID, siteURL, platform, currency);
