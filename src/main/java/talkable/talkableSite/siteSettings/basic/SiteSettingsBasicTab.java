@@ -13,6 +13,7 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
     private static final By elmntSiteURL = By.xpath("//*[@name='url']");
     private static final By elmntSaveButton = By.xpath("//button[contains(@class,'ac-site-save')]");
     private static final By elmntSitePlatform = By.xpath("//*[@name = 'platform']");
+    private static final By elmntSiteCurrency = By.xpath("//*[@name = 'currency_code']");
     //
     public SiteSettingsBasicTab(){
         setVisibleElements();
@@ -23,23 +24,20 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
         new Element(elmntSiteName);
         new Element(elmntSiteURL);
     }
-
+//geters
+    public String getSiteName(){
+        return new Element(elmntSiteName).getAttribute("value");
+    }
     public String getSiteID(){
-//        return new ElmntSiteID().getAttribute("value");
         return new Element(elmntSiteId).getAttribute("value");
+    }
+    public String getSiteURL(){
+        return new Element(elmntSiteURL).getAttribute("value");
     }
 
     public void saveChanges(){
         new Element(elmntSaveButton).click();
         waitSaving();
-    }
-
-   public SiteSettingsBasicTab editMandatoryFields(String siteName, String siteId, String siteURL ){
-
-        populate(siteName, siteId, siteURL);
-
-        saveChanges();
-        return new SiteSettingsBasicTab();
     }
 
     private void populate(String siteName, String siteId, String siteURL ){
@@ -48,9 +46,10 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
         new Element(elmntSiteURL, "Site URL field").clearAndSendKeys(siteURL);
     }
 
-    public SiteSettingsBasicTab updateAll(String siteName, String siteId, String siteURL, String platform ){
+    public SiteSettingsBasicTab updateAll(String siteName, String siteId, String siteURL, String platform, String currency ){
         populate(siteName, siteId, siteURL);
         new SelectElement(elmntSitePlatform).searchAndSelect(platform);
+        new SelectElement(elmntSiteCurrency).searchAndSelect(currency);
         saveChanges();
         return new SiteSettingsBasicTab();
     }

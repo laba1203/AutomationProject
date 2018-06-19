@@ -491,17 +491,14 @@ public class CommonScenarios {
         return page;
     }
 
+// updateSiteSettingsBasicTab
 
-    public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL){
-        new SiteSettingsBasicTab().editMandatoryFields(siteName, siteID, siteURL);
+    public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL, String platform, String currency ){
+        new SiteSettingsBasicTab().updateAll(siteName, siteID, siteURL, platform, currency);
         Log.logRecord("Site Settings Basic Tab updated");
     }
 
-    public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL, String platform ){
-        new SiteSettingsBasicTab().updateAll(siteName, siteID, siteURL, platform);
-        Log.logRecord("Site Settings Basic Tab updated");
-    }
-
+// end updateSiteSettingsBasicTab
     public static Site getSiteIntegrationValues(){
         SiteSettingsBasicTab basicTab = openSiteSettingsPage();
         String siteID = basicTab.getSiteID();
