@@ -47,9 +47,12 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
     }
 
     public SiteSettingsBasicTab updateAll(String siteName, String siteId, String siteURL, String platform, String currency ){
+        //debag:
+        //new Element(elmntSaveButton).moveMouseOver();
+        //end
         populate(siteName, siteId, siteURL);
         new SelectElement(elmntSitePlatform).searchAndSelect(platform);
-        new SelectElement(elmntSiteCurrency).searchAndSelect(currency);
+        new SelectElement(elmntSiteCurrency).selectByVisibleText(currency);
         saveChanges();
         return new SiteSettingsBasicTab();
     }

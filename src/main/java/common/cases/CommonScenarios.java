@@ -522,6 +522,20 @@ public class CommonScenarios {
         new SiteSettingsBasicTab().updateAll(siteName, siteID, siteURL, platform, currency);
         Log.logRecord("Site Settings Basic Tab updated");
     }
+    public static void assertSiteSettigsBasicTab(String siteName, String siteID, String siteURL){
+        Assert.assertEquals(
+                siteName,
+                new SiteSettingsBasicTab().getSiteName(),
+                "FAILED: Site settings/basic tab/Incorect Site Name");
+        Assert.assertEquals(
+                siteID,
+                new SiteSettingsBasicTab().getSiteID(),
+                "FAILED: Site settings/basic tab/Incorect Site ID");
+        Assert.assertEquals(
+                siteURL,
+                new SiteSettingsBasicTab().getSiteURL(),
+                "FAILED: Site settings/basic tab/Incorect Site URL");
+    }
 
 // end updateSiteSettingsBasicTab
     public static Site getSiteIntegrationValues(){

@@ -12,18 +12,22 @@ public class Testing extends BaseTest {
     @Test
     public void login(){
 
+
+
+
         String siteName = "sitename";
-        String siteID =  "siteID" + TestDataGenerator.getRandomId();
+        String siteID =  "siteid" + TestDataGenerator.getRandomId();
         String siteURL = "http://qewqwe.com";
         String platform = "Custom";
-        String currency = "UAH";
+        String currency = "AUD";
 
+
+        CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login("hutornoy@talkable.com", "organ_Telo23" );
         CommonScenarios.openSiteSettingsPage();
         CommonScenarios.updateSiteSettingsBasicTab(siteName, siteID, siteURL, platform, currency);
+        CommonScenarios.assertSiteSettigsBasicTab(siteName, siteID, siteURL);
 
-        String getsiteID = new SiteSettingsBasicTab().getSiteID();
-        Assert.assertEquals(siteID, getsiteID, "FAIL:");
         Log.testPassed("Site setting updated");
     }
 
