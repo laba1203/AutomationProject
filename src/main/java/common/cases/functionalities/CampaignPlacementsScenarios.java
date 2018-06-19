@@ -87,8 +87,10 @@ public class CampaignPlacementsScenarios extends CommonScenarios{
 
     //Doesn't work correctly
     public static void deleteAllPlacements(CampaignPlacement placement){
-        new PageCampaignPlacements().deleteAllPlacements(placement);
-        Log.logRecord("Placements records deleted");
+        new PageCampaignPlacements()
+                .deleteAllPlacements(placement)
+                .waitTillChangesApplied();
+        Log.logRecord("All Placements records deleted");
     }
 
 

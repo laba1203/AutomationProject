@@ -115,6 +115,10 @@ public class FraudRulesScenarios extends CommonScenarios{
         return new FraudSettingsPage().setApprovalMode(mode);
     }
 
+    public static FraudSettingsPage setApprovalModeAndDelay(FraudSettingsPage.ApprovalMode mode, int approvalDelay){
+        return new FraudSettingsPage().setApprovalModeAndDelay(mode, approvalDelay);
+    }
+
     public static void setAdvocateRules(String matchingEmailOrCookiesOnPurchase,
                                               String similarEmailMatch,
                                               String matchingShippingAddress,

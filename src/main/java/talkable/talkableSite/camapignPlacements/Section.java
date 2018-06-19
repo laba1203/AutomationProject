@@ -4,7 +4,9 @@ import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import util.WaitFactory;
 import util.logging.Log;
 
 import java.util.ArrayList;
@@ -27,7 +29,9 @@ class Section extends AbstractElementsContainer
 
     private ArrayList<PlacementRow> getRows(Element parentSection){
         ArrayList<PlacementRow> rows = new ArrayList<>();
-        List<WebElement> webElements = parentSection.getWebElement().findElements(By.xpath(".//*[@type = 'checkbox']/../../.."));
+        List<WebElement> webElements = WaitFactory
+                .waitChildElementsForElement(parentSection, By.xpath(".//*[@type = 'checkbox']/../../.."));
+        //        List<WebElement> webElements = parentSection.getWebElement().findElements(By.xpath(".//*[@type = 'checkbox']/../../.."));
         for (WebElement webElement :
                 webElements) {
             rows.add(new PlacementRow(webElement));
@@ -66,18 +70,30 @@ class Section extends AbstractElementsContainer
     //doesn't work correctly
     PopupEditPlacement removeAll(boolean isInclusion){
         ArrayList<PlacementRow> rows = getRows();
+
         if (isInclusion){
-            for (int i = 0; i < rows.size() - 1; i++){
-                rows.get(i).delete();
+//            for (int i = 0; i < rows.size() - 1; i++){
+//                rows.get(i).delete();
+//            }
+            int size = getRows().size();
+            while (size > 1){
+                rows.get(0).delete();
+                rows = getRows();
+                size = rows.size();
             }
         }else{
-            for (PlacementRow row : rows) {
-                row.delete();
+            int size = getRows().size();
+            while (size > 0){
+                rows.get(0).delete();
+                rows = getRows();
+                size = rows.size();
             }
         }
         return new PopupEditPlacement();
 
     }
+
+
 
 
     private ArrayList<PlacementRow> getRows(){

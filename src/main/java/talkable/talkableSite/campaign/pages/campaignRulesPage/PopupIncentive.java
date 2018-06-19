@@ -1,32 +1,22 @@
 package talkable.talkableSite.campaign.pages.campaignRulesPage;
 
 import abstractObjects.AbstractElementsContainer;
+import abstractObjects.Element;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 
 class PopupIncentive extends AbstractElementsContainer implements PopupIncentiveFactory{
 
-    ElmntCreateIncentiveButton createIncentiveButton;
-    private ElmntRewardAmountInput rewardAmountInput;
-    private ElmntPercentageDiscountTypeRadiobutton percentageDiscountTypeRadiobutton;
-    private ElmntFixedAmountDiscountTypeRadiobutton fixedAmountDiscountTypeRadiobutton;
-    private ElmntMultiUseRadiobutton multiUseRadiobutton;
-    private ElmntSingleUseRadiobutton singleUseRadiobutton;
-    private ElmntMultiUseCouponCodeInput multiUseCouponCodeInput;
-
-    PopupIncentive(){
-        createIncentiveButton = new ElmntCreateIncentiveButton();
-    }
+    Element createIncentiveButton = new Element(By.xpath("//button[text() = 'Create Incentive']"), "'Create Incentive' button");
 
 
     void setDiscountType(PageCampaignRules.DiscountType discountType){
-        percentageDiscountTypeRadiobutton = new ElmntPercentageDiscountTypeRadiobutton();
-        fixedAmountDiscountTypeRadiobutton = new ElmntFixedAmountDiscountTypeRadiobutton();
         switch (discountType){
             case Percentage:
-                percentageDiscountTypeRadiobutton.click();
+                new ElmntPercentageDiscountTypeRadiobutton().click();
                 break;
             case FixedAmount:
-                fixedAmountDiscountTypeRadiobutton.click();
+                new ElmntFixedAmountDiscountTypeRadiobutton().click();
                 break;
             default:
                 Assert.fail("Incorrect discountType: " + discountType.toString());
@@ -35,21 +25,17 @@ class PopupIncentive extends AbstractElementsContainer implements PopupIncentive
     }
 
     void setRewardAmount(int amount){
-        rewardAmountInput = new ElmntRewardAmountInput();
-        rewardAmountInput.sendKeys(String.valueOf(amount));
+        new ElmntRewardAmountInput().sendKeys(String.valueOf(amount));
     }
 
     void setCouponCodeType(PageCampaignRules.CouponCodeType couponCodeType){
-        multiUseRadiobutton = new ElmntMultiUseRadiobutton();
-        singleUseRadiobutton = new ElmntSingleUseRadiobutton();
         switch (couponCodeType){
             case MultiUse:
-                multiUseRadiobutton.click();
-                multiUseCouponCodeInput = new ElmntMultiUseCouponCodeInput();
-                multiUseCouponCodeInput.sendKeys("DEFAULT_COUPON_CODE");
+                new ElmntMultiUseRadiobutton().click();
+                new ElmntMultiUseCouponCodeInput().sendKeys("DEFAULT_COUPON_CODE");
                 break;
             case SingleUse:
-                singleUseRadiobutton.click();
+                new ElmntSingleUseRadiobutton().click();
                 break;
             //should be extended with selection of coupon lists
             default:

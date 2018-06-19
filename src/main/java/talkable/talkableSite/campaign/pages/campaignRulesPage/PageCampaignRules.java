@@ -3,10 +3,12 @@ package talkable.talkableSite.campaign.pages.campaignRulesPage;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
 import talkable.common.CampaignPlacement;
+import util.WaitFactory;
 import util.logging.Log;
 
 import java.util.ArrayList;
@@ -108,11 +110,16 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
 
     public PageCampaignRules createNewIncentive(IncentiveType incentiveType, int rewardAmount, DiscountType discountType, CouponCodeType couponCodeType){
-        new ElmntCreateNewIncentiveButton().click();
+        // move mouse to element under Create New Incentive button:
+        new ElmntCampaignDescriptionInput().moveMouseOver();
+        //click Create New Incentive button:
+        new ElmntCreateNewIncentiveButton().moveToElementAndClick();
         PopupIncentiveFactory incentivePopup = selectIncentive(incentiveType);
         incentivePopup.createIncentive(rewardAmount, discountType, couponCodeType);
 
-        return waitLoading();
+//        return waitLoading();
+        waitSaving();
+        return new PageCampaignRules();
     }
 
    /*Note: Format of dates should be MM/DD/YYYY,

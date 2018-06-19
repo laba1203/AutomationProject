@@ -30,6 +30,7 @@ public class FraudSettingsTesting extends BaseTest{
 
     @Test
     public void login(){
+        CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(
                 PropertyLoader.loadProperty("talkable.user.fraudRules"),
                 EnvFactory.getPassword());
@@ -153,12 +154,19 @@ public class FraudSettingsTesting extends BaseTest{
         String advocateEmail = "advocate" + TestDataGenerator.getRandomId() + "@gmail.com";
 
         FraudRulesScenarios.openFraudSettings();
-        FraudRulesScenarios.setReferralApprovalModeOnFraudSetting(AUTOMATIC);
-        FraudRulesScenarios.setReferralApprovalDelay(0);
-        ViaAPI.createReferral(
-                site,
-                advocateEmail,
-                "friend" + TestDataGenerator.getRandomId() + "@gmail.com");
+//        FraudRulesScenarios.setReferralApprovalModeOnFraudSetting(AUTOMATIC);
+//        FraudRulesScenarios.setReferralApprovalDelay(0);
+        FraudRulesScenarios.setApprovalModeAndDelay(AUTOMATIC, 0);
+        try {
+            ViaAPI.createReferral(
+                    site,
+                    advocateEmail,
+                    "friend" + TestDataGenerator.getRandomId() + "@gmail.com");
+        }catch (AssertionError e){
+            Log.logRecord("Failed to create referral due to AssertionError: " + e.getMessage());
+            ViaAPI.createReferral(site, advocateEmail, "friend" + TestDataGenerator.getRandomId() + "@gmail.com");
+            Log.logRecord("Referral created from the second attempt");
+        }
 
         ReportsScenarios.openReferralsReport();
         ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
@@ -176,11 +184,17 @@ public class FraudSettingsTesting extends BaseTest{
 
         FraudRulesScenarios.openFraudSettings();
         FraudRulesScenarios.setReferralApprovalModeOnFraudSetting(MANUAL);
-        ViaAPI.createReferral(
-                site,
-                advocateEmail,
-                "friend" + TestDataGenerator.getRandomId() + "@gmail.com"
-        );
+        try {
+            ViaAPI.createReferral(
+                    site,
+                    advocateEmail,
+                    "friend" + TestDataGenerator.getRandomId() + "@gmail.com"
+            );
+        }catch (AssertionError e){
+            Log.logRecord("Failed to create referral due to AssertionError: " + e.getMessage());
+            ViaAPI.createReferral(site, advocateEmail, "friend" + TestDataGenerator.getRandomId() + "@gmail.com");
+            Log.logRecord("Referral created from the second attempt");
+        }
         ReportsScenarios.openReferralsReport();
         ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
         ReportsScenarios.approveFirstRowInReferralsReport();
@@ -197,11 +211,17 @@ public class FraudSettingsTesting extends BaseTest{
 
         FraudRulesScenarios.openFraudSettings();
         FraudRulesScenarios.setReferralApprovalModeOnFraudSetting(MANUAL);
-        ViaAPI.createReferral(
-                site,
-                advocateEmail,
-                "friend" + TestDataGenerator.getRandomId() + "@gmail.com"
-        );
+        try {
+            ViaAPI.createReferral(
+                    site,
+                    advocateEmail,
+                    "friend" + TestDataGenerator.getRandomId() + "@gmail.com"
+            );
+        }catch (AssertionError e){
+            Log.logRecord("Failed to create referral due to AssertionError: " + e.getMessage());
+            ViaAPI.createReferral(site, advocateEmail, "friend" + TestDataGenerator.getRandomId() + "@gmail.com");
+            Log.logRecord("Referral created from the second attempt");
+        }
         ReportsScenarios.openReferralsReport();
         ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
         ReportsScenarios.voidFirstRowInReferralsReport();
@@ -274,7 +294,13 @@ public class FraudSettingsTesting extends BaseTest{
                 "Skip",
                 "Skip");
 
-        ViaAPI.createReferral(site, advocateEmail, friendEmail);
+        try {
+            ViaAPI.createReferral(site, advocateEmail, friendEmail);
+        }catch (AssertionError e){
+            Log.logRecord("Failed to create referral due to AssertionError: " + e.getMessage());
+            ViaAPI.createReferral(site, advocateEmail, friendEmail);
+            Log.logRecord("Referral created from the second attempt");
+        }
 
         ReportsScenarios.openReferralsReport();
         ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);
@@ -310,10 +336,22 @@ public class FraudSettingsTesting extends BaseTest{
                 "Skip",
                 "Block Friend");
 
-        ViaAPI.createReferral(site, user1, user2);
+        try {
+            ViaAPI.createReferral(site, user1, user2);
+        }catch (AssertionError e){
+            Log.logRecord("Failed to create referral due to AssertionError: " + e.getMessage());
+            ViaAPI.createReferral(site, user1, user2);
+            Log.logRecord("Referral created from the second attempt");
+        }
         ReportsScenarios.openReferralsReport();
         ReportsScenarios.assertThatReferralCreatedForTheAdvocate(user1);
-        ViaAPI.createReferral(site, user2, user1);
+        try {
+            ViaAPI.createReferral(site, user2, user1);
+        }catch (AssertionError e){
+            Log.logRecord("Failed to create referral due to AssertionError: " + e.getMessage());
+            ViaAPI.createReferral(site, user2, user1);
+            Log.logRecord("Referral created from the second attempt");
+        }
         ReportsScenarios.openReferralsReport();
         ReportsScenarios.assertThatReferralCreatedForTheAdvocate(user2);
 
@@ -336,10 +374,33 @@ public class FraudSettingsTesting extends BaseTest{
 
         FraudRulesScenarios.openFraudSettings();
         FraudRulesScenarios.setAdvocateLimitReferralRewards("2");
+
         //Create 3 referrals for the same AD:
-        ViaAPI.createReferral(site, advocateEmail, "friend1" + TestDataGenerator.getRandomId() + "@gmail.com");
-        ViaAPI.createReferral(site, advocateEmail, "friend2" + TestDataGenerator.getRandomId() + "@gmail.com");
-        ViaAPI.createReferral(site, advocateEmail, "friend3" + TestDataGenerator.getRandomId() + "@gmail.com");
+        try {
+            ViaAPI.createReferral(site, advocateEmail, "friend1" + TestDataGenerator.getRandomId() + "@gmail.com");
+        }catch (AssertionError e){
+            Log.logRecord("Failed to create referral due to AssertionError: " + e.getMessage());
+            ViaAPI.createReferral(site, advocateEmail, "friend1" + TestDataGenerator.getRandomId() + "@gmail.com");
+            Log.logRecord("Referral created from the second attempt");
+        }
+
+        try {
+            ViaAPI.createReferral(site, advocateEmail, "friend2" + TestDataGenerator.getRandomId() + "@gmail.com");
+        } catch (AssertionError e){
+            Log.logRecord("Failed to create referral due to AssertionError: " + e.getMessage());
+            ViaAPI.createReferral(site, advocateEmail, "friend2" + TestDataGenerator.getRandomId() + "@gmail.com");
+            Log.logRecord("Referral created from the second attempt");
+        }
+
+        try {
+            ViaAPI.createReferral(site, advocateEmail, "friend3" + TestDataGenerator.getRandomId() + "@gmail.com");
+        }catch (AssertionError e){
+            Log.logRecord("Failed to create referral due to AssertionError: " + e.getMessage());
+            ViaAPI.createReferral(site, advocateEmail, "friend3" + TestDataGenerator.getRandomId() + "@gmail.com");
+            Log.logRecord("Referral created from the second attempt");
+        }
+
+
         //Verify values in Referral report:
         ReportsScenarios.openReferralsReport();
         ReportsScenarios.assertThatReferralCreatedForTheAdvocate(advocateEmail);

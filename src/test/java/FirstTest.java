@@ -26,7 +26,7 @@ public class FirstTest{
 
     public WebDriver driver;
 
-    @BeforeSuite
+//    @BeforeSuite
     public void setup(){
         Log.logRecord("Class name: " + this.getClass().getName());
         this.driver = DriverConfig.getDriver();
@@ -61,14 +61,12 @@ public class FirstTest{
 //    }
 
     @Test
-    public void editor(){
-        String name = "testPreset1" + TestDataGenerator.getRandomId();
-        EditorScenarios.createNewPreset(name, " ");
-        System.out.println("1st verification: " + EditorScenarios.isPresetPreset(name));
-
-        EditorScenarios.deletePresetOnHtmlEditor(name);
-        System.out.println("2nd verification: " + EditorScenarios.isPresetPreset(name));
-
+    public void accept(){
+        this.driver = DriverConfig.getDriver();
+        this.driver.navigate().to(EnvFactory.getEnvUrl());
+        CommonScenarios.acceptCookiesUsage();
+        CommonScenarios.login("maxim.laba@talkable.com", "Password@1");
+//        driver.navigate().to("https://admin.void.talkable.com/sites/custom/campaigns/45135/editor#/view_setups/147514/preset_slug/default-preset");
     }
 
 }
