@@ -16,7 +16,7 @@ public abstract class AbstractSelectElement extends AbstractElement{
     private static final String buttonXpath = "./../div/a";
     private static final String selectedItemXpath = buttonXpath + "/span";
     private static final String searchFieldXpath = "./../div/div[@class='chosen-drop']//input";
-    private static final String allItemsXpath = "./..//ul/child::li[contains(@class, 'active-result')]";
+    private static final String allItemsXpath = "./following::div//ul/child::li[contains(@class, 'active-result')]";
     private static final String firstItemXpath = allItemsXpath + "[1]";
 
     private WebElement selectWebElement;
