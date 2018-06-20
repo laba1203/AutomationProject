@@ -19,7 +19,7 @@ public class Origin{
                         "  \"type\": \"Purchase\",\n" +
                         "  \"data\": {\n" +
                         "    \"email\": \"" + email + "\",\n" +
-                        "    \"order_number\": " + String.valueOf(System.currentTimeMillis()).substring(7) + ",\n" +
+                        "    \"order_number\": \"" + String.valueOf(System.currentTimeMillis()).substring(7) + "\",\n" +
                         "    \"subtotal\": 100,\n" +
                         "    \"uuid\": \"" + uuid + "\",\n" +
                         "    \"campaign_tags\": \"api\",\n" +
