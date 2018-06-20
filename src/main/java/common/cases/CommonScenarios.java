@@ -102,6 +102,19 @@ public class CommonScenarios {
         return siteDashboardPage;
     }
 
+    public static SiteDashboardPage switchToSiteByVisibleText(String siteName){
+        new Header().selectByVisibleText(siteName);
+        try {
+            return new SiteDashboardPage().verifySiteName(siteName);
+        }catch (AssertionError e){
+            Log.debagRecord("Site Dashboard is not opened when site is switched. Verifying  integration instruction page...");
+            new IntegrationInstructionPage().dontShowItAgain();
+            SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
+            Log.debagRecord("Integration instruction page is closed.");
+            return dashboardPage;
+        }
+    }
+
     public static String getSiteNameFromHeader(){
         String name = new Header().getSiteName();
         Log.logRecord("Site name retrieved from Header : " + name);
