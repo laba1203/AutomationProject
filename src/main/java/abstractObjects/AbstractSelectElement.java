@@ -54,8 +54,13 @@ public abstract class AbstractSelectElement extends AbstractElement{
 
     private void verifySelectedItem(String expectedItemName){
 //        Element selectedItem = new Element(selectWebElement.findElement(By.xpath(selectedItemXpath)));
-        Element selectedItem = new Element(findChildWebElement(selectWebElement, selectedItemXpath));
-        Assert.assertEquals(selectedItem.getText(), expectedItemName);
+//        Element selectedItem = new Element(findChildWebElement(selectWebElement, selectedItemXpath));
+
+        Assert.assertEquals(
+                new Element(
+                        findChildWebElement(selectWebElement, selectedItemXpath))
+                .getText(),
+                expectedItemName);
     }
 
     public void searchAndSelect(String text){
