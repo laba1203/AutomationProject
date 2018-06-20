@@ -73,7 +73,8 @@ public class Origin{
                 .body(postBody)
                 .when()
                 .post(URL);
-        Assert.assertEquals(response.getStatusCode(), 201, "FAILED: Incorrect status code in response for post Origin. " +
+        Assert.assertEquals(response.getStatusCode(), 201, "FAILED: Incorrect status code in response for post Origin. \r\n" +
+                "Request body: " + postBody + "\r\n" +
                 "Response status line: " + response.getStatusLine() + "\r\n" +
                 "Response body: " + response.body().print());
 
