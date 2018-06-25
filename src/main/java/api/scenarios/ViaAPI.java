@@ -33,8 +33,17 @@ public class ViaAPI {
         new Origin().postOriginPurchase(site, frEmail , friendUUID, friendIp);
     }
 
+    private static Response makePurchase(Site site, String advocateEmail, String advocateUUID){
+        return new Origin().postOriginPurchaseWithUUID(site, advocateEmail, advocateUUID);
+    }
+
+    public static void makePurchaseWithRandomUUID(Site site, String advocateEmail){
+        new Origin().postOriginPurchaseWithUUID(site, advocateEmail, getRandomUUID());
+    }
+
+
     private static int getOfferIdFromOrigin(Site site, String advocateEmail, String advocateUUID){
-        Response resp = new Origin().postOriginPurchaseWithUUID(site, advocateEmail, advocateUUID);
+        Response resp = makePurchase(site, advocateEmail, advocateUUID);//new Origin().postOriginPurchaseWithUUID(site, advocateEmail, advocateUUID);
         return getOfferIdFromResponse(resp);
     }
 
@@ -74,7 +83,7 @@ public class ViaAPI {
                 .extract().path("result.share.short_url");
     }
 
-    public static void makEmailShares(Site site, String shortUrlCode, ArrayList<String> recipients){
+    public static void makeEmailShares(Site site, String shortUrlCode, ArrayList<String> recipients){
         Response resp = new SharesEmail().postEmailShare(site, shortUrlCode, recipients);
 
     }

@@ -38,4 +38,10 @@ public class API_Test {
                 "All");
     }
 
+    @Test
+    public void purchase() {
+//        ViaAPI.makePurchaseWithRandomUUID(site, "qa-m4wx9w@example.com");
+        ViaAPI.createReferral(site, "qa-cwittx@example.com", "friend0001@t.com");
+    }
+
 }
