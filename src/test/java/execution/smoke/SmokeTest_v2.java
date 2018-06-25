@@ -46,7 +46,7 @@ public class SmokeTest_v2 extends BaseTest{
                 EnvFactory.getCommonUser(),
                 EnvFactory.getPassword()
         );
-        CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
+        CommonScenarios.switchToSiteByVisibleText(siteName);
 
         // 2. Verify site Name
         Assert.assertEquals(

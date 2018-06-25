@@ -4,9 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import util.WaitFactory;
 import util.logging.Log;
 
 import java.util.List;
@@ -16,7 +14,7 @@ public abstract class AbstractSelectElement extends AbstractElement{
     private static final String buttonXpath = "./../div/a";
     private static final String selectedItemXpath = buttonXpath + "/span";
     private static final String searchFieldXpath = "./../div/div[@class='chosen-drop']//input";
-    private static final String allItemsXpath = "./..//ul/child::li[contains(@class, 'active-result')]";
+    private static final String allItemsXpath = "./following::div//ul/child::li[contains(@class, 'active-result')]";
     private static final String firstItemXpath = allItemsXpath + "[1]";
 
     private WebElement selectWebElement;
@@ -56,8 +54,13 @@ public abstract class AbstractSelectElement extends AbstractElement{
 
     private void verifySelectedItem(String expectedItemName){
 //        Element selectedItem = new Element(selectWebElement.findElement(By.xpath(selectedItemXpath)));
-        Element selectedItem = new Element(findChildWebElement(selectWebElement, selectedItemXpath));
-        Assert.assertEquals(selectedItem.getText(), expectedItemName);
+//        Element selectedItem = new Element(findChildWebElement(selectWebElement, selectedItemXpath));
+
+        Assert.assertEquals(
+                new Element(
+                        findChildWebElement(selectWebElement, selectedItemXpath))
+                .getText(),
+                expectedItemName);
     }
 
     public void searchAndSelect(String text){

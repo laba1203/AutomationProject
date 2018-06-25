@@ -19,7 +19,7 @@ public class Origin{
                         "  \"type\": \"Purchase\",\n" +
                         "  \"data\": {\n" +
                         "    \"email\": \"" + email + "\",\n" +
-                        "    \"order_number\": " + String.valueOf(System.currentTimeMillis()).substring(7) + ",\n" +
+                        "    \"order_number\": \"" + String.valueOf(System.currentTimeMillis()).substring(7) + "\",\n" +
                         "    \"subtotal\": 100,\n" +
                         "    \"uuid\": \"" + uuid + "\",\n" +
                         "    \"campaign_tags\": \"api\",\n" +
@@ -73,7 +73,8 @@ public class Origin{
                 .body(postBody)
                 .when()
                 .post(URL);
-        Assert.assertEquals(response.getStatusCode(), 201, "FAILED: Incorrect status code in response for post Origin. " +
+        Assert.assertEquals(response.getStatusCode(), 201, "FAILED: Incorrect status code in response for post Origin. \r\n" +
+                "Request body: " + postBody + "\r\n" +
                 "Response status line: " + response.getStatusLine() + "\r\n" +
                 "Response body: " + response.body().print());
 

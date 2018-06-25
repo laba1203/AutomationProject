@@ -28,7 +28,7 @@ public class SimpleEditorTesting_v2 extends BaseTest {
     public void loginAndCreateNewCampaign(){
         CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
-        CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
+        CommonScenarios.switchToSiteByVisibleText(siteName);
         CommonScenarios.openCampaignsPage();
         CommonScenarios.deleteAllCampaignsWithStatus(Table.Status.TEST);
         CommonScenarios.createNewCampaignFromCampaignsPage(Invite, Standalone);
