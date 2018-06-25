@@ -534,22 +534,36 @@ public class CommonScenarios {
     public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL, String platform, String currency ){
         new SiteSettingsBasicTab().updateAll(siteName, siteID, siteURL, platform, currency);
         Log.logRecord("Site Settings Basic Tab updated");
+
     }
-    public static void assertSiteSettigsBasicTab(String siteName, String siteID, String siteURL){
+    public static void populateSiteBasicNegativeTest(String siteName, String siteID, String siteURL, String platform){
+        new SiteSettingsBasicTab().populate(siteName, siteID, siteURL);
+        new SiteSettingsBasicTab().selectPlatform(platform);
+        new SiteSettingsBasicTab().clickSaveChanges();
+
+        Log.logRecord("Site Settings Basic Tab populated");
+    }
+    public static void assertErrorMsgSiteSettigsBasicTab(String siteName, String siteID, String siteURL){
         Assert.assertEquals(
-                siteName,
                 new SiteSettingsBasicTab().getSiteName(),
+                siteName,
                 "FAILED: Site settings/basic tab/Incorect Site Name");
         Assert.assertEquals(
-                siteID,
                 new SiteSettingsBasicTab().getSiteID(),
+                siteID,
                 "FAILED: Site settings/basic tab/Incorect Site ID");
         Assert.assertEquals(
-                siteURL,
                 new SiteSettingsBasicTab().getSiteURL(),
+                siteURL,
                 "FAILED: Site settings/basic tab/Incorect Site URL");
     }
-
+    public static void assertErrorMsgSiteSettigsBasicTab(String expectedErrorMsg){
+        Assert.assertEquals(
+                new SiteSettingsBasicTab().getErrorMsg(),
+                expectedErrorMsg,
+                "FAILED: Site settings/basic tab/Validation Failed"+expectedErrorMsg);
+        new SiteSettingsBasicTab().clickCancel();
+    }
 // end updateSiteSettingsBasicTab
     public static Site getSiteIntegrationValues(){
         SiteSettingsBasicTab basicTab = openSiteSettingsPage();

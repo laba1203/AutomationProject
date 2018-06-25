@@ -1,5 +1,5 @@
 <suite name="Campaign Actions" preserve-order="true" group-by-instances="true">
-    <test name="Campaign Actions Testing" preserve-order="true" >
+    <test name="Campaign Actions execution.site.settings.SiteSettingsBasicTab" preserve-order="true" >
         <classes>
             <class name="execution.campaign.actions.CampaignActionsTesting"/>
         </classes>
