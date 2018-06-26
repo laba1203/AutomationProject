@@ -1,15 +1,16 @@
 package testDataCreation;
 
+import customerSite.talkableFrame.commonPages.advocateSharePage.invite.AdvocateSharePageForInvite;
 import customerSite.talkableFrame.commonPages.advocateSignupPage.AdvocateSignupPage;
-import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import util.DriverConfig;
+import util.TestDataGenerator;
 
 public class AbTestImpressions_Standalone {
 
     private WebDriver driver;
-    private static final String URL_TO_FW = "https://void-vika0518.myshopify.com/pages/share";
+    private static final String URL_TO_FW = "https://testvikanew1412.myshopify.com/pages/share";
 
 //    @BeforeMethod
 //    public void setup(){
@@ -28,11 +29,26 @@ public class AbTestImpressions_Standalone {
         DriverConfig.cleanWebDriver();
     }
 
+    public void makeImpressionOnSharePage(){
+        driver = DriverConfig.getDriver();
+        driver.navigate().to(URL_TO_FW);
+
+        new AdvocateSignupPage()
+                .submitForm(
+                        "user" + TestDataGenerator.getRandomId(),
+                        "example+" + TestDataGenerator.getRandomId() + "@gmail.com"
+                );
+//        new AdvocateSharePageForInvite();
+
+        driver.quit();
+        DriverConfig.cleanWebDriver();
+    }
+
     @Test
     public void repeat(){
 
         for (int i = 0; i<300; i++) {
-            test1_makeImpression();
+            makeImpressionOnSharePage();
             System.out.println("\n\rCounter: " + i);
         }
     }

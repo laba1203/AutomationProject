@@ -11,6 +11,8 @@
     <!--Please note: Below suite will create new site-->
     <suite-file path="AccountAndSiteCreation.xml"/>
     <suite-file path="SiteSettingsTest.xml"/>
+    <!--<suite-file path="CspTests.xml"/> commented till CSP is not delivered on Prod.-->
+
 
 </suite>
 

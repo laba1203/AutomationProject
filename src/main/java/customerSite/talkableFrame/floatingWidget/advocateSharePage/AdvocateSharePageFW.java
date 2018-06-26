@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class AdvocateSharePageFW extends AdvocateSharePageForInvite {
 
-    private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe-overlay']");
+    private static final By frameLocator = By.xpath("//iframe[contains(@name, 'talkable-offer-iframe')]");
 
 ////    private ElmntClosePopupButton elmntClosePopupButton;
 //    private ElmntShareViaEmailButton shareViaEmailButton;
