@@ -3,6 +3,7 @@ package common.cases.functionalities;
 import common.cases.CommonScenarios;
 import org.testng.Assert;
 import talkable.talkableSite.customerServicePortal.AbstractCustomerServicePortalPage;
+import talkable.talkableSite.customerServicePortal.blacklistingPage.BlacklistingPage;
 import talkable.talkableSite.customerServicePortal.createReferral.PageCreateReferral;
 import talkable.talkableSite.customerServicePortal.pendingReferrals.PendingReferralsPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonInfoSection;
@@ -22,6 +23,10 @@ public class CspScenarios extends CommonScenarios{
 
     public static PendingReferralsPage openPendingReferralsPage(){
         return new AbstractCustomerServicePortalPage().openPendingReferralsPage();
+    }
+
+    public static BlacklistingPage openBlacklistingPage(){
+        return new AbstractCustomerServicePortalPage().openBlacklistingPage();
     }
 
     /**
@@ -101,6 +106,19 @@ public class CspScenarios extends CommonScenarios{
         return new PersonLookupPage()
                 .getPersonInfoSection()
                 .getReferralStatusFor(friendEmail);
+    }
+
+    public static void updateBlacklistedEmailsList(String value){
+        new BlacklistingPage().updateBlacklistedEmailList(value);
+    }
+
+    public static void searchAndAddPersonToBlacklistedEmail(String personEmail){
+        searchPersonLookup(personEmail);
+        new PersonInfoSection().blacklistByEmail();
+    }
+
+    public static String getBlacklistedEmailsList(){
+        return new BlacklistingPage().getBlacklistedEmailsList();
     }
 
 }

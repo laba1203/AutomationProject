@@ -45,6 +45,14 @@ import util.logging.Log;
     *
     * Scenario#4: Blacklist by Email
     *
+    * 1. Open CSP --> Blacklisting tab
+    * 2. Clear all Blacklisted emails.
+    * 3. Make referral via API.
+    * 4. Click Blacklist by Email.
+    * 5. Navigate to Blacklisted emails.
+    * 6. Assert email in the Blacklist by Email.
+    *
+    *
     * Scenario#5: Anonymize person
     *
     * */
@@ -150,6 +158,30 @@ public class CspTesting extends BaseTest{
         );
 
     }
+
+    /*Scenario#4
+     * */
+    @Test
+    public void blacklistByEmail(){
+        String advocateEmail = "advocate.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String friend = "friend.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
+
+        CommonScenarios.openCustomerServicePortal();
+        CspScenarios.openBlacklistingPage();
+        CspScenarios.updateBlacklistedEmailsList("");
+
+        ViaAPI.createReferral(site, advocateEmail, friend);
+        CspScenarios.openPersonLookupPage();
+        CspScenarios.searchAndAddPersonToBlacklistedEmail(advocateEmail);
+        CspScenarios.openBlacklistingPage();
+
+        Assert.assertEquals(
+                CspScenarios.getBlacklistedEmailsList(),
+                advocateEmail,
+                "FAILED: Incorrect email in the Blacklisted Emails List.");
+    }
+
+
 
 
 
