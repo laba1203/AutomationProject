@@ -21,6 +21,7 @@ public class CampaignActionsTesting extends BaseTest{
 
     @Test
     public void login(){
+        CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(
                 PropertyLoader.loadProperty("talkable.user.campaignActionsTest"),
                 EnvFactory.getPassword()
@@ -89,11 +90,12 @@ public class CampaignActionsTesting extends BaseTest{
         CommonScenarios.createTestOfferNewPurchase();
         CommonScenarios.assertAdvocateOffersCountOnCampaignDetailsPage("Total: 1");
 
-        //temp solution till new CSP will be deployed on Prod
+        //todo: temp solution till new CSP will be deployed on Prod
         CommonScenarios.openDashboardPage();
         String newCspUrl = driver.getCurrentUrl() + "/customer_service_portal";
         driver.navigate().to(newCspUrl);
         //end
+
         CspScenarios.createNewReferral(advocate, 177, campName);
         CommonScenarios.openCampaignDetailsPageFor(campName, TEST);
         CommonScenarios.flushCampaignDataFromDetailsPage();

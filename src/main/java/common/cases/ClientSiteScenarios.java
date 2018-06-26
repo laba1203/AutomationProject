@@ -64,7 +64,7 @@ public class ClientSiteScenarios {
 
     private static boolean isFloatingPresent(CampaignPlacement placement){
         try{
-            WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateTriggerWidgetFrame.getFrameLocator(), 5);
+            WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateTriggerWidgetFrame.getFrameLocator(), 3);
 //            new AdvocateTriggerWidgetFrame();
             return true;
         }catch(TimeoutException e){

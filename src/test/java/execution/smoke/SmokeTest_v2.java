@@ -39,12 +39,14 @@ public class SmokeTest_v2 extends BaseTest{
     * */
     @Test
     public void createAndActivateCampaign(){
+
+        CommonScenarios.acceptCookiesUsage();
         //1. Login to Talkable.
         CommonScenarios.login(
                 EnvFactory.getCommonUser(),
                 EnvFactory.getPassword()
         );
-        CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
+        CommonScenarios.switchToSiteByVisibleText(siteName);
 
         // 2. Verify site Name
         Assert.assertEquals(

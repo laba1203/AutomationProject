@@ -8,6 +8,7 @@ import talkable.common.CampaignPlacement;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.headerFrame.Header;
+import util.DriverConfig;
 import util.EnvFactory;
 import util.logging.Log;
 
@@ -26,14 +27,10 @@ public class FloatingWidgetPlacementsTest extends BasePlacementsTest{
         String placementValue = "/" + page1;
 
         CommonScenarios.navigateToAdminUrl();
-//        CommonScenarios.openCampaignsPage();
-//        CommonScenarios.reactivateCampaignFromCampaignsPage(fwCampaignName);
         CampaignPlacementsScenarios.openCampaignPlacementsPage();
-//        CampaignPlacementsScenarios.deletePlacementTileWithActiveCampaign(FloatingWidget);
-        //todo: doesn't work
         CampaignPlacementsScenarios.deleteAllPlacements(FloatingWidget);
 
-        System.out.println(" *** P  A  S  S  E  D *** ");
+        //todo: should be completed (works fine till here)
 
         CampaignPlacementsScenarios.updateFirstPlacementRow(FloatingWidget, placementValue, true);
         //verify campaign is present on page1
@@ -70,12 +67,42 @@ public class FloatingWidgetPlacementsTest extends BasePlacementsTest{
                 page2
         );
 
+        System.out.println("\r\n***** Cookies: ***** ");
+        System.out.println(DriverConfig.getDriver().manage().getCookies());
+        System.out.println("----- ---- ---- ---");
+        System.out.println(DriverConfig.getDriver().manage().getCookies().toString());
+        System.out.println("*** End ****\r\n");
+
+        DriverConfig.getDriver().manage().deleteAllCookies();
+        Log.debagRecord("All cookies deleted.");
+
+        System.out.println("\r\n***** Cookies 2 : ***** ");
+        System.out.println(DriverConfig.getDriver().manage().getCookies());
+        System.out.println("----- ---- ---- ---");
+        System.out.println(DriverConfig.getDriver().manage().getCookies().toString());
+        System.out.println("*** End ****\r\n");
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //verify campaign is present on page1
         CampaignPlacementsScenarios.assertThatCampaignIsPresentOnSite(
                 Invite,
                 FloatingWidget,
                 SITE_URL + page1
         );
+
+        System.out.println("\r\n***** Cookies 2 : ***** ");
+        System.out.println(DriverConfig.getDriver().manage().getCookies());
+        System.out.println("----- ---- ---- ---");
+        System.out.println(DriverConfig.getDriver().manage().getCookies().toString());
+        System.out.println("*** End ****\r\n");
+
+        DriverConfig.getDriver().manage().deleteAllCookies();
+        Log.debagRecord("All cookies deleted.");
+
         //verify campaign is  present on page2
         CampaignPlacementsScenarios.assertThatCampaignIsPresentOnSite(
                 Invite,
@@ -89,7 +116,24 @@ public class FloatingWidgetPlacementsTest extends BasePlacementsTest{
                 SITE_URL + page3
         );
 
+        System.out.println("\r\n***** Cookies after only site visit: ***** ");
+        System.out.println(DriverConfig.getDriver().manage().getCookies());
+        System.out.println("----- ---- ---- ---");
+        System.out.println(DriverConfig.getDriver().manage().getCookies().toString());
+        System.out.println("*** End ****\r\n");
+
+        DriverConfig.getDriver().manage().deleteAllCookies();
+        Log.debagRecord("All cookies deleted.");
+
         CommonScenarios.navigateToAdminUrl();
+
+        CommonScenarios.submitLoginForm(USER_EMAIL, EnvFactory.getPassword());
+        System.out.println("\r\n***** Cookies after only Talkable visit: ***** ");
+        System.out.println(DriverConfig.getDriver().manage().getCookies());
+        System.out.println("----- ---- ---- ---");
+        System.out.println(DriverConfig.getDriver().manage().getCookies().toString());
+        System.out.println("*** End ****\r\n");
+
         CampaignPlacementsScenarios.openCampaignPlacementsPage();
         CampaignPlacementsScenarios.removePlacement(FloatingWidget, true, page2);
 

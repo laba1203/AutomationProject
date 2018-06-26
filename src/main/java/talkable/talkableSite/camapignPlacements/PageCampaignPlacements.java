@@ -26,7 +26,6 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
 
     public PageCampaignPlacements addInclusion(CampaignPlacement placement, boolean regex, String inclusionText){
         PlacementTile placementTile = getPlacement(placement);
-        assert placementTile != null;
         placementTile.addInclusion(regex, inclusionText);
         waitSaving();
         return new PageCampaignPlacements();
@@ -35,7 +34,6 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
     public PageCampaignPlacements addExclusion(CampaignPlacement placement, boolean regex, String exclusionText){
         PlacementTile placementTile = getPlacement(placement);
 
-        assert placementTile != null;
         placementTile.addExclusion(regex, exclusionText);
         waitSaving();
         return new PageCampaignPlacements();
@@ -120,8 +118,10 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
         );
     }
 
-    public void deleteAllPlacements(CampaignPlacement placement){
+    public PageCampaignPlacements deleteAllPlacements(CampaignPlacement placement){
         getPlacement(placement).deleteAllPlacements();
+        waitSaving();
+        return new PageCampaignPlacements();
     }
 
 

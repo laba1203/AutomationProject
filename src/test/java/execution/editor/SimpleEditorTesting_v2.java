@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
+import talkable.talkableSite.campaignsPage.Table;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
@@ -25,9 +26,11 @@ public class SimpleEditorTesting_v2 extends BaseTest {
 
     @Test
     public void loginAndCreateNewCampaign(){
+        CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
-        CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
+        CommonScenarios.switchToSiteByVisibleText(siteName);
         CommonScenarios.openCampaignsPage();
+        CommonScenarios.deleteAllCampaignsWithStatus(Table.Status.TEST);
         CommonScenarios.createNewCampaignFromCampaignsPage(Invite, Standalone);
         campaignDetailsPageUrl = driver.getCurrentUrl();
     }
@@ -65,16 +68,16 @@ public class SimpleEditorTesting_v2 extends BaseTest {
 
 
 
-    @Test(dependsOnMethods = {
-            "loginAndCreateNewCampaign",
-            "updateContent",
-            "createNewPreset"
-    },
-            alwaysRun = true)
-    public void cleanUpTestData(){
-        driver.navigate().to(campaignDetailsPageUrl);
-        CommonScenarios.deleteCampaignFromDetailsPage();
-    }
+//    @Test(dependsOnMethods = {
+//            "loginAndCreateNewCampaign",
+//            "updateContent",
+//            "createNewPreset"
+//    },
+//            alwaysRun = true)
+//    public void cleanUpTestData(){
+//        driver.navigate().to(campaignDetailsPageUrl);
+//        CommonScenarios.deleteCampaignFromDetailsPage();
+//    }
 
 
     @DataProvider
