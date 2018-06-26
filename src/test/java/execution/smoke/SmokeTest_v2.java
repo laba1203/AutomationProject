@@ -1,9 +1,6 @@
 
-
 package execution.smoke;
 
-import api.objects.Site;
-import api.scenarios.ViaAPI;
 import common.cases.ClientSiteScenarios;
 import common.cases.CommonScenarios;
 import execution.BaseTest;
@@ -20,6 +17,11 @@ import util.logging.Log;
 
 import static talkable.common.CampaignPlacement.FloatingWidget;
 import static talkable.common.CampaignType.Invite;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.CouponCodeType.MultiUse;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType.FixedAmount;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType.Percentage;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType.AdvocateSignupIncentive;
+import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType.FriendIncentive_NewCustomer;
 
 
 public class SmokeTest_v2 extends BaseTest{
@@ -35,15 +37,16 @@ public class SmokeTest_v2 extends BaseTest{
 
     /*Link to test scenario: https://drive.google.com/open?id=1rnq3vo9qQ25vtTwPF7hwXRt7zMBiK28VuAyPc50_X7s
     * */
-
     @Test
     public void createAndActivateCampaign(){
+
+        CommonScenarios.acceptCookiesUsage();
         //1. Login to Talkable.
         CommonScenarios.login(
                 EnvFactory.getCommonUser(),
                 EnvFactory.getPassword()
         );
-        CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
+        CommonScenarios.switchToSiteByVisibleText(siteName);
 
         // 2. Verify site Name
         Assert.assertEquals(
@@ -79,7 +82,8 @@ public class SmokeTest_v2 extends BaseTest{
                 endTime);
 
         // 8. Add incentive (Type = Sign Up)
-        addIncentive();
+        CommonScenarios.addNewIncentive(AdvocateSignupIncentive, 25, FixedAmount, MultiUse);
+        CommonScenarios.addNewIncentive(FriendIncentive_NewCustomer, 10, Percentage, MultiUse);
 
         // 11. Launch Campaign
         CommonScenarios.launchCampaign();
@@ -87,10 +91,11 @@ public class SmokeTest_v2 extends BaseTest{
 
         // 12. Create test offer
         CommonScenarios.createTestOfferNewAffiliateMember("test" + System.currentTimeMillis() + "@test.com");
-        Assert.assertEquals(
-                CommonScenarios.getAdvocateOfferTotalCountFromCampaignDetailsPage(),
-                expectedAdvocateOffersCount,
-                "FAILED: Incorrect Offers count on Campaign Details page");
+        CommonScenarios.assertAdvocateOffersCountOnCampaignDetailsPage(expectedAdvocateOffersCount);
+//        Assert.assertEquals(
+//                CommonScenarios.getAdvocateOfferTotalCountFromCampaignDetailsPage(),
+//                expectedAdvocateOffersCount,
+//                "FAILED: Incorrect Offers count on Campaign Details page");
 
         // 13. Verify campaign on site
         if(ClientSiteScenarios.isCampaignOnCustomerSite(Invite, FloatingWidget, SITE_URL)){
@@ -113,18 +118,6 @@ public class SmokeTest_v2 extends BaseTest{
         }else {
             Log.testPassed("Campaign is present on Customer site.\r\n");
         }
-    }
-
-
-    private void addIncentive() {
-        PageCampaignRules rulesPage = new PageCampaignRules();
-        rulesPage = rulesPage.createNewIncentive(
-                IncentiveType.AdvocateSignupIncentive,
-                25, DiscountType.FixedAmount,
-                CouponCodeType.MultiUse);
-        rulesPage.createNewIncentive(IncentiveType.FriendIncentive_NewCustomer,
-                10, DiscountType.Percentage,
-                CouponCodeType.MultiUse);
     }
 
 }

@@ -5,7 +5,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public abstract class AbstractTkblSitePageWithoutHeader extends AbstractElementsContainer{
-    /*Class for Talkable pages without Header(). Example EditorPage() */
+    /*Class for Talkable pages without Header(). Example SimpleEditorPage() */
 
 
     public void waitSaving(){

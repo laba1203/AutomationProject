@@ -1,15 +1,20 @@
 package talkable.talkableSite.campaign.pages.detailsPage;
 
+import abstractObjects.Element;
+import org.openqa.selenium.By;
 import talkable.common.elements.alert.Alert;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
 import talkable.common.CampaignPlacement;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
-import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
+import talkable.talkableSite.reports.purchases.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.campaign.pages.detailsPage.containers.copyCampaignPopup.CopyCampaignPopup;
+import util.logging.Log;
 
 public class CampaignDetailsPage extends AbstractCampaignPage {
+
+    private static final By flushAllDataLctr = By.xpath("//input[@value='Flush all data']");
 
     private ElmntCopyButton copyButton;
     private ElmntCreateTestOfferButton createTestOfferButton;
@@ -68,6 +73,16 @@ public class CampaignDetailsPage extends AbstractCampaignPage {
         new Alert().confirm();
         return new PageCampaigns();
     }
+
+    public CampaignDetailsPage flushAllData(){
+        new Element(flushAllDataLctr, "'Flush all data' button").click();
+        new Alert().confirm();
+        new MsgCampaignDataFlushedNotification();
+        Log.logRecord("Campaign data was successfully flushed");
+        return new CampaignDetailsPage();
+    }
+
+//    Campaign data was successfully flushed
 
 }
 

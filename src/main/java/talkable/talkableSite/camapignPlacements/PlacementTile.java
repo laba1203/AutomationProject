@@ -4,8 +4,11 @@ import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.common.CampaignPlacement;
 import talkable.common.CommonMethods;
+import util.WaitFactory;
+import util.logging.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +23,21 @@ public class PlacementTile extends AbstractElementsContainer{
 //    private ArrayList<PlacementRowElement> shownOn;
 //    private ArrayList<PlacementRowElement> hiddenOn;
     private Element actionButton;
+    private String headerText;
 
     PlacementTile(CampaignPlacement placement){
-        header = new Element(driver.findElement(By.xpath("//h1[contains(text(), '" + getPlacementName(placement) + "')]")));
-
-        tileElmnt = new Element(header.getWebElement().findElement(By.xpath("./../../..")));
-        actionButton = new Element(tileElmnt.getWebElement().findElement(By.xpath(".//*[contains(@data-toggle, 'dropdown')]")));
-//        shownOn = setList(showOnXpath);
-//        hiddenOn = setList(hiddenOnXpath);
+        setElements(getPlacementName(placement));
+//        header = new Element(driver.findElement(By.xpath("//h1[contains(text(), '" + getPlacementName(placement) + "')]")));
+//        tileElmnt = new Element(header.getWebElement().findElement(By.xpath("./../../..")));
+//        actionButton = new Element(tileElmnt.getWebElement().findElement(By.xpath(".//*[contains(@data-toggle, 'dropdown')]")));
     }
 
-    PlacementTile(String tileName){
+
+    private void setElements(String headerText){
+        this.headerText = headerText;
+        header = new Element(driver.findElement(By.xpath("//h1[contains(text(), '" + headerText + "')]")));
+        tileElmnt = new Element(header.getWebElement().findElement(By.xpath("./../../..")));
+        actionButton = new Element(tileElmnt.getWebElement().findElement(By.xpath(".//*[contains(@data-toggle, 'dropdown')]")));
 
     }
 
@@ -69,7 +76,17 @@ public class PlacementTile extends AbstractElementsContainer{
     }
 
     private PopupEditPlacement edit(){
-        actionButton.click();
+        setElements(headerText);
+        header.moveMouseOver();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//
+        actionButton.moveToElementAndClick();
+
         new ActionMenu(tileElmnt).editBtn.click();
         return new PopupEditPlacement();
     }

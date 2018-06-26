@@ -54,17 +54,26 @@ public abstract class AbstractElementsContainer
         return windowHandle;
     }
 
-    protected void selectByText(String text, ArrayList<DrivenElement> items){
-        getElementByText(text, items).click();
+    protected void selectByText(String text, ArrayList<Element> items){
+        DrivenElement element = getElementByText(text, items);
+        if(element == null){
+            Log.testFailed("Elements of the list:");
+            for (Element item :
+                    items) {
+                System.out.println("  " + item.getText());
+            }
+            Assert.fail("FAILED: Element with text <" + text + "> was not found in the above list" );
+        }
+        element.click();
     }
 
-    protected DrivenElement getElementByText(String text, ArrayList<DrivenElement> items){
+    protected DrivenElement getElementByText(String text, ArrayList<Element> items){
         for (DrivenElement li : items) {
             if(li.getText().equals(text)){
                 return  li;
             }
         }
-        System.out.println("Element with text <" + text + "> is not found");
+        Log.logRecord("Element with text <" + text + "> is not found");
         return null;
     }
 

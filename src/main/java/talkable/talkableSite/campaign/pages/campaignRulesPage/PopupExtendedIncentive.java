@@ -4,16 +4,14 @@ package talkable.talkableSite.campaign.pages.campaignRulesPage;
 * Advocate Referral Incentive popup
 * Advocate Signup Incentive popup*/
 class PopupExtendedIncentive extends PopupIncentive implements PopupIncentiveFactory{
-    ElmntCouponCodeRewardTypeRadiobutton couponCodeRadiobutton;
-    ElmntRebateRewardTypeRadiobutton rebateRadiobutton;
-    ElmntNonMonetaryRewardTypeRadiobutton nonMonetaryRadiobutton;
+    private ElmntCouponCodeRewardTypeRadiobutton couponCodeRadiobutton;
+    private ElmntRebateRewardTypeRadiobutton rebateRadiobutton;
+    private ElmntNonMonetaryRewardTypeRadiobutton nonMonetaryRadiobutton;
 
     PopupExtendedIncentive(){
         couponCodeRadiobutton = new ElmntCouponCodeRewardTypeRadiobutton();
         rebateRadiobutton = new ElmntRebateRewardTypeRadiobutton();
         nonMonetaryRadiobutton = new ElmntNonMonetaryRewardTypeRadiobutton();
-
-        createIncentiveButton = new ElmntCreateIncentiveButton();
     }
 
     @Override

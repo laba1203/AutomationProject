@@ -1,18 +1,29 @@
 package talkable.talkableSite.campaign.pages.campaignRulesPage;
 
-import abstractObjects.DrivenElement;
+import abstractObjects.Element;
+import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.AbstractCampaignPage;
 import talkable.common.CampaignPlacement;
+import util.WaitFactory;
 import util.logging.Log;
 
 import java.util.ArrayList;
 
 public class PageCampaignRules extends AbstractCampaignPage{
 
-//    public CampaignNavigationMenu navigationMenu;
+    private static final By incentiveNamesFromDropDownLctr = By.cssSelector(".Rules-incentives-dropdown a>div:nth-of-type(1)");
+
+    private Element redirectOnExpiredClaimCheckbox = new Element(By.xpath("//label/input[@name='redirect_on_expired_claim']/.."), "'RedirectOnExpiredClaim' Checkbox");
+    private Element redirectOnExpiredClaimCheckboxValue = new Element(By.xpath("//label/input[@name='redirect_on_expired_claim']"));
+    private Element useFacebookAppIdCheckbox = new Element(By.xpath("//label/input[@name='use_facebook_app_id']/.."), "'UseFacebookAppId' checkbox");
+    private Element useFacebookAppIdCheckboxValue = new Element(By.xpath("//label/input[@name='use_facebook_app_id']"));
+    private Element enablePlainTextVersionCheckbox = new Element(By.xpath("//label/input[@name='enable_plain_text_emails']/.."), "'EnablePlainTextVersion' Checkbox" );
+    private Element enablePlainTextVersionCheckboxValue = new Element(By.xpath("//label/input[@name='enable_plain_text_emails']"));
+
     private ElmntSaveButton saveChangesButton = new ElmntSaveButton();
     private ElmntCampaignNameInput campaignNameInput = new ElmntCampaignNameInput();
     private ElmntCampaignDescriptionInput campaignDescription = new ElmntCampaignDescriptionInput();;
@@ -38,10 +49,6 @@ public class PageCampaignRules extends AbstractCampaignPage{
         FriendIncentive_NewSubscriber,
         FriendReferredIncentive
     }
-
-    ElmntCreateNewIncentiveButton createNewIncentiveButton;
-    ArrayList<DrivenElement> incentiveTypeItems;
-
 
     public PageCampaignRules(){
 
@@ -103,19 +110,22 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
 
     public PageCampaignRules createNewIncentive(IncentiveType incentiveType, int rewardAmount, DiscountType discountType, CouponCodeType couponCodeType){
-        createNewIncentiveButton = new ElmntCreateNewIncentiveButton();
-        createNewIncentiveButton.click();
+        // move mouse to element under Create New Incentive button:
+        new ElmntCampaignDescriptionInput().moveMouseOver();
+        //click Create New Incentive button:
+        new ElmntCreateNewIncentiveButton().moveToElementAndClick();
         PopupIncentiveFactory incentivePopup = selectIncentive(incentiveType);
         incentivePopup.createIncentive(rewardAmount, discountType, couponCodeType);
 
-
-        return waitLoading();
+//        return waitLoading();
+        waitSaving();
+        return new PageCampaignRules();
     }
 
    /*Note: Format of dates should be MM/DD/YYYY,
    * Hours and Minute format should be equal to values from relevant dropdown lists on UI(Rules page)
    * */
-    public PageCampaignRules setDeadlineDates(String advocateOfferDeadlineDate, String adHours, String adMinute, String friendOfferDeadlineDate, String frHour, String frMinute){
+    private PageCampaignRules setDeadlineDates(String advocateOfferDeadlineDate, String adHours, String adMinute, String friendOfferDeadlineDate, String frHour, String frMinute){
         //advocate Deadline Offer values:
         this.advocateOfferDeadlineDate.sendKeys(advocateOfferDeadlineDate);
         adOfferDeadlineHours.searchAndSelect(adHours);
@@ -133,8 +143,9 @@ public class PageCampaignRules extends AbstractCampaignPage{
     }
 
     private PopupIncentiveFactory selectIncentive(IncentiveType incentiveType){
-        ArrayList<DrivenElement> incentiveTypeItems = new ElmntIncentiveTypeItem().getElements();
-        String incentiveName = getIncentiveTypeName(incentiveType);
+        ArrayList<Element> incentiveTypeItems = getElementsList(incentiveNamesFromDropDownLctr);
+        Log.debagRecord("size: " + incentiveTypeItems.size());
+                String incentiveName = getIncentiveTypeName(incentiveType);
         selectByText(incentiveName, incentiveTypeItems);
 
         return getIncentivePopup(incentiveType);
@@ -158,14 +169,11 @@ public class PageCampaignRules extends AbstractCampaignPage{
         IncentiveTile incentive = getIncentiveTile(incentiveType, value);
         incentive.delete();
 
-//        wait.until(ExpectedConditions.visibilityOf(new ElmntLoadingMessage().getWebElement()));
         return waitLoading();
     }
 
     private PageCampaignRules waitLoading(){
-        ElmntLoadingMessage loadingMessage = new ElmntLoadingMessage();
-//        wait.until(ExpectedConditions.visibilityOf(loadingMessage.getWebElement()));
-//        wait.until(ExpectedConditions.invisibilityOf(loadingMessage.getWebElement()));
+        new ElmntLoadingMessage();
         firstLoading();
         return new PageCampaignRules();
     }
@@ -175,12 +183,36 @@ public class PageCampaignRules extends AbstractCampaignPage{
         try {
             wait.until(ExpectedConditions.invisibilityOf(loadingMessage.getWebElement()));
         }catch (TimeoutException e){
-            Assert.fail("FAILED: "+"org.openqa.selenium.TimeoutException:");
+            Assert.fail("FAILED: org.openqa.selenium.TimeoutException:");
         }
-        System.out.println("LOG: Rules Page is loaded");
     }
 
+    public PageCampaignRules switchRedirectOnExpiredClaimCheckbox(){
+        redirectOnExpiredClaimCheckbox.click();
+        return saveChanges();
+    }
 
+    public String getRedirectOnExpiredClaimCheckbox() {
+        return redirectOnExpiredClaimCheckboxValue.getAttribute("value");
+    }
+
+    public PageCampaignRules switchUseFacebookAppIdCheckbox(){
+        useFacebookAppIdCheckbox.moveToElementAndClick();
+        return saveChanges();
+    }
+
+    public String getUseFacebookAppIdCheckbox() {
+        return useFacebookAppIdCheckboxValue.getAttribute("value");
+    }
+
+    public PageCampaignRules switchPlainTextVersionCheckbox(){
+        enablePlainTextVersionCheckbox.moveToElementAndClick();
+        return saveChanges();
+    }
+
+    public String getPlainTextVersionCheckbox(){
+        return enablePlainTextVersionCheckboxValue.getAttribute("value");
+    }
 
     static String getIncentiveTypeName(IncentiveType incentiveType){
 

@@ -2,30 +2,30 @@ package talkable.talkableSite.campaign.pages.multiCampaignEditor;
 
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.PreviewPopup;
 
-import static talkable.talkableSite.campaign.pages.editorPage.EditorPage.LocalizationType.COPY;
+import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.COPY;
 import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.INELIGIBLE;
 import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.SELECTED;
 import static talkable.talkableSite.campaign.pages.multiCampaignEditor.CampaignsList.State.UNSELECTED;
 
 public class PageMultiCampaignEditor extends AbstractTalkableSitePage
 {
-    private EditorPage.LocalizationType mode;
+    private SimpleEditorPage.LocalizationType mode;
     private ElmntBackToEditor backToEditorButton = new ElmntBackToEditor();
     private ElmntCampaignViewField campaignViewField = new ElmntCampaignViewField();
     private ElmntContentField contentField = new ElmntContentField();
     private ElmntCampaignFilter campaignFilter = new ElmntCampaignFilter();
     private ElmntPreviewButton previewButton = new ElmntPreviewButton();
 
-    public PageMultiCampaignEditor(EditorPage.LocalizationType mode){
+    public PageMultiCampaignEditor(SimpleEditorPage.LocalizationType mode){
         this.mode = mode;
         getContentValueRecord(mode);
         new ElmntSaveContentButton();
     }
 
-    private ContentValueRecord getContentValueRecord(EditorPage.LocalizationType mode){
+    private ContentValueRecord getContentValueRecord(SimpleEditorPage.LocalizationType mode){
         switch (mode){
             case COPY:
                 return new ContentCopyInput();
@@ -50,9 +50,9 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
         return saveChanges();
     }
 
-    public EditorPage backToEditor(){
+    public SimpleEditorPage backToEditor(){
         backToEditorButton.click();
-        return new EditorPage(COPY);
+        return new SimpleEditorPage(COPY);
     }
 
     public String getCampaignViewValue() {

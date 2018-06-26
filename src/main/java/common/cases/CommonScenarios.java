@@ -2,21 +2,22 @@ package common.cases;
 
 import api.objects.Site;
 import org.testng.Assert;
+import talkable.common.elements.WeUseCookieMsg;
 import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
 import talkable.common.CampaignPlacement;
 import talkable.common.CampaignType;
-import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
+import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
-import talkable.talkableSite.reports.purchasesReport.createNewPurchasePage.CreateNewPurchasePage;
+import talkable.talkableSite.reports.purchases.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.homePage.HomePage;
@@ -50,9 +51,21 @@ public class CommonScenarios {
     public static Header login(String email, String password) {
         HomePage homePage = new HomePage();
         LoginPage loginPage = homePage.clickLoginButton();
-        Header header = loginPage.submitLoginForm(email, password);
+
+//        Header header = loginPage.submitLoginForm(email, password);
+//        Log.logRecord("User logged into Talkable. Email = <" + email + ">");
+//        return header;
+        return submitLoginForm(email, password);
+    }
+
+    public static Header submitLoginForm(String email, String password){
+        Header header = new LoginPage().submitLoginForm(email, password);
         Log.logRecord("User logged into Talkable. Email = <" + email + ">");
         return header;
+    }
+
+    public static void acceptCookiesUsage(){
+        new WeUseCookieMsg().accept();
     }
 
     public static void logout(){
@@ -89,6 +102,19 @@ public class CommonScenarios {
         return siteDashboardPage;
     }
 
+    public static SiteDashboardPage switchToSiteByVisibleText(String siteName){
+        new Header().selectByVisibleText(siteName);
+        try {
+            return new SiteDashboardPage().verifySiteName(siteName);
+        }catch (AssertionError e){
+            Log.debagRecord("Site Dashboard is not opened when site is switched. Verifying  integration instruction page...");
+            new IntegrationInstructionPage().dontShowItAgain();
+            SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
+            Log.debagRecord("Integration instruction page is closed.");
+            return dashboardPage;
+        }
+    }
+
     public static String getSiteNameFromHeader(){
         String name = new Header().getSiteName();
         Log.logRecord("Site name retrieved from Header : " + name);
@@ -103,6 +129,26 @@ public class CommonScenarios {
 
         return integrationInstructionPage;
     }
+
+    public static SiteDashboardPage openDashboardPage(){
+        SiteDashboardPage page = new Header().openSiteDashboard();
+        Log.logRecord("Site Dashboard page is opened.");
+        return page;
+    }
+
+    public static SiteDashboardPage openDashboardPageForNonIntegratedSite(){
+        new Header()
+                .openSiteDashboardForNonIntegratedSite()
+                .dontShowItAgain();
+        return new SiteDashboardPage();
+    }
+
+    public static PersonLookupPage openCustomerServicePortal(){
+        PersonLookupPage page = new Header().openCustomerServicePortal();
+        Log.logRecord("Customer Service Portal is opened. (Person Lookup page is displayed)");
+        return page;
+    }
+
 
 
 
@@ -120,8 +166,12 @@ public class CommonScenarios {
         }
     }
 
+    public static void openCampaignDetailsPage(){
+        new CampaignNavigationMenu().openDetailsPage();
+        Log.logRecord("Campaign Details page is opened.");
+    }
 
-    public static void openCampaignDetailsPage(String campaignName, Table.Status campaignStatus){
+    public static void openCampaignDetailsPageFor(String campaignName, Table.Status campaignStatus){
         PageCampaigns page = openCampaignsPage();
         page.openCampaignByName(campaignName, campaignStatus);
         Log.logRecord("Details page is opened for campaign <" + campaignName + "> with status = <" + campaignStatus + ">.");
@@ -164,20 +214,62 @@ public class CommonScenarios {
         Log.logRecord("Campaign description changed to <" + campaignDesc + ">");
     }
 
+    public static String getCampaignDescriptionOnRulesPage(){
+        return new PageCampaignRules().getCampaignDescription();
+    }
+
     public static void setDeadlinesOnRulesPage(String advocateOfferDeadlineDate, String adOfferEndTime, String friendDeadlineDate, String frOfferEndTime){
         PageCampaignRules rulesPage = new PageCampaignRules();
-        rulesPage = rulesPage.setDeadlineDates(advocateOfferDeadlineDate, adOfferEndTime, friendDeadlineDate, frOfferEndTime);
+        rulesPage.setDeadlineDates(advocateOfferDeadlineDate, adOfferEndTime, friendDeadlineDate, frOfferEndTime);
+        assertDeadlinesOnRulesPage(advocateOfferDeadlineDate, adOfferEndTime, friendDeadlineDate, frOfferEndTime);
+        Log.logRecord("Friend deadline date and time have been changed to " + friendDeadlineDate + ", " + frOfferEndTime + "on Campaign Rules page");
+    }
 
+    public static void assertDeadlinesOnRulesPage(String advocateOfferDeadlineDate, String adOfferEndTime, String friendDeadlineDate, String frOfferEndTime){
+        PageCampaignRules rulesPage = new PageCampaignRules();
         Assert.assertEquals(rulesPage.getAdvocateDeadlineDate(), advocateOfferDeadlineDate, "FAILED: Incorrect Advocate Deadline Date on Campaign Rules page");
         Assert.assertEquals(rulesPage.getAdvocateDeadlineTime(), adOfferEndTime, "FAILED: Incorrect Advocate Deadline Time on Campaign Rules page");
         Log.logRecord("Advocate deadline date and time have been changed to " + advocateOfferDeadlineDate + ", " + adOfferEndTime + "on Campaign Rules page");
 
         Assert.assertEquals(rulesPage.getFriendDeadlineDate(), friendDeadlineDate, "FAILED: Incorrect Friend Deadline Date on Campaign Rules page");
         Assert.assertEquals(rulesPage.getFriendDeadlineTime(), frOfferEndTime,  "FAILED: Incorrect Friend Deadline Time on Campaign Rules page");
-        Log.logRecord("Friend deadline date and time have been changed to " + friendDeadlineDate + ", " + frOfferEndTime + "on Campaign Rules page");
-
     }
 
+    public static void switchUseFacebookAppIdCheckboxOnRulesPage(){
+        new PageCampaignRules().switchUseFacebookAppIdCheckbox();
+    }
+
+    public static String getUseFacebookAppIdCheckboxValueFromRulesPage(){
+        return new PageCampaignRules().getUseFacebookAppIdCheckbox();
+    }
+
+    public static void switchPlainTextVersionCheckboxOnRulesPage(){
+        new PageCampaignRules().switchPlainTextVersionCheckbox();
+    }
+
+    public static String getPlainTextVersionCheckboxOnRulesPage(){
+        return new PageCampaignRules().getPlainTextVersionCheckbox();
+    }
+
+    public static void switchRedirectOnExpiredClaimCheckboxOnRulesPage(){
+        new PageCampaignRules().switchRedirectOnExpiredClaimCheckbox();
+    }
+
+    public static String getRedirectOnExpiredClaimCheckbox(){
+        return new PageCampaignRules().getRedirectOnExpiredClaimCheckbox();
+    }
+
+    public static void addNewIncentive(PageCampaignRules.IncentiveType incentiveType,
+                                          int rewardAmount,
+                                          PageCampaignRules.DiscountType discountType,
+                                          PageCampaignRules.CouponCodeType couponCodeType
+                                          ){
+        new PageCampaignRules().createNewIncentive(
+                incentiveType,
+                rewardAmount,
+                discountType,
+                couponCodeType);
+    }
 
     /***
      * Scenario to initiate campaign creation.
@@ -255,6 +347,7 @@ public class CommonScenarios {
     }
 
 
+
     /***
      * Scenario to register new User and create new Site
      * Precondition: Register page should be opened(...talkable.com/register?object_or_array)
@@ -275,7 +368,8 @@ public class CommonScenarios {
         return integrationInstructionPage;
     }
 
-    /*Scenarios to create Test Offer for campaign with Post Purchase placement.
+    /**
+     * Scenarios to create Test Offer for campaign with Post Purchase placement.
      * Precondition: Campaign Details page should be opened.
      * 1. Click Create Test Offer button
      * 2. Click Create Origin button with default values on Create Test Offer page
@@ -291,7 +385,26 @@ public class CommonScenarios {
         return new CampaignDetailsPage();
     }
 
-    /*Scenarios to create Test Offer for campaign with non Post Purchase placement (FW, SA, GR).
+    public static void copyCampaignFromDetailsPage(){
+        new CampaignDetailsPage().copyCampaign();
+        Log.logRecord("Campaign copied.");
+    }
+
+    public static void flushCampaignDataFromDetailsPage(){
+        new CampaignDetailsPage().flushAllData();
+    }
+
+    public static String getCampaignNameFromNavigationMenu(){
+        return new CampaignNavigationMenu().getCampaignName();
+    }
+
+    public static CampaignPlacement getCampaignPlacementFromNavigationMenu(){
+        return new CampaignNavigationMenu().getCampaignPlacement();
+    }
+
+
+    /**
+     * Scenarios to create Test Offer for campaign with non Post Purchase placement (FW, SA, GR).
      * Precondition: Campaign Details page should be opened.
      * 1. Click Create Test Offer button
      * 2. Populate email on New Affiliated Member page
@@ -306,6 +419,17 @@ public class CommonScenarios {
         newAffiliateMember.createMemberAndSwitchToCampaign(newAffiliatedMemberEmail);
         Log.logRecord("Test offer created (New Affiliate Member)");
         return new CampaignDetailsPage();
+    }
+
+    /**
+     * Verification of Advocate Total Offers Count on Campaign Details page.
+     * @expectedAdvocateOffersCount should be String value, e.g. "Total: 2"
+    */
+    public static void assertAdvocateOffersCountOnCampaignDetailsPage(String expectedAdvocateOffersCount){
+        Assert.assertEquals(
+                CommonScenarios.getAdvocateOfferTotalCountFromCampaignDetailsPage(),
+                expectedAdvocateOffersCount,
+                "FAILED: Incorrect Offers count on Campaign Details page");
     }
 
 
@@ -352,10 +476,10 @@ public class CommonScenarios {
                                                                       Table.Status status,
                                                                       String pageViewName,
                                                                       String localizationName,
-                                                                      EditorPage.LocalizationType contentType) {
+                                                                      SimpleEditorPage.LocalizationType contentType) {
         CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
-        EditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
-        editor = editor.switchViewByName(pageViewName);
+        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
+        editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
         editor.switchTo(contentType);
         PageMultiCampaignEditor mceEditor =  editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
         Log.logRecord("Multi-Campaign Editor page is opened for campaign = <" + campaignName + ">, localization = <" + contentType + " --> " + localizationName + ">.");
@@ -405,12 +529,42 @@ public class CommonScenarios {
         return page;
     }
 
+// updateSiteSettingsBasicTab
 
-//    public static void editSiteBasic(){
-//        new SiteSettingsBasicTab().edit();
-//        Log.logRecord("");
-//    }
+    public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL, String platform, String currency ){
+        new SiteSettingsBasicTab().updateAll(siteName, siteID, siteURL, platform, currency);
+        Log.logRecord("Site Settings Basic Tab updated");
 
+    }
+    public static void populateSiteBasicNegativeTest(String siteName, String siteID, String siteURL, String platform){
+        new SiteSettingsBasicTab().populate(siteName, siteID, siteURL);
+        new SiteSettingsBasicTab().selectPlatform(platform);
+        new SiteSettingsBasicTab().clickSaveChanges();
+
+        Log.logRecord("Site Settings Basic Tab populated");
+    }
+    public static void assertErrorMsgSiteSettigsBasicTab(String siteName, String siteID, String siteURL){
+        Assert.assertEquals(
+                new SiteSettingsBasicTab().getSiteName(),
+                siteName,
+                "FAILED: Site settings/basic tab/Incorect Site Name");
+        Assert.assertEquals(
+                new SiteSettingsBasicTab().getSiteID(),
+                siteID,
+                "FAILED: Site settings/basic tab/Incorect Site ID");
+        Assert.assertEquals(
+                new SiteSettingsBasicTab().getSiteURL(),
+                siteURL,
+                "FAILED: Site settings/basic tab/Incorect Site URL");
+    }
+    public static void assertErrorMsgSiteSettigsBasicTab(String expectedErrorMsg){
+        Assert.assertEquals(
+                new SiteSettingsBasicTab().getErrorMsg(),
+                expectedErrorMsg,
+                "FAILED: Site settings/basic tab/Validation Failed"+expectedErrorMsg);
+        new SiteSettingsBasicTab().clickCancel();
+    }
+// end updateSiteSettingsBasicTab
     public static Site getSiteIntegrationValues(){
         SiteSettingsBasicTab basicTab = openSiteSettingsPage();
         String siteID = basicTab.getSiteID();

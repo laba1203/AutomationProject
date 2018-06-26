@@ -1,12 +1,12 @@
 package talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen;
 
 import abstractObjects.AbstractElementsContainer;
-import talkable.talkableSite.campaign.pages.editorPage.EditorPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 
 public class PreviewPopup extends AbstractElementsContainer{
 
-    private EditorPage.LocalizationType mode;
+    private SimpleEditorPage.LocalizationType mode;
 
     private ElmntCampaignsDropDown campaigns = new ElmntCampaignsDropDown();
     private ElmntContentName contentName = new ElmntContentName();
@@ -15,7 +15,7 @@ public class PreviewPopup extends AbstractElementsContainer{
     private ElmntViewPresetDropDown viewPreset;
 
 
-    public PreviewPopup(EditorPage.LocalizationType mode) {
+    public PreviewPopup(SimpleEditorPage.LocalizationType mode) {
         this.mode = mode;
     }
 

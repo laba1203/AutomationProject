@@ -63,6 +63,27 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
     }
 
     public FraudSettingsPage setApprovalMode(ApprovalMode mode){
+//        AbstractElement option = null;
+//        switch (mode){
+//            case MANUAL:
+//                option = new ElmntManualReferralApproval();
+//                break;
+//            case AUTOMATIC:
+//                option = new ElmntAutomaticReferralApproval();
+//                break;
+//            default:
+//                Assert.fail("Unknown referral approval mode <" + mode.toString() + ">");
+//
+//        }
+//        option.click();
+        //        return saveChanges();
+
+        return selectApprovalMode(mode)
+                .saveChanges();
+
+    }
+
+    private FraudSettingsPage selectApprovalMode(ApprovalMode mode){
         AbstractElement option = null;
         switch (mode){
             case MANUAL:
@@ -76,6 +97,12 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
 
         }
         option.click();
+        return new FraudSettingsPage();
+    }
+
+    public FraudSettingsPage setApprovalModeAndDelay(ApprovalMode mode, int approvalDelay){
+        selectApprovalMode(mode);
+        new ElmntReferralApprovalDelayInput().clearAndSendKeys(String.valueOf(approvalDelay));
         return saveChanges();
     }
 
@@ -134,9 +161,10 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
         return new SectionRulesForFriend();
     }
 
+
     public FraudSettingsPage setReferralApprovalDelay(int value){
-        new ElmntReferralApprovalDelayInput().clear();
-        new ElmntReferralApprovalDelayInput().sendKeys(String.valueOf(value));
+        new ElmntReferralApprovalDelayInput().clearAndSendKeys(String.valueOf(value));
+//        new ElmntReferralApprovalDelayInput().sendKeys(String.valueOf(value));
         return saveChanges();
     }
 
