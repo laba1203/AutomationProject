@@ -57,12 +57,12 @@ public class BaseTest {
         @AfterMethod
         public void takeScreenshot(ITestResult result){
             if(ITestResult.FAILURE == result.getStatus()){
-//                screenshot.makeScreenshot(); //TODO: re-work capturing screenshots
+                screenshot.makeScreenshot(); //TODO: re-work capturing screenshots
                 System.out.println("URL on fail: " + driver.getCurrentUrl());
             }
         }
 
-        @AfterSuite
+      @AfterSuite
         public void quit() {
             this.driver.quit();
             DriverConfig.cleanWebDriver();
