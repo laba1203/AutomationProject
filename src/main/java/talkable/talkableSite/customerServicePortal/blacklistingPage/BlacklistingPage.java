@@ -14,6 +14,7 @@ public class BlacklistingPage extends AbstractCustomerServicePortalPage{
 
 
     public BlacklistingPage updateBlacklistedEmailList(String value){
+        blacklistedEmailsField.clear();
         blacklistedEmailsField.sendKeys("\r\n" + value);
         return saveChanges();
     }
