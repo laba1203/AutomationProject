@@ -44,4 +44,12 @@ public class API_Test {
         ViaAPI.createReferral(site, "qa-cwittx@example.com", "friend0001@t.com");
     }
 
+    @Test
+    public void makeReferral(){
+        String advocate = "test262@t.com";
+        for (int i = 0; i < 3; i++) {
+            ViaAPI.createReferral(site, advocate, "fr+" + TestDataGenerator.getRandomId() + "@test.com");
+        }
+    }
+
 }
