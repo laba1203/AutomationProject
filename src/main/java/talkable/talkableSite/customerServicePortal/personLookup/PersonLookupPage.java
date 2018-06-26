@@ -15,6 +15,7 @@ public class PersonLookupPage extends AbstractCustomerServicePortalPage
 
 
     public PersonInfoSection searchPerson(String email){
+        searchField.clear();
         searchField.sendKeys(email);
         searchButton.click();
         try {

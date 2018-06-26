@@ -29,9 +29,8 @@ import util.logging.Log;
     * 1. Make referral via API
     * 2. Open CSP --> Pending referrals
     * 3. Approve referral
-    * 4. Open Person Lookup
-    * 5. Search advocate.
-    * 6. Verify referral status.
+    * 4. Click 'See details' for approved referral
+    * 5. Verify referral status.
     *
     *
     * Scenario#3: Void pending referral.
@@ -88,8 +87,9 @@ public class CspTesting extends BaseTest{
         ViaAPI.makePurchaseWithRandomUUID(site, advocate);
         CspScenarios.openPurchasesTabOnPersonLookupPage();
         CspScenarios.openReferralsTabOnPersonLookupPage();
+        driver.navigate().refresh();
+        CspScenarios.openOffersTabOnPersonLookupPage();
 
-//        CspScenarios.waitTillPurchasesRowsCountChanges(purchasesCount);
         purchasesCount = CspScenarios.getPurchasesRowsCountFromPersonLookup();
         Assert.assertEquals(purchasesCount, "2", "FAILED: Incorrect count of purchases");
 
@@ -104,7 +104,50 @@ public class CspTesting extends BaseTest{
         String advocate = "advocate.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
         String friend = "friend.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
 
+        ViaAPI.createReferral(site, advocate, friend);
+        CommonScenarios.openCustomerServicePortal();
+        CspScenarios.openPendingReferralsPage();
+        String previousCountValue = CspScenarios.getCountFromPendingReferralsPage();
+        CspScenarios.approvePendingReferral(advocate);
+        Assert.assertNotEquals(
+                previousCountValue,
+                CspScenarios.getCountFromPendingReferralsPage(),
+                "FAILED: Referrals count was not changed when pending referral had been approved.");
 
+        CspScenarios.clickSeeDetailsForActionedRowOnRendingReferrals();
+
+        Assert.assertEquals(
+                CspScenarios.getReferralStatusFromPersonLookupInfo(friend),
+                "Approved",
+                "FAILED: Incorrect pending referral status for advocate = <" + advocate + ", friend = <" + friend + ">."
+        );
+
+    }
+
+    /*Scenario#3
+     * */
+    @Test
+    public void voidPendingReferral(){
+        String advocate = "advocate.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String friend = "friend.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
+
+        ViaAPI.createReferral(site, advocate, friend);
+        CommonScenarios.openCustomerServicePortal();
+        CspScenarios.openPendingReferralsPage();
+        String previousCountValue = CspScenarios.getCountFromPendingReferralsPage();
+        CspScenarios.voidPendingReferral(advocate);
+        Assert.assertNotEquals(
+                previousCountValue,
+                CspScenarios.getCountFromPendingReferralsPage(),
+                "FAILED: Referrals count was not changed when pending referral had been approved.");
+
+        CspScenarios.clickSeeDetailsForActionedRowOnRendingReferrals();
+
+        Assert.assertEquals(
+                CspScenarios.getReferralStatusFromPersonLookupInfo(friend),
+                "Voided",
+                "FAILED: Incorrect pending referral status for advocate = <" + advocate + ", friend = <" + friend + ">."
+        );
 
     }
 

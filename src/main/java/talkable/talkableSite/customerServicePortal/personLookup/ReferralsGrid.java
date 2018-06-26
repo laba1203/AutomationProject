@@ -39,6 +39,7 @@ class ReferralsGrid extends AbstractElementsContainer{
     class ReferralRow{
         private final By advocateEmailRowLctr = By.xpath("./td[1]/a");
         private final By friendEmailRowLctr = By.xpath("./td[2]/a");
+        private final By referralStatusLctr = By.xpath(".//div[@class='CSP-row-statuses-item-text']");
         private final By detailsLctr = By.xpath(".//a[contains(@class, 'CSP-row-details-button')]");
 
         private WebElement parentRowElement;
@@ -65,6 +66,10 @@ class ReferralsGrid extends AbstractElementsContainer{
         ReferralDetailsSection clickDetails(){
             new Element(parentRowElement.findElement(detailsLctr)).click();
             return new ReferralDetailsSection();
+        }
+
+        String getReferralStatus(){
+            return new Element(referralStatusLctr).getText();
         }
 
     }
