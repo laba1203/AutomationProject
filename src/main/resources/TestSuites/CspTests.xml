@@ -1,0 +1,10 @@
+<suite name="CSP Tests" preserve-order="true" group-by-instances="true">
+    <test name="CSP Tests" preserve-order="true" >
+        <classes>
+
+            <class name="execution.csp.CspTesting"/>
+        </classes>
+    </test>
+
+</suite>
+
