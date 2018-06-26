@@ -44,6 +44,13 @@ public class CspScenarios extends CommonScenarios{
         Log.logRecord("Person with email <" + email + "> is found in Person Lookup.");
     }
 
+    public static void searchAndAnonymizeFromPersonLookup(String email){
+        openPersonLookupPage()
+                .searchPerson(email)
+                .anonymize();
+        Log.logRecord("Person <" + email + "> was anonymized.");
+    }
+
     /*Person info should be already displayed in the Person Lookup
     */
     public static void openReferralDetailsFromPersonLookup(String friendEmail){

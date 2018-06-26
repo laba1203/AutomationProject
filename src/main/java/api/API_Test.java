@@ -27,6 +27,8 @@ public class API_Test {
             /*prod data*/
 //            "test2203",
 //            "Th09JOgxeDycS1M2zBBl"
+//            "pavel",
+//            "BnrAw9XI9tjYq5C2kFTD"
     );
 
 
@@ -46,9 +48,10 @@ public class API_Test {
 
     @Test
     public void makeReferral(){
-        String advocate = "test262@t.com";
-        for (int i = 0; i < 3; i++) {
+        String advocate = "ad097856470@gmail.com";
+        for (int i = 0; i < 100; i++) {
             ViaAPI.createReferral(site, advocate, "fr+" + TestDataGenerator.getRandomId() + "@test.com");
+            System.out.println("Count: " + i + "\r\n");
         }
     }
 

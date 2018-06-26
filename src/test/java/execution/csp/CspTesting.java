@@ -55,6 +55,11 @@ import util.logging.Log;
     *
     * Scenario#5: Anonymize person
     *
+    * 1. Create Referral via API.
+    * 2. Open advocate in Person lookup
+    * 3. Anonymize advocate.
+    * 4. Srearch advocate in Person Lookup --> Adovcate should not be found.
+    *
     * */
 
 
@@ -129,6 +134,7 @@ public class CspTesting extends BaseTest{
                 "Approved",
                 "FAILED: Incorrect pending referral status for advocate = <" + advocate + ", friend = <" + friend + ">."
         );
+        Log.testPassed("CSP --> Approve pending referral.");
 
     }
 
@@ -156,6 +162,7 @@ public class CspTesting extends BaseTest{
                 "Voided",
                 "FAILED: Incorrect pending referral status for advocate = <" + advocate + ", friend = <" + friend + ">."
         );
+        Log.testPassed("CSP --> Void pending referral.");
 
     }
 
@@ -171,7 +178,6 @@ public class CspTesting extends BaseTest{
         CspScenarios.updateBlacklistedEmailsList("");
 
         ViaAPI.createReferral(site, advocateEmail, friend);
-        CspScenarios.openPersonLookupPage();
         CspScenarios.searchAndAddPersonToBlacklistedEmail(advocateEmail);
         CspScenarios.openBlacklistingPage();
 
@@ -179,10 +185,28 @@ public class CspTesting extends BaseTest{
                 CspScenarios.getBlacklistedEmailsList(),
                 advocateEmail,
                 "FAILED: Incorrect email in the Blacklisted Emails List.");
+        Log.testPassed("CSP --> Person Lookup --> Blacklist by Email.");
     }
 
 
+    /*Scenario#5
+     * */
+    @Test
+    public void anonymizePerson(){
+        String advocateEmail = "advocate.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
+        String friend = "friend.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
 
+        ViaAPI.createReferral(site, advocateEmail, friend);
+        CommonScenarios.openCustomerServicePortal();
+        CspScenarios.openPersonLookupPage();
+        CspScenarios.searchAndAnonymizeFromPersonLookup(advocateEmail);
+        try {
+            CspScenarios.searchPersonLookup(advocateEmail);
+            Assert.fail("FAILED: Anonymized person was found in person lookup. Email = " + advocateEmail);
+        }catch (AssertionError e){
+            Log.testPassed("CSP. Anonymized test.");
+        }
+    }
 
 
 }

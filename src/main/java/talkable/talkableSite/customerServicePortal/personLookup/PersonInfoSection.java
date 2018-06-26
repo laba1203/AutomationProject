@@ -1,6 +1,5 @@
 package talkable.talkableSite.customerServicePortal.personLookup;
 
-import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import util.logging.Log;
@@ -8,6 +7,8 @@ import util.logging.Log;
 public class PersonInfoSection extends PersonLookupPage{
     private static final By userEmailLctr = By.xpath("//table[@class='Person-details-info']//tr[1]//td[contains(@class, 'value')]//span");
     private static final By blacklistByEmailLctr = By.xpath("//button[contains(@data-action,'Blacklist')]");
+    private static final By gdprDropDownLctr = By.xpath("//a[contains(@class,'dropdown')]");
+    private static final By gdprAnonymizeBtnLctr = By.xpath("//span[contains(text(),'Anonymize')]");
     private static final By referralsTabBtnLctr = By.xpath("//li[@class='Person-details-navigation-item']/a[contains(@data-action, 'Referrals')]");
     private static final By purchaseTabBtnLctr = By.xpath("//li[@class='Person-details-navigation-item']/a[contains(@data-action, 'Purchases')]");
     private static final By purchasesCountLctr = By.xpath("//li[@class='Person-details-navigation-item']/a[contains(@data-action, 'Purchases')]/span");
@@ -17,6 +18,7 @@ public class PersonInfoSection extends PersonLookupPage{
 
     private Element userEmail = new Element(userEmailLctr, "User Email");
     private Element blacklistByEmailBtn = new Element(blacklistByEmailLctr, "Blacklist By Email");
+    private Element gdprDropDownBtn = new Element(gdprDropDownLctr, "GDPR dropdown");
     private Element referralsBtn = new Element(referralsTabBtnLctr, "Referrals tab");
     private Element purchaseBtn = new Element(purchaseTabBtnLctr, "Purchases tab");
     private Element offersBtn = new Element(offersTabBtnLctr, "Offers tab");
@@ -65,6 +67,14 @@ public class PersonInfoSection extends PersonLookupPage{
         blacklistByEmailBtn.click();
         waitSaving();
         return new PersonInfoSection();
+    }
+
+    public PersonLookupPage anonymize(){
+        gdprDropDownBtn.click();
+        new Element(gdprAnonymizeBtnLctr, "Anonymize").click();
+        new GdprWarningPopup().clickOk();
+        new PersonWasAnonymizedMsg();
+        return new PersonLookupPage();
     }
 
 
