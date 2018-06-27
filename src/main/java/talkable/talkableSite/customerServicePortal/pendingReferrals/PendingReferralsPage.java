@@ -36,7 +36,7 @@ public class PendingReferralsPage extends AbstractCustomerServicePortalPage{
         }
         new Element(approveAllBtnLctr, "'Approve All' button").click();
         new ConfirmationPopup().confirm();
-        WaitFactory.waitUntilTextToBePresentInElement(
+        waitFactory().waitUntilTextToBePresentInElement(
                 pendingReferralsCountLctr,
                 "Pending Referrals — 0",
                 5);
@@ -78,7 +78,7 @@ public class PendingReferralsPage extends AbstractCustomerServicePortalPage{
     public PendingReferralsPage approveReferral(String advocateEmail){
         String referralsCount = pendingReferralsCount.getText();
         findRowBy(advocateEmail).approve();
-        WaitFactory.getCustomWait(5, 500).until(
+        waitFactory().getCustomWait(5, 500).until(
                 ExpectedConditions.invisibilityOfElementWithText(pendingReferralsCountLctr, referralsCount));
         Log.logRecord("Referral was approved. Advocate email <" + advocateEmail + ">.");
         return new PendingReferralsPage();
@@ -87,7 +87,7 @@ public class PendingReferralsPage extends AbstractCustomerServicePortalPage{
     public PendingReferralsPage voidReferral(String advocateEmail){
         String referralsCount = pendingReferralsCount.getText();
         findRowBy(advocateEmail).voidReferral();
-        WaitFactory.getCustomWait(5, 500).until(
+        waitFactory().getCustomWait(5, 500).until(
                 ExpectedConditions.invisibilityOfElementWithText(pendingReferralsCountLctr, referralsCount));
         Log.logRecord("Referral was approved. Advocate email <" + advocateEmail + ">.");
         return new PendingReferralsPage();
