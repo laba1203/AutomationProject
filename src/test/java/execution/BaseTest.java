@@ -1,13 +1,11 @@
 package execution;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import util.DriverConfig;
 import util.EnvFactory;
 import util.Screenshot;
-import util.WaitFactory;
 import util.logging.Log;
 
 import java.lang.reflect.Method;
@@ -21,7 +19,7 @@ public class BaseTest {
         //setup driver and open Talkable site.
         @BeforeSuite
         public void commonSetup() {
-            Log.logRecord("Class name: " + this.getClass().getName());
+            Log.logRecord("BaseTest.BeforeSuite starts executing in class: <" + this.getClass().getName() + ">");
             this.driver = DriverConfig.getDriver();
             try {
                 this.driver.navigate().to(EnvFactory.getEnvUrl());
@@ -33,7 +31,7 @@ public class BaseTest {
                 this.driver.navigate().to(EnvFactory.getEnvUrl());
                 Log.logRecord("Successfully opened URL from the second attempt");
             }
-            System.out.println("*** DEBAG: Before suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
+            Log.logRecord("BaseTest.BeforeSuite was executed in class: <" + this.getClass().getName() + ">");
         }
 
 
@@ -43,6 +41,9 @@ public class BaseTest {
             if(driver==null){
                 commonSetup();
                 System.out.println("DEBAG: WebDriver assigned for particular class: " + getClass().getName());
+            }
+            else {
+                Log.debagRecord("Driver is not null in class <" + this.getClass().getName() + ">.");
             }
 
         }
@@ -56,6 +57,10 @@ public class BaseTest {
 
         @AfterMethod
         public void takeScreenshot(ITestResult result){
+            if(result == null){
+                Log.debagRecord("ITestResult is null.");
+            }
+            assert result != null;
             if(ITestResult.FAILURE == result.getStatus()){
                 screenshot.makeScreenshot(); //TODO: re-work capturing screenshots
                 System.out.println("URL on fail: " + driver.getCurrentUrl());
