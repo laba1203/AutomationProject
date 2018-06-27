@@ -18,9 +18,6 @@ public class DriverConfig {
 
     //URL for selenium
     private static final String SELENOID_URL = "http://selenoid.tkbl:4444//wd/hub";
-
-    private WebDriver driver;
-
     private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
     /*The flag indicates whether the test will be executed on Local or Remote machine.
@@ -79,18 +76,6 @@ public class DriverConfig {
             Assert.fail("FAILED in DriverConfig. getting browser when it was not created. Thread <" + Thread.currentThread().getId() + ">");
             return null;
         }
-
-//        if (tlDriver.get() == null){
-//            if(remoteExecution) {
-//                DriverConfig.setNewRemoteDriver(); //for remote testing
-//                WaitFactory.setDefaultImplicitlyWait();
-//            }else {
-//                new DriverConfig().setNewLocalDriver(); //for local testing
-//                WaitFactory.setDefaultImplicitlyWait();
-//            }
-//        }
-//        System.out.println("LOG - Util: Driver assigned to Thread <" + Thread.currentThread().getId() + ">");
-//        return tlDriver.get();
     }
 
     public static void createDriver(){
@@ -104,7 +89,6 @@ public class DriverConfig {
     }
 
     public static void cleanWebDriver(){
-//        WaitFactory.cleanWait();
         tlDriver.remove();
     }
 
