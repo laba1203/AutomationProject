@@ -20,8 +20,6 @@ public class BaseTest{
         @BeforeSuite
         public void commonSetup() {
 
-//            new abstractObjects.DriverPoint();
-
             Log.logRecord("Class name: " + this.getClass().getName());
             DriverConfig.createDriver();
             this.driver = DriverConfig.getDriver();
@@ -45,7 +43,6 @@ public class BaseTest{
         public void verifyDriver() {
             if(driver==null){
                 commonSetup();
-//                System.out.println("DEBAG: WebDriver assigned for particular class: " + getClass().getName() + ".Thread ID: " + Thread.currentThread().getId());
             }
             Log.debagRecord("DriverPoint. WebDriver assigned for particular class: " + getClass().getName() + ".Thread ID: " + Thread.currentThread().getId());
         }
