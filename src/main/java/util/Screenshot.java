@@ -16,12 +16,13 @@ public class Screenshot {
     private String absoluteFilePath;
     private String fileName;
     
-    public void makeScreenshot(){
+    public String makeScreenshot(){
         File srcFile = ((TakesScreenshot)DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
         copyFile(srcFile);
-        //
-//        Log.getScreenshotMsg("file://" + absoluteFilePath);
-        Log.getScreenshotMsg("<a href=\"file://" + absoluteFilePath + "\">"+fileName+"</a>");
+        String pathToScreenshot = "file://" + absoluteFilePath;
+        Log.getScreenshotMsg("<a href=\"" + pathToScreenshot + "\">"+fileName+"</a>");
+
+        return pathToScreenshot;
     }
 
     private void copyFile(File file){
