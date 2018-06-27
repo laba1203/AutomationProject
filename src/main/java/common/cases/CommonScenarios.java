@@ -65,7 +65,8 @@ public class CommonScenarios {
     }
 
     public static void acceptCookiesUsage(){
-        new WeUseCookieMsg().accept();
+        new WeUseCookieMsg()
+                .accept();
     }
 
     public static void logout(){
@@ -100,6 +101,19 @@ public class CommonScenarios {
 
         Log.siteSwitchedMsg(siteName);
         return siteDashboardPage;
+    }
+
+    public static SiteDashboardPage switchToSiteByVisibleText(String siteName){
+        new Header().selectByVisibleText(siteName);
+        try {
+            return new SiteDashboardPage().verifySiteName(siteName);
+        }catch (AssertionError e){
+            Log.debagRecord("Site Dashboard is not opened when site is switched. Verifying  integration instruction page...");
+            new IntegrationInstructionPage().dontShowItAgain();
+            SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
+            Log.debagRecord("Integration instruction page is closed.");
+            return dashboardPage;
+        }
     }
 
     public static String getSiteNameFromHeader(){
@@ -516,17 +530,42 @@ public class CommonScenarios {
         return page;
     }
 
+// updateSiteSettingsBasicTab
 
-    public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL){
-        new SiteSettingsBasicTab().editMandatoryFields(siteName, siteID, siteURL);
+    public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL, String platform, String currency ){
+        new SiteSettingsBasicTab().updateAll(siteName, siteID, siteURL, platform, currency);
         Log.logRecord("Site Settings Basic Tab updated");
-    }
 
-    public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL, String platform ){
-        new SiteSettingsBasicTab().updateAll(siteName, siteID, siteURL, platform);
-        Log.logRecord("Site Settings Basic Tab updated");
     }
+    public static void populateSiteBasicNegativeTest(String siteName, String siteID, String siteURL, String platform){
+        new SiteSettingsBasicTab().populate(siteName, siteID, siteURL);
+        new SiteSettingsBasicTab().selectPlatform(platform);
+        new SiteSettingsBasicTab().clickSaveChanges();
 
+        Log.logRecord("Site Settings Basic Tab populated");
+    }
+    public static void assertErrorMsgSiteSettigsBasicTab(String siteName, String siteID, String siteURL){
+        Assert.assertEquals(
+                new SiteSettingsBasicTab().getSiteName(),
+                siteName,
+                "FAILED: Site settings/basic tab/Incorect Site Name");
+        Assert.assertEquals(
+                new SiteSettingsBasicTab().getSiteID(),
+                siteID,
+                "FAILED: Site settings/basic tab/Incorect Site ID");
+        Assert.assertEquals(
+                new SiteSettingsBasicTab().getSiteURL(),
+                siteURL,
+                "FAILED: Site settings/basic tab/Incorect Site URL");
+    }
+    public static void assertErrorMsgSiteSettigsBasicTab(String expectedErrorMsg){
+        Assert.assertEquals(
+                new SiteSettingsBasicTab().getErrorMsg(),
+                expectedErrorMsg,
+                "FAILED: Site settings/basic tab/Validation Failed"+expectedErrorMsg);
+        new SiteSettingsBasicTab().clickCancel();
+    }
+// end updateSiteSettingsBasicTab
     public static Site getSiteIntegrationValues(){
         SiteSettingsBasicTab basicTab = openSiteSettingsPage();
         String siteID = basicTab.getSiteID();

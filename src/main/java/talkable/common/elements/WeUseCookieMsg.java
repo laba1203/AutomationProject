@@ -14,14 +14,16 @@ public class WeUseCookieMsg extends AbstractElementsContainer{
     private Element acceptBtn = new Element(acceptBtnLctr, "'Accept Cookie Usage' button");
 
     public WeUseCookieMsg(){
-        waitFactory().getCustomWait(5, 500)
-                .until(ExpectedConditions.visibilityOfElementLocated(acceptBtnLctr));
+//        WaitFactory.getCustomWait(5, 500)
+//                .until(
+//                        ExpectedConditions
+//                                .visibilityOfElementLocated(acceptBtnLctr));
         new Element(gdprContent);
     }
 
     public void accept(){
         acceptBtn.click();
-        waitFactory().getCustomWait(2, 500)
+        WaitFactory.getCustomWait(2, 500)
                 .until(ExpectedConditions.invisibilityOfElementLocated(acceptBtnLctr));
         Log.logRecord("Using of cookies is accepted.");
     }

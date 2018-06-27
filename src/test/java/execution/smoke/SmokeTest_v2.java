@@ -6,10 +6,6 @@ import common.cases.CommonScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
-import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.CouponCodeType;
-import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType;
-import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
@@ -46,7 +42,7 @@ public class SmokeTest_v2 extends BaseTest{
                 EnvFactory.getCommonUser(),
                 EnvFactory.getPassword()
         );
-        CommonScenarios.switchToIntegratedSiteByVisibleText(siteName);
+        CommonScenarios.switchToSiteByVisibleText(siteName);
 
         // 2. Verify site Name
         Assert.assertEquals(
