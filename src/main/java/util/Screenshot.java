@@ -20,7 +20,7 @@ public class Screenshot {
         File srcFile = ((TakesScreenshot)DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
         copyFile(srcFile);
         String pathToScreenshot = "file://" + absoluteFilePath;
-        Log.getScreenshotMsg("<a href=\"" + pathToScreenshot + "\">"+fileName+"</a>");
+//        Log.getScreenshotMsg("<a href=\"" + pathToScreenshot + "\">"+fileName+"</a>");
 
         return pathToScreenshot;
     }

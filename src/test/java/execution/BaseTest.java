@@ -1,13 +1,8 @@
 package execution;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.ITestResult;
 import org.testng.annotations.*;
-import util.DriverConfig;
-import util.EnvFactory;
-import util.Screenshot;
-import util.WaitFactory;
+import util.*;
 import util.logging.Log;
 
 import java.lang.reflect.Method;
@@ -15,8 +10,6 @@ import java.lang.reflect.Method;
 public class BaseTest {
 
         public WebDriver driver;
-        private Screenshot screenshot = new Screenshot();
-
 
         //setup driver and open Talkable site.
         @BeforeSuite
@@ -54,19 +47,31 @@ public class BaseTest {
         }
 
 
-        @AfterMethod
-        public void takeScreenshot(ITestResult result){
-            if(ITestResult.FAILURE == result.getStatus()){
-                screenshot.makeScreenshot(); //TODO: re-work capturing screenshots
-                System.out.println("URL on fail: " + driver.getCurrentUrl());
-            }
-        }
+//        @AfterMethod
+//        public void takeScreenshot(ITestResult result){
+////            if(ITestResult.FAILURE == result.getStatus()){
+////                screenshot.makeScreenshot(); //TODO: re-work capturing screenshots
+////                System.out.println("URL on fail: " + driver.getCurrentUrl());
+////            }
+////            if(ITestResult.SUCCESS == result.getStatus()){
+////                Log.testPassed("BaseTest. Test method: " + metho)
+////            }
+//        }
 
       @AfterSuite
         public void quit() {
             this.driver.quit();
             DriverConfig.cleanWebDriver();
             System.out.println("*** DEBAG: After Suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
+        }
+
+
+        public String printAssertMsg(String msg){
+            String screnshotPath = new Screenshot().makeScreenshot();
+            return "FAILED: " + msg + ".\r\n" +
+                    "Test failed on URL: " + DriverConfig.getDriver().getCurrentUrl() +"\r\n" +
+                    "Screenshot: " + screnshotPath
+                    ;
         }
     }
 
