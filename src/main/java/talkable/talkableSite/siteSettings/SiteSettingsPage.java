@@ -7,6 +7,8 @@ import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 import talkable.talkableSite.siteSettings.contacts.SiteSettingsContactsTab;
 import talkable.talkableSite.siteSettings.integrationSettings.SiteSettingIntegrationTab;
 
+import static talkable.talkableSite.siteSettings.SiteSettingsPage.SiteSettingsTab.BASIC;
+
 public class SiteSettingsPage extends AbstractTalkableSitePage{
 
     //Elements
@@ -17,13 +19,29 @@ public class SiteSettingsPage extends AbstractTalkableSitePage{
     private static final By elmntSaveButton = By.xpath("//button[contains(@class,'ac-site-save')]");
     private static final By elmntCancelButton = By.xpath("//div[contains(@class,'base-form-inline-link')]");
 
+    public enum SiteSettingsTab{ BASIC, CONTACTS, INTERGATION}
 
+
+    public ElmntUnsavedChangesPopup switchTabWithUnsavedChanges(SiteSettingsTab tab){
+        switch (tab){
+            case BASIC:
+                new Element(elmntBasicButton).click();
+                break;
+            case CONTACTS:
+                new Element(elmntContactsButton).click();
+                break;
+            case INTERGATION:
+                new Element(elmntIntegrationSettingsButton).click();
+                break;
+        }
+        return new ElmntUnsavedChangesPopup();
+    }
 
     public SiteSettingsBasicTab openBasicTab(){
         new Element(elmntBasicButton).click();
         return new SiteSettingsBasicTab();
     }
-    public SiteSettingIntegrationTab openContactsTab(){
+    public SiteSettingsContactsTab openContactsTab(){
         new Element(elmntContactsButton).click();
         return new SiteSettingsContactsTab();
     }
@@ -32,15 +50,12 @@ public class SiteSettingsPage extends AbstractTalkableSitePage{
         return new SiteSettingIntegrationTab();
     }
 
-    public void saveChanges(){
+    public void updateChanges(){
         clickSaveChanges();
         waitSaving();
     }
     public void clickSaveChanges(){ new Element(elmntSaveButton).click();}
     public void clickCancel(){ new Element(elmntCancelButton).click();}
 
-    // Alert popup "Do you want to save changes?" todo:click tab unsaved changes 
-    private static final By elmntSaveChanges = By.xpath("//button[contains(@class,'base-btn first js-alert-close is-success')]");
-    private static final By elmntCancelChanges = By.xpath("//div[contains(@class,'base-form-inline-link')]");
-    private static final By elmntDiscardChanges = By.xpath("//button[contains(@class,'ac-site-save')]");
+
 }

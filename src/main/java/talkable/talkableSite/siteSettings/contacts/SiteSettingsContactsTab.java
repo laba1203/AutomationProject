@@ -15,6 +15,14 @@ public class SiteSettingsContactsTab extends SiteSettingsPage {
     private static final By elmntCheckboxUnpaidReward = By.xpath("//*[@for='site-send-unpaid-reward-notifications']");
     private static final By elmntCheckboxWeeklyPerformanceReport = By.xpath("//*[@for='site-weekly-performance-report-enabled']");
 
+    public SiteSettingsContactsTab(){
+        setVisibleElements();
+    }
+    private void setVisibleElements(){
+        new Element(elmntCSEmail);
+        new Element(elmntMarketerEmail);
+        new Element(elmntCheckboxWeeklyPerformanceReport);
+    }
 
     //Geters
     public String getCSEmail(){
@@ -33,7 +41,17 @@ public class SiteSettingsContactsTab extends SiteSettingsPage {
         return new Element(elmntMarketerEmail).getAttribute("value");
     }
 
-    //Click buttons
+    public SiteSettingsContactsTab updateAll(String csEmail, String csName, String technicalEmail, String rewardEmail, String marketerEmail ) {
+        new Element(elmntCSEmail, "CS Email field").clearAndSendKeys(csEmail);
+        new Element(elmntCSName, "CS Name field").clearAndSendKeys(csName);
+        new Element(elmntTechnicalEmail, "Technical contact Email field").clearAndSendKeys(technicalEmail);
+        new Element(elmntRewardEmail, "Reward contact email field").clearAndSendKeys(rewardEmail);
+        new Element(elmntMarketerEmail, "Marketer contact email field").clearAndSendKeys(marketerEmail);
+        updateChanges();
+        return new SiteSettingsContactsTab();
+    }
 
-
+    public void populate(String csEmail) {
+        new Element(elmntCSEmail, "CS Email field").clearAndSendKeys(csEmail);
+    }
 }

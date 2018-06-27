@@ -3,9 +3,7 @@ package talkable.talkableSite.siteSettings.basic;
 import abstractObjects.Element;
 import abstractObjects.SelectElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import talkable.talkableSite.siteSettings.SiteSettingsPage;
-import util.logging.Log;
 
 public class SiteSettingsBasicTab extends SiteSettingsPage{
     //ELEMENTS
@@ -68,7 +66,7 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
         populate(siteName, siteId, siteURL);
         new SelectElement(elmntSitePlatform).searchAndSelect(platform);
         new SelectElement(elmntSiteCurrency).selectByVisibleText(currency);
-        saveChanges();
+        updateChanges();
         return new SiteSettingsBasicTab();
     }
 
