@@ -15,7 +15,9 @@ import static talkable.common.CampaignPlacement.FloatingWidget;
 import static talkable.common.CampaignPlacement.PostPurchase;
 import static talkable.common.CampaignType.AdvocateDashboard;
 import static talkable.common.CampaignType.Invite;
+import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
 import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
+
 
 public class CampaignActionsTesting extends BaseTest{
 
@@ -34,6 +36,7 @@ public class CampaignActionsTesting extends BaseTest{
         String campaignDesc = "Some campaign description";
 
         CommonScenarios.openCampaignsPage();
+        CommonScenarios.deleteAllCampaignsWithStatus(LIVE);
         CommonScenarios.createNewCampaignFromCampaignsPage(AdvocateDashboard, FloatingWidget);
         CommonScenarios.openCampaignRulesPage();
         CommonScenarios.setCampaignNameOnRulesPage(campaignName);
@@ -82,6 +85,7 @@ public class CampaignActionsTesting extends BaseTest{
 
         CommonScenarios.navigateToAdminUrl();
         CommonScenarios.openCampaignsPage();
+        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
         CommonScenarios.createNewCampaignFromCampaignsPage(Invite, PostPurchase);
         CommonScenarios.openCampaignRulesPage();
         CommonScenarios.setCampaignNameOnRulesPage(campName);

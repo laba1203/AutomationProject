@@ -13,21 +13,22 @@ public class Listeners implements IInvokedMethodListener, ITestListener {
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult result) {
         if (method.isTestMethod() && ITestResult.FAILURE == result.getStatus()) {
+            Log.testFailed(method.getTestMethod().getMethodName());
             Throwable throwable = result.getThrowable();
             String originalMessage = throwable.getMessage();
             String screenshotUrl = new Screenshot().makeScreenshot();
             String newMessage = "FAILED: " + originalMessage +
+                    "\r\n *** Test artifacts  *** " +
                     "\r\nTest failed on URL: " + DriverConfig.getDriver().getCurrentUrl() +"\r\n" +
-                    "<a href=\"" + DriverConfig.getDriver().getCurrentUrl() + "\">Link to the failed page</a>\r\n" +
-                    "Screenshot: " + screenshotUrl + "\r\n" +
-                    "Screenshot: <a href=\"" + screenshotUrl + "\">" + screenshotUrl + "</a>" + "\r\n";
+//                    "<a href=\"" + DriverConfig.getDriver().getCurrentUrl() + "\">Link to the failed page</a>\r\n" +
+                    "Screenshot: " + screenshotUrl + "\r\n"
+//                    "Screenshot: <a href=\"" + screenshotUrl + "\">" + screenshotUrl + "</a>" + "\r\n"
+            ;
             try {
                 FieldUtils.writeField(throwable, "detailMessage", newMessage, true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            Log.testFailed(method.getTestMethod().getMethodName());
         }
 
         if(method.isTestMethod() && ITestResult.SUCCESS == result.getStatus()){
