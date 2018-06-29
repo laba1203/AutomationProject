@@ -1,5 +1,7 @@
 package util;
 
+import org.testng.Assert;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -70,6 +72,9 @@ public class PropertyLoader {
 //        String env = "PROD";
 //
         System.out.println("LOG - PropertyLoader: Test is running on <" + env + "> environment");
+        if(env == null){
+            Assert.fail("ERROR: 'env' variable is null in PropertyLoader.getMavenEnvName(). Make sure that env.NAME is provided.");
+        }
         return env;
 
     }
