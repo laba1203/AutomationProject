@@ -13,6 +13,7 @@ public class Listeners implements IInvokedMethodListener, ITestListener {
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult result) {
         if (method.isTestMethod() && ITestResult.FAILURE == result.getStatus()) {
+            Log.testFailed(method.getTestMethod().getMethodName());
             Throwable throwable = result.getThrowable();
             String originalMessage = throwable.getMessage();
             String screenshotUrl = new Screenshot().makeScreenshot();
@@ -28,8 +29,6 @@ public class Listeners implements IInvokedMethodListener, ITestListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            Log.testFailed(method.getTestMethod().getMethodName());
         }
 
         if(method.isTestMethod() && ITestResult.SUCCESS == result.getStatus()){
