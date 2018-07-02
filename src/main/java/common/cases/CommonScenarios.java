@@ -572,7 +572,10 @@ public class CommonScenarios {
     new SiteSettingsContactsTab().populate(csEmail);
     Log.logRecord("Site Settings Contacts CS Email populated");
     }
-
+    public static void updateSiteSettingsContactsTab(String csEmail, String csName, String technicalEmail, String rewardEmail, String marketerEmail ){
+        new SiteSettingsContactsTab().updateAll( csEmail,  csName,  technicalEmail,  rewardEmail,  marketerEmail );
+        Log.logRecord("Site Settings Contacts updated");
+    }
 
 
 // SiteSettings-Unsaved Changes Popup
@@ -588,7 +591,9 @@ public class CommonScenarios {
     }
     public static SiteSettingsContactsTab discardUnsavedchanges(){
         new ElmntUnsavedChangesPopup().discardChanges();
+        Log.logRecord("Site Settings Contacts changes discarded");
         return new SiteSettingsContactsTab();
+
     }
     public static String getSiteCSemail(){
         return new SiteSettingsContactsTab().getCSEmail();

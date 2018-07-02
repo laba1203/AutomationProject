@@ -1,3 +1,5 @@
+package execution.site.settings;
+
 import common.cases.CommonScenarios;
 import execution.BaseTest;
 import org.testng.annotations.BeforeClass;
@@ -5,8 +7,9 @@ import org.testng.annotations.Test;
 import talkable.talkableSite.siteSettings.SiteSettingsPage;
 import util.EnvFactory;
 import util.PropertyLoader;
+import util.TestDataGenerator;
 
-public class Sandbox extends BaseTest {
+public class SiteSettingsContactsTab extends BaseTest {
 
     @BeforeClass
     public void login(){
@@ -16,7 +19,17 @@ public class Sandbox extends BaseTest {
         CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(email, password );
     }
-
+    //todo: test contacts
+    @Test
+    public void updateSiteSettingsContactEmail(){
+        String csEmail = "examp"+ TestDataGenerator.getRandomId()+"le@cc.cc";
+        String csName = "NAME";
+        String technicalEmail = "techikal"+csEmail;
+        String rewardEmail = "reward"+csEmail;
+        String marketerEmail = "marketer"+csEmail;
+        CommonScenarios.openSiteSettingsPage().openContactsTab();
+        CommonScenarios.updateSiteSettingsContactsTab(csEmail,  csName,  technicalEmail,  rewardEmail,  marketerEmail );
+    }
     @Test
     public void discardSiteSettingsContactChanges(){
 

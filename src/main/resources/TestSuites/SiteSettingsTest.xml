@@ -3,6 +3,7 @@
         <classes>
 
             <class name="execution.site.settings.SiteSettingsBasicTab"/>
+            <class name="execution.site.settings.SiteSettingsContactsTab"/>
         </classes>
     </test>
 
