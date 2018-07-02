@@ -12,7 +12,7 @@ public class BaseTest {
         public WebDriver driver;
 
         //setup driver and open Talkable site.
-        @BeforeSuite
+        @BeforeClass
         public void commonSetup() {
             Log.logRecord("Class name: " + this.getClass().getName());
             this.driver = DriverConfig.getDriver();
@@ -30,15 +30,14 @@ public class BaseTest {
         }
 
 
-
-        @BeforeClass
-        public void verifyDriver() {
-            if(driver==null){
-                commonSetup();
-                System.out.println("DEBAG: WebDriver assigned for particular class: " + getClass().getName());
-            }
-
-        }
+//        @BeforeClass
+//        public void verifyDriver() {
+//            if(driver==null){
+//                commonSetup();
+//                System.out.println("DEBAG: WebDriver assigned for particular class: " + getClass().getName());
+//            }
+//
+//        }
 
 
          @BeforeMethod(alwaysRun = true)
@@ -58,7 +57,7 @@ public class BaseTest {
 ////            }
 //        }
 
-      @AfterSuite
+      @AfterClass
         public void quit() {
             this.driver.quit();
             DriverConfig.cleanWebDriver();
