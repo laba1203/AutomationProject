@@ -100,4 +100,9 @@ public class AbstractEditorPage extends AbstractTkblSitePageWithoutHeader
             return false;
         }
     }
+
+    public boolean isViewPresent(String viewName){
+       return openViewList()
+               .isViewPresent(viewName);
+    }
 }

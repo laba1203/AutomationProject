@@ -34,7 +34,7 @@ class ContainerViewRecords extends AbstractElementsContainer{
     }
 
     public void selectViewByText(String viewName){
-        Objects.requireNonNull(getViewRecord(viewName)).viewName.click();
+        Objects.requireNonNull(findViewRecord(viewName)).viewName.click();
     }
 
 //    public void selectByIndex(int index){
@@ -42,7 +42,7 @@ class ContainerViewRecords extends AbstractElementsContainer{
 //    }
 
 
-    private ElmntViewRecord getViewRecord(String name){
+    ElmntViewRecord findViewRecord(String name){
         for (ElmntViewRecord record : records) {
             if(record.viewName.getText().equals(name)){
                 return  record;
@@ -50,6 +50,15 @@ class ContainerViewRecords extends AbstractElementsContainer{
         }
         Assert.fail("FAILED: There is no view records with name : <" + name + ">");
         return null;
+    }
+
+    boolean isViewPresent(String name){
+        for (ElmntViewRecord record : records) {
+            if(record.viewName.getText().equals(name)){
+                return  true;
+            }
+        }
+        return false;
     }
 
     PopupNewViewWarning clickCreateNewView(){
@@ -62,21 +71,24 @@ class ContainerViewRecords extends AbstractElementsContainer{
 
         private By viewNameLctr = By.xpath(".//span[contains(@class, 'editor-menu-text')]");
         private By isVisibleLctr = By.xpath(".//input[contains(@type, 'checkbox')]");
+        private By deleteIconLctr = By.xpath(".//a[@data-method='delete']");
 
         private Element rowElement;
         private Element viewName;
 
-
-
         ElmntViewRecord(Element rowElement){
             this.rowElement = rowElement;
             viewName = new Element(viewNameLctr);
-//            viewName = new Element(rowElement.getWebElement().findElement(By.xpath(".//span[contains(@class, 'editor-menu-text')]")));
-//            isVisible = new Element(rowElement.getWebElement().findElement(By.xpath(".//input[contains(@type, 'checkbox')]")));
         }
 
         void clickIsVisible(){
-            new Element(isVisibleLctr).click();
+            new Element(
+                    rowElement.getWebElement().findElement(isVisibleLctr))
+                    .click();
+        }
+
+        void delete(){
+            new Element(rowElement, deleteIconLctr);
         }
 
 
