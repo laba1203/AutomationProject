@@ -3,9 +3,15 @@
         <classes>
 
             <class name="execution.site.settings.SiteSettingsBasicTab"/>
+
+        </classes>
+    </test>
+    <test name="Contacts Tab" preserve-order="true" >
+        <classes>
+
+
             <class name="execution.site.settings.SiteSettingsContactsTab"/>
         </classes>
     </test>
-
 </suite>
 
