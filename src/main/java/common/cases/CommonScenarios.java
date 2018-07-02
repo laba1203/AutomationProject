@@ -68,7 +68,8 @@ public class CommonScenarios {
     }
 
     public static void acceptCookiesUsage(){
-        new WeUseCookieMsg().accept();
+        new WeUseCookieMsg()
+                .accept();
     }
 
     public static void logout(){

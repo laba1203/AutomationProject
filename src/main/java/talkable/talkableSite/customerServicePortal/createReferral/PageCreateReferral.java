@@ -22,7 +22,7 @@ public class PageCreateReferral extends AbstractCustomerServicePortalPage {
         orderSubtotalInput.sendKeys(String.valueOf(orderSubtotal));
         searchCampaignField.sendKeys(campaignName);
         WaitFactory.waitUntilVisibilityOfElementLocated(firstRowCampaignNameLctr, 3);
-        new Element(firstRowCampaignCheckBoxLctr).click();
+        new Element(firstRowCampaignCheckBoxLctr, "First campaign from search result").click();
         createReferralBtn.click();
 
         return new PersonLookupPage();
