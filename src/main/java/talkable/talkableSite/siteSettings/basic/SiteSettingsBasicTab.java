@@ -3,9 +3,7 @@ package talkable.talkableSite.siteSettings.basic;
 import abstractObjects.Element;
 import abstractObjects.SelectElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import talkable.talkableSite.siteSettings.SiteSettingsPage;
-import util.logging.Log;
 
 public class SiteSettingsBasicTab extends SiteSettingsPage{
     //ELEMENTS
@@ -13,8 +11,6 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
     private static final By elmntSiteId = By.xpath("//*[@name = 'cached_slug']");
     private static final By elmntSiteName = By.xpath("//*[@name='name']");
     private static final By elmntSiteURL = By.xpath("//*[@name='url']");
-    private static final By elmntSaveButton = By.xpath("//button[contains(@class,'ac-site-save')]");
-    private static final By elmntCancelButton = By.xpath("//div[contains(@class,'base-form-inline-link')]");
     private static final By elmntSitePlatform = By.xpath("//*[@name = 'platform']");
     private static final By elmntSiteCurrency = By.xpath("//*[@name = 'currency_code']");
     private static final By elmntErrorMsg = By.xpath("//*[@class = 'form-validation']");
@@ -52,12 +48,7 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
         return new Element(elmntErrorMsg).getText();
     }
 
-    public void saveChanges(){
-        clickSaveChanges();
-        waitSaving();
-    }
-    public void clickSaveChanges(){ new Element(elmntSaveButton).click();}
-    public void clickCancel(){ new Element(elmntCancelButton).click();}
+
 
 
     public void populate(String siteName, String siteId, String siteURL ){
@@ -75,7 +66,7 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
         populate(siteName, siteId, siteURL);
         new SelectElement(elmntSitePlatform).searchAndSelect(platform);
         new SelectElement(elmntSiteCurrency).selectByVisibleText(currency);
-        saveChanges();
+        updateChanges();
         return new SiteSettingsBasicTab();
     }
 

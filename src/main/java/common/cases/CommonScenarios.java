@@ -24,7 +24,10 @@ import talkable.homePage.HomePage;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.loginPage.LoginPage;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
+import talkable.talkableSite.siteSettings.ElmntUnsavedChangesPopup;
+import talkable.talkableSite.siteSettings.SiteSettingsPage;
 import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
+import talkable.talkableSite.siteSettings.contacts.SiteSettingsContactsTab;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.DriverConfig;
@@ -565,7 +568,45 @@ public class CommonScenarios {
                 "FAILED: Site settings/basic tab/Validation Failed"+expectedErrorMsg);
         new SiteSettingsBasicTab().clickCancel();
     }
-// end updateSiteSettingsBasicTab
+// updateSiteSettingsContactTab
+    public static void populateSiteSettingsContactsTab(String csEmail){
+    new SiteSettingsContactsTab().populate(csEmail);
+    Log.logRecord("Site Settings Contacts CS Email populated");
+    }
+    public static void updateSiteSettingsContactsTab(String csEmail, String csName, String technicalEmail, String rewardEmail, String marketerEmail ){
+        new SiteSettingsContactsTab().updateAll( csEmail,  csName,  technicalEmail,  rewardEmail,  marketerEmail );
+        Log.logRecord("Site Settings Contacts updated");
+    }
+
+
+// SiteSettings-Unsaved Changes Popup
+    public static void swithUnsavedTab(SiteSettingsPage.SiteSettingsTab tab){
+        new SiteSettingsPage().switchTabWithUnsavedChanges(tab);
+        Log.logRecord("Popup Unsaved Changes Displayed");
+    }
+    public static void saveUnsavedchanges(){
+    new ElmntUnsavedChangesPopup().saveChanges();
+    }
+    public static void canselUnsavedchanges(){
+        new ElmntUnsavedChangesPopup().cancelChanges();
+    }
+    public static SiteSettingsContactsTab discardUnsavedchanges(){
+        new ElmntUnsavedChangesPopup().discardChanges();
+        Log.logRecord("Site Settings Contacts changes discarded");
+        return new SiteSettingsContactsTab();
+
+    }
+    public static String getSiteCSemail(){
+        return new SiteSettingsContactsTab().getCSEmail();
+    }
+    public static void assertDiscardedChangesSiteSettigsContactsTab(String expectedEmail) {
+        Assert.assertEquals(
+                new SiteSettingsContactsTab().getCSEmail(),
+                expectedEmail,
+                "FAILED: Site settings/Contacts tab/Discard changes");
+    }
+// SiteSettings-Unsaved Changes Popup
+
     public static Site getSiteIntegrationValues(){
         SiteSettingsBasicTab basicTab = openSiteSettingsPage();
         String siteID = basicTab.getSiteID();
