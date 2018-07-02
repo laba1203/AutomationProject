@@ -22,6 +22,20 @@ public class EditorScenarios extends CommonScenarios{
         Log.logRecord("Simple Editor is opened");
     }
 
+    public static void openHtmlEditor(){
+        new CampaignNavigationMenu().openEditorPage().openHtmlEditor();
+        Log.logRecord("HTML & CSS Editor page is opened.");
+    }
+
+    public static void createNewView(String viewType){
+        new HtmlEditorPage()
+                .clickCreateNewView()
+                .createNewView(viewType);
+        Log.logRecord("New view created on HTML Editor. View type <" + viewType + ">");
+    }
+
+
+
     public static void updateLocalization(SimpleEditorPage.LocalizationType type, String view, String localizationName, String newValue){
         SimpleEditorPage editorPage = new SimpleEditorPage(type);
         editorPage = editorPage.switchViewByNameOnSimpleEditor(view);
@@ -51,11 +65,17 @@ public class EditorScenarios extends CommonScenarios{
         new HtmlEditorPage().deletePresetOnHtmlEditor(presetName);
     }
 
-    public static boolean isPresetPreset(String presetName){
+    public static boolean isPresetPresent(String presetName){
         boolean result = new AbstractEditorPage().isPresetPreset(presetName);
         new AbstractEditorPage().clickToPresetDropDown();
 
         return result;
+    }
+
+    public static String getSelectedView(){
+        String selectedView = new AbstractEditorPage().getSelectedViewName();
+        Log.logRecord("Selected view <" + selectedView + ">.");
+        return selectedView;
     }
 
 

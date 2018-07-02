@@ -12,15 +12,20 @@ import java.util.Objects;
 
 class ContainerViewRecords extends AbstractElementsContainer{
 
-    private Element containerElement = new Element(By.xpath("//ul[contains(@class, 'ac-editor-widget-navigation')]"));
+    private static final By containerElmntLctr = By.xpath("//ul[contains(@class, 'ac-editor-widget-navigation')]");
+    private static final By recordsLctr = By.xpath("./div/li");
+    private static final By createNewViewLctr = By.xpath("//a[contains(@class, 'create-new-view')]");
+
+    private Element containerElement = new Element(containerElmntLctr);
     private ArrayList<ElmntViewRecord> records = new ArrayList<>();
+
 
     ContainerViewRecords(){
         setRecords();
     }
 
     private void setRecords(){
-        List<WebElement> webElements = containerElement.getWebElement().findElements(By.xpath("./div/li"));
+        List<WebElement> webElements = containerElement.getWebElement().findElements(recordsLctr);
         for (WebElement webElement :
                 webElements) {
             ElmntViewRecord viewRecord = new ElmntViewRecord(new Element(webElement));
@@ -32,9 +37,9 @@ class ContainerViewRecords extends AbstractElementsContainer{
         Objects.requireNonNull(getViewRecord(viewName)).viewName.click();
     }
 
-    public void selectByIndex(int index){
-        records.get(index - 1).viewName.click();
-    }
+//    public void selectByIndex(int index){
+//        records.get(index - 1).viewName.click();
+//    }
 
 
     private ElmntViewRecord getViewRecord(String name){
@@ -47,6 +52,35 @@ class ContainerViewRecords extends AbstractElementsContainer{
         return null;
     }
 
+    PopupNewViewWarning clickCreateNewView(){
+        new Element(createNewViewLctr, "Create New View Btn").click();
+        return new PopupNewViewWarning();
+    }
+
+
+    class ElmntViewRecord extends AbstractElementsContainer{
+
+        private By viewNameLctr = By.xpath(".//span[contains(@class, 'editor-menu-text')]");
+        private By isVisibleLctr = By.xpath(".//input[contains(@type, 'checkbox')]");
+
+        private Element rowElement;
+        private Element viewName;
+
+
+
+        ElmntViewRecord(Element rowElement){
+            this.rowElement = rowElement;
+            viewName = new Element(viewNameLctr);
+//            viewName = new Element(rowElement.getWebElement().findElement(By.xpath(".//span[contains(@class, 'editor-menu-text')]")));
+//            isVisible = new Element(rowElement.getWebElement().findElement(By.xpath(".//input[contains(@type, 'checkbox')]")));
+        }
+
+        void clickIsVisible(){
+            new Element(isVisibleLctr).click();
+        }
+
+
+    }
 
 
 
