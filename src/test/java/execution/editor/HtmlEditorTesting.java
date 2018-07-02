@@ -30,9 +30,6 @@ public class HtmlEditorTesting extends BaseTest {
     private String user = PropertyLoader.loadProperty("talkable.user.editor");
     private String pswrd = EnvFactory.getPassword();
 
-    public void quit(){
-        System.out.println("Don't quit.");
-    }
 
     @Test
     public void creteNewPreset(){
