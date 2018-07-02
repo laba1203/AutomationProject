@@ -5,9 +5,6 @@ import common.cases.functionalities.EditorScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import talkable.common.CampaignPlacement;
-import talkable.common.CampaignType;
-import talkable.talkableSite.campaignsPage.Table;
 import util.EnvFactory;
 import util.PropertyLoader;
 
