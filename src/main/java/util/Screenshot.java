@@ -8,20 +8,36 @@ import util.logging.Log;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class Screenshot {
 
 
     private static final String PATH_TO_SAVE = "src/test/output/screenshots/";
+    private static boolean previousFiles = true;
     private String absoluteFilePath;
     private String fileName;
     
-    public void makeScreenshot(){
+    public String makeScreenshot(){
+        deleteExistingScreenshots();
         File srcFile = ((TakesScreenshot)DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
         copyFile(srcFile);
-        //
-//        Log.getScreenshotMsg("file://" + absoluteFilePath);
-        Log.getScreenshotMsg("<a href=\"file://" + absoluteFilePath + "\">"+fileName+"</a>");
+//        String pathToScreenshot = "file://" + absoluteFilePath;
+//        Log.getScreenshotMsg("<a href=\"" + pathToScreenshot + "\">"+fileName+"</a>");
+
+        return "file://" + absoluteFilePath;
+    }
+    private void deleteExistingScreenshots(){
+        if(previousFiles) {
+            File directory = new File(PATH_TO_SAVE);
+            if (directory.exists()) {
+                for (File file : Objects.requireNonNull(directory.listFiles())) {
+                    file.delete();
+                }
+            }
+            previousFiles = false;
+            Log.logRecord("Screenshots from previous execution have been deleted.");
+        }
     }
 
     private void copyFile(File file){

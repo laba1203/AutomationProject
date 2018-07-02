@@ -2,15 +2,9 @@ package util.logging;
 
 import abstractObjects.AbstractElement;
 import abstractObjects.AbstractTalkableFrame;
-import org.openqa.selenium.support.ui.Select;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 
 public class Log {
-//    for containers:
-    private static final String clickMsg = "LOG: Click to ";
-    private static final String enterValueMsg = "LOG: Enter value: '";
-    private static final String screenshotMsg = "Screenshot is available by the following path: ";
-
 
     public static void testFailed(String msg){
         System.out.println("FAILED: " + msg);
@@ -24,17 +18,14 @@ public class Log {
         System.out.println("DEBAG: " + msg);
     }
 
-    public static void clickMsg(Object obj){
-        clickMsg(obj.getClass().getName());
-    }
 
     public static void clickMsg(String elementName){
-        String msg = clickMsg + elementName;
+        String msg = "LOG: Click to <" + elementName + ">";
         System.out.println(msg);
     }
 
     public static String enterValueMsg(String value, String  objName){
-        String msg = enterValueMsg + value + "' to " + objName;
+        String msg = "LOG: Enter value: '" + value + "' to " + objName;
         System.out.println(msg);
         return msg;
     }
@@ -51,19 +42,6 @@ public class Log {
         return msg;
     }
 
-
-    public static String getScreenshotMsg(String path){
-        String msg = "SCREENSHOT: Screenshot is available by the next link:\r\n" + path +"\r\n";
-        System.out.println(msg);
-        return msg;
-    }
-
-    public static String selectFromDropDownLogMsg(String selectedValue, Select dropdown){
-        String msg = "LOG: Element " + selectedValue + " is selected in dropdown " + dropdown;
-        System.out.println(msg);
-        return msg;
-    }
-
     public static String testPassed(String message){
         String msg = "PASSED: " + message;
         System.out.println(msg);
@@ -72,25 +50,6 @@ public class Log {
 
     public static String webElementIsNotActiveMsg(AbstractElement webElement){
         String msg = "LOG: WebElement is not active by the following locator" + webElement.getLocator();
-        System.out.println(msg);
-        return msg;
-    }
-
-    public static String incorrectCountOFWebElementsMsg(){
-        String msg = "LOG: Incorrect count of WebElements by the locator";
-        System.out.println(msg);
-        return msg;
-
-    }
-
-    public static String popupIsNotOpenedMsg(){
-        String msg = "LOG: Popup is not opened";
-        System.out.println(msg);
-        return msg;
-    }
-
-    public static String fileUploadedMsg(String fileName, AbstractElement target){
-        String msg = "LOG: File: '" +fileName+ "' uploaded to element " + target.getClass().getName();
         System.out.println(msg);
         return msg;
     }
@@ -125,13 +84,6 @@ public class Log {
         return msg;
     }
 
-    public static String userRegisteredMsg(String userName){
-        String msg = "LOG: The following user is registered: " + userName;
-        System.out.println(msg);
-        return msg;
-    }
-
-
     public static String elementClearedMsg(AbstractElement element){
         String msg = "LOG: Text is cleared in element: " + element.getClass().getName();
         System.out.println(msg);
@@ -140,12 +92,6 @@ public class Log {
 
     public static String switchedToWindowMsg(String windowHandle){
         String msg = "LOG: Switched to Window: " + windowHandle;
-        System.out.println(msg);
-        return msg;
-    }
-
-    public static String rowIsNotFound(String campaignName){
-        String msg = "LOG: Row is not found for " + campaignName;
         System.out.println(msg);
         return msg;
     }
