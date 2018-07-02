@@ -14,17 +14,27 @@ import static talkable.common.CampaignType.Invite;
 import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
 
 
-/** Scenario#1. Create new view (Advocate Offer Email).
-     * 1. Login to Talkbale.
-     * 2. Create new Campaign.
+/** Common Precondition:
+ *      1. Accept Cookies Usage.
+ *      2. Login
+ *      3. Open Campaigns page.
+ *      4. Deleted campaigns from the previous execution.
+ *      5. Create New Campaign.
+ *      6. Get link to campaign Details
+ *
+ * Scenario#1. Create new view (Advocate Offer Email).
+     * 1. Open campaign details.
      * 3. Open Html Editor
      * 4. Create new View
      * 5. Verify new preset in the views list
      *
  *
  *    Scenario2. Delete view.
- *    1. */
-
+ *    1. Open campaign details.
+ *    2. Open HTML Editor.
+ *    3. Delete view.
+ *    4. Verify that view is not present in the dropdown list
+ *    */
 
 	/*Link to test scenario: https://docs.google.com/spreadsheets/d/148sQEgtaeSuPrwor1s5HIFFqrgG4QEFR2_Gi2K3-r5k/edit#gid=0
      * */
@@ -46,7 +56,7 @@ public class HtmlEditorTesting extends BaseTest {
     }
 
 
-
+    /*Scenarios1*/
     @Test(groups = {"ui-actions"})
     public void creteNewView(){
         String viewType = "Advocate Offer Email";
@@ -63,6 +73,7 @@ public class HtmlEditorTesting extends BaseTest {
     }
 
     //Blocked by the Defect: https://talkable.atlassian.net/browse/PR-9486
+    /*Scenarios2*/
 //    @Test(groups = {"ui-actions"})
     public void deleteView(){
         String viewName = "Advocate share page";
