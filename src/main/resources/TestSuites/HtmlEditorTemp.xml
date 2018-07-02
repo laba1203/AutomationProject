@@ -1,0 +1,14 @@
+<suite name="HTML Editor" preserve-order="true" group-by-instances="true">
+
+    <listeners>
+        <listener class-name="util.Listeners"/>
+    </listeners>
+
+    <test name="HTML Editor Test" preserve-order="true" >
+        <classes>
+            <class name="execution.editor.HtmlEditorTesting"/>
+        </classes>
+    </test>
+
+</suite>
+

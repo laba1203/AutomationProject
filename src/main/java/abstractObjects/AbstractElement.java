@@ -32,7 +32,11 @@ public abstract class AbstractElement implements DrivenElement{
     }
 
     public void setWebElement(WebElement webElement){
-        this.webElement = webElement;
+        try {
+            this.webElement = webElement;
+        }catch (NoSuchElementException e){
+            Assert.fail(e.getMessage());
+        }
     }
 
     public void moveToElementAndClick(){
