@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import talkable.common.CampaignPlacement;
 import talkable.common.CampaignType;
+import talkable.talkableSite.campaignsPage.Table;
 import util.EnvFactory;
 import util.PropertyLoader;
 
@@ -29,19 +30,27 @@ public class HtmlEditorTesting extends BaseTest {
     private String user = PropertyLoader.loadProperty("talkable.user.editor");
     private String pswrd = EnvFactory.getPassword();
 
+    public void quit(){
+        System.out.println("Don't quit.");
+    }
+
     @Test
     public void creteNewPreset(){
-        String view = "Advocate Offer Email";
+        String viewType = "Advocate Offer Email";
+        String viewNameInHtmlEditor = "Advocate offer email";
 
+        //login and clear test data:
         CommonScenarios.acceptCookiesUsage();
         CommonScenarios.login(user, pswrd);
-        CommonScenarios.openCampaignsPageAndCreateCampaign(Invite, Standalone);
+        CommonScenarios.openCampaignsPage();
+//        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
+        CommonScenarios.createNewCampaignFromCampaignsPage(Invite, Standalone);
         EditorScenarios.openHtmlEditor();
-        EditorScenarios.createNewView(view);
+        EditorScenarios.createNewView(viewType);
         Assert.assertEquals(
                 EditorScenarios.getSelectedView(),
-                view,
-                "FAILED: Newly created view <" + view + "> is not selected."
+                viewNameInHtmlEditor,
+                "FAILED: Newly created view <" + viewNameInHtmlEditor + "> is not selected."
         );
     }
 

@@ -65,7 +65,7 @@ public class EditorScenarios extends CommonScenarios{
         new HtmlEditorPage().deletePresetOnHtmlEditor(presetName);
     }
 
-    public static boolean isPresetPreset(String presetName){
+    public static boolean isPresetPresent(String presetName){
         boolean result = new AbstractEditorPage().isPresetPreset(presetName);
         new AbstractEditorPage().clickToPresetDropDown();
 

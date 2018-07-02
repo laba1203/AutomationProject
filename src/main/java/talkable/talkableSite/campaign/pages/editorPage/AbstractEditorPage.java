@@ -12,9 +12,12 @@ public class AbstractEditorPage extends AbstractTkblSitePageWithoutHeader
     private static final By presetDropDownBtnLctr = By.xpath("//*[@data-editor-toggle = 'presets']");
     private static final By presetWasRemovedMsg = By.xpath("//*[contains(text(), 'Preset was removed')]");
     private static final By htmlEditorBtnLctr = By.xpath("//li[@class='subnav-actions-toggler']//a[contains(text(), 'HTML')]");
+    private static final By previewFrameLctr = By.xpath("//iframe[contains(@class, 'cover-iframe')]");
+
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
     private ElmntSelectedViewField elmntSelectedViewField = new ElmntSelectedViewField();
+    private Element previewIFrame = new Element(previewFrameLctr);
 
     void switchViewByName(String name){
         if(isViewSelected(name)) {

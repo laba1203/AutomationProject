@@ -58,6 +58,30 @@ class ContainerViewRecords extends AbstractElementsContainer{
     }
 
 
+    class ElmntViewRecord extends AbstractElementsContainer{
+
+        private By viewNameLctr = By.xpath(".//span[contains(@class, 'editor-menu-text')]");
+        private By isVisibleLctr = By.xpath(".//input[contains(@type, 'checkbox')]");
+
+        private Element rowElement;
+        private Element viewName;
+
+
+
+        ElmntViewRecord(Element rowElement){
+            this.rowElement = rowElement;
+            viewName = new Element(viewNameLctr);
+//            viewName = new Element(rowElement.getWebElement().findElement(By.xpath(".//span[contains(@class, 'editor-menu-text')]")));
+//            isVisible = new Element(rowElement.getWebElement().findElement(By.xpath(".//input[contains(@type, 'checkbox')]")));
+        }
+
+        void clickIsVisible(){
+            new Element(isVisibleLctr).click();
+        }
+
+
+    }
+
 
 
 }

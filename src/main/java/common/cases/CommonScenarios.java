@@ -301,10 +301,10 @@ public class CommonScenarios {
         return detailsPage.campaignNavigationMenu.getCampaignName();
     }
 
-    public static void openCampaignsPageAndCreateCampaign(CampaignType campaignType, CampaignPlacement placement){
-        openCampaignsPage();
-        createNewCampaignFromCampaignsPage(campaignType, placement);
-    }
+//    public static void openCampaignsPageAndCreateCampaign(CampaignType campaignType, CampaignPlacement placement){
+//        openCampaignsPage();
+//        createNewCampaignFromCampaignsPage(campaignType, placement);
+//    }
 
 //    /***
 //     * Scenario to initiate campaign creation from Campaigns Page..

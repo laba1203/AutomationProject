@@ -59,7 +59,7 @@ public class SimpleEditorTesting_v2 extends BaseTest {
         EditorScenarios.createNewPreset(presetName, " ");
         EditorScenarios.deletePresetOnHtmlEditor(presetName);
         Assert.assertEquals(
-                EditorScenarios.isPresetPreset(presetName),
+                EditorScenarios.isPresetPresent(presetName),
                 false,
                 "FAILED: View Preset is not deleted on Editor (Preset name = <" + presetName + ">)."
         );
