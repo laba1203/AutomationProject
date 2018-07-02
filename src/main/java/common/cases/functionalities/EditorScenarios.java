@@ -34,6 +34,15 @@ public class EditorScenarios extends CommonScenarios{
         Log.logRecord("New view created on HTML Editor. View type <" + viewType + ">");
     }
 
+    public static void deleteView(String viewName){
+        new HtmlEditorPage().deleteView(viewName);
+        Log.logRecord("View <" + viewName + "> has been deleted.");
+    }
+
+    public static boolean isViewPresent(String viewName){
+        return new AbstractEditorPage().isViewPresent(viewName);
+    }
+
 
 
     public static void updateLocalization(SimpleEditorPage.LocalizationType type, String view, String localizationName, String newValue){
