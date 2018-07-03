@@ -5,7 +5,6 @@ import common.cases.functionalities.EditorScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaignsPage.Table;
