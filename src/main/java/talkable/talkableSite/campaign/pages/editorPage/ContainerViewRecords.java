@@ -5,6 +5,7 @@ import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import util.logging.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,34 +18,31 @@ class ContainerViewRecords extends AbstractElementsContainer{
     private static final By createNewViewLctr = By.xpath("//a[contains(@class, 'create-new-view')]");
 
     private Element containerElement = new Element(containerElmntLctr);
-    private ArrayList<ElmntViewRecord> records = new ArrayList<>();
+    private ArrayList<ElmntViewRecord> records;
 
 
     ContainerViewRecords(){
-        setRecords();
+        records = getRecords();
     }
 
-    private void setRecords(){
+    private ArrayList<ElmntViewRecord> getRecords(){
         List<WebElement> webElements = containerElement.getWebElement().findElements(recordsLctr);
+        ArrayList<ElmntViewRecord> arr = new ArrayList<>();
         for (WebElement webElement :
                 webElements) {
             ElmntViewRecord viewRecord = new ElmntViewRecord(new Element(webElement));
-            records.add(viewRecord);
+            arr.add(viewRecord);
         }
+        return arr;
     }
 
     public void selectViewByText(String viewName){
         Objects.requireNonNull(findViewRecord(viewName)).viewName.click();
     }
 
-//    public void selectByIndex(int index){
-//        records.get(index - 1).viewName.click();
-//    }
-
-
     ElmntViewRecord findViewRecord(String name){
-        for (ElmntViewRecord record : records) {
-            if(record.viewName.getText().equals(name)){
+        for (ElmntViewRecord record : getRecords()) {
+            if(record.getViewName().equals(name)){
                 return  record;
             }
         }
@@ -54,7 +52,7 @@ class ContainerViewRecords extends AbstractElementsContainer{
 
     boolean isViewPresent(String name){
         for (ElmntViewRecord record : records) {
-            if(record.viewName.getText().equals(name)){
+            if(record.getViewName().equals(name)){
                 return  true;
             }
         }
@@ -76,15 +74,19 @@ class ContainerViewRecords extends AbstractElementsContainer{
         private Element rowElement;
         private Element viewName;
 
-        ElmntViewRecord(Element rowElement){
+        private ElmntViewRecord(Element rowElement){
             this.rowElement = rowElement;
-            viewName = new Element(viewNameLctr);
+            viewName = new Element(rowElement, viewNameLctr);
         }
 
         void clickIsVisible(){
             new Element(
                     rowElement.getWebElement().findElement(isVisibleLctr))
                     .click();
+        }
+
+        private String getViewName(){
+            return new Element(rowElement, viewNameLctr).getText();
         }
 
         void delete(){
