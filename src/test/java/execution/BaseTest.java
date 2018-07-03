@@ -26,7 +26,7 @@ public class BaseTest {
                 this.driver.navigate().to(EnvFactory.getEnvUrl());
                 Log.logRecord("Successfully opened URL from the second attempt");
             }
-            System.out.println("*** DEBAG: Before suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
+            System.out.println("*** DEBAG: Before class executed in Base Test of class: " + getClass().getName() + " ***\r\n");
         }
 
 
@@ -61,16 +61,7 @@ public class BaseTest {
         public void quit() {
             this.driver.quit();
             DriverConfig.cleanWebDriver();
-            System.out.println("*** DEBAG: After Suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
-        }
-
-
-        public String printAssertMsg(String msg){
-            String screnshotPath = new Screenshot().makeScreenshot();
-            return "FAILED: " + msg + ".\r\n" +
-                    "Test failed on URL: " + DriverConfig.getDriver().getCurrentUrl() +"\r\n" +
-                    "Screenshot: " + screnshotPath
-                    ;
+            System.out.println("*** DEBAG: After Class executed in Base Test of class: " + getClass().getName() + " ***\r\n");
         }
     }
 
