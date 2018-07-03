@@ -20,7 +20,7 @@ import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.L
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1jjxHr_cLNaSq3HVBgU_y6k_llNDpNyTZUoWPAJ9Aw20/edit
  * */
-@Listeners(util.Listeners.class)
+
 public class SimpleEditorTesting_v2 extends BaseTest {
 
     private static final String siteName = PropertyLoader.loadProperty("sites.name.editorTesting");
