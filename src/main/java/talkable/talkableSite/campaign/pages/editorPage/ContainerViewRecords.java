@@ -90,7 +90,7 @@ class ContainerViewRecords extends AbstractElementsContainer{
         }
 
         void delete(){
-            new Element(rowElement, deleteIconLctr);
+            new Element(rowElement, deleteIconLctr).click();
         }
 
 

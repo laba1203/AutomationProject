@@ -5,10 +5,12 @@ import common.cases.functionalities.EditorScenarios;
 import execution.BaseTest;
 import org.openqa.selenium.UnhandledAlertException;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 import talkable.common.elements.alert.Alert;
 import talkable.talkableSite.campaign.pages.editorPage.CreateNewViewPage;
+import talkable.talkableSite.campaign.pages.editorPage.HtmlEditorPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.logging.Log;
@@ -60,6 +62,11 @@ public class HtmlEditorTesting extends BaseTest {
     }
 
 
+    @Override
+    public void quit(){
+
+    }
+
     //Pending defect --> https://talkable.atlassian.net/browse/PR-9495
     /*Scenarios1*/
     @Test(groups = {"ui-actions"})
@@ -69,6 +76,7 @@ public class HtmlEditorTesting extends BaseTest {
 
         driver.navigate().to(campaignDetailsPageUrl);
         EditorScenarios.openHtmlEditor();
+        //todo: try{} should be removed when the defect PR-9495 is fixed.
         try {
             EditorScenarios.createNewView(viewType);
         }catch (UnhandledAlertException e){
@@ -84,7 +92,7 @@ public class HtmlEditorTesting extends BaseTest {
     }
 
     //todo: remove expectedException when the defect fixed.
-    // Blocked by the Defect: https://talkable.atlassian.net/browse/PR-9486
+    // Blocked by the Defects: https://talkable.atlassian.net/browse/PR-9486, https://talkable.atlassian.net/browse/PR-9495
     /*Scenarios2*/
     @Test(groups = {"ui-actions"}, expectedExceptions = AssertionError.class)
     public void deleteView(){
@@ -92,7 +100,14 @@ public class HtmlEditorTesting extends BaseTest {
 
         driver.navigate().to(campaignDetailsPageUrl);
         EditorScenarios.openHtmlEditor();
-        EditorScenarios.deleteView(viewName);
+        //todo: try{} should be removed when the defect PR-9495 is fixed.
+        try {
+            EditorScenarios.deleteView(viewName);
+        }catch (UnhandledAlertException e){
+            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.createNewView().");
+            new Alert().confirm();
+            new HtmlEditorPage().waitViewDestroyedMsg();
+        }
 
         Assert.assertEquals(
                 EditorScenarios.isViewPresent(viewName),

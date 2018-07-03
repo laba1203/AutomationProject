@@ -33,8 +33,12 @@ public class HtmlEditorPage extends AbstractEditorPage{
                 .findViewRecord(viewName)
                 .delete();
         new Alert().confirm();
-        new Element(viewDestroyedMcsgLctr);
+        waitViewDestroyedMsg();
         return new HtmlEditorPage();
+    }
+
+    public void waitViewDestroyedMsg(){
+        new Element(viewDestroyedMcsgLctr);
     }
 
 

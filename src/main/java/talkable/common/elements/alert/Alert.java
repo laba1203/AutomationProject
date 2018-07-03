@@ -17,8 +17,9 @@ public class Alert extends AbstractElementsContainer {
     }
 
     public void confirm(){
+        String alertMsg = alert.getText();
         alert.accept();
-        Log.alertAccepted();
+        Log.logRecord("Click OK in Alert with message <" + alertMsg + ">.");
     }
 
 }
