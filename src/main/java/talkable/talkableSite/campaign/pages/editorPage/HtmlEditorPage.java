@@ -8,9 +8,14 @@ public class HtmlEditorPage extends AbstractEditorPage{
 
     private static final By extraBtnLctr = By.xpath("//*[@data-editor-toggle = 'extra-fields']");
     private static final By viewDestroyedMcsgLctr = By.xpath("//div[contains(text(), 'destroyed')]");
+    private static final By cssPanelTitleLctr = By.xpath("//div[@class='editor-panel-tip-title']");
 
     private Element extraBtn = new Element(extraBtnLctr, "Extra button");
 
+    public HtmlEditorPage(){
+        //elements initiation to make sure that Html Editor is opened.
+        new Element(cssPanelTitleLctr);
+    }
 
     public HtmlEditorPage switchViewByNameOnHtmlEditor(String name){
         switchViewByName(name);
