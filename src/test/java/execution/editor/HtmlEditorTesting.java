@@ -62,10 +62,6 @@ public class HtmlEditorTesting extends BaseTest {
     }
 
 
-    @Override
-    public void quit(){
-
-    }
 
     //Pending defect --> https://talkable.atlassian.net/browse/PR-9495
     /*Scenarios1*/
