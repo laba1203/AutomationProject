@@ -85,7 +85,7 @@ public class CampaignActionsTesting extends BaseTest{
 
         CommonScenarios.navigateToAdminUrl();
         CommonScenarios.openCampaignsPage();
-        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
+//        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
         CommonScenarios.createNewCampaignFromCampaignsPage(Invite, PostPurchase);
         CommonScenarios.openCampaignRulesPage();
         CommonScenarios.setCampaignNameOnRulesPage(campName);
