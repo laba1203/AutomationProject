@@ -14,7 +14,7 @@ public class SiteSettingsPage extends AbstractTalkableSitePage{
     //Elements
 
     private static final By elmntBasicButton = By.xpath("//a[contains(@class, 'ac-site-navigation-basic')]");
-    private static final By elmntIntegrationSettingsButton = By.xpath("//a[contains(@class, 'ac-site-navigation-integration')]");
+    private static final By elmntIntegrationSettingsButton = By.xpath("//a[contains(@class, 'ac-site-navigation-integrationPage')]");
     private static final By elmntContactsButton = By.xpath("//a[contains(@class, 'ac-site-navigation-contacts')]");
     private static final By elmntSaveButton = By.xpath("//button[contains(@class,'ac-site-save')]");
     private static final By elmntCancelButton = By.xpath("//div[contains(@class,'base-form-inline-link')]");
@@ -60,7 +60,7 @@ public class SiteSettingsPage extends AbstractTalkableSitePage{
         return new SiteSettingIntegrationTab();
     }
 
-    protected void updateChanges(){
+    public void updateChanges(){
         clickSaveChanges();
         waitSaving();
     }

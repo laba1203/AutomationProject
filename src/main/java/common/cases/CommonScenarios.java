@@ -112,7 +112,7 @@ public class CommonScenarios {
         try {
             return new SiteDashboardPage().verifySiteName(siteName);
         }catch (AssertionError e){
-            Log.debagRecord("Site Dashboard is not opened when site is switched. Verifying  integration instruction page...");
+            Log.debagRecord("Site Dashboard is not opened when site is switched. Verifying  integrationPage instruction page...");
             new IntegrationInstructionPage().dontShowItAgain();
             SiteDashboardPage dashboardPage = new SiteDashboardPage().verifySiteName(siteName);
             Log.debagRecord("Integration instruction page is closed.");
@@ -426,6 +426,10 @@ public class CommonScenarios {
         return new CampaignNavigationMenu().getCampaignPlacement();
     }
 
+    public static void openSiteIntegrationPage(){
+        new Header().openMenu().clickIntegration();
+    }
+
 
     /**
      * Scenarios to create Test Offer for campaign with non Post Purchase placement (FW, SA, GR).
@@ -560,6 +564,14 @@ public class CommonScenarios {
         Log.logRecord("Site Settings Basic Tab updated");
 
     }
+
+    public static void setUrlAndPlatformOnSiteSettings(String url, String platform){
+        new SiteSettingsBasicTab()
+                .populateUrl(url)
+                .selectPlatform(platform)
+                .updateChanges();
+    }
+
     public static void populateSiteBasicNegativeTest(String siteName, String siteID, String siteURL, String platform){
         new SiteSettingsBasicTab().populate(siteName, siteID, siteURL);
         new SiteSettingsBasicTab().selectPlatform(platform);
