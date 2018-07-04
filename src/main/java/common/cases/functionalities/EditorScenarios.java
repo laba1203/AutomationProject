@@ -2,6 +2,7 @@ package common.cases.functionalities;
 
 import common.cases.CommonScenarios;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
 import talkable.talkableSite.campaign.pages.editorPage.AbstractEditorPage;
@@ -52,6 +53,10 @@ public class EditorScenarios extends CommonScenarios{
         Log.logRecord("Localization <" + type + "." + localizationName + "> changed to <" + newValue + "> on view <" + view + ">");
     }
 
+    public static void switchViewByName(String viewName){
+        new AbstractEditorPage().switchView(viewName);
+    }
+
     public static String getLocalizationValue(SimpleEditorPage.LocalizationType type, String localizationName){
         return new SimpleEditorPage(type).getLocalizationValue(type, localizationName);
     }
@@ -85,6 +90,18 @@ public class EditorScenarios extends CommonScenarios{
         String selectedView = new AbstractEditorPage().getSelectedViewName();
         Log.logRecord("Selected view <" + selectedView + ">.");
         return selectedView;
+    }
+
+    public static void updateExtraEmailSubject(String newSubject){
+        new HtmlEditorPage().updateExtraEmailSubject(newSubject);
+    }
+
+    public static String getElementTextFromPreview(By byInIFrame){
+        return new AbstractEditorPage().getElementTextFromPreviewFrame(byInIFrame);
+    }
+
+    public static String getEmailSubjectFromPreview(){
+        return new AbstractEditorPage().getEmailSubjectFromPreview();
     }
 
 
