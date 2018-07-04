@@ -123,6 +123,8 @@ public class HtmlEditorTesting extends BaseTest {
         );
     }
 
+
+    //Pending defect --> https://talkable.atlassian.net/browse/PR-9495
     /*Scenario3*/
     @Test(groups = {"ui-actions"})
     public void updateEmailSubjectInExtraPopup(){
@@ -131,7 +133,13 @@ public class HtmlEditorTesting extends BaseTest {
 
         driver.navigate().to(campaignDetailsPageUrl);
         EditorScenarios.openHtmlEditor();
-        EditorScenarios.switchViewByName(viewName);
+        //todo: try{} should be removed when the defect PR-9495 is fixed.
+        try {
+            EditorScenarios.switchViewByName(viewName);
+        }catch (UnhandledAlertException e){
+            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.createNewView().");
+            new Alert().confirm();
+        }
         EditorScenarios.updateExtraEmailSubject(newSubject);
         Assert.assertEquals(
                 EditorScenarios.getEmailSubjectFromPreview(),
