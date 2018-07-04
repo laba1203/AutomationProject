@@ -15,6 +15,7 @@ import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
+import talkable.talkableSite.customerServicePortal.OldCspPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchases.createNewPurchasePage.CreateNewPurchasePage;
@@ -147,11 +148,25 @@ public class CommonScenarios {
         return new SiteDashboardPage();
     }
 
+    //method modified as temp workaround for old CSP:
     public static PersonLookupPage openCustomerServicePortal(){
-        PersonLookupPage page = new Header().openCustomerServicePortal();
-        Log.logRecord("Customer Service Portal is opened. (Person Lookup page is displayed)");
+//        PersonLookupPage page = new Header().openCustomerServicePortal();
+        new Header().openOldCustomerServicePortal();
+        String oldCspUrl = DriverConfig.getDriver().getCurrentUrl();
+        String newCspUrl = oldCspUrl + "_portal";
+        DriverConfig.getDriver().navigate().to(newCspUrl);
+        PersonLookupPage page = new PersonLookupPage();
+        Log.logRecord("New Customer Service Portal is opened. (Person Lookup page is displayed)");
         return page;
     }
+
+    //correct method with method for
+
+//    public static PersonLookupPage openCustomerServicePortal(){
+//        PersonLookupPage page = new Header().openCustomerServicePortal();
+//        Log.logRecord("Customer Service Portal is opened. (Person Lookup page is displayed)");
+//        return page;
+//    }
 
 
 
