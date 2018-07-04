@@ -3,6 +3,7 @@ package execution.editor;
 import common.cases.CommonScenarios;
 import common.cases.functionalities.EditorScenarios;
 import execution.BaseTest;
+import org.openqa.selenium.By;
 import org.openqa.selenium.UnhandledAlertException;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -41,6 +42,16 @@ import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
  *    3. Delete view.
  *    4. Verify that view is not present in the dropdown list
  *    */
+
+/*    Scenario3. Update email subject in Extra
+        1. Open campaign details
+        2.Open HTML Editor.
+        3. Switch view to 'Friend share email'
+        4. Open Extra popup.
+        5. Update Email Subject
+        6. Verify Email Subject in the preview frame.
+        */
+
 
 	/*Link to test scenario: https://docs.google.com/spreadsheets/d/148sQEgtaeSuPrwor1s5HIFFqrgG4QEFR2_Gi2K3-r5k/edit#gid=0
      * */
@@ -110,6 +121,24 @@ public class HtmlEditorTesting extends BaseTest {
                 false,
                 "FAILED: View was not deleted."
         );
+    }
+
+    /*Scenario3*/
+    @Test(groups = {"ui-actions"})
+    public void updateEmailSubjectInExtraPopup(){
+        String viewName = "Friend share email";
+        String newSubject = "Automation test email subject";
+
+        driver.navigate().to(campaignDetailsPageUrl);
+        EditorScenarios.openHtmlEditor();
+        EditorScenarios.switchViewByName(viewName);
+        EditorScenarios.updateExtraEmailSubject(newSubject);
+        Assert.assertEquals(
+                EditorScenarios.getEmailSubjectFromPreview(),
+                newSubject,
+                "FAILED: Email subject is not updated in the HTML Editor Preview frame."
+        );
+
     }
 
 
