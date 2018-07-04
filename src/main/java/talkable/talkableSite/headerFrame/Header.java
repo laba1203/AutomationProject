@@ -4,6 +4,7 @@ import abstractObjects.AbstractElementsContainer;
 import talkable.homePage.HomePage;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
+import talkable.talkableSite.customerServicePortal.OldCspPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.headerFrame.elements.*;
 import talkable.talkableSite.headerFrame.elements.menuFrame.MenuFrame;
@@ -76,6 +77,12 @@ public class Header extends AbstractElementsContainer{
     public PersonLookupPage openCustomerServicePortal(){
         customerServicesButton.click();
         return new PersonLookupPage();
+    }
+
+    // method to support old CSP portal(should be removed when new one deployed)
+    public OldCspPage openOldCustomerServicePortal(){
+        customerServicesButton.click();
+        return new OldCspPage();
     }
 
     public HomePage logout(){
