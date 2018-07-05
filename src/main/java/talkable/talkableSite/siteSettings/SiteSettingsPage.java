@@ -2,6 +2,7 @@ package talkable.talkableSite.siteSettings;
 
 import abstractObjects.Element;
 import org.openqa.selenium.By;
+import org.testng.annotations.Listeners;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 import talkable.talkableSite.siteSettings.contacts.SiteSettingsContactsTab;
@@ -60,7 +61,7 @@ public class SiteSettingsPage extends AbstractTalkableSitePage{
         return new SiteSettingIntegrationTab();
     }
 
-    protected void updateChanges(){
+    public void updateChanges(){
         clickSaveChanges();
         waitSaving();
     }

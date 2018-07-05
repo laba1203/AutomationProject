@@ -45,7 +45,7 @@ public class PendingReferralsPage extends AbstractCustomerServicePortalPage{
     }
 
     public String getPendingReferralsCount(){
-        return pendingReferralsCount.getText().substring(20);
+        return pendingReferralsCount.getText().substring(13);
     }
 
     public PersonInfoSection clickSeeDetailsForActionedReferral(){

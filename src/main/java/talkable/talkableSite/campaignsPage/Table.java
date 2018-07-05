@@ -45,7 +45,7 @@ public class Table extends AbstractElementsContainer {
 
 
     private WebElement setTableWebElement(Status status){
-        long waitSecondsForElmntToBePresent = 3;
+        long waitSecondsForElmntToBePresent = 2;
         long sleepMillis = 500;
 
         try {
