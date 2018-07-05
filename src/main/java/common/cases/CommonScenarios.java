@@ -151,12 +151,12 @@ public class CommonScenarios {
 
     //method modified as temp workaround for old CSP:
     public static PersonLookupPage openCustomerServicePortal(){
-//        PersonLookupPage page = new Header().openCustomerServicePortal();
-        new Header().openOldCustomerServicePortal();
-        String oldCspUrl = DriverConfig.getDriver().getCurrentUrl();
-        String newCspUrl = oldCspUrl + "_portal";
-        DriverConfig.getDriver().navigate().to(newCspUrl);
-        PersonLookupPage page = new PersonLookupPage();
+        PersonLookupPage page = new Header().openCustomerServicePortal();
+//        new Header().openOldCustomerServicePortal();
+//        String oldCspUrl = DriverConfig.getDriver().getCurrentUrl();
+//        String newCspUrl = oldCspUrl + "_portal";
+//        DriverConfig.getDriver().navigate().to(newCspUrl);
+//        PersonLookupPage page = new PersonLookupPage();
         Log.logRecord("New Customer Service Portal is opened. (Person Lookup page is displayed)");
         return page;
     }
