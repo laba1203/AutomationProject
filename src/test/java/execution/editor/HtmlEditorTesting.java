@@ -96,10 +96,10 @@ public class HtmlEditorTesting extends BaseTest {
         );
     }
 
-    //todo: remove expectedException when the defect fixed.
-    // Blocked by the Defects: https://talkable.atlassian.net/browse/PR-9486, https://talkable.atlassian.net/browse/PR-9495
+
+    // Blocked by the Defect: https://talkable.atlassian.net/browse/PR-9495
     /*Scenarios2*/
-    @Test(groups = {"ui-actions"}, expectedExceptions = AssertionError.class)
+    @Test(groups = {"ui-actions"})
     public void deleteView(){
         String viewName = "Advocate share page";
 
