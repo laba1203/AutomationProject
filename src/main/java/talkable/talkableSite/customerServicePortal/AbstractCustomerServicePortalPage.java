@@ -12,7 +12,7 @@ import util.logging.Log;
 public class AbstractCustomerServicePortalPage extends AbstractTalkableSitePage{
     private static final By createReferralTabLctr = By.xpath("//a[text()='Create referral']");
     private static final By personLookupTabLctr = By.xpath("//a[text()='Person lookup']");
-    private static final By pendingReferralsLctr = By.xpath("//a[text()='Referrals']");
+    private static final By pendingReferralsLctr = By.xpath("//ul[@class='CSP-sidebar']/li[2]/a");
     private static final By blacklistingLctr = By.xpath("//a[text()='Blacklisting']");
 
     private Element createReferralTab = new Element(createReferralTabLctr, "'Create Referral' tab" );
