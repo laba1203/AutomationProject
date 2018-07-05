@@ -15,7 +15,6 @@ import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
-import talkable.talkableSite.customerServicePortal.OldCspPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.integrationPage.IntegrationPage;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
@@ -45,6 +44,7 @@ public class CommonScenarios {
 
     private static final String liveStatusActive = "Status: Live";
     private static final String liveStatusTest = "Status: Test";
+    private static final String liveStatusDisabled = "Status: Disabled";
 
     /***
      *Scenario to login into Talkable
@@ -347,8 +347,31 @@ public class CommonScenarios {
         //Launch Campaign Page is opened
         CampaignDetailsPage campaignDetailsPage = launchCampaignPage.launchCampaign();
         //check Campaign Status
-        Assert.assertEquals(campaignDetailsPage.campaignNavigationMenu.getCampaignStatus(), liveStatusActive);
-        Log.logRecord("Campaign is launched. Campaign Name = " + campaignDetailsPage.campaignNavigationMenu.getCampaignName());
+        return assertCampaignStatusFromNavigationMenu(LIVE);
+    }
+
+    public static void launchIntegratedCampaign(){
+        new CampaignNavigationMenu()
+                .clickLaunchButton()
+                .launchIntegratedCampaign();
+        assertCampaignStatusFromNavigationMenu(LIVE);
+    }
+
+    public static CampaignDetailsPage assertCampaignStatusFromNavigationMenu(Table.Status status){
+        String expectedStatus = "";
+        switch (status){
+            case LIVE:
+                expectedStatus = liveStatusActive;
+                break;
+            case DISABLED:
+                expectedStatus = liveStatusDisabled;
+                break;
+            case TEST:
+                expectedStatus = liveStatusTest;
+                break;
+        }
+        Assert.assertEquals(new CampaignNavigationMenu().getCampaignStatus(), expectedStatus);
+        Log.logRecord( "Campaign (name = " + new CampaignNavigationMenu().getCampaignName() + ") has status <" + expectedStatus + ">.");
         return new CampaignDetailsPage();
     }
 
