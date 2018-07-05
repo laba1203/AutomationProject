@@ -26,10 +26,8 @@ public class EnvFactory {
 
 
 
-    private static String getUrl(){
-
-//        String env = getMavenEnvName();
-
+    private static String getUrl()
+    {
         switch (getEnvType()){
             case PROD:
                 return PROD_LINK;
@@ -41,14 +39,6 @@ public class EnvFactory {
                     return null;
         }
 
-//        if(env.equals("PROD")){
-//            envType = PROD;
-//            return PROD_LINK;
-//        }
-//        else{
-//            envType = VOID;
-//            return VOID_LINK;
-//        }
     }
 
     public static EnvType getEnvType(){
