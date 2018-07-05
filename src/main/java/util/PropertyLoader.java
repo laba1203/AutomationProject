@@ -48,7 +48,6 @@ public class PropertyLoader {
                 filePath = BASTION_PROP_FILE;
                 break;
         }
-        System.out.println("DEBAG: File path = <" + filePath + ">." );
         Properties props = getPropertiesFile(filePath);
         Log.debagRecord("Property loaded from <"+ filePath+ "> file. Property name: <" + name + ">");
 
