@@ -40,8 +40,11 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
     }
 
     public String getErrorMsg(){
-
         return new Element(elmntErrorMsg).getText();
+    }
+
+    public String getPlatform(){
+        return new SelectElement(elmntSitePlatform).getSelectedItemText();
     }
 
 

@@ -2,6 +2,7 @@ package talkable.talkableSite.siteSettings;
 
 import abstractObjects.Element;
 import org.openqa.selenium.By;
+import org.testng.annotations.Listeners;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 import talkable.talkableSite.siteSettings.contacts.SiteSettingsContactsTab;
@@ -14,7 +15,7 @@ public class SiteSettingsPage extends AbstractTalkableSitePage{
     //Elements
 
     private static final By elmntBasicButton = By.xpath("//a[contains(@class, 'ac-site-navigation-basic')]");
-    private static final By elmntIntegrationSettingsButton = By.xpath("//a[contains(@class, 'ac-site-navigation-integrationPage')]");
+    private static final By elmntIntegrationSettingsButton = By.xpath("//a[contains(@class, 'ac-site-navigation-integration')]");
     private static final By elmntContactsButton = By.xpath("//a[contains(@class, 'ac-site-navigation-contacts')]");
     private static final By elmntSaveButton = By.xpath("//button[contains(@class,'ac-site-save')]");
     private static final By elmntCancelButton = By.xpath("//div[contains(@class,'base-form-inline-link')]");

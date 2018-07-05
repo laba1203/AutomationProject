@@ -14,7 +14,7 @@ import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 
 public class MenuFrame extends AbstractElementsContainer {
 
-    private static final By integrationBtnLctr = By.xpath("//*[text()='Integration']");
+    private static final By integrationBtnLctr = By.xpath("//ul[contains(@class, 'base-dropdown')]//*[contains(text(),'Integration')]");
     private static final By menuIsOpenedElement = By.cssSelector(".dropdown.open");
     private ElmntLogoutButton logoutButton;
 

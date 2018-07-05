@@ -17,6 +17,7 @@ import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.customerServicePortal.OldCspPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
+import talkable.talkableSite.integrationPage.IntegrationPage;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchases.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
@@ -319,10 +320,10 @@ public class CommonScenarios {
         return detailsPage.campaignNavigationMenu.getCampaignName();
     }
 
-//    public static void openCampaignsPageAndCreateCampaign(CampaignType campaignType, CampaignPlacement placement){
-//        openCampaignsPage();
-//        createNewCampaignFromCampaignsPage(campaignType, placement);
-//    }
+    public static void openCampaignsPageAndCreateCampaign(CampaignType campaignType, CampaignPlacement placement){
+        openCampaignsPage();
+        createNewCampaignFromCampaignsPage(campaignType, placement);
+    }
 
 //    /***
 //     * Scenario to initiate campaign creation from Campaigns Page..
@@ -566,10 +567,16 @@ public class CommonScenarios {
     }
 
     public static void setUrlAndPlatformOnSiteSettings(String url, String platform){
-        new SiteSettingsBasicTab()
-                .populateUrl(url)
-                .selectPlatform(platform)
-                .updateChanges();
+        String currentUrl = new SiteSettingsBasicTab().getSiteURL();
+        String currentPlatform = new SiteSettingsBasicTab().getPlatform();
+        if(!currentUrl.equals(url) || !currentPlatform.equals(platform)) {
+            new SiteSettingsBasicTab()
+                    .populateUrl(url)
+                    .selectPlatform(platform)
+                    .updateChanges();
+        }else {
+            Log.logRecord("Site platform and url have been already populated by values: platform = <" + platform + ">, url = <" + url + ">");
+        }
     }
 
     public static void populateSiteBasicNegativeTest(String siteName, String siteID, String siteURL, String platform){
@@ -646,6 +653,19 @@ public class CommonScenarios {
                 .openIntegrationSettingsTab()
                 .getApiKey();
         return new Site().setData(siteID, apiKey);
+    }
+
+
+    public static IntegrationPage installShopifyApp(String shopifyUser, String passwrd){
+        IntegrationPage page = new IntegrationPage()
+                .installShopifyApp()
+                .enterCredentialToIntegrateTalkable(shopifyUser, passwrd);
+        Assert.assertEquals(
+                page.getWelcomeMsg(),
+                "Integration Is Completed",
+                "FAILED: Welcome Integration message is not displayed on Integration page when shopify app was installed.");
+        Log.logRecord("Shopify App is installed.");
+        return page;
     }
 
 
