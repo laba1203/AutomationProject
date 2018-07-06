@@ -63,9 +63,9 @@ public class HtmlEditorTesting extends BaseTest {
     @BeforeGroups("ui-actions")
     public void precondition(){
         CommonScenarios.acceptCookiesUsage();
-        CommonScenarios.login(user, pswrd);
+        CommonScenarios.loginAndCreateNewSite(user, pswrd);
         CommonScenarios.openCampaignsPage();
-        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
+//        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
         CommonScenarios.createNewCampaignFromCampaignsPage(Invite, Standalone);
         campaignDetailsPageUrl = driver.getCurrentUrl();
     }

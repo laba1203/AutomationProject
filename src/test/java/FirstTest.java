@@ -25,23 +25,27 @@ public class FirstTest{
 
     @BeforeSuite
     public void setup(){
-        String url = "https://admin.talkable.com/sites/automatedtestsshopify/integration/shopify";
+//        String url = "https://admin.talkable.com/sites/automatedtestsshopify/integration/shopify";
 
         Log.logRecord("Class name: " + this.getClass().getName());
         this.driver = DriverConfig.getDriver();
         this.driver.navigate().to(EnvFactory.getEnvUrl());
         CommonScenarios.acceptCookiesUsage();
-        CommonScenarios.login("maxim.laba@talkable.com", "Password@1");
-        driver.navigate().to(url
-        );
+//        CommonScenarios.login("maxim.laba@talkable.com", "Password@1");
+//        driver.navigate().to(url);
     }
 
     @Test
     public void test1(){
-        String user = PropertyLoader.loadProperty("talkable.user.shopifyIntegration");
-        String passwrd = EnvFactory.getPassword();
-
-        CommonScenarios.installShopifyApp(user, passwrd);
+        String user = PropertyLoader.loadProperty("talkable.user.editor");
+        String pswrd = EnvFactory.getPassword();
+        System.out.println("Math.random: <" + Math.random() + ">");
+        CommonScenarios.loginAndCreateNewSite(
+                user,
+                pswrd
+//                "maxim.laba+" + Math.random()+"@talkable.com",
+//                "Password@1"
+            );
     }
 
 //    @Test

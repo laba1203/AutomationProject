@@ -33,10 +33,12 @@ import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.DriverConfig;
 import util.EnvFactory;
+import util.TestDataGenerator;
 import util.logging.Log;
 
 import static talkable.talkableSite.campaignsPage.Table.Status.DISABLED;
 import static talkable.talkableSite.campaignsPage.Table.Status.LIVE;
+import static talkable.userRegistration.chosePlatformPage.ChosePlatformPage.PlatformType.OTHER;
 
 /*Class to allocate common scenarios in Talkable.
  * */
@@ -55,12 +57,48 @@ public class CommonScenarios {
      * */
     public static Header login(String email, String password) {
         HomePage homePage = new HomePage();
-        LoginPage loginPage = homePage.clickLoginButton();
-
-//        Header header = loginPage.submitLoginForm(email, password);
-//        Log.logRecord("User logged into Talkable. Email = <" + email + ">");
-//        return header;
+        homePage.clickLoginButton();
         return submitLoginForm(email, password);
+    }
+
+    /***
+     *Scenario to login and create new Site. And create test account If it is not yet created on the env.
+     * Precondition: Talkable home page should be opened
+     * 1. Click 'Login' button --> Login page is opened.
+     * 2. Populate login and password and click Login.
+     * 3. Verify if user logged.
+     *      If yes --> Create new Site.
+     *      else --> register new account with site
+     * Post-condition: User logged to Talkable. New site is created. Header should be available for further actions.
+     * */
+    public static Header loginAndCreateNewSite(String email, String password){
+        //data:
+        String defaultSite = "automation-site-" + TestDataGenerator.getRandomId();
+        String defaultUrl = "www." + defaultSite + ".com";
+
+        try{
+            login(email, password);
+            createNewSite(defaultSite, defaultUrl);
+        }catch (AssertionError e){
+            //verify error message:
+            Assert.assertEquals(
+                    new LoginPage().getTopErrorMessageString(),
+                    "Email/Password combination is not valid",
+                    "FAILED: Incorrect error message on the login page."
+            );
+            Log.logRecord("User <" + email + "> is not yet registered on <" + EnvFactory.getEnvType() + ">. Registration is started...");
+            DriverConfig.getDriver().navigate().to(
+                    EnvFactory.getRegistrationURL()
+            );
+            registerNewAccountWithSite(
+                    email,
+                    password,
+                    defaultSite,
+                    defaultUrl,
+                    OTHER
+            );
+        }
+        return new Header();
     }
 
     public static Header submitLoginForm(String email, String password){
@@ -405,13 +443,13 @@ public class CommonScenarios {
      * Post-condition: IntegrationInstructionPage is opened.
      * Returns: user email.
      * */
-    public static IntegrationInstructionPage registerNewUserWithSite(String email, String password, String siteName, String siteUrl, ChosePlatformPage.PlatformType platformType) {
+    public static IntegrationInstructionPage registerNewAccountWithSite(String email, String password, String siteName, String siteUrl, ChosePlatformPage.PlatformType platformType) {
         CreateAccountPage createAccountPage = new ChosePlatformPage().selectPlatform(platformType);
         IntegrationInstructionPage integrationInstructionPage = createAccountPage.populateAndSubmitForm(email, password, siteName, siteUrl);
 //        Verify that site is created:
 //        IntegrationInstructionPage integrationInstructionPage = new IntegrationInstructionPage();
         Assert.assertEquals(getSiteNameFromHeader(), siteName);
-        Log.logRecord("New user is registered. User name = <" + email + ">. Site = <" + siteName + ">");
+        Log.logRecord("New Account is registered. User name = <" + email + ">. Site = <" + siteName + ">");
 
         return integrationInstructionPage;
     }
