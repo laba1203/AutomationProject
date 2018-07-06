@@ -24,14 +24,17 @@ public class SimpleEditorTesting_v2 extends BaseTest {
 
     private static final String siteName = PropertyLoader.loadProperty("sites.name.editorTesting");
     private String campaignDetailsPageUrl;
+    private String user = EnvFactory.getCommonUser();
+    private String pswrd = EnvFactory.getPassword();
 
     @Test
     public void loginAndCreateNewCampaign(){
         CommonScenarios.acceptCookiesUsage();
-        CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
-        CommonScenarios.switchToSiteByVisibleText(siteName);
-        CommonScenarios.openCampaignsPage();
-        CommonScenarios.deleteAllCampaignsWithStatus(Table.Status.TEST);
+        CommonScenarios.loginAndCreateNewSite(user, pswrd);
+//        CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
+//        CommonScenarios.switchToSiteByVisibleText(siteName);
+//        CommonScenarios.openCampaignsPage();
+//        CommonScenarios.deleteAllCampaignsWithStatus(Table.Status.TEST);
         CommonScenarios.createNewCampaignFromCampaignsPage(Invite, Standalone);
         campaignDetailsPageUrl = driver.getCurrentUrl();
     }
