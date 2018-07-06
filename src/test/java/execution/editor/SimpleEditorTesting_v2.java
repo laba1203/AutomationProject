@@ -51,8 +51,12 @@ public class SimpleEditorTesting_v2 extends BaseTest {
         Log.testPassed("Value is updated in Simple Editor. <" +type + "." + localizationName + ">.\r\n");
     }
 
+    public void quit(){
+
+    }
+
     @Test(dependsOnMethods = "loginAndCreateNewCampaign"
-            , expectedExceptions = AssertionError.class)//scenarios is failed because of the defect https://talkable.atlassian.net/browse/PR-9336
+            , expectedExceptions = AssertionError.class) //scenarios is failed due to the defect https://talkable.atlassian.net/browse/PR-9523
     public void createNewPreset(){
         String presetName = "testPreset" + TestDataGenerator.getRandomId();
         driver.navigate().to(campaignDetailsPageUrl);
