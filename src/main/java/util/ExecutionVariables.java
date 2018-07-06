@@ -3,7 +3,6 @@ package util;
 import org.testng.Assert;
 
 public class ExecutionVariables {
-
     /*The flag indicates whether the test will be executed on Local or Remote machine.
     !!! Please note always put the flag to TRUE before creation of pull request to origin/master !!!*/
     private static final boolean remoteExecution = true;
@@ -23,8 +22,9 @@ public class ExecutionVariables {
 
         System.out.println("LOG - EnvFactory: Test is running on <" + env + "> environment");
         if(env == null){
-            Assert.fail("ERROR: 'env' variable is null in EnvFactory.getMavenEnvName(). Make sure that env.NAME is provided.");
+            Assert.fail("ERROR: 'env' variable is null in ExecutionVariables.getMavenEnvName(). Make sure that env.NAME is provided.");
         }
         return env;
     }
+
 }
