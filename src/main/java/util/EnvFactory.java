@@ -52,7 +52,7 @@ public class EnvFactory {
     private static void setEnvType(){
         //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
         if(envType == null) {
-            String envName = getMavenEnvName();
+            String envName = ExecutionVariables.getMavenEnvName();
             if (envName == null) {
                 Assert.fail("ERROR: envType is null from maven variable env.NAME");
             }
@@ -110,20 +110,20 @@ public class EnvFactory {
         }
     }
 
-    private static String getMavenEnvName(){
-        //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
-        //correct working:
-        String env = System.getProperty("test.environment");
-        //for local running of the project:
+//    private static String getMavenEnvName(){
+//        //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
+//        //correct working:
+////        String env = System.getProperty("test.environment");
+//        //for local running of the project:
 //        String env = "VOID";
-//        String env = "PROD";
-//        String env = "BASTION";
-
-        System.out.println("LOG - EnvFactory: Test is running on <" + env + "> environment");
-        if(env == null){
-            Assert.fail("ERROR: 'env' variable is null in EnvFactory.getMavenEnvName(). Make sure that env.NAME is provided.");
-        }
-        return env;
-    }
+////        String env = "PROD";
+////        String env = "BASTION";
+//
+//        System.out.println("LOG - EnvFactory: Test is running on <" + env + "> environment");
+//        if(env == null){
+//            Assert.fail("ERROR: 'env' variable is null in EnvFactory.getMavenEnvName(). Make sure that env.NAME is provided.");
+//        }
+//        return env;
+//    }
 
 }
