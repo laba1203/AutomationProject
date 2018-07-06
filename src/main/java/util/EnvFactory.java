@@ -3,9 +3,7 @@ package util;
 import org.testng.Assert;
 import util.logging.Log;
 
-import static util.EnvFactory.EnvType.BASTION;
-import static util.EnvFactory.EnvType.PROD;
-import static util.EnvFactory.EnvType.VOID;
+import static util.EnvFactory.EnvType.*;
 
 public class EnvFactory {
 
@@ -22,7 +20,7 @@ public class EnvFactory {
 
     private static EnvType envType;
 
-    enum EnvType{PROD, VOID, BASTION}
+    enum EnvType{PROD, VOID, BASTION, BART}
 
 
 
@@ -66,6 +64,10 @@ public class EnvFactory {
                     break;
                 case "BASTION":
                     envType = BASTION;
+                    break;
+                case "BART":
+                    envType = BART;
+                    Assert.fail("ERROR: Test framework is not yet configured to <" + envType + "> environment.");
                     break;
                 default:
                     Assert.fail("ERROR: Unknown env type: <" + envName + ">.");
