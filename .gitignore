@@ -5,4 +5,4 @@
 /.idea/*
 *.iml
 /src/test/output/*
-/src/main/java/util/ExecutionVariables
+/src/main/java/util/ExecutionVariables.java
