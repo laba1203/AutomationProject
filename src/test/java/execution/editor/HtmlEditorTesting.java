@@ -99,8 +99,7 @@ public class HtmlEditorTesting extends BaseTest {
 
     // Blocked by the Defect: https://talkable.atlassian.net/browse/PR-9495
     /*Scenarios2*/
-    @Test(groups = {"ui-actions"}
-            , expectedExceptions = AssertionError.class) // defect: PR-9495
+    @Test(groups = {"ui-actions"})
     public void deleteView(){
         String viewName = "Advocate share page";
 
