@@ -16,12 +16,16 @@ public class Listeners implements IInvokedMethodListener, ITestListener {
             Log.testFailed(method.getTestMethod().getMethodName());
             Throwable throwable = result.getThrowable();
             String originalMessage = throwable.getMessage();
-            String screenshotUrl = new Screenshot().makeScreenshot();
+            //commented for debag:
+//            String screenshotUrl = new Screenshot().makeScreenshot();
+            //
             String newMessage = "FAILED: " + originalMessage +
                     "\r\n *** Test artifacts  *** " +
-                    "\r\nTest failed on URL: " + DriverConfig.getDriver().getCurrentUrl() +"\r\n" +
+                    "\r\nTest failed on URL: " + DriverConfig.getDriver().getCurrentUrl() +"\r\n"
 //                    "<a href=\"" + DriverConfig.getDriver().getCurrentUrl() + "\">Link to the failed page</a>\r\n" +
-                    "Screenshot: " + screenshotUrl + "\r\n"
+                    //commented for debag:
+                    /* + "Screenshot: " + screenshotUrl + "\r\n"*/
+                    //
 //                    "Screenshot: <a href=\"" + screenshotUrl + "\">" + screenshotUrl + "</a>" + "\r\n"
             ;
             try {
