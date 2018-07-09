@@ -48,6 +48,7 @@ public class PendingReferralsPage extends AbstractCustomerServicePortalPage{
         return pendingReferralsCount.getText().substring(13);
     }
 
+    @Deprecated
     public PersonInfoSection clickSeeDetailsForActionedReferral(){
         new Element(seeDetailsForActionedReferralLctr, "'See Details' link").click();
         return new PersonLookupPage().getPersonInfoSection();
@@ -75,29 +76,25 @@ public class PendingReferralsPage extends AbstractCustomerServicePortalPage{
     }
 
 
-    public PendingReferralsPage approveReferral(String advocateEmail){
-        String referralsCount = pendingReferralsCount.getText();
+    public ReferralDetailsPage approveReferral(String advocateEmail){
         findRowBy(advocateEmail).approve();
-        WaitFactory.getCustomWait(5, 500).until(
-                ExpectedConditions.invisibilityOfElementWithText(pendingReferralsCountLctr, referralsCount));
+        waitSaving();
         Log.logRecord("Referral was approved. Advocate email <" + advocateEmail + ">.");
-        return new PendingReferralsPage();
+        return new ReferralDetailsPage();
     }
 
-    public PendingReferralsPage voidReferral(String advocateEmail){
-        String referralsCount = pendingReferralsCount.getText();
+    public ReferralDetailsPage voidReferral(String advocateEmail){
         findRowBy(advocateEmail).voidReferral();
-        WaitFactory.getCustomWait(5, 500).until(
-                ExpectedConditions.invisibilityOfElementWithText(pendingReferralsCountLctr, referralsCount));
-        Log.logRecord("Referral was approved. Advocate email <" + advocateEmail + ">.");
-        return new PendingReferralsPage();
+        waitSaving();
+        Log.logRecord("Referral was voided. Advocate email <" + advocateEmail + ">.");
+        return new ReferralDetailsPage();
     }
 
 
 
     class ReferralRow{
-        private final By adEmailLctr = By.xpath("./td[1]/a");
-        private final By frEmailLctr = By.xpath("./td[2]/a");
+        private final By adEmailLctr = By.xpath("./td[2]/span");
+        private final By frEmailLctr = By.xpath("./td[3]/span");
         private final By apprroveActionBtnLctr = By.xpath(".//div[@class='CSP-row-actions-buttons']/div[1]/button");
         private final By voidActionBtnLctr = By.xpath(".//div[@class='CSP-row-actions-buttons']/div[2]/button");
 
