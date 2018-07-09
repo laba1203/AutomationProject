@@ -25,8 +25,8 @@ public class AbTestImpressions_FloatingWidget {
         AdvocateTriggerWidgetFrame button = new AdvocateTriggerWidgetFrame();
 //        button.click();
 
-        driver.quit();
-        DriverConfig.cleanWebDriver();
+//        driver.quit();
+        DriverConfig.quitAndRemoveWebDriver();
     }
 
     @Test
@@ -43,7 +43,7 @@ public class AbTestImpressions_FloatingWidget {
 //    @AfterMethod
 //    public void close(){
 //        driver.quit();
-//        new DriverConfig().cleanWebDriver();
+//        new DriverConfig().quitAndRemoveWebDriver();
 //    }
 
 

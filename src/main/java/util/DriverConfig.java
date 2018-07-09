@@ -93,9 +93,11 @@ public class DriverConfig {
         return driver;
     }
 
-    public static void cleanWebDriver(){
+    public static void quitAndRemoveWebDriver(){
+        driver.quit();
         WaitFactory.cleanWait();
         driver = null;
+        Log.logRecord("Web Driver cleaned and deleted.");
     }
 
     private static void resizeBrowser(WebDriver driver) {
