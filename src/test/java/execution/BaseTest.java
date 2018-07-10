@@ -22,6 +22,7 @@ public class BaseTest {
             }catch (org.openqa.selenium.TimeoutException e){
                 Log.logRecord("Timeout received during navigation to Env URL in BaseTest.commonSetup(). Second attempt to open URL.");
                 DriverConfig.quitAndRemoveWebDriver();
+                DriverConfig.createDriver();
                 this.driver = DriverConfig.getDriver();
                 this.driver.navigate().to(EnvFactory.getEnvUrl());
                 Log.logRecord("Successfully opened URL from the second attempt");
@@ -30,17 +31,7 @@ public class BaseTest {
         }
 
 
-//        @BeforeClass
-//        public void verifyDriver() {
-//            if(driver==null){
-//                commonSetup();
-//                System.out.println("DEBAG: WebDriver assigned for particular class: " + getClass().getName());
-//            }
-//
-//        }
-
-
-         @BeforeMethod(alwaysRun = true)
+        @BeforeMethod(alwaysRun = true)
         public void logMethodName(Method method) {
             System.err.println("\r\n***  TEST-LOG: Method name: <" + method.getName() + ">  ***");
         }
