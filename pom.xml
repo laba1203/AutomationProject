@@ -43,14 +43,13 @@
                         <test.environment>${env.NAME}</test.environment>
                     </systemPropertyVariables>
 
-                    <forkCount>4</forkCount>
+                    <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
-
-                    <parallel>methods</parallel>
-                    <threadCount>4</threadCount>
+                    <perCoreThreadCount>false</perCoreThreadCount>
+                    <parallel>classes</parallel>
+                    <threadCount>3</threadCount>
 
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-
                     <suiteXmlFiles>
                         <!--<suiteXmlFile>.\src\main\resources\TestSuites\AllTestSuites.xml</suiteXmlFile>-->
                         <!--<suiteXmlFile>.\src\main\resources\TestSuites\SmokeTest.xml</suiteXmlFile>-->
@@ -60,7 +59,6 @@
 
                 </configuration>
             </plugin>
-
 
         </plugins>
     </build>
