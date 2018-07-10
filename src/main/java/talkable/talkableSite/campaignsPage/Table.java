@@ -164,6 +164,11 @@ public class Table extends AbstractElementsContainer {
                 Assert.fail("FAILED: You can not delete campaign with offers. Offers count: <" + offers.getText() + ">, Campaign name: <" + name.getText() + ">");
             }
         }
+
+        String getName(){
+            return new Element(rowElement.findElement(By.xpath(".//*[contains(@class, 'campaign-teaser-name')]")))
+                    .getText();
+        }
     }
 }
 
