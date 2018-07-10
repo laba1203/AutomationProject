@@ -6,6 +6,8 @@ import execution.BaseTest;
 import org.openqa.selenium.UnhandledAlertException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeGroups;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import talkable.common.elements.alert.Alert;
 import talkable.talkableSite.campaign.pages.editorPage.CreateNewViewPage;
@@ -70,6 +72,16 @@ public class HtmlEditorTesting extends BaseTest {
         campaignDetailsPageUrl = driver.getCurrentUrl();
     }
 
+    @BeforeTest
+    public void openCampaignDetailsPage(){
+        try {
+            driver.navigate().to(campaignDetailsPageUrl);
+        }catch (UnhandledAlertException e){
+            new Alert().confirm();
+            driver.navigate().to(campaignDetailsPageUrl);
+        }
+    }
+
 
 
     //Pending defect --> https://talkable.atlassian.net/browse/PR-9495
@@ -79,7 +91,6 @@ public class HtmlEditorTesting extends BaseTest {
         String viewType = "Advocate Offer Email";
         String viewNameInHtmlEditor = "Advocate offer email";
 
-        driver.navigate().to(campaignDetailsPageUrl);
         EditorScenarios.openHtmlEditor();
         //todo: try{} should be removed when the defect PR-9495 is fixed.
         try {
@@ -103,11 +114,11 @@ public class HtmlEditorTesting extends BaseTest {
     public void deleteView(){
         String viewName = "Advocate share page";
 
-        driver.navigate().to(campaignDetailsPageUrl);
         EditorScenarios.openHtmlEditor();
         //todo: try{} should be removed when the defect PR-9495 is fixed.
         try {
             EditorScenarios.deleteView(viewName);
+
         }catch (UnhandledAlertException e){
             Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.createNewView().");
             new Alert().confirm();
@@ -129,7 +140,6 @@ public class HtmlEditorTesting extends BaseTest {
         String viewName = "Friend share email";
         String newSubject = "Automation test email subject";
 
-        driver.navigate().to(campaignDetailsPageUrl);
         EditorScenarios.openHtmlEditor();
         //todo: try{} should be removed when the defect PR-9495 is fixed.
         try {
