@@ -1,4 +1,5 @@
-<suite name="All Test Suites" parallel="none">
+<suite name="All Test Suites" parallel="tests" thread-count="3">
+<!--<suite name="All Test Suites" parallel="none">-->
 
     <listeners>
         <listener class-name="util.Listeners"/>

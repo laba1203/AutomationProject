@@ -1,5 +1,9 @@
 <suite name="All Test In Parallel" parallel="tests" thread-count="3">
 
+    <listeners>
+        <listener class-name="util.Listeners"/>
+    </listeners>
+
     <test name="Smoke Test" preserve-order="true" >
         <classes>
             <class name="execution.smoke.SmokeTest_v2"/>
@@ -15,6 +19,12 @@
     <test name="Simple Editor" preserve-order="true" >
         <classes>
             <class name="execution.editor.SimpleEditorTesting_v2"/>
+        </classes>
+    </test>
+
+    <test name="HTML Editor tests" preserve-order="true" >
+        <classes>
+            <class name="execution.editor.HtmlEditorTesting"/>
         </classes>
     </test>
 
@@ -36,5 +46,19 @@
         </classes>
     </test>
 
+    <test name="Site Settings Basic Tab tests" preserve-order="true" >
+        <classes>
+            <class name="execution.site.settings.SiteSettingsBasicTab"/>
+
+        </classes>
+    </test>
+
+    <test name="Site Settings Contacts Tab" preserve-order="true" >
+        <classes>
+            <class name="execution.site.settings.SiteSettingsContactsTab"/>
+        </classes>
+    </test>
+
 </suite>
+
 
