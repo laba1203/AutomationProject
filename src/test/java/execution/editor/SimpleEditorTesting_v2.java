@@ -35,6 +35,7 @@ public class SimpleEditorTesting_v2 extends BaseTest {
 //        CommonScenarios.switchToSiteByVisibleText(siteName);
 //        CommonScenarios.openCampaignsPage();
 //        CommonScenarios.deleteAllCampaignsWithStatus(Table.Status.TEST);
+        CommonScenarios.openCampaignsPage();
         CommonScenarios.createNewCampaignFromCampaignsPage(Invite, Standalone);
         campaignDetailsPageUrl = driver.getCurrentUrl();
     }
