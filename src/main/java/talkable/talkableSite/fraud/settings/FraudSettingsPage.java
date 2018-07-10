@@ -76,7 +76,7 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
 //
 //        }
 //        option.click();
-        //        return saveChanges();
+        //        return updateChanges();
 
         return selectApprovalMode(mode)
                 .saveChanges();
@@ -108,12 +108,12 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
 
 //    public FraudSettingsPage setManualReferralApprovalMode(){
 //        new ElmntManualReferralApproval().click();
-//        return saveChanges();
+//        return updateChanges();
 //    }
 //
 //    public FraudSettingsPage setAutomaticReferralApprovalMode(){
 //        new ElmntAutomaticReferralApproval().click();
-//        return saveChanges();
+//        return updateChanges();
 //    }
 
     public SectionRulesForAdvocate getRulesForAdvocateSection(){

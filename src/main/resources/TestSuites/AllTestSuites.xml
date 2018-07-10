@@ -1,4 +1,8 @@
-<suite name="All Test Suites">
+<suite name="All Test Suites" parallel="none">
+
+    <listeners>
+        <listener class-name="util.Listeners"/>
+    </listeners>
 
     <suite-file path="SmokeTest.xml"/>
     <suite-file path="SimpleTestForAllCampaignsTypes.xml"/>
@@ -11,8 +15,8 @@
     <!--Please note: Below suite will create new site-->
     <suite-file path="AccountAndSiteCreation.xml"/>
     <suite-file path="SiteSettingsTest.xml"/>
-    <!--<suite-file path="CspTests.xml"/> commented till CSP is not delivered on Prod.-->
-
+    <!--<suite-file path="CspTests.xml"/>-->
+    <suite-file path="IntegrationTests.xml"/>
 
 </suite>
 

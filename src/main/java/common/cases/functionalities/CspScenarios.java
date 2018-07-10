@@ -6,6 +6,7 @@ import talkable.talkableSite.customerServicePortal.AbstractCustomerServicePortal
 import talkable.talkableSite.customerServicePortal.blacklistingPage.BlacklistingPage;
 import talkable.talkableSite.customerServicePortal.createReferral.PageCreateReferral;
 import talkable.talkableSite.customerServicePortal.pendingReferrals.PendingReferralsPage;
+import talkable.talkableSite.customerServicePortal.pendingReferrals.ReferralDetailsPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonInfoSection;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.customerServicePortal.personLookup.ReferralDetailsSection;
@@ -105,6 +106,7 @@ public class CspScenarios extends CommonScenarios{
         return new PendingReferralsPage().getPendingReferralsCount();
     }
 
+    @Deprecated
     public static void clickSeeDetailsForActionedRowOnRendingReferrals(){
         new PendingReferralsPage().clickSeeDetailsForActionedReferral();
     }
@@ -126,6 +128,10 @@ public class CspScenarios extends CommonScenarios{
 
     public static String getBlacklistedEmailsList(){
         return new BlacklistingPage().getBlacklistedEmailsList();
+    }
+
+    public static String getReferralStatusFromReferralDetailsPage(){
+        return new ReferralDetailsPage().getReferralStatus();
     }
 
 }

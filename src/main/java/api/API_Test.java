@@ -21,14 +21,12 @@ public class API_Test {
     private static final String myUserAgent = "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5";
     private Site site = new Site().setData(
             /*void data*/
-            "testmax-shard2",
-            "V4wBaKBrI8kywuaEG3b"
+//            "testmax-shard2",
+//            "V4wBaKBrI8kywuaEG3b"
 
-            /*prod data*/
-//            "test2203",
-//            "Th09JOgxeDycS1M2zBBl"
-//            "pavel",
-//            "BnrAw9XI9tjYq5C2kFTD"
+//            /*prod data*/
+            "test2203",
+            "Th09JOgxeDycS1M2zBBl"
     );
 
 
