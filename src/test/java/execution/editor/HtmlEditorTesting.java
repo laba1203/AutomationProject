@@ -67,12 +67,11 @@ public class HtmlEditorTesting extends BaseTest {
         CommonScenarios.acceptCookiesUsage();
         CommonScenarios.loginAndCreateNewSite(user, pswrd);
         CommonScenarios.openCampaignsPage();
-//        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
         CommonScenarios.createNewCampaignFromCampaignsPage(Invite, Standalone);
         campaignDetailsPageUrl = driver.getCurrentUrl();
     }
 
-    @BeforeTest
+    @BeforeMethod
     public void openCampaignDetailsPage(){
         try {
             driver.navigate().to(campaignDetailsPageUrl);
@@ -80,6 +79,7 @@ public class HtmlEditorTesting extends BaseTest {
             new Alert().confirm();
             driver.navigate().to(campaignDetailsPageUrl);
         }
+        Log.logRecord("Navigated to Campaign Details page URL: " + campaignDetailsPageUrl);
     }
 
 
