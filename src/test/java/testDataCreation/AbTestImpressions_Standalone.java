@@ -1,6 +1,5 @@
 package testDataCreation;
 
-import customerSite.talkableFrame.commonPages.advocateSharePage.invite.AdvocateSharePageForInvite;
 import customerSite.talkableFrame.commonPages.advocateSignupPage.AdvocateSignupPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
@@ -25,8 +24,8 @@ public class AbTestImpressions_Standalone {
         driver.navigate().to(URL_TO_FW);
         new AdvocateSignupPage();
 
-        driver.quit();
-        DriverConfig.cleanWebDriver();
+//        driver.quit();
+        DriverConfig.quitAndRemoveWebDriver();
     }
 
     public void makeImpressionOnSharePage(){
@@ -40,8 +39,8 @@ public class AbTestImpressions_Standalone {
                 );
 //        new AdvocateSharePageForInvite();
 
-        driver.quit();
-        DriverConfig.cleanWebDriver();
+//        driver.quit();
+        DriverConfig.quitAndRemoveWebDriver();
     }
 
     @Test
@@ -58,7 +57,7 @@ public class AbTestImpressions_Standalone {
 //    @AfterMethod
 //    public void close(){
 //        driver.quit();
-//        new DriverConfig().cleanWebDriver();
+//        new DriverConfig().quitAndRemoveWebDriver();
 //    }
 
 

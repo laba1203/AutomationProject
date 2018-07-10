@@ -18,8 +18,8 @@ public class FriendOffersGenerator {
             e.printStackTrace();
         }
 
-        driver.quit();
-        new DriverConfig().cleanWebDriver();
+//        driver.quit();
+        DriverConfig.quitAndRemoveWebDriver();
     }
 
     @Test

@@ -1,51 +1,43 @@
 package execution;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestResult;
 import org.testng.annotations.*;
-import util.DriverConfig;
-import util.EnvFactory;
-import util.Screenshot;
+import util.*;
 import util.logging.Log;
 
 import java.lang.reflect.Method;
 
-public class BaseTest{
+public class BaseTest {
 
         public WebDriver driver;
-        private Screenshot screenshot = new Screenshot();
-
 
         //setup driver and open Talkable site.
-        @BeforeSuite
+        @BeforeClass
         public void commonSetup() {
-
             Log.logRecord("Class name: " + this.getClass().getName());
             DriverConfig.createDriver();
             this.driver = DriverConfig.getDriver();
             try {
                 this.driver.navigate().to(EnvFactory.getEnvUrl());
             }catch (org.openqa.selenium.TimeoutException e){
-                Log.logRecord("Timeout received during navigation to Env URL in DriverPoint.commonSetup(). Second attempt to open URL.");
-                DriverConfig.getDriver().quit();
-                DriverConfig.cleanWebDriver();
-                DriverConfig.createDriver();
+                Log.logRecord("Timeout received during navigation to Env URL in BaseTest.commonSetup(). Second attempt to open URL.");
+                DriverConfig.quitAndRemoveWebDriver();
                 this.driver = DriverConfig.getDriver();
                 this.driver.navigate().to(EnvFactory.getEnvUrl());
                 Log.logRecord("Successfully opened URL from the second attempt");
             }
-            System.out.println("*** DEBAG: Before suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
+            System.out.println("*** DEBAG: Before class executed in Base Test of class: " + getClass().getName() + " ***\r\n");
         }
 
 
-
-        @BeforeClass
-        public void verifyDriver() {
-            if(driver==null){
-                commonSetup();
-            }
-            Log.debagRecord("DriverPoint. WebDriver assigned for particular class: " + getClass().getName() + ".Thread ID: " + Thread.currentThread().getId());
-        }
+//        @BeforeClass
+//        public void verifyDriver() {
+//            if(driver==null){
+//                commonSetup();
+//                System.out.println("DEBAG: WebDriver assigned for particular class: " + getClass().getName());
+//            }
+//
+//        }
 
 
          @BeforeMethod(alwaysRun = true)
@@ -54,19 +46,21 @@ public class BaseTest{
         }
 
 
-        @AfterMethod
-        public void takeScreenshot(ITestResult result){
-            if(ITestResult.FAILURE == result.getStatus()){
-//                screenshot.makeScreenshot(); //TODO: re-work capturing screenshots
-                System.out.println("URL on fail: " + driver.getCurrentUrl());
-            }
-        }
+//        @AfterMethod
+//        public void takeScreenshot(ITestResult result){
+////            if(ITestResult.FAILURE == result.getStatus()){
+////                screenshot.makeScreenshot();
+////                System.out.println("URL on fail: " + driver.getCurrentUrl());
+////            }
+////            if(ITestResult.SUCCESS == result.getStatus()){
+////                Log.testPassed("BaseTest. Test method: " + metho)
+////            }
+//        }
 
-        @AfterSuite
+      @AfterClass
         public void quit() {
-            this.driver.quit();
-            DriverConfig.cleanWebDriver();
-            System.out.println("*** DEBAG: After Suite executed in Base Test of class: " + getClass().getName() + " ***\r\n");
+            DriverConfig.quitAndRemoveWebDriver();
+            System.out.println("*** DEBAG: After Class executed in Base Test of class: " + getClass().getName() + " ***\r\n");
         }
     }
 
