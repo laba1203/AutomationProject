@@ -21,13 +21,9 @@ public class Screenshot {
     
     public String makeScreenshot(){
         deleteExistingScreenshots();
-        try {
-            File srcFile = ((TakesScreenshot) DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
-            copyFile(srcFile);
-        }catch (UnhandledAlertException e){
-            Log.debagRecord("Failed to make a screenshot when Alert Message is returned in browser:");
-            System.err.println(e.getAlert());
-        }
+        File srcFile = ((TakesScreenshot) DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
+        copyFile(srcFile);
+
 
 //        String pathToScreenshot = "file://" + absoluteFilePath;
 //        Log.getScreenshotMsg("<a href=\"" + pathToScreenshot + "\">"+fileName+"</a>");
