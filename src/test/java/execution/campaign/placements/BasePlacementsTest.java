@@ -28,7 +28,7 @@ public class BasePlacementsTest extends BaseTest{
     static final String page3 = "pp1.html";
     static final String page4 = "pp2.html";
 
-    @BeforeSuite
+    @BeforeClass
     public void precondition(){
         //login to Talkable
         driver.navigate().to(EnvFactory.getEnvUrl());

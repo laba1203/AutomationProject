@@ -12,21 +12,22 @@ public class Log {
     private static final String screenshotMsg = "Screenshot is available by the following path: ";
 
 
+
+    private static String threadId(){
+        return "(#" + Thread.currentThread().getId() +")";
+    }
     public static void testFailed(String msg){
-        System.out.println("FAILED: " + msg);
+        System.out.println("FAILED"+threadId()+": " + msg);
     }
 
     public static void logRecord(String msg){
-        System.out.println("LOG: " + msg);
+        System.out.println("LOG"+threadId()+": " + msg);
     }
 
     public static void debagRecord(String msg){
-        System.out.println("DEBAG: " + msg);
+        System.out.println("DEBAG"+threadId()+": " + msg);
     }
 
-    public static void clickMsg(Object obj){
-        clickMsg(obj.getClass().getName());
-    }
 
     public static void clickMsg(String elementName){
         String msg = clickMsg + elementName;
