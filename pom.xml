@@ -50,12 +50,12 @@
                     <threadCount>3</threadCount>
 
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-                    <!--<suiteXmlFiles>-->
+                    <suiteXmlFiles>
                         <!--&lt;!&ndash;<suiteXmlFile>.\src\main\resources\TestSuites\AllTestSuites.xml</suiteXmlFile>&ndash;&gt;-->
                         <!--&lt;!&ndash;<suiteXmlFile>.\src\main\resources\TestSuites\SmokeTest.xml</suiteXmlFile>&ndash;&gt;-->
                         <suiteXmlFile>.\src\main\resources\TestSuites\ParallelExecution.xml</suiteXmlFile>
 
-                    <!--</suiteXmlFiles>-->
+                    </suiteXmlFiles>
 
                 </configuration>
             </plugin>
