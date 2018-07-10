@@ -17,6 +17,11 @@ import util.WaitFactory;
 
 public class ClientSiteScenarios {
 
+
+    private static WaitFactory waitFactory(){
+        return new WaitFactory();
+    }
+
     /*Scenario to create share link by Advocate
     Precondition: Page with Talkable FloatingWidgete should be opened
      * 1. Click FW
@@ -63,7 +68,7 @@ public class ClientSiteScenarios {
 
     private static boolean isFloatingPresent(CampaignPlacement placement){
         try{
-            WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateTriggerWidgetFrame.getFrameLocator(), 3);
+            waitFactory().waitUntilVisibilityOfElementLocated(AdvocateTriggerWidgetFrame.getFrameLocator(), 3);
 //            new AdvocateTriggerWidgetFrame();
             return true;
         }catch(TimeoutException e){
@@ -74,7 +79,7 @@ public class ClientSiteScenarios {
     private static boolean isStandalonePresent(CampaignPlacement placement){
         try{
 //            new AdvocateSignupPage();
-            WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateSignupPage.getFrameLocator(), 5);
+            waitFactory().waitUntilVisibilityOfElementLocated(AdvocateSignupPage.getFrameLocator(), 5);
             return true;
         }catch(TimeoutException e){
             return false;
@@ -86,10 +91,10 @@ public class ClientSiteScenarios {
             switch (campaignType){
                 case Invite:
 //                    new AdvocateSharePageForInvite();
-                    WaitFactory.waitUntilVisibilityOfElementLocated(AdvocateSharePageForInvite.getFrameLocator(), 5);
+                    waitFactory().waitUntilVisibilityOfElementLocated(AdvocateSharePageForInvite.getFrameLocator(), 5);
                     return true;
                 case AdvocateDashboard:
-                    WaitFactory.waitUntilVisibilityOfElementLocated(AdSharePageForAdDashboard.getFrameLocator(), 5);
+                    waitFactory().waitUntilVisibilityOfElementLocated(AdSharePageForAdDashboard.getFrameLocator(), 5);
 //                    new AdSharePageForAdDashboard();
                     return true;
                 case RewardGleam:

@@ -88,7 +88,8 @@ public class DriverConfig {
         }
     }
 
-    public static void cleanWebDriver(){
+    public static void quitAndRemoveWebDriver(){
+        getDriver().quit();
         tlDriver.remove();
     }
 

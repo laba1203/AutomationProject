@@ -52,9 +52,9 @@ public class AdvocateSignupPage extends AbstractTalkableFrame{
         switchToParentFrame();
     }
 
-//    public static By getFrameLocator(){
-//        return frameLocator;
-//    }
+    public static By getFrameLocator(){
+        return frameLocator;
+    }
 
 
 
