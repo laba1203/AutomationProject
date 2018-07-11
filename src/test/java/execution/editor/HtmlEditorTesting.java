@@ -3,6 +3,7 @@ package execution.editor;
 import common.cases.CommonScenarios;
 import common.cases.functionalities.EditorScenarios;
 import execution.BaseTest;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.UnhandledAlertException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeGroups;
@@ -10,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import talkable.common.elements.alert.Alert;
+import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.CreateNewViewPage;
 import talkable.talkableSite.campaign.pages.editorPage.HtmlEditorPage;
 import util.EnvFactory;
@@ -75,10 +77,21 @@ public class HtmlEditorTesting extends BaseTest {
     public void openCampaignDetailsPage(){
         try {
             driver.navigate().to(campaignDetailsPageUrl);
+            new CampaignDetailsPage();
         }catch (UnhandledAlertException e){
             new Alert().confirm();
-            driver.navigate().to(campaignDetailsPageUrl);
+            openCampaignDetailsPage();
         }
+
+        //debag part:
+        try{
+            new Alert().confirm();
+            Log.debagRecord("Alert found and closed on Campaign details page during @BeforeMethod execution.");
+        }catch (TimeoutException e){
+            Log.debagRecord("Alert was not shown on Campaign details page during @BeforeMethod execution.");
+        }
+        //end
+
         Log.logRecord("Navigated to Campaign Details page URL: " + campaignDetailsPageUrl);
     }
 
@@ -120,7 +133,7 @@ public class HtmlEditorTesting extends BaseTest {
             EditorScenarios.deleteView(viewName);
 
         }catch (UnhandledAlertException e){
-            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.createNewView().");
+            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.deleteView().");
             new Alert().confirm();
             new HtmlEditorPage().waitViewDestroyedMsg();
         }
@@ -145,7 +158,7 @@ public class HtmlEditorTesting extends BaseTest {
         try {
             EditorScenarios.switchViewByName(viewName);
         }catch (UnhandledAlertException e){
-            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.createNewView().");
+            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.updateEmailSubjectInExtraPopup().");
             new Alert().confirm();
         }
         EditorScenarios.updateExtraEmailSubject(newSubject);
