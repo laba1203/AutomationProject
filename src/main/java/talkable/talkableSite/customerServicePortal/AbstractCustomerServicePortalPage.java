@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.customerServicePortal.blacklistingPage.BlacklistingPage;
 import talkable.talkableSite.customerServicePortal.createReferral.PageCreateReferral;
-import talkable.talkableSite.customerServicePortal.pendingReferrals.PendingReferralsPage;
+import talkable.talkableSite.customerServicePortal.pendingReferrals.ReferralsPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import util.logging.Log;
 
@@ -35,9 +35,9 @@ public class AbstractCustomerServicePortalPage extends AbstractTalkableSitePage{
         return page;
     }
 
-    public PendingReferralsPage openPendingReferralsPage(){
+    public ReferralsPage openPendingReferralsPage(){
         pendingReferralsTab.click();
-        PendingReferralsPage page = new PendingReferralsPage();
+        ReferralsPage page = new ReferralsPage();
         Log.logRecord("Pending Referrals page is opened on CSP");
         return page;
     }

@@ -24,7 +24,9 @@ public class EditorScenarios extends CommonScenarios{
     }
 
     public static void openHtmlEditor(){
-        new CampaignNavigationMenu().openEditorPage().openHtmlEditor();
+        new CampaignNavigationMenu()
+                .openEditorPage()
+                .openHtmlEditor();
         Log.logRecord("HTML & CSS Editor page is opened.");
     }
 
