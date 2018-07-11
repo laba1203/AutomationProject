@@ -14,11 +14,11 @@ public class ExecutionVariables {
     public static String getMavenEnvName(){
         //property described in pom.xml  <test.environment>${env.NAME}</test.environment>
         //correct working:
-//        String env = System.getProperty("test.environment");
+        String env = System.getProperty("test.environment");
         //for local running of the project:
 //        String env = "VOID";
 //        String env = "PROD";
-        String env = "BASTION";
+//        String env = "BASTION";
 
         System.out.println("LOG - EnvFactory: Test is running on <" + env + "> environment");
         if(env == null){
