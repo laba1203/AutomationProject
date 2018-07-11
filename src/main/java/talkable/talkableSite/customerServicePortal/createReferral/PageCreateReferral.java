@@ -18,7 +18,7 @@ public class PageCreateReferral extends AbstractCustomerServicePortalPage {
     private Element searchCampaignField = new Element(By.xpath("//div[@class='campaignfilter']//input"), "'Search Campaign' field");
     private Element createReferralBtn = new Element(By.xpath("//button[@type = 'submit']"), "'Create Referral' button");
 
-    public ReferralDetailsPage createReferralNew(String advocateEmail, int orderSubtotal, String campaignName){
+    public PersonLookupPage createReferralNew(String advocateEmail, int orderSubtotal, String campaignName){
         advocateEmailInput.sendKeys(advocateEmail);
         orderSubtotalInput.sendKeys(String.valueOf(orderSubtotal));
         searchCampaignField.sendKeys(campaignName);
@@ -26,7 +26,8 @@ public class PageCreateReferral extends AbstractCustomerServicePortalPage {
         new Element(firstRowCampaignCheckBoxLctr, "First campaign from search result").click();
         createReferralBtn.click();
 
-        return new ReferralDetailsPage();
+        return new PersonLookupPage();
+//        return new ReferralDetailsPage();
     }
 
     public void createReferralFriendPurchaseExists(){
