@@ -3,6 +3,7 @@ package talkable.talkableSite.customerServicePortal.pendingReferrals;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.customerServicePortal.AbstractCustomerServicePortalPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonInfoSection;
@@ -74,22 +75,22 @@ public class ReferralsPage extends AbstractCustomerServicePortalPage{
     }
 
 
-    public PendingReferralsPage approveReferral(String advocateEmail){
+    public ReferralsPage approveReferral(String advocateEmail){
         String referralsCount = pendingReferralsCount.getText();
         findRowBy(advocateEmail).approve();
         waitFactory().getCustomWait(5, 500).until(
                 ExpectedConditions.invisibilityOfElementWithText(pendingReferralsCountLctr, referralsCount));
         Log.logRecord("Referral was approved. Advocate email <" + advocateEmail + ">.");
-        return new PendingReferralsPage();
+        return new ReferralsPage();
     }
 
-    public PendingReferralsPage voidReferral(String advocateEmail){
+    public ReferralsPage voidReferral(String advocateEmail){
         String referralsCount = pendingReferralsCount.getText();
         findRowBy(advocateEmail).voidReferral();
         waitFactory().getCustomWait(5, 500).until(
                 ExpectedConditions.invisibilityOfElementWithText(pendingReferralsCountLctr, referralsCount));
         Log.logRecord("Referral was approved. Advocate email <" + advocateEmail + ">.");
-        return new PendingReferralsPage();
+        return new ReferralsPage();
     }
 
 
