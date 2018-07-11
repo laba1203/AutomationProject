@@ -5,7 +5,7 @@ import org.testng.Assert;
 import talkable.talkableSite.customerServicePortal.AbstractCustomerServicePortalPage;
 import talkable.talkableSite.customerServicePortal.blacklistingPage.BlacklistingPage;
 import talkable.talkableSite.customerServicePortal.createReferral.PageCreateReferral;
-import talkable.talkableSite.customerServicePortal.pendingReferrals.PendingReferralsPage;
+import talkable.talkableSite.customerServicePortal.pendingReferrals.ReferralsPage;
 import talkable.talkableSite.customerServicePortal.pendingReferrals.ReferralDetailsPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonInfoSection;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
@@ -22,7 +22,7 @@ public class CspScenarios extends CommonScenarios{
         return new AbstractCustomerServicePortalPage().openPersonLookupPage();
     }
 
-    public static PendingReferralsPage openPendingReferralsPage(){
+    public static ReferralsPage openPendingReferralsPage(){
         return new AbstractCustomerServicePortalPage().openPendingReferralsPage();
     }
 
@@ -95,20 +95,20 @@ public class CspScenarios extends CommonScenarios{
     }
 
     public static void approvePendingReferral(String advocateEmail){
-        new PendingReferralsPage().approveReferral(advocateEmail);
+        new ReferralsPage().approveReferral(advocateEmail);
     }
 
     public static void voidPendingReferral(String advocateEmail){
-        new PendingReferralsPage().voidReferral(advocateEmail);
+        new ReferralsPage().voidReferral(advocateEmail);
     }
 
     public static String getCountFromPendingReferralsPage(){
-        return new PendingReferralsPage().getPendingReferralsCount();
+        return new ReferralsPage().getPendingReferralsCount();
     }
 
     @Deprecated
     public static void clickSeeDetailsForActionedRowOnRendingReferrals(){
-        new PendingReferralsPage().clickSeeDetailsForActionedReferral();
+        new ReferralsPage().clickSeeDetailsForActionedReferral();
     }
 
     public static String getReferralStatusFromPersonLookupInfo(String friendEmail){
