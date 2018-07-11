@@ -51,6 +51,7 @@ public class DriverConfig {
 //        capabilities.setBrowserName("firefox");
 //        capabilities.setVersion("60.0");
         capabilities.setCapability("enableVNC", true);
+//        capabilities.setCapability("enableVideo", true);
 
         URL url = null;
         try {
