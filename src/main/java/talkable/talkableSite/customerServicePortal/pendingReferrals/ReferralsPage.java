@@ -3,7 +3,6 @@ package talkable.talkableSite.customerServicePortal.pendingReferrals;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.customerServicePortal.AbstractCustomerServicePortalPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonInfoSection;
@@ -13,7 +12,7 @@ import util.logging.Log;
 
 import java.util.ArrayList;
 
-public class PendingReferralsPage extends AbstractCustomerServicePortalPage{
+public class ReferralsPage extends AbstractCustomerServicePortalPage{
 
     private static final By rowsLctr = By.xpath("//tr[@class='CSP-row']");
     private static final By pendingReferralsCountLctr = By.xpath("//h2");
@@ -23,14 +22,14 @@ public class PendingReferralsPage extends AbstractCustomerServicePortalPage{
     private Element pendingReferralsCount = new Element(pendingReferralsCountLctr);
 
 
-    public PendingReferralsPage(){
+    public ReferralsPage(){
         if(!pendingReferralsCount.getText().equals("Pending Referrals — 0")){
             getRows();
         }
     }
 
 
-    public PendingReferralsPage approveAllReferrals(){
+    public ReferralsPage approveAllReferrals(){
         if(pendingReferralsCount.getText().equals("Pending Referrals — 0")){
             Assert.fail("FAILED: 'Approve All' button is not available on Pending Referrals page when pending referral count = '0'");
         }
@@ -41,7 +40,7 @@ public class PendingReferralsPage extends AbstractCustomerServicePortalPage{
                 "Pending Referrals — 0",
                 5);
         Log.logRecord("All pending referrals were approved.");
-        return new PendingReferralsPage();
+        return new ReferralsPage();
     }
 
     public String getPendingReferralsCount(){
