@@ -262,9 +262,11 @@ public class CommonScenarios {
         return page;
     }
 
-//    public static String getCampaignNameFromRulesPage(){
-//        return new PageCampaignRules().getCampaignName();
-//    }
+    public static void setCampaignNameAndDescriptionOnRulesPage(String cName, String cDescription){
+        setCampaignNameOnRulesPage(cName);
+        setCampaignDescriptionOnRulesPage(cDescription);
+//        new PageCampaignRules().waitTillSaveMsgDisappeared();
+    }
 
     public static void setCampaignDescriptionOnRulesPage(String campaignDesc){
         PageCampaignRules page = new PageCampaignRules().setCampaignDescription(campaignDesc);
@@ -281,6 +283,7 @@ public class CommonScenarios {
         rulesPage.setDeadlineDates(advocateOfferDeadlineDate, adOfferEndTime, friendDeadlineDate, frOfferEndTime);
         assertDeadlinesOnRulesPage(advocateOfferDeadlineDate, adOfferEndTime, friendDeadlineDate, frOfferEndTime);
         Log.logRecord("Friend deadline date and time have been changed to " + friendDeadlineDate + ", " + frOfferEndTime + "on Campaign Rules page");
+//        new PageCampaignRules().waitTillSaveMsgDisappeared();
     }
 
     public static void assertDeadlinesOnRulesPage(String advocateOfferDeadlineDate, String adOfferEndTime, String friendDeadlineDate, String frOfferEndTime){
@@ -322,11 +325,14 @@ public class CommonScenarios {
                                           PageCampaignRules.DiscountType discountType,
                                           PageCampaignRules.CouponCodeType couponCodeType
                                           ){
-        new PageCampaignRules().createNewIncentive(
-                incentiveType,
-                rewardAmount,
-                discountType,
-                couponCodeType);
+        new PageCampaignRules()
+                .createNewIncentive(
+                        incentiveType,
+                        rewardAmount,
+                        discountType,
+                        couponCodeType)
+//                .waitTillSaveMsgDisappeared()
+        ;
     }
 
     /***
