@@ -3,6 +3,7 @@ package util;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.UnhandledAlertException;
 import util.logging.Log;
 
 import java.io.File;
@@ -20,8 +21,10 @@ public class Screenshot {
     
     public String makeScreenshot(){
         deleteExistingScreenshots();
-        File srcFile = ((TakesScreenshot)DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
+        File srcFile = ((TakesScreenshot) DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
         copyFile(srcFile);
+
+
 //        String pathToScreenshot = "file://" + absoluteFilePath;
 //        Log.getScreenshotMsg("<a href=\"" + pathToScreenshot + "\">"+fileName+"</a>");
 

@@ -35,8 +35,7 @@ public class ClientSiteScenarios {
     * Please note: New driver instance will be applied for all further scenarios*/
     public static WebDriver setupDriverWithCleanCookies(WebDriver driver){
         driver.manage().deleteAllCookies();
-        driver.quit();
-        DriverConfig.cleanWebDriver();
+        DriverConfig.quitAndRemoveWebDriver();
 
         return DriverConfig.getDriver();
     }
