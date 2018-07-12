@@ -44,9 +44,6 @@ public class UploadCouponCodesTests extends BaseTest{
     private String manualCouponsListName = "Count List " + TestDataGenerator.getRandomId();
     private String[] manualCouponList = {"test1", "test2", "test3", "test4", "test5", "test6"};
 
-    public void quit(){
-        Assert.fail("quit is not closed");
-    }
 
     @BeforeClass
     public void login(){
