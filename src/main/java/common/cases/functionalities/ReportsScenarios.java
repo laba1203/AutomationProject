@@ -3,10 +3,14 @@ package common.cases.functionalities;
 import common.cases.CommonScenarios;
 import org.openqa.selenium.NotFoundException;
 import org.testng.Assert;
+import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.reports.couponLists.CouponListPage;
+import talkable.talkableSite.reports.couponLists.CouponListsReportPage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.referrals.PageReferralsReport;
 import talkable.talkableSite.reports.rewards.RewardsReportPage;
+import util.Util;
 import util.logging.Log;
 
 public class ReportsScenarios extends CommonScenarios {
@@ -111,4 +115,66 @@ public class ReportsScenarios extends CommonScenarios {
 
 
     /* End of scenarios for Rewards report*/
+
+    /*  --- Scenairios for Coupon Codes Report ---   */
+
+    public static void openCouponCodesReport(){
+        new Header().clickReportsButton().openCouponsListReport();
+    }
+
+    public static void createCouponsListViaCsv(
+            String couponsListName,
+            String expirationDate,
+            int amount,
+            PageCampaignRules.DiscountType discount,
+            String fileName){
+        new CouponListsReportPage()
+                .clickCreateNewList()
+                .populateFields(couponsListName, expirationDate, amount)
+                .selectDiscountType(discount)
+                .uploadCcvFile(fileName)
+                .saveChanges();
+    }
+
+
+    public static void createCouponsListManually(
+            String couponsListName,
+            String expirationDate,
+            int amount,
+            PageCampaignRules.DiscountType discount,
+            String[] couponList)
+    {
+        String coupons = Util.stringArrayToString(couponList);
+        new CouponListsReportPage()
+                .clickCreateNewList()
+                .populateFields(couponsListName, expirationDate, amount)
+                .selectDiscountType(discount)
+                .populateCouponCodesManually(coupons)
+                .saveChanges();
+    }
+
+    public static void addCouponsToTheListManually(String couponListName, String[] couponList){
+        String coupons = Util.stringArrayToString(couponList);
+        new CouponListsReportPage()
+                .openCouponList(couponListName)
+                .addCouponsManually(coupons);
+    }
+
+    public static String getCouponsTotalCountFromCouponListPage(){
+        return new CouponListPage().getCouponsTotalCount();
+    }
+
+    public static String getCouponsListStatusFromCouponListPage(){
+        return new CouponListPage().getStatus();
+    }
+
+    public static boolean isCouponCodePresentInTheList(String couponCode){
+        return new CouponListPage().isCouponPreset(couponCode);
+    }
+
+    public static String getNameFromCouponsList(){
+        return new CouponListPage().getListName();
+    }
+    /* End of scenarios for Coupon Codes Report*/
+
 }

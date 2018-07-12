@@ -82,10 +82,6 @@ public abstract class AbstractElementsContainer
         return convert(elements);
     }
 
-    protected ArrayList<Element> getElementsList(WebElement parentWebElement, String xpath){
-        List<WebElement> elements = parentWebElement.findElements(By.xpath(xpath));
-        return convert(elements);
-    }
 
     private ArrayList<Element> convert(List<WebElement> from){
         ArrayList<Element> outList = new ArrayList<>();
