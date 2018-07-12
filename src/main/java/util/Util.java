@@ -71,4 +71,13 @@ public class Util {
         return url;
     }
 
+    public static String stringArrayToString(String[] arr){
+        StringBuilder out = new StringBuilder();
+        for (String str :
+                arr) {
+            out.append(str).append("\r\n");
+        }
+        return out.toString();
+    }
+
 }

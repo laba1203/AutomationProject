@@ -101,6 +101,8 @@ public class CommonScenarios {
         return new Header();
     }
 
+
+
     public static Header submitLoginForm(String email, String password){
         Header header = new LoginPage().submitLoginForm(email, password);
         Log.logRecord("User logged into Talkable. Email = <" + email + ">");
@@ -134,6 +136,10 @@ public class CommonScenarios {
         DriverConfig.getDriver().navigate().to(EnvFactory.getAdminUrl());
         new Header();
         Log.logRecord("Navigated to admin URL");
+    }
+
+    public static String getCurrentUrl(){
+        return DriverConfig.getDriver().getCurrentUrl();
     }
 
     public static SiteDashboardPage switchToIntegratedSiteByVisibleText(String siteName) {
