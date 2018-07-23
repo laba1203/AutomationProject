@@ -8,8 +8,6 @@ import api.objects.shares.channel.social.SharesSocial;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
-import org.testng.Assert;
-import util.logging.Log;
 
 import java.util.ArrayList;
 
