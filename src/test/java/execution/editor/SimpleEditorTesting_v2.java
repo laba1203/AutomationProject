@@ -55,8 +55,11 @@ public class SimpleEditorTesting_v2 extends BaseTest {
         Log.testPassed("Value is updated in Simple Editor. <" +type + "." + localizationName + ">.\r\n");
     }
 
-    @Test(dependsOnMethods = "loginAndCreateNewCampaign"
-            , expectedExceptions = AssertionError.class) //scenarios is failed due to the defect https://talkable.atlassian.net/browse/PR-9523
+    //TODO: Test case is not valid anymore. Create New Preset button is not available for the Admin user. (Only STAFF user should have access to this option)
+    //We need to add STAFF only user to this scenario or remove this case.
+
+//    @Test(dependsOnMethods = "loginAndCreateNewCampaign"
+//            , expectedExceptions = AssertionError.class) //scenarios is failed due to the defect https://talkable.atlassian.net/browse/PR-9523
     public void createNewPreset(){
         String presetName = "testPreset" + TestDataGenerator.getRandomId();
         driver.navigate().to(campaignDetailsPageUrl);
