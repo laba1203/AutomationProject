@@ -24,7 +24,7 @@ public class SimpleEditorTesting_v2 extends BaseTest {
 
     private static final String siteName = PropertyLoader.loadProperty("sites.name.editorTesting");
     private String campaignDetailsPageUrl;
-    private String user = EnvFactory.getCommonUser();
+    private String user = PropertyLoader.loadProperty("talkable.user.editor");
     private String pswrd = EnvFactory.getPassword();
 
     @Test
