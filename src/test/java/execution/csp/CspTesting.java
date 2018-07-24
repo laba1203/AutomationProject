@@ -80,6 +80,8 @@ public class CspTesting extends BaseTest{
     }
 
 
+    /*DEFECT: All scenarios are blocked by https://talkable.atlassian.net/browse/PR-9622 on PROD env*/
+
     /*Scenarios#1
     * */
     @Test
@@ -114,7 +116,7 @@ public class CspTesting extends BaseTest{
 
     /*Scenario#2
     * */
-    @Test(expectedExceptions = AssertionError.class) //failed due to https://talkable.atlassian.net/browse/PR-9520
+    @Test
     public void approvePendingReferral(){
         String advocate = "advocate.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
         String friend = "friend.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
@@ -136,7 +138,7 @@ public class CspTesting extends BaseTest{
 
     /*Scenario#3
      * */
-    @Test(expectedExceptions = AssertionError.class) //failed due to https://talkable.atlassian.net/browse/PR-9520
+    @Test
     public void voidPendingReferral(){
         String advocate = "advocate.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";
         String friend = "friend.auto+" + TestDataGenerator.getRandomId() + "@gmail.com";

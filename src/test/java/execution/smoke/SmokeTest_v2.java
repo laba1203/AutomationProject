@@ -26,7 +26,6 @@ import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaig
 import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.IncentiveType.FriendIncentive_NewCustomer;
 
 
-@Listeners(util.Listeners.class)
 public class SmokeTest_v2 extends BaseTest{
 
     private static final String SITE_URL = PropertyLoader.loadEnvProperty("test.sites.smoke.test");

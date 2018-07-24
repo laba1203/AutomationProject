@@ -101,6 +101,8 @@ public class CommonScenarios {
         return new Header();
     }
 
+
+
     public static Header submitLoginForm(String email, String password){
         Header header = new LoginPage().submitLoginForm(email, password);
         Log.logRecord("User logged into Talkable. Email = <" + email + ">");
@@ -134,6 +136,10 @@ public class CommonScenarios {
         DriverConfig.getDriver().navigate().to(EnvFactory.getAdminUrl());
         new Header();
         Log.logRecord("Navigated to admin URL");
+    }
+
+    public static String getCurrentUrl(){
+        return DriverConfig.getDriver().getCurrentUrl();
     }
 
     public static SiteDashboardPage switchToIntegratedSiteByVisibleText(String siteName) {
@@ -190,11 +196,6 @@ public class CommonScenarios {
     //method modified as temp workaround for old CSP:
     public static PersonLookupPage openCustomerServicePortal(){
         PersonLookupPage page = new Header().openCustomerServicePortal();
-//        new Header().openOldCustomerServicePortal();
-//        String oldCspUrl = DriverConfig.getDriver().getCurrentUrl();
-//        String newCspUrl = oldCspUrl + "_portal";
-//        DriverConfig.getDriver().navigate().to(newCspUrl);
-//        PersonLookupPage page = new PersonLookupPage();
         Log.logRecord("New Customer Service Portal is opened. (Person Lookup page is displayed)");
         return page;
     }

@@ -11,7 +11,7 @@ public class EnvFactory {
     private static final String PROD_LINK = "talkable.com";
     private static final String BASTION_LINK = "bastion.talkable.com";
 
-    private static final String COMMON_USER = PropertyLoader.loadProperty("talkable.user");
+    private static final String COMMON_USER = PropertyLoader.loadProperty("talkable.user.common");
     private static final String REPORTS_USER = PropertyLoader.loadProperty("talkable.user.reports");
 
     private static final String password = PropertyLoader.loadProperty("talkable.password");
