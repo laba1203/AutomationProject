@@ -4,6 +4,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.Parameters;
 import util.logging.Log;
@@ -64,11 +65,16 @@ public class DriverConfig {
             System.err.println("Exception found");
             e.printStackTrace();
         }
-            driver = new RemoteWebDriver(
+
+        RemoteWebDriver rDriver = new RemoteWebDriver(
                     url,
                     capabilities
             );
-        System.out.println("DEBAG: Driver created");
+
+        rDriver.setFileDetector(new LocalFileDetector());
+        driver = rDriver;
+
+        Log.debagRecord("Driver created");
 
         //setup default wait
         if(driver != null) {
