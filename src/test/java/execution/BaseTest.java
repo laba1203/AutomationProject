@@ -6,6 +6,7 @@ import util.*;
 import util.logging.Log;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class BaseTest {
 
@@ -23,7 +24,16 @@ public class BaseTest {
                 DriverConfig.getDriver().quit();
                 DriverConfig.cleanWebDriver();
                 this.driver = DriverConfig.getDriver();
-                this.driver.navigate().to(EnvFactory.getEnvUrl());
+                try {
+                    this.driver.navigate().to(EnvFactory.getEnvUrl());
+                }catch (org.openqa.selenium.TimeoutException e2){
+                    Log.logRecord("The second Timeout received during navigation to Env URL in BaseTest.commonSetup(). Closing web driver...\r\n"
+                            + e2.getMessage() +"\r\n"
+                            + Arrays.toString(e2.getStackTrace())
+                    );
+                    DriverConfig.cleanWebDriver();
+                    e2.printStackTrace();
+                }
                 Log.logRecord("Successfully opened URL from the second attempt");
             }
             System.out.println("*** DEBAG: Before class executed in Base Test of class: " + getClass().getName() + " ***\r\n");
