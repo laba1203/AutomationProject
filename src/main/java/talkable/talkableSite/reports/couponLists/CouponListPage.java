@@ -5,17 +5,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
+import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 
 import java.util.ArrayList;
 
 public class CouponListPage extends AbstractTalkableSitePage{
 
+    private static final By discountAmountLctr = By.xpath("//dt[text()='Discount Amount']/following::dd[1]");
     private static final By totalCouponsLctr = By.xpath("//dt[text()='Total Coupons']/following::dd[1]");
     private static final By statusLctr = By.xpath("//dt[text()='Status']/following::dd[1]/div");
     private static final By addCouponsBtnLctr = By.xpath("//a[contains(text(), 'Add coupons')]");
+    private static final By editBtn = By.xpath("//a[text() = 'Edit']");
     private static final By listNameLctr = By.xpath("//h2");
     private static final By couponRowsLctr = By.xpath("//table[contains(@class, 'coupons-grid')]//tbody/tr");
 
+
+    private Element discountAmount = new Element(discountAmountLctr);
     private Element totalCoupons = new Element(totalCouponsLctr);
     private Element status = new Element(statusLctr);
     private Element addCouponsBtn = new Element(addCouponsBtnLctr, "Add coupons button");
@@ -38,6 +43,30 @@ public class CouponListPage extends AbstractTalkableSitePage{
         return new AddCouponsPage()
                 .populateCouponCodesManually(coupons)
                 .saveChanges();
+    }
+
+    public String getAmount(){
+        String amount = discountAmount.getText();
+        switch (getDiscountType()){
+            case FixedAmount:
+                return amount.substring(1);
+            case Percentage:
+                return amount.substring(0, amount.indexOf("%"));
+            default:
+                return null;
+        }
+    }
+
+    public PageCampaignRules.DiscountType getDiscountType(){
+        String value = discountAmount.getText();
+        if(value.contains("$")){
+            return PageCampaignRules.DiscountType.FixedAmount;
+        }
+        if(value.contains("%")){
+            return PageCampaignRules.DiscountType.Percentage;
+        }
+        Assert.fail("Not found Discount Type identifier('$' or '%') in the 'Discount Amount' value <" + value + "> field on the Coupon List page <" + getListName() + ">");
+        return null;
     }
 
     public boolean isCouponPreset(String couponCode){
@@ -71,6 +100,12 @@ public class CouponListPage extends AbstractTalkableSitePage{
         return rows;
     }
 
+    public EditCouponsListPage edit(){
+        new Element(editBtn, "Edit button")
+                .click();
+        return new EditCouponsListPage();
+    }
+
 
     private class Row{
 
@@ -86,11 +121,6 @@ public class CouponListPage extends AbstractTalkableSitePage{
         String getCode(){
             return new Element(element.findElement(couponCodeLctr)).getText();
         }
-
-//        void clickToCode(){
-//            new Element(element.findElement(couponCodeLctr)).click();
-//        }
-
 
 
     }

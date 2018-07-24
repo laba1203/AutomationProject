@@ -10,6 +10,7 @@ import talkable.talkableSite.reports.couponLists.CouponListsReportPage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.referrals.PageReferralsReport;
 import talkable.talkableSite.reports.rewards.RewardsReportPage;
+import util.DriverConfig;
 import util.Util;
 import util.logging.Log;
 
@@ -155,13 +156,57 @@ public class ReportsScenarios extends CommonScenarios {
 
     public static void addCouponsToTheListManually(String couponListName, String[] couponList){
         String coupons = Util.stringArrayToString(couponList);
-        new CouponListsReportPage()
-                .openCouponList(couponListName)
+        openCouponList(couponListName)
                 .addCouponsManually(coupons);
     }
 
-    public static String getCouponsTotalCountFromCouponListPage(){
-        return new CouponListPage().getCouponsTotalCount();
+    public static CouponListPage openCouponList(String couponListName){
+        return new CouponListsReportPage()
+                .openCouponList(couponListName);
+    }
+
+    public static void editCouponList(String newCouponListName, int newAmount, PageCampaignRules.DiscountType discountType){
+        new CouponListPage()
+                .edit()
+                .populateFields(newCouponListName, newAmount)
+                .selectDiscountType(discountType)
+                .saveChanges();
+    }
+
+    public static void assertCouponsListValues(String expectedName, int expectedAmount, PageCampaignRules.DiscountType expectedDiscount){
+        Assert.assertEquals(
+                new CouponListPage().getListName(),
+                expectedName,
+                "Incorrect Coupon List Name on the Coupon List page.");
+        Assert.assertEquals(
+                new CouponListPage().getAmount(),
+                String.valueOf(expectedAmount),
+                "Incorrect Coupon List amount on the Coupon List page.");
+        Assert.assertEquals(
+                new CouponListPage().getDiscountType(),
+                expectedDiscount,
+                "Incorrect Coupon List discount type on the Coupon List page.");
+    }
+
+    public static void assertTotalCouponCountOnCouponListPage(String expectedCouponsCount){
+        try {
+            assertCouponCodes(expectedCouponsCount);
+            Log.logRecord("Coupon codes Total count is not refreshed on the Coupon List page.");
+        }
+        catch (AssertionError e){
+            Log.logRecord("Coupon codes Total count is not refreshed on the Coupon List page.");
+            Log.logRecord("Refreshing the page...");
+            DriverConfig.getDriver().navigate().refresh();
+            assertCouponCodes(expectedCouponsCount);
+        }
+    }
+
+    private static void assertCouponCodes(String expectedCouponsCount){
+        Assert.assertEquals(
+                new CouponListPage().getCouponsTotalCount(),
+                expectedCouponsCount,
+                "Incorrect Coupon codes count on Coupon List page for <" + new CouponListPage().getListName() + ">."
+        );
     }
 
     public static String getCouponsListStatusFromCouponListPage(){
