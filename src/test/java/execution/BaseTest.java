@@ -30,7 +30,7 @@ public class BaseTest {
                             + e2.getMessage() +"\r\n"
                             + Arrays.toString(e2.getStackTrace())
                     );
-                    DriverConfig.cleanWebDriver();
+                    DriverConfig.quitAndRemoveWebDriver();
                     e2.printStackTrace();
                 }
                 Log.logRecord("Successfully opened URL from the second attempt");
