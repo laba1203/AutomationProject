@@ -45,7 +45,8 @@ import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaig
     * 5. Verify updated values on Coupon List page.
     * */
 
-    @Listeners(util.Listeners.class)
+/*Link to test scenario: https://docs.google.com/spreadsheets/d/1cVBZH9ucZwFKOd8_sqf3vnCg2nr6Y9uV38DPI3IyEKg
+ * */
 public class UploadCouponCodesTests extends BaseTest{
 
     private String user = PropertyLoader.loadProperty("talkable.user.reports");
