@@ -1,6 +1,5 @@
 package talkable.talkableSite.campaign.pages.editorPage;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
@@ -13,7 +12,6 @@ public class SimpleEditorPage extends AbstractEditorPage{
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
     private LocalizationSidebar localizationSidebar;
-    private ElmntSaveButton saveButton = new ElmntSaveButton();
 //    private ElmntSelectedViewField elmntSelectedViewField = new ElmntSelectedViewField();
     private ElmntCopyButton copyButton = new ElmntCopyButton();
     private ElmntImagesButton imagesButton = new ElmntImagesButton();
@@ -58,7 +56,7 @@ public class SimpleEditorPage extends AbstractEditorPage{
     public SimpleEditorPage updateLocalization(LocalizationType type, String localizationName, String newValue){
         verifyLocalizationMode(type);
         localizationSidebar.updateRecord(type, localizationName, newValue);
-        saveChanges();
+        saveChangesInSimpleEditor();
         return new SimpleEditorPage(type);
     }
 
@@ -71,9 +69,8 @@ public class SimpleEditorPage extends AbstractEditorPage{
         Assert.assertEquals(mode, this.mode, "FAILED: Incorrect Localization type used in the method");
     }
 
-    private SimpleEditorPage saveChanges(){
-        saveButton.click();
-        waitSaving();
+    private SimpleEditorPage saveChangesInSimpleEditor(){
+        saveChanges();
         return new SimpleEditorPage(this.mode);
     }
 

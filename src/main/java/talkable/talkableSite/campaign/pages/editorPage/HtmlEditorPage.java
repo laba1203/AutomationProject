@@ -12,8 +12,12 @@ public class HtmlEditorPage extends AbstractEditorPage{
     private static final By cssPanelTitleLctr = By.xpath("//div[@class='editor-panel-tip-title']");
     private static final By emailSubjectInExtraPopup = By.xpath("//textarea[@name='view_setup[caption]']");
     private static final By saveChangesBtnInExtaLctr = By.xpath("//*[contains(@class,'editor-popup')]/div[text() = 'Save changes']");
+    private static final By htmlTextAreaLctr = By.xpath("//div[@id='ace-template']/textarea[@class='ace_text-input']");
+    private static final By cssTextAreaLctr = By.xpath("//div[@id='ace-css']/textarea[@class='ace_text-input']");
 
     private Element extraBtn = new Element(extraBtnLctr, "Extra button");
+    private Element htmlTextArea = new Element(htmlTextAreaLctr, "HTML Text field");
+    private Element cssTextArea = new Element(cssTextAreaLctr, "CSS Text field");
 
     public HtmlEditorPage(){
         //elements initiation to make sure that Html Editor is opened.
@@ -59,6 +63,21 @@ public class HtmlEditorPage extends AbstractEditorPage{
         waitSaving();
         extraBtn.click();
         return new HtmlEditorPage();
+    }
+
+    private HtmlEditorPage saveChangesInHtmlEditor(){
+        saveChanges();
+        return new HtmlEditorPage();
+    }
+
+    public HtmlEditorPage clearCSS(){
+        cssTextArea.clear();
+        return saveChangesInHtmlEditor();
+    }
+
+    public HtmlEditorPage clearAndAddHtml(String html){
+        htmlTextArea.clearAndSendKeys(html);
+        return saveChangesInHtmlEditor();
     }
 
 

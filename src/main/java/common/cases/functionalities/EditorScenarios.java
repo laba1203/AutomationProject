@@ -106,6 +106,14 @@ public class EditorScenarios extends CommonScenarios{
         return new AbstractEditorPage().getEmailSubjectFromPreview();
     }
 
+    public static void clearCssSection(){
+        new HtmlEditorPage().clearCSS();
+    }
+
+    public static void addNewHtmlCode(String html){
+        new HtmlEditorPage().clearAndAddHtml(html);
+    }
+
 
 
 
