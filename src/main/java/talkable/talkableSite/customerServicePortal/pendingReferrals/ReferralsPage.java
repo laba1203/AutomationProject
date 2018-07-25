@@ -47,7 +47,7 @@ public class ReferralsPage extends AbstractCustomerServicePortalPage{
         return pendingReferralsCount.getText().substring(13);
     }
 
-    @Deprecated
+
     public PersonInfoSection clickSeeDetailsForActionedReferral(){
         new Element(seeDetailsForActionedReferralLctr, "'See Details' link").click();
         return new PersonLookupPage().getPersonInfoSection();
@@ -75,18 +75,18 @@ public class ReferralsPage extends AbstractCustomerServicePortalPage{
     }
 
 
-    public ReferralDetailsPage approveReferral(String advocateEmail){
+    public ReferralsPage approveReferral(String advocateEmail){
         findRowBy(advocateEmail).approve();
         waitSaving();
         Log.logRecord("Referral was approved. Advocate email <" + advocateEmail + ">.");
-        return new ReferralDetailsPage();
+        return new ReferralsPage();
     }
 
-    public ReferralDetailsPage voidReferral(String advocateEmail){
+    public ReferralsPage voidReferral(String advocateEmail){
         findRowBy(advocateEmail).voidReferral();
         waitSaving();
         Log.logRecord("Referral was voided. Advocate email <" + advocateEmail + ">.");
-        return new ReferralDetailsPage();
+        return new ReferralsPage();
     }
 
 

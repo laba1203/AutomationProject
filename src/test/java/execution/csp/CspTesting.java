@@ -125,9 +125,10 @@ public class CspTesting extends BaseTest{
         CommonScenarios.openCustomerServicePortal();
         CspScenarios.openPendingReferralsPage();
         CspScenarios.approvePendingReferral(advocate);
+        CspScenarios.clickSeeDetailsForActionedRowOnRendingReferrals();
 
         Assert.assertEquals(
-                CspScenarios.getReferralStatusFromReferralDetailsPage(),
+                CspScenarios.getReferralStatusFromPersonLookupInfo(friend),
                 "Approved",
                 "FAILED: Incorrect pending referral status for advocate = <" + advocate + ", friend = <" + friend + ">."
         );
@@ -147,9 +148,10 @@ public class CspTesting extends BaseTest{
         CommonScenarios.openCustomerServicePortal();
         CspScenarios.openPendingReferralsPage();
         CspScenarios.voidPendingReferral(advocate);
+        CspScenarios.clickSeeDetailsForActionedRowOnRendingReferrals();
 
         Assert.assertEquals(
-                CspScenarios.getReferralStatusFromReferralDetailsPage(),
+                CspScenarios.getReferralStatusFromPersonLookupInfo(friend),
                 "Voided",
                 "FAILED: Incorrect pending referral status for advocate = <" + advocate + ", friend = <" + friend + ">."
         );
