@@ -82,22 +82,10 @@ public class HtmlEditorTesting extends BaseTest {
             new Alert().confirm();
             openCampaignDetailsPage();
         }
-
-        //debag part:
-        try{
-            new Alert().confirm();
-            Log.debagRecord("Alert found and closed on Campaign details page during @BeforeMethod execution.");
-        }catch (TimeoutException e){
-            Log.debagRecord("Alert was not shown on Campaign details page during @BeforeMethod execution.");
-        }
-        //end
-
         Log.logRecord("Navigated to Campaign Details page URL: " + campaignDetailsPageUrl);
     }
 
 
-
-    //Pending defect --> https://talkable.atlassian.net/browse/PR-9495
     /*Scenarios1*/
     @Test(groups = {"ui-actions"})
     public void creteNewView(){
@@ -105,14 +93,13 @@ public class HtmlEditorTesting extends BaseTest {
         String viewNameInHtmlEditor = "Advocate offer email";
 
         EditorScenarios.openHtmlEditor();
-        //todo: try{} should be removed when the defect PR-9495 is fixed.
-        try {
+//        try {
             EditorScenarios.createNewView(viewType);
-        }catch (UnhandledAlertException e){
-            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.createNewView().");
-            new Alert().confirm();
-            new CreateNewViewPage().createNewView(viewType);
-        }
+//        }catch (UnhandledAlertException e){
+//            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.createNewView().");
+//            new Alert().confirm();
+//            new CreateNewViewPage().createNewView(viewType);
+//        }
         Assert.assertEquals(
                 EditorScenarios.getSelectedView(),
                 viewNameInHtmlEditor,
@@ -121,22 +108,20 @@ public class HtmlEditorTesting extends BaseTest {
     }
 
 
-    // Blocked by the Defect: https://talkable.atlassian.net/browse/PR-9495
     /*Scenarios2*/
     @Test(groups = {"ui-actions"})
     public void deleteView(){
         String viewName = "Advocate share page";
 
         EditorScenarios.openHtmlEditor();
-        //todo: try{} should be removed when the defect PR-9495 is fixed.
-        try {
+//        try {
             EditorScenarios.deleteView(viewName);
 
-        }catch (UnhandledAlertException e){
-            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.deleteView().");
-            new Alert().confirm();
-            new HtmlEditorPage().waitViewDestroyedMsg();
-        }
+//        }catch (UnhandledAlertException e){
+//            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.deleteView().");
+//            new Alert().confirm();
+//            new HtmlEditorPage().waitViewDestroyedMsg();
+//        }
 
         Assert.assertEquals(
                 EditorScenarios.isViewPresent(viewName),
@@ -146,7 +131,6 @@ public class HtmlEditorTesting extends BaseTest {
     }
 
 
-    //Pending defect --> https://talkable.atlassian.net/browse/PR-9495
     /*Scenario3*/
     @Test(groups = {"ui-actions"})
     public void updateEmailSubjectInExtraPopup(){
@@ -154,13 +138,12 @@ public class HtmlEditorTesting extends BaseTest {
         String newSubject = "Automation test email subject";
 
         EditorScenarios.openHtmlEditor();
-        //todo: try{} should be removed when the defect PR-9495 is fixed.
-        try {
+//        try {
             EditorScenarios.switchViewByName(viewName);
-        }catch (UnhandledAlertException e){
-            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.updateEmailSubjectInExtraPopup().");
-            new Alert().confirm();
-        }
+//        }catch (UnhandledAlertException e){
+//            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.updateEmailSubjectInExtraPopup().");
+//            new Alert().confirm();
+//        }
         EditorScenarios.updateExtraEmailSubject(newSubject);
         Assert.assertEquals(
                 EditorScenarios.getEmailSubjectFromPreview(),
