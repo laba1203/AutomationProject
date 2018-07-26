@@ -138,6 +138,11 @@ public class CommonScenarios {
         Log.logRecord("Navigated to admin URL");
     }
 
+    public static void navigateToUrl(String url){
+        DriverConfig.getDriver().navigate().to(url);
+        Log.logRecord("Navigated to URL: " + url);
+    }
+
     public static String getCurrentUrl(){
         return DriverConfig.getDriver().getCurrentUrl();
     }

@@ -3,6 +3,7 @@ package common.cases.functionalities;
 import common.cases.CommonScenarios;
 import org.openqa.selenium.NotFoundException;
 import org.testng.Assert;
+import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.couponLists.CouponListPage;
@@ -15,6 +16,14 @@ import util.Util;
 import util.logging.Log;
 
 public class ReportsScenarios extends CommonScenarios {
+
+    /* Scenarios for Previous Customers report */
+
+    public static void openExistingCustomersReport(){
+        new Header()
+                .clickReportsButton()
+                .openExistingCustomerReport();
+    }
 
     /*Scenario to test uploading of Previous Customers list
     * Precondition:
@@ -38,8 +47,48 @@ public class ReportsScenarios extends CommonScenarios {
         Assert.assertEquals(actualProgress, expectedProgress, "FAILED: Incorrect Progress");
         Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails, "FAILED: Incorrect UploadedEmails");
         Assert.assertEquals(actualStatus, expectedStatus, "FAILED: Incorrect Status");
-
     }
+
+    public static void uploadPreviousCustomersCsvFile(String fileName){
+        PreviousCustomersReportPage previousCustomersReport = new PreviousCustomersReportPage();
+        previousCustomersReport.uploadFile(fileName);
+        previousCustomersReport.waitTillFileProcessed();
+        String actualFileName = new PreviousCustomersReportPage().getRowWithCsv(1).getFileName();
+        Assert.assertEquals(actualFileName, fileName, "FAILED: Incorrect FileName");
+    }
+
+    public static void assertRowInPreviousCustomersReport(String expectedProgress, String expectedUploadedEmails, String expectedStatus){
+        String actualProgress = new PreviousCustomersReportPage().getRowWithCsv(1).getProgress();
+        String actualUploadedEmails = new PreviousCustomersReportPage().getRowWithCsv(1).getEmailsUploaded();
+        String actualStatus = new PreviousCustomersReportPage().getRowWithCsv(1).getStatus();
+
+        Assert.assertEquals(actualProgress, expectedProgress, "FAILED: Incorrect Progress for file <"+new PreviousCustomersReportPage().getRowWithCsv(1).getFileName()+">.");
+        Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails, "FAILED: Incorrect UploadedEmails for file <" +new PreviousCustomersReportPage().getRowWithCsv(1).getFileName()+">.");
+        Assert.assertEquals(actualStatus, expectedStatus, "FAILED: Incorrect Status for file <"+new PreviousCustomersReportPage().getRowWithCsv(1).getFileName()+">");
+    }
+
+    public static String getFirstEmailFromPreviousCustomerReport(){
+        return new PreviousCustomersReportPage().getFirstEmailValue();
+    }
+
+    public static void searchEmailInPreviousCustomerReport(String email){
+        new PreviousCustomersReportPage().searchEmail(email);
+    }
+
+    public static String getTotalEmailsCountFromPreviousCustomerReport(){
+        return new PreviousCustomersReportPage().getTotalValue();
+    }
+
+    public static Pagination getPaginationForCsvListTableInPreviousCustomer(){
+        return new PreviousCustomersReportPage()
+                .getUpperPaginationForCsvListsTable();
+    }
+
+    public static Pagination getPaginationForEmailsListTableInPreviousCustomer(){
+        return new PreviousCustomersReportPage()
+                .getUpperPaginationForCustomersList();
+    }
+
     /* End of scenarios for Previous Customers Upload */
 
 
