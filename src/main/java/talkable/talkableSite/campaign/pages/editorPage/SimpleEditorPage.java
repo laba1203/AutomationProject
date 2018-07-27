@@ -1,52 +1,62 @@
 package talkable.talkableSite.campaign.pages.editorPage;
 
+import abstractObjects.Element;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
+import util.logging.Log;
 
 import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.*;
 
 public class SimpleEditorPage extends AbstractEditorPage{
 
+    private static final By selectedLocalizationModeLctr = By.xpath("//div[contains( @class, 'localizations-filters')]/div[contains(@class, 'is-active')]/span");
+
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
-    private LocalizationSidebar localizationSidebar;
+//    private LocalizationSidebar localizationSidebar;
 //    private ElmntSelectedViewField elmntSelectedViewField = new ElmntSelectedViewField();
     private ElmntCopyButton copyButton = new ElmntCopyButton();
     private ElmntImagesButton imagesButton = new ElmntImagesButton();
     private ElmntColorButton colorButton = new ElmntColorButton();
     private ElmntConfigurationButton configurationButton = new ElmntConfigurationButton();
 
-
     public enum LocalizationType {COPY, IMAGES, COLOR, CONFIGURATION}
-    private LocalizationType mode;
+    private LocalizationType mode = COPY; //COPY is a default mode;
 
     public SimpleEditorPage(){
-        switchTo(COPY);
-        setLocalizationSidebar(COPY);
-    }
-
-    private void setLocalizationSidebar(LocalizationType mode){
-        localizationSidebar = new LocalizationSidebar(mode);
-        this.mode = mode;
+        Log.debagRecord("Initiated Simple Editor with default mode: " + getMode());
+//        switchTo(mode);
     }
 
     public SimpleEditorPage(LocalizationType mode){
         switchTo(mode);
-        localizationSidebar = new LocalizationSidebar(mode);
+    }
+
+//    private void setLocalizationSidebar(LocalizationType mode){
+//        localizationSidebar = new LocalizationSidebar(mode);
+//        setMode(mode);
+//    }
+
+    private void setMode(LocalizationType mode){
         this.mode = mode;
+    }
+
+    private LocalizationType getMode(){
+        return mode;
     }
 
 
     public SimpleEditorPage switchViewByNameOnSimpleEditor(String name){
         switchViewByName(name);
-        return new SimpleEditorPage(this.mode);
+        return new SimpleEditorPage(getMode());
     }
 
      public SimpleEditorPage deleteViewPreset(String presetName) {
         deletePresetOnSimpleEditor(presetName);
-        return new SimpleEditorPage(this.mode);
+        return new SimpleEditorPage(getMode());
      }
 
     private boolean isViewSelected(String toBeSelected){
@@ -55,60 +65,93 @@ public class SimpleEditorPage extends AbstractEditorPage{
 
     public SimpleEditorPage updateLocalization(LocalizationType type, String localizationName, String newValue){
         verifyLocalizationMode(type);
-        localizationSidebar.updateRecord(type, localizationName, newValue);
+        getLocalizationSidebar().updateRecord(type, localizationName, newValue);
         saveChangesInSimpleEditor();
         return new SimpleEditorPage(type);
     }
 
+    private LocalizationSidebar getLocalizationSidebar(){
+        return new LocalizationSidebar(getMode());
+    }
+
 
     public String getLocalizationValue(LocalizationType type, String localizationName){
-        return localizationSidebar.getRecord(type, localizationName).getValueText();
+        return getLocalizationSidebar().getRecord(type, localizationName).getValueText();
     }
 
     private void verifyLocalizationMode(LocalizationType mode){
-        Assert.assertEquals(mode, this.mode, "FAILED: Incorrect Localization type used in the method");
+        Assert.assertEquals(mode, getMode(), "FAILED: Incorrect Localization type used in the method");
     }
 
     private SimpleEditorPage saveChangesInSimpleEditor(){
         saveChanges();
-        return new SimpleEditorPage(this.mode);
+        return new SimpleEditorPage(getMode());
     }
 
-    public void switchTo(LocalizationType mode){
-        switch (mode){
-            case COPY:
-                wait.until(ExpectedConditions.elementToBeClickable(copyButton.getWebElement()));
-                copyButton.moveToElementAndClick();
-                setLocalizationSidebar(COPY);
-                break;
-            case COLOR:
-                wait.until(ExpectedConditions.elementToBeClickable(colorButton.getWebElement()));
-                colorButton.moveToElementAndClick();
-                setLocalizationSidebar(COLOR);
-                break;
-            case IMAGES:
-                wait.until(ExpectedConditions.elementToBeClickable(imagesButton.getWebElement()));
-                imagesButton.moveToElementAndClick();
-                setLocalizationSidebar(IMAGES);
-                break;
-            case CONFIGURATION:
-                wait.until(ExpectedConditions.elementToBeClickable(configurationButton.getWebElement()));
-                configurationButton.moveToElementAndClick();
-                setLocalizationSidebar(CONFIGURATION);
-                break;
-            default:
-                Assert.fail("FAILED: Unknown localization type: <" + mode + ">");
-                break;
+    public SimpleEditorPage switchTo(LocalizationType mode){
+        setMode(mode);
+        if(isLocalizationTabAlreadySelected(mode)){
+            Log.logRecord("Localization tab <" + mode + "> is already selected.");
+            return this;
+        } else {
+            switch (mode) {
+                case COPY:
+                    wait.until(ExpectedConditions.elementToBeClickable(copyButton.getWebElement()));
+                    copyButton.moveToElementAndClick();
+//                setLocalizationSidebar(COPY);
+                    break;
+                case COLOR:
+                    wait.until(ExpectedConditions.elementToBeClickable(colorButton.getWebElement()));
+                    colorButton.moveToElementAndClick();
+//                setLocalizationSidebar(COLOR);
+                    break;
+                case IMAGES:
+                    wait.until(ExpectedConditions.elementToBeClickable(imagesButton.getWebElement()));
+                    imagesButton.moveToElementAndClick();
+//                setLocalizationSidebar(IMAGES);
+                    break;
+                case CONFIGURATION:
+                    wait.until(ExpectedConditions.elementToBeClickable(configurationButton.getWebElement()));
+                    configurationButton.moveToElementAndClick();
+//                setLocalizationSidebar(CONFIGURATION);
+                    break;
+                default:
+                    Assert.fail("FAILED: Unknown localization type: <" + mode + ">");
+                    break;
+            }
+            getLocalizationSidebar();
+            return this; //DON'T USE return new SimpleEditorPage(mode); - it will prevent to infinity loop!
         }
     }
 
     public PageMultiCampaignEditor clickCopyToOtherCampaigns(LocalizationType type, String localizationName){
-        localizationSidebar.getRecord(type, localizationName).copyToOtherCampaigns();
-        return new PageMultiCampaignEditor(mode);
+        getLocalizationSidebar().getRecord(type, localizationName).copyToOtherCampaigns();
+        return new PageMultiCampaignEditor(getMode());
+    }
+
+    private boolean isLocalizationTabAlreadySelected(LocalizationType expectedMode){
+        return expectedMode.equals(getSelectedLocalizationMode());
+    }
+
+    private LocalizationType getSelectedLocalizationMode(){
+        String selectedTab = new Element(selectedLocalizationModeLctr).getText();
+        switch (selectedTab){
+            case "Copy":
+                return COPY;
+            case "Images":
+                return IMAGES;
+            case "Color":
+                return COLOR;
+            case "Configuration":
+                return CONFIGURATION;
+            default:
+                Assert.fail("Unknown text in the selected Localization tab <" + selectedTab + ">. It doesn't match to any Localization mode.");
+                return null;
+        }
     }
 
     public void clickCreateABTest(LocalizationType type, String localizationName){
-        localizationSidebar.getRecord(type, localizationName).createABTest();
+        getLocalizationSidebar().getRecord(type, localizationName).createABTest();
         //TODO: Return action to be added after implementation of AB Test editor page
     }
 }

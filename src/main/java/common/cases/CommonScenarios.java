@@ -553,6 +553,10 @@ public class CommonScenarios {
         return new CampaignDetailsPage();
     }
 
+    public static void deactivateCampaignFromCampaignNavigationMenu(){
+        new CampaignDetailsPage().campaignNavigationMenu.deactivateCampaign();
+    }
+
     public static void reactivateCampaignFromCampaignsPage(String campaignName){
         new PageCampaigns()
                 .openCampaignByName(campaignName, DISABLED)
@@ -563,30 +567,30 @@ public class CommonScenarios {
 
 
 
-    /*Scenarios to open Multi-Campaign Editor page for some campaign.
-     * Precondition: Page with header should opened. Campaign with @campaignName should exist with defined @status.
-     * 1. Navigate to Campaigns page
-     * 2. Search campaign by @campaignName and @status
-     * 3. Select campaign
-     * 4. Navigate to Editor page.
-     * 5. Select view by @pageViewName
-     * 6. Select localization type by @contentType (COPY, IMAGE, CONFIGURATION or COLOR)
-     * 7. Find localization by @localizationName and click 'Copy to Other Campaigns' button
-     * @Returns: Multi-Campaign Editor page for mentioned parameters.
-     * */
-    public static PageMultiCampaignEditor openMultiCampaignEditorPage(String campaignName,
-                                                                      Table.Status status,
-                                                                      String pageViewName,
-                                                                      String localizationName,
-                                                                      SimpleEditorPage.LocalizationType contentType) {
-        CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
-        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
-        editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
-        editor.switchTo(contentType);
-        PageMultiCampaignEditor mceEditor =  editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
-        Log.logRecord("Multi-Campaign Editor page is opened for campaign = <" + campaignName + ">, localization = <" + contentType + " --> " + localizationName + ">.");
-        return mceEditor;
-    }
+//    /*Scenarios to open Multi-Campaign Editor page for some campaign.
+//     * Precondition: Page with header should opened. Campaign with @campaignName should exist with defined @status.
+//     * 1. Navigate to Campaigns page
+//     * 2. Search campaign by @campaignName and @status
+//     * 3. Select campaign
+//     * 4. Navigate to Editor page.
+//     * 5. Select view by @pageViewName
+//     * 6. Select localization type by @contentType (COPY, IMAGE, CONFIGURATION or COLOR)
+//     * 7. Find localization by @localizationName and click 'Copy to Other Campaigns' button
+//     * @Returns: Multi-Campaign Editor page for mentioned parameters.
+//     * */
+//    public static PageMultiCampaignEditor openMultiCampaignEditorPage(String campaignName,
+//                                                                      Table.Status status,
+//                                                                      String pageViewName,
+//                                                                      String localizationName,
+//                                                                      SimpleEditorPage.LocalizationType contentType) {
+//        CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
+//        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
+//        editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
+//        editor.switchTo(contentType);
+//        PageMultiCampaignEditor mceEditor =  editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
+//        Log.logRecord("Multi-Campaign Editor page is opened for campaign = <" + campaignName + ">, localization = <" + contentType + " --> " + localizationName + ">.");
+//        return mceEditor;
+//    }
 
     public static String getCampaignStatusFromMenu(){
         return new CampaignNavigationMenu().getCampaignStatus();

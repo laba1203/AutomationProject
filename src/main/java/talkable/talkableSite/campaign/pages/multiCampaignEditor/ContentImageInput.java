@@ -7,13 +7,9 @@ import talkable.talkableSite.campaign.pages.editorPage.selectImagePopup.PopupSel
 import util.Util;
 
 class ContentImageInput extends AbstractElementsContainer implements ContentValueRecord{
+    private static final By selectImageBtnLctr = By.xpath("//*[contains(text(), 'New content value')]/..//img");
 
-    private Element selectImage;
-
-    ContentImageInput(){
-        selectImage = new Element(driver.findElement(By.xpath("//*[contains(text(), 'New content value')]/..//img")));
-    }
-
+    private Element selectImage = new Element(selectImageBtnLctr, "Select Image button");
 
     @Override
     public void update(String newFileName) {

@@ -1,5 +1,7 @@
 package talkable.talkableSite.campaign.pages.multiCampaignEditor;
 
+import abstractObjects.Element;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
@@ -12,17 +14,27 @@ import static talkable.talkableSite.campaign.pages.multiCampaignEditor.Campaigns
 
 public class PageMultiCampaignEditor extends AbstractTalkableSitePage
 {
+
+    private static final By backToEditorBtnLctr = By.xpath("//*[contains(text(), 'Back to Editor')]/..");
+    private static final By campaignViewFieldLctr = By.xpath("//*[contains(text(), 'Campaign view')]/../p");
+    private static final By contentFieldLctr = By.xpath("//*[contains(text(), 'Content')]/../p");
+    private static final By previewBtnLctr = By.cssSelector(".edit-field-grid > .base-btn");
+    private static final By campaignFilterInputLctr = By.xpath("//*[contains(@class, 'campaignfilter')]/input");
+    private static final By saveContentBtnLctr = By.xpath("//*[contains(text(), 'Save Content')]");
+
+    private Element backToEditorButton = new Element(backToEditorBtnLctr, "Back to Editor button");
+    private Element campaignViewField = new Element(campaignViewFieldLctr, "Campaign View field");
+    private Element contentField = new Element(contentFieldLctr, "Content field");
+    private Element previewButton = new Element(previewBtnLctr, "Preview button");
+    private Element campaignFilter = new Element(campaignFilterInputLctr, "Campaign Filter input field");
+    private Element saveContentBtn = new Element(saveContentBtnLctr, "SaveContent");
+
     private SimpleEditorPage.LocalizationType mode;
-    private ElmntBackToEditor backToEditorButton = new ElmntBackToEditor();
-    private ElmntCampaignViewField campaignViewField = new ElmntCampaignViewField();
-    private ElmntContentField contentField = new ElmntContentField();
-    private ElmntCampaignFilter campaignFilter = new ElmntCampaignFilter();
-    private ElmntPreviewButton previewButton = new ElmntPreviewButton();
+
 
     public PageMultiCampaignEditor(SimpleEditorPage.LocalizationType mode){
         this.mode = mode;
-        getContentValueRecord(mode);
-        new ElmntSaveContentButton();
+//        getContentValueRecord(mode);
     }
 
     private ContentValueRecord getContentValueRecord(SimpleEditorPage.LocalizationType mode){
@@ -86,14 +98,14 @@ public class PageMultiCampaignEditor extends AbstractTalkableSitePage
     }
 
     private PageMultiCampaignEditor saveChanges(){
-        new ElmntSaveContentButton().click();
+        saveContentBtn.click();
         waitSaving();
         return new PageMultiCampaignEditor(mode);
     }
 
     public PageMultiCampaignEditor typeToSearch(String text){
-        new ElmntCampaignFilter().clear();
-        new ElmntCampaignFilter().sendKeys(text);
+        campaignFilter.clear();
+        campaignFilter.sendKeys(text);
         return new PageMultiCampaignEditor(this.mode);
     }
 

@@ -115,7 +115,7 @@ public class Table extends AbstractElementsContainer {
 
     private Row isNull(Row row, String campaignName){
         if(row == null){
-            Assert.fail("Campaign with name <" + campaignName + "> is not found");
+            Assert.fail("Campaign with name <" + campaignName + "> with status <" + status + "> was not found.");
             return row;
         }
         return row;
@@ -139,10 +139,10 @@ public class Table extends AbstractElementsContainer {
             this.rowElement = rowElement;
 
             type = new Element(rowElement.findElement(By.xpath(".//div[contains(@class, 'campaign-type')]/span")));
-            name = new Element(rowElement.findElement(By.xpath(".//*[contains(@class, 'campaign-teaser-name')]")));
+            name = new Element(rowElement.findElement(By.xpath(".//*[contains(@class, 'campaign-teaser-name')]")), "Campaign name");
             id = new Element(rowElement.findElement(By.xpath(".//*[contains(@class, 'campaign-teaser-id')]")));
             offers = new Element(rowElement.findElement(By.xpath(".//*[contains(@class, 'campaign-teaser-count-text')]")));
-            actionsButton = new Element(rowElement.findElement(By.xpath(".//*[@data-toggle = 'dropdown']")));
+            actionsButton = new Element(rowElement.findElement(By.xpath(".//*[@data-toggle = 'dropdown']")), "Action button");
         }
 
         void deactivate(){

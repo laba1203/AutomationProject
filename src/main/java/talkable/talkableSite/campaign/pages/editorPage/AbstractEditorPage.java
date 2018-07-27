@@ -27,10 +27,10 @@ public class AbstractEditorPage extends AbstractTkblSitePageWithoutHeader
 
     void switchViewByName(String name){
         if(isViewSelected(name)) {
-            System.out.println("DEBAG: View <" + name + "> is already selected");
+            Log.logRecord("View <" + name + "> is already selected");
         }else{
             openViewList().selectViewByText(name);
-            System.out.println("DEBAG: View changed to : " + name);
+            Log.logRecord("View changed to : " + name);
         }
     }
 
@@ -69,8 +69,6 @@ public class AbstractEditorPage extends AbstractTkblSitePageWithoutHeader
     public void clickToPresetDropDown(){
         new Element(presetDropDownBtnLctr, "Preset Dropdown").click();
     }
-
-
 
     public String getSelectedPresetName(){
         return new Element(presetDropDownBtnLctr, "Preset Dropdown").getText();
