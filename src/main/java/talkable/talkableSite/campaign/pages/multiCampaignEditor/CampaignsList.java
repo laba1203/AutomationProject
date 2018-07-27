@@ -15,7 +15,7 @@ public class CampaignsList extends AbstractElementsContainer
     private static final String selectedCampaignsXpath = "//strong[contains(text(), 'Selected campaigns')]/../../../..";
     private static final String unselectedCampaignsXpath = "//strong[contains(text(), 'Unselected campaigns')]/../../../..";
     private static final String ineligibleCampaignsXpath = "//strong[contains(text(), 'Ineligible campaigns')]/../../../..";
-    private static final String campaignRecordXpath = "./li[@class = 'is-editMandatoryFields']";
+    private static final String campaignRecordXpath = "./li[@class = 'is-edit']";
 
     private WebElement ownElement;
     private ArrayList<CampaignRecord> campaigns = new ArrayList<>();
@@ -71,6 +71,7 @@ public class CampaignsList extends AbstractElementsContainer
     }
 
     CampaignRecord findCampaign(String campaignName){
+        setCampaignRecords();
         for (CampaignRecord campaign :
                 campaigns) {
             if (campaign.getName().equals(campaignName)){
