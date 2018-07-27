@@ -1,8 +1,4 @@
 <suite name="Reports Suite" preserve-order="true" group-by-instances="true">
-    <listeners>
-        <listener class-name="util.Listeners"/>
-    </listeners>
-
     <test name="Previous Customer Report" preserve-order="true" >
         <classes>
             <class name="execution.reports.previous.customer.upload.PreviousCustomerUploadTesting_v2"/>
