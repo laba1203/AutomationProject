@@ -90,7 +90,7 @@ public class EditorScenarios extends CommonScenarios{
 
     public static String getSelectedView(){
         String selectedView = new AbstractEditorPage().getSelectedViewName();
-        Log.logRecord("Selected view <" + selectedView + ">.");
+//        Log.logRecord("Selected view <" + selectedView + ">.");
         return selectedView;
     }
 
