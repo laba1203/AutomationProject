@@ -14,6 +14,7 @@ import talkable.common.elements.alert.Alert;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import util.EnvFactory;
 import util.PropertyLoader;
+import util.Screenshot;
 import util.logging.Log;
 
 import static talkable.common.CampaignPlacement.FloatingWidget;
@@ -59,7 +60,13 @@ import static talkable.common.CampaignType.Invite;
  *    5. Verify config locale in the preview frame.
  *
  * Scenario#5. Edit CSS
- *
+ *    1. Open campaign details.
+ *    2. Open HTML Editor.
+ *    3. Add CSS row for some class
+ *    4. Open any other Advocate view
+ *    5. Verify that the row is preset.
+ *    6. Open some Friend view.
+ *    7. Verify that the row is not preset.
  *    */
 
 
@@ -70,7 +77,6 @@ public class HtmlEditorTesting extends BaseTest {
     private String user = PropertyLoader.loadProperty("talkable.user.editor");
     private String pswrd = EnvFactory.getPassword();
     private String standaloneCampaignDetailsPageUrl;
-//    private String fwCampaignDetailsPageUrl;
 
 
     @BeforeClass
@@ -85,14 +91,6 @@ public class HtmlEditorTesting extends BaseTest {
         CommonScenarios.openCampaignsPageAndCreateCampaign(Invite, Standalone);
         standaloneCampaignDetailsPageUrl = driver.getCurrentUrl();
     }
-
-//    @BeforeGroups("edit-html-css")
-//    public void createFwCampaign(){
-//        CommonScenarios.navigateToAdminUrl();
-//        CommonScenarios.openCampaignsPageAndCreateCampaign(Invite, FloatingWidget);
-//        //todo: incorrect naming
-//        standaloneCampaignDetailsPageUrl = driver.getCurrentUrl();
-//    }
 
     @BeforeMethod
     public void openCampaignDetailsPage(){
@@ -222,6 +220,23 @@ public class HtmlEditorTesting extends BaseTest {
                 "Incorrect value in the Config localization (xPath = '" + xpathOfConfigLocale + "')."
         );
 
+    }
+
+
+//    @Test(groups = {"ui-actions"})
+
+    public void editCSS() {
+        EditorScenarios.openHtmlEditor();
+        //todo:
+//* Scenario#5. Edit CSS
+//1. Open campaign details.
+//2. Open HTML Editor.
+//3. Add CSS row for some class
+//4. Open any other Advocate view
+//5. Verify that the row is preset.
+//6. Open some Friend view.
+//7. Verify that the row is not preset.*//
+        EditorScenarios.clearCssSection();
     }
 
 

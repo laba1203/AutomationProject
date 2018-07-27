@@ -2,6 +2,7 @@ package talkable.talkableSite.campaign.pages.editorPage;
 
 import abstractObjects.Element;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import talkable.common.elements.alert.Alert;
 import util.logging.Log;
 
@@ -70,8 +71,13 @@ public class HtmlEditorPage extends AbstractEditorPage{
         return new HtmlEditorPage();
     }
 
+    @Deprecated
     public HtmlEditorPage clearCSS(){
-        cssTextArea.clear();
+        //todo: it doesn't work correctly
+        String selectAll = Keys.chord(Keys.CONTROL, "a");
+        cssTextArea.sendKeys(selectAll);
+        String delete = Keys.chord(Keys.DELETE);
+        cssTextArea.sendKeys(delete);
         return saveChangesInHtmlEditor();
     }
 

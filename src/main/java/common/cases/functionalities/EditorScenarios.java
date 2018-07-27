@@ -106,6 +106,7 @@ public class EditorScenarios extends CommonScenarios{
         return new AbstractEditorPage().getEmailSubjectFromPreview();
     }
 
+    @Deprecated
     public static void clearCssSection(){
         new HtmlEditorPage().clearCSS();
     }
