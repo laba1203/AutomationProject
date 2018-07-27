@@ -38,10 +38,10 @@ public class ReportsScenarios extends CommonScenarios {
         previousCustomersReport.uploadFile(fileName);
         previousCustomersReport.waitTillFileProcessed();
 
-        String actualFileName = previousCustomersReport.getRowWithCsv(1).getFileName();
-        String actualProgress = previousCustomersReport.getRowWithCsv(1).getProgress();
-        String actualUploadedEmails = previousCustomersReport.getRowWithCsv(1).getEmailsUploaded();
-        String actualStatus = previousCustomersReport.getRowWithCsv(1).getStatus();
+        String actualFileName = previousCustomersReport.getFirstRowWithCsv().getFileName();
+        String actualProgress = previousCustomersReport.getFirstRowWithCsv().getProgress();
+        String actualUploadedEmails = previousCustomersReport.getFirstRowWithCsv().getEmailsUploaded();
+        String actualStatus = previousCustomersReport.getFirstRowWithCsv().getStatus();
 
         Assert.assertEquals(actualFileName, fileName, "FAILED: Incorrect FileName");
         Assert.assertEquals(actualProgress, expectedProgress, "FAILED: Incorrect Progress");
@@ -53,18 +53,19 @@ public class ReportsScenarios extends CommonScenarios {
         PreviousCustomersReportPage previousCustomersReport = new PreviousCustomersReportPage();
         previousCustomersReport.uploadFile(fileName);
         previousCustomersReport.waitTillFileProcessed();
-        String actualFileName = new PreviousCustomersReportPage().getRowWithCsv(1).getFileName();
+        String actualFileName = new PreviousCustomersReportPage().getFirstRowWithCsv().getFileName();
         Assert.assertEquals(actualFileName, fileName, "FAILED: Incorrect FileName");
+        Log.logRecord("Previous Customers file <" + fileName + "> was successfully uploaded.");
     }
 
     public static void assertRowInPreviousCustomersReport(String expectedProgress, String expectedUploadedEmails, String expectedStatus){
-        String actualProgress = new PreviousCustomersReportPage().getRowWithCsv(1).getProgress();
-        String actualUploadedEmails = new PreviousCustomersReportPage().getRowWithCsv(1).getEmailsUploaded();
-        String actualStatus = new PreviousCustomersReportPage().getRowWithCsv(1).getStatus();
+        String actualProgress = new PreviousCustomersReportPage().getFirstRowWithCsv().getProgress();
+        String actualUploadedEmails = new PreviousCustomersReportPage().getFirstRowWithCsv().getEmailsUploaded();
+        String actualStatus = new PreviousCustomersReportPage().getFirstRowWithCsv().getStatus();
 
-        Assert.assertEquals(actualProgress, expectedProgress, "FAILED: Incorrect Progress for file <"+new PreviousCustomersReportPage().getRowWithCsv(1).getFileName()+">.");
-        Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails, "FAILED: Incorrect UploadedEmails for file <" +new PreviousCustomersReportPage().getRowWithCsv(1).getFileName()+">.");
-        Assert.assertEquals(actualStatus, expectedStatus, "FAILED: Incorrect Status for file <"+new PreviousCustomersReportPage().getRowWithCsv(1).getFileName()+">");
+        Assert.assertEquals(actualProgress, expectedProgress, "FAILED: Incorrect Progress for file <"+new PreviousCustomersReportPage().getFirstRowWithCsv().getFileName()+">.");
+        Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails, "FAILED: Incorrect UploadedEmails for file <" +new PreviousCustomersReportPage().getFirstRowWithCsv().getFileName()+">.");
+        Assert.assertEquals(actualStatus, expectedStatus, "FAILED: Incorrect Status for file <"+new PreviousCustomersReportPage().getFirstRowWithCsv().getFileName()+">");
     }
 
     public static String getFirstEmailFromPreviousCustomerReport(){

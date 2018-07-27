@@ -80,8 +80,8 @@ public class CouponListPage extends AbstractTalkableSitePage{
     }
 
 
-//    private Row findRow(String name){
-//        for (Row row :
+//    private FirstRow findRow(String name){
+//        for (FirstRow row :
 //                getRows()) {
 //            if (row.getCode().equals(name)){
 //                return row;

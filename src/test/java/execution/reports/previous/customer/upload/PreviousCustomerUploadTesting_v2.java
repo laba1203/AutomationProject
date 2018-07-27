@@ -8,6 +8,7 @@ import org.testng.annotations.*;
 import org.testng.annotations.Listeners;
 import talkable.common.elements.pagination.Pagination;
 import util.*;
+import util.logging.Log;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1ONGHch4nOJ28fGgNG4Hz3THlX1NWn8KxwM74fBSLngM/
  * */
@@ -56,7 +57,7 @@ public class PreviousCustomerUploadTesting_v2 extends BaseTest{
         ReportsScenarios.searchEmailInPreviousCustomerReport("");
         Pagination csvListTablePagination = ReportsScenarios.getPaginationForCsvListTableInPreviousCustomer();
         ReportsScenarios.verifyPagination(csvListTablePagination);
-        Pagination emailsListTablePagination = ReportsScenarios.getPaginationForCsvListTableInPreviousCustomer();
+        Pagination emailsListTablePagination = ReportsScenarios.getPaginationForEmailsListTableInPreviousCustomer();
         ReportsScenarios.verifyPagination(emailsListTablePagination);
     }
 

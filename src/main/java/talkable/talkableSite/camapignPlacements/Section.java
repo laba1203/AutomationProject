@@ -107,7 +107,7 @@ class Section extends AbstractElementsContainer
                 return row;
             }
         }
-        Assert.fail("FAILED: Row with placement text <" + name + "> is not found");
+        Assert.fail("FAILED: FirstRow with placement text <" + name + "> is not found");
         return null;
     }
 
@@ -129,7 +129,7 @@ class Section extends AbstractElementsContainer
             new Element(rowElement
                     .findElement(By.xpath(".//*[contains(@data-balloon, 'Delete this rule')]")))
                     .click();
-            Log.debagRecord("Row deleted");
+            Log.debagRecord("FirstRow deleted");
         }
 
 

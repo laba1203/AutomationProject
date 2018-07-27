@@ -20,11 +20,11 @@ public class AbstractTable extends AbstractElementsContainer{
 //        return null;
 //    }
 //
-//    private ArrayList<CouponListPage.Row> getRows(){
-//        ArrayList<CouponListPage.Row> rows = new ArrayList<>();
+//    private ArrayList<CouponListPage.FirstRow> getRows(){
+//        ArrayList<CouponListPage.FirstRow> rows = new ArrayList<>();
 //        for (Element element :
 //                getElementsList(couponListsRows)) {
-//            rows.add(new CouponListPage.Row(element));
+//            rows.add(new CouponListPage.FirstRow(element));
 //        }
 //        return rows;
 //    }

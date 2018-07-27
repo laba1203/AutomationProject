@@ -89,7 +89,7 @@ public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
 
 
 
-    public SectionUploadedCsvList.Row getRowWithCsv(int rowNumber){
+    public SectionUploadedCsvList.FirstRow getFirstRowWithCsv(){
         return new SectionUploadedCsvList().getFirstRow();
     }
 
