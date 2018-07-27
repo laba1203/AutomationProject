@@ -3,7 +3,9 @@ package talkable.talkableSite.campaign.pages.editorPage;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.common.elements.alert.Alert;
+import util.WaitFactory;
 import util.logging.Log;
 
 public class HtmlEditorPage extends AbstractEditorPage{
@@ -94,6 +96,11 @@ public class HtmlEditorPage extends AbstractEditorPage{
 
     public String getFirstCssRow(){
         return new Element(firstCssRowLctr).getText();
+    }
+
+    public void waitTillCssSectionLoaded(){
+        WaitFactory.getCustomWait(15, 500)
+                .until(ExpectedConditions.invisibilityOfElementWithText(firstCssRowLctr, ""));
     }
 
 

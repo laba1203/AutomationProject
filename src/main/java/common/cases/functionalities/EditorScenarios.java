@@ -123,6 +123,14 @@ public class EditorScenarios extends CommonScenarios{
         return new HtmlEditorPage().getFirstCssRow();
     }
 
+    public static void assertFirstCssRow(String expectedCssCode){
+        new HtmlEditorPage().waitTillCssSectionLoaded();
+        Assert.assertEquals(
+                EditorScenarios.getFirstCssRow(),
+                expectedCssCode,
+                "CSS code was not updated in the row#1 on the HTML Editor page. <" + getSelectedView() + "> view.");
+    }
+
 
 
 
