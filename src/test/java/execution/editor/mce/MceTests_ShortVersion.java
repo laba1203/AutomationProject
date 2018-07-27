@@ -19,7 +19,6 @@ import static talkable.talkableSite.campaignsPage.Table.Status.TEST;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1NlY_NBmvKIRjmqb2d7oQPuDZEs6s7fToZkrSJPhwOaY
  * */
-@Listeners(util.Listeners.class)
 public class MceTests_ShortVersion extends BaseTest {
 
     private static final String user = PropertyLoader.loadProperty("talkable.user.mce");
