@@ -15,7 +15,7 @@
     <!--Please note: Below suite will create new site-->
     <suite-file path="AccountAndSiteCreation.xml"/>
     <suite-file path="SiteSettingsTest.xml"/>
-    <suite-file path="CspTests.xml"/>
+    <!--<suite-file path="CspTests.xml"/> commented due to the defect https://talkable.atlassian.net/browse/PR-9622  -->
     <suite-file path="IntegrationTests.xml"/>
 
 </suite>
