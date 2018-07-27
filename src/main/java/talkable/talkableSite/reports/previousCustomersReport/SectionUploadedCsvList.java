@@ -44,38 +44,46 @@ public class SectionUploadedCsvList extends AbstractElementsContainer{
     }
 
     public class Row {
+
+        private final By progressLctr = By.xpath("./td[contains(@class, 'datagrid-progress')]/div");
+        private final By fileNameLctr = By.xpath("./td[contains(@class, 'datagrid-file-name')]/div");
+        private final By emailsUploadedLctr = By.xpath("./td[contains(@class, 'datagrid-uploaded')]");
+        private final By statusLctr = By.xpath("./td[contains(@class, 'datagrid-status')]/div");
+        private final By errorMsgLctr = By.xpath("./td[contains(@class, 'datagrid-error-message')]");
+        private WebElement parentElement;
         Element fileName;
-        Element progress;
-        Element emailsUploaded;
-        Element status;
-        Element errorMessage;
+//        Element progress;
+//        Element emailsUploaded;
+//        Element status;
+//        Element errorMessage;
 
         Row(WebElement rowElement){
-            fileName = new Element(rowElement.findElement(By.xpath("./td[contains(@class, 'datagrid-file-name')]/div")));
-            progress = new Element(rowElement.findElement(By.xpath("./td[contains(@class, 'datagrid-progress')]/div")));
-            emailsUploaded = new Element(rowElement.findElement(By.xpath("./td[contains(@class, 'datagrid-uploaded')]")));
-            status = new Element(rowElement.findElement(By.xpath("./td[contains(@class, 'datagrid-status')]/div")));
-            errorMessage = new Element(rowElement.findElement(By.xpath("./td[contains(@class, 'datagrid-error-message')]")));
+            parentElement = rowElement;
+            fileName = new Element(rowElement.findElement(fileNameLctr));
+//            progress = new Element(rowElement.findElement(progressLctr));
+//            emailsUploaded = new Element(rowElement.findElement(emailsUploadedLctr));
+//            status = new Element(rowElement.findElement(statusLctr));
+//            errorMessage = new Element(rowElement.findElement(errorMsgLctr));
         }
 
         public String getFileName() {
-            return fileName.getText();
+            return new Element(parentElement.findElement(fileNameLctr)).getText();
         }
 
         public String getProgress() {
-            return progress.getText();
+            return new Element(parentElement.findElement(progressLctr)).getText();
         }
 
         public String getEmailsUploaded() {
-            return emailsUploaded.getText();
+            return new Element(parentElement.findElement(emailsUploadedLctr)).getText();
         }
 
         public String getStatus() {
-            return status.getText();
+            return new Element(parentElement.findElement(statusLctr)).getText();
         }
 
         public String getErrorMessage() {
-            return errorMessage.getText();
+            return new Element(parentElement.findElement(errorMsgLctr)).getText();
         }
 
 
