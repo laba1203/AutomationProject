@@ -18,6 +18,7 @@ import static talkable.talkableSite.campaignsPage.Table.Status.*;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1NlY_NBmvKIRjmqb2d7oQPuDZEs6s7fToZkrSJPhwOaY
  * */
+@Listeners(util.Listeners.class)
 public class MultiCampaignEditorTesting extends BaseTest {
 
     private static final String user = PropertyLoader.loadProperty("talkable.user.mce");
@@ -33,6 +34,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @Test(groups = "updateContent")
     public void precondition() {
         //login to Talkable and select site
+        CommonScenarios.acceptCookiesUsage();
         CommonScenarios.loginAndCreateNewSite(user, pswrd);
         CommonScenarios.openCampaignsPage();
         //create LIVE campaigns:
@@ -201,7 +203,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @Test(groups = "additionalCases", dependsOnMethods = "precondition")
     public void filterByStatus(){
         CommonScenarios.navigateToAdminUrl();
-        MceScenarios.openMultiCampaignEditorPage(campaignNamePP,
+        MceScenarios.openMultiCampaignEditor(campaignNamePP,
                 TEST,
                 "Advocate share page",
                 "Advocate pages overlay opacity",
@@ -216,7 +218,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @Test(groups = "additionalCases", dependsOnMethods = "precondition")
     public void filterByCampaignName(){
         CommonScenarios.navigateToAdminUrl();
-        MceScenarios.openMultiCampaignEditorPage(campaignNamePP,
+        MceScenarios.openMultiCampaignEditor(campaignNamePP,
                 TEST,
                 "Advocate share page",
                 "Advocate pages overlay opacity",
@@ -231,7 +233,7 @@ public class MultiCampaignEditorTesting extends BaseTest {
     @Test(dependsOnGroups = "additionalCases", alwaysRun = true)
     public void verifyPreview(){
         CommonScenarios.navigateToAdminUrl();
-        MceScenarios.openMultiCampaignEditorPage(campaignNamePP,
+        MceScenarios.openMultiCampaignEditor(campaignNamePP,
                 TEST,
                 "Advocate share page",
                 "Advocate pages overlay opacity",

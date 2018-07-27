@@ -24,7 +24,7 @@ public class CampaignRecord extends AbstractElementsContainer{
         id = new Element(element.findElement(By.xpath(".//div[@class = 'campaignfilter-campaign-id']")));
         status = new Element(element.findElement(By.xpath(".//i")));
         if(eligible){
-            checkbox = new Element(element.findElement(By.xpath(".//input/..")));
+            checkbox = new Element(element.findElement(By.xpath(".//input/..")), "Select campaign checkbox on MCE");
         }
     }
 
