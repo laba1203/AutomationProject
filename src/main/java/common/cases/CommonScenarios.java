@@ -553,6 +553,10 @@ public class CommonScenarios {
         return new CampaignDetailsPage();
     }
 
+    public static void deactivateCampaignFromCampaignNavigationMenu(){
+        new CampaignDetailsPage().campaignNavigationMenu.deactivateCampaign();
+    }
+
     public static void reactivateCampaignFromCampaignsPage(String campaignName){
         new PageCampaigns()
                 .openCampaignByName(campaignName, DISABLED)
