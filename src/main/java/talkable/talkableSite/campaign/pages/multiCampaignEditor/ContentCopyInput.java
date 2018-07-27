@@ -9,7 +9,7 @@ class ContentCopyInput extends AbstractElementsContainer implements ContentValue
 
     private static final By valueLctr = By.xpath("//textarea");
     private static final By textLctr = By.xpath("//div[@class = 'code-area']");
-    
+
     private Element value = new Element(valueLctr);
     private Element text = new Element(textLctr);
 

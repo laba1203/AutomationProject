@@ -5,12 +5,10 @@ import abstractObjects.Element;
 import org.openqa.selenium.By;
 
 class ContentColorInput extends AbstractElementsContainer implements ContentValueRecord{
+    private static final By colorFieldInputLctr = By.xpath("//*[contains(text(), 'New content value')]/..//input");
 
-    private Element colorValueInput;
+    private Element colorValueInput = new Element(colorFieldInputLctr, "'Color' input field");
 
-    ContentColorInput(){
-        colorValueInput = new Element(driver.findElement(By.xpath("//*[contains(text(), 'New content value')]/..//input")));
-    }
 
     @Override
     public void update(String text){

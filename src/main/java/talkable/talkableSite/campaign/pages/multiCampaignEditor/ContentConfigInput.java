@@ -5,12 +5,10 @@ import abstractObjects.SelectElement;
 import org.openqa.selenium.By;
 
 class ContentConfigInput extends AbstractElementsContainer implements ContentValueRecord{
+    private static final By dropdownLctr = By.xpath("//*[contains(text(), 'New content value')]/..//select");
 
-    private SelectElement dropdown;
+    private SelectElement dropdown = new SelectElement(dropdownLctr);
 
-    ContentConfigInput(){
-        dropdown = new SelectElement(driver.findElement(By.xpath("//*[contains(text(), 'New content value')]/..//select")));
-    }
 
     @Override
     public void update(String text){
