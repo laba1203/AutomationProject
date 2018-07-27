@@ -115,7 +115,7 @@ public class Table extends AbstractElementsContainer {
 
     private Row isNull(Row row, String campaignName){
         if(row == null){
-            Assert.fail("Campaign with name <" + campaignName + "> is not found");
+            Assert.fail("Campaign with name <" + campaignName + "> with status <" + status + "> was not found.");
             return row;
         }
         return row;
