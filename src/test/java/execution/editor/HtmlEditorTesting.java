@@ -218,8 +218,7 @@ public class HtmlEditorTesting extends BaseTest {
 //        Assert.assertEquals(EditorScenarios.getFirstCssRow(), cssCode, "CSS code was not updated in the row#1 on the HTML Editor page. <" + advocateView + "> view.");
         //verify css on another friend view:
         EditorScenarios.switchViewByName(friendView);
-        EditorScenarios.assertFirstCssRow(cssCode);
-//        Assert.assertNotEquals(EditorScenarios.getFirstCssRow(), cssCode, "CSS code was updated in the row#1 on the HTML Editor page for <" + friendView + "> view when it was added on Advocate View.");
+        Assert.assertNotEquals(EditorScenarios.getFirstCssRow(), cssCode, "CSS code was updated in the row#1 on the HTML Editor page for <" + friendView + "> view when it was added on Advocate View.");
 
 
     }
