@@ -115,6 +115,14 @@ public class EditorScenarios extends CommonScenarios{
         new HtmlEditorPage().clearAndAddHtml(html);
     }
 
+    public static void addNewCssCode(String css){
+        new HtmlEditorPage().addCSS(css);
+    }
+
+    public static String getFirstCssRow(){
+        return new HtmlEditorPage().getFirstCssRow();
+    }
+
 
 
 

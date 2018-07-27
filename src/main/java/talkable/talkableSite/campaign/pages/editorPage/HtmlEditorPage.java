@@ -15,6 +15,7 @@ public class HtmlEditorPage extends AbstractEditorPage{
     private static final By saveChangesBtnInExtaLctr = By.xpath("//*[contains(@class,'editor-popup')]/div[text() = 'Save changes']");
     private static final By htmlTextAreaLctr = By.xpath("//div[@id='ace-template']/textarea[@class='ace_text-input']");
     private static final By cssTextAreaLctr = By.xpath("//div[@id='ace-css']/textarea[@class='ace_text-input']");
+    private static final By firstCssRowLctr = By.xpath("//div[@id='ace-css']//div[contains(@class, 'ace_text-layer')]/div[@class='ace_line_group'][1]");
 
     private Element extraBtn = new Element(extraBtnLctr, "Extra button");
     private Element htmlTextArea = new Element(htmlTextAreaLctr, "HTML Text field");
@@ -84,6 +85,15 @@ public class HtmlEditorPage extends AbstractEditorPage{
     public HtmlEditorPage clearAndAddHtml(String html){
         htmlTextArea.clearAndSendKeys(html);
         return saveChangesInHtmlEditor();
+    }
+
+    public HtmlEditorPage addCSS(String css){
+        cssTextArea.sendKeys(css);
+        return saveChangesInHtmlEditor();
+    }
+
+    public String getFirstCssRow(){
+        return new Element(firstCssRowLctr).getText();
     }
 
 

@@ -6,10 +6,7 @@ import execution.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnhandledAlertException;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeGroups;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import talkable.common.elements.alert.Alert;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import util.EnvFactory;
@@ -95,7 +92,7 @@ public class HtmlEditorTesting extends BaseTest {
     @BeforeMethod
     public void openCampaignDetailsPage(){
         try {
-            driver.navigate().to(standaloneCampaignDetailsPageUrl);
+            CommonScenarios.navigateToUrl(standaloneCampaignDetailsPageUrl);
             new CampaignDetailsPage();
         }catch (UnhandledAlertException e){
             new Alert().confirm();
@@ -112,13 +109,7 @@ public class HtmlEditorTesting extends BaseTest {
         String viewNameInHtmlEditor = "Advocate offer email";
 
         EditorScenarios.openHtmlEditor();
-//        try {
-            EditorScenarios.createNewView(viewType);
-//        }catch (UnhandledAlertException e){
-//            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.createNewView().");
-//            new Alert().confirm();
-//            new CreateNewViewPage().createNewView(viewType);
-//        }
+        EditorScenarios.createNewView(viewType);
         Assert.assertEquals(
                 EditorScenarios.getSelectedView(),
                 viewNameInHtmlEditor,
@@ -128,20 +119,12 @@ public class HtmlEditorTesting extends BaseTest {
 
 
     /*Scenarios2*/
-    @Test(groups = {"ui-actions"})
+    @Test(groups = {"ui-actions"}, dependsOnMethods = "editCSS", alwaysRun = true)
     public void deleteView(){
         String viewName = "Advocate share page";
 
         EditorScenarios.openHtmlEditor();
-//        try {
-            EditorScenarios.deleteView(viewName);
-
-//        }catch (UnhandledAlertException e){
-//            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.deleteView().");
-//            new Alert().confirm();
-//            new HtmlEditorPage().waitViewDestroyedMsg();
-//        }
-
+        EditorScenarios.deleteView(viewName);
         Assert.assertEquals(
                 EditorScenarios.isViewPresent(viewName),
                 false,
@@ -157,12 +140,7 @@ public class HtmlEditorTesting extends BaseTest {
         String newSubject = "Automation test email subject";
 
         EditorScenarios.openHtmlEditor();
-//        try {
-            EditorScenarios.switchViewByName(viewName);
-//        }catch (UnhandledAlertException e){
-//            Log.debagRecord(" UnhandledAlertException is returned on EditorScenarios.updateEmailSubjectInExtraPopup().");
-//            new Alert().confirm();
-//        }
+        EditorScenarios.switchViewByName(viewName);
         EditorScenarios.updateExtraEmailSubject(newSubject);
         Assert.assertEquals(
                 EditorScenarios.getEmailSubjectFromPreview(),
@@ -223,20 +201,23 @@ public class HtmlEditorTesting extends BaseTest {
     }
 
 
-//    @Test(groups = {"ui-actions"})
-
+    @Test(groups = {"ui-actions"})
     public void editCSS() {
+        //test data:
+        String cssCode = ".new-autotest-class{ width: 200px; }";
+        String advocateView = "Advocate share page";
+        String friendView = "Friend claim page";
+
         EditorScenarios.openHtmlEditor();
-        //todo:
-//* Scenario#5. Edit CSS
-//1. Open campaign details.
-//2. Open HTML Editor.
-//3. Add CSS row for some class
-//4. Open any other Advocate view
-//5. Verify that the row is preset.
-//6. Open some Friend view.
-//7. Verify that the row is not preset.*//
-        EditorScenarios.clearCssSection();
+        EditorScenarios.addNewCssCode(cssCode + "\n");
+        Assert.assertEquals(EditorScenarios.getFirstCssRow(), cssCode, "CSS code was not updated in the row#1 on the HTML Editor page.");
+        //verify css on another advocate view:
+        EditorScenarios.switchViewByName(advocateView);
+        Assert.assertEquals(EditorScenarios.getFirstCssRow(), cssCode, "CSS code was not updated in the row#1 on the HTML Editor page. <" + advocateView + "> view.");
+        //verify css on another friend view:
+        EditorScenarios.switchViewByName(friendView);
+        Assert.assertNotEquals(EditorScenarios.getFirstCssRow(), cssCode, "CSS code was updated in the row#1 on the HTML Editor page for <" + friendView + "> view when it was added on Advocate View.");
+
     }
 
 
