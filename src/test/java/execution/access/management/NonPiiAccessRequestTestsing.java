@@ -4,7 +4,6 @@ import common.cases.CommonScenarios;
 import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import util.EnvFactory;
 import util.PropertyLoader;
