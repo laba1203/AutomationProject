@@ -1,6 +1,7 @@
 package talkable.talkableSite.headerFrame;
 
 import abstractObjects.AbstractElementsContainer;
+import abstractObjects.Element;
 import org.openqa.selenium.By;
 import talkable.homePage.HomePage;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
@@ -9,7 +10,7 @@ import talkable.talkableSite.customerServicePortal.OldCspPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.headerFrame.elements.*;
 import talkable.talkableSite.headerFrame.elements.menuFrame.MenuFrame;
-import talkable.talkableSite.reports.reportsPage.ReportsPage;
+import talkable.talkableSite.reports.ReportsPage;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
 
 public class Header extends AbstractElementsContainer{
@@ -73,9 +74,14 @@ public class Header extends AbstractElementsContainer{
 
 
     public PersonLookupPage openCustomerServicePortal(){
-        customerServicesButton.click();
+        clickToCspTab();
         return new PersonLookupPage();
     }
+
+    public void clickToCspTab(){
+        customerServicesButton.click();
+    }
+
 
     // method to support old CSP portal(should be removed when new one deployed)
     public OldCspPage openOldCustomerServicePortal(){
@@ -85,7 +91,6 @@ public class Header extends AbstractElementsContainer{
 
     public HomePage logout(){
         return openMenu().clickLogout();
-
     }
 
 
