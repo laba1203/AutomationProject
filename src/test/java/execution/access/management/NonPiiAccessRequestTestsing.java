@@ -36,7 +36,6 @@ import static talkable.access.managment.access.request.AccessRequestPage.TermOfA
     * */
 
 
-@Listeners(util.Listeners.class)
 public class NonPiiAccessRequestTestsing extends BaseTest{
     private static final String adminUser = "maxim.laba+auto.admin."+ TestDataGenerator.getRandomId() +"@talkable.com";
     private static final String staffUser = PropertyLoader.loadProperty("talkable.user.access.management.staff");
