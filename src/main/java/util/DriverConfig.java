@@ -33,18 +33,12 @@ public class DriverConfig {
         System.setProperty(PropertyLoader.loadProperty("webDriver"), file.getAbsolutePath());
 
         tlDriver.set(new ChromeDriver());
-
         WaitFactory.setDefaultImplicitlyWait();
 
         System.out.println("LOG - Util: New Local WebDriver is created");
-
     }
 
-    public static boolean isDriverCreated(){
-        return tlDriver.get() != null;
-    }
-
-
+    @Parameters()
     private static void setNewRemoteDriver(){
         System.out.println("LOG - Util: Start creation of new Remote WebDriver. Thread ID: <" + Thread.currentThread().getId() + ">");
 
@@ -69,11 +63,15 @@ public class DriverConfig {
                     url,
                     capabilities
             );
-        rDriver.setFileDetector(new LocalFileDetector());
+        rDriver.setFileDetector(new LocalFileDetector());//for uploading file into remote
         tlDriver.set(rDriver);
         resizeBrowser(tlDriver.get());
 
         System.out.println("LOG - Util: New Remote WebDriver created. Thread ID: <" + Thread.currentThread().getId() + ">");
+    }
+
+    public static boolean isDriverCreated(){
+        return tlDriver.get() != null;
     }
 
     public static WebDriver getDriver(){
@@ -86,6 +84,9 @@ public class DriverConfig {
     }
 
     public static void createDriver(){
+        if(isDriverCreated()){
+            quitAndRemoveWebDriver();
+        }
         if(remoteExecution) {
             DriverConfig.setNewRemoteDriver(); //for remote testing
             WaitFactory.setDefaultImplicitlyWait();
@@ -96,13 +97,15 @@ public class DriverConfig {
     }
 
     public static void quitAndRemoveWebDriver(){
-        getDriver().quit();
+        if(isDriverCreated()) {
+            getDriver().quit();
+        }
         tlDriver.remove();
     }
 
     private static void resizeBrowser(WebDriver driver) {
         Dimension d = new Dimension(1300,1200);
-//Resize current window to the set dimension
+        //Resize current window to the set dimension
         driver.manage().window().setSize(d);
         tlDriver.set(driver);
     }
