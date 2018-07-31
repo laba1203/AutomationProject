@@ -3,14 +3,11 @@ package execution.access.management;
 import common.cases.CommonScenarios;
 import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
-import util.logging.Log;
 
-import static talkable.access.managment.access.request.AccessRequestPage.PiiAccess.NON_PII;
 import static talkable.access.managment.access.request.AccessRequestPage.PiiAccess.PII;
 import static talkable.access.managment.access.request.AccessRequestPage.TermOfAccess.ONE_DAY;
 
@@ -26,7 +23,6 @@ import static talkable.access.managment.access.request.AccessRequestPage.TermOfA
     *
 
     * */
-
 
 public class PiiAccessRequestTesting extends BaseTest {
     private static final String adminUser = "maxim.laba+auto.admin." + TestDataGenerator.getRandomId() + "@talkable.com";
@@ -48,7 +44,7 @@ public class PiiAccessRequestTesting extends BaseTest {
         //verify some report with PII data:
         ReportsScenarios.openRewardsReport();
         //verify Access to CSP
-        CommonScenarios.openCustomerServicePortal();
+//        CommonScenarios.openCustomerServicePortal();  //step commented due to investigation of the issue with old CSP
         //verify access to Users & Privileges
         CommonScenarios.openUsersAndPrivilegesPage();
     }
