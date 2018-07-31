@@ -11,7 +11,7 @@
     <suite-file path="CampaignActions.xml"/>
     <suite-file path="ReportsSuite.xml"/>
     <suite-file path="MultiCampaignEditorSuite.xml"/>
-    <suite-file path="AccessManagement.xml"/>
+    <!--<suite-file path="AccessManagement.xml"/> commented for PROD due to absence of permissions on Prod-->
 
     <!--Please note: Below suite will create new site-->
     <suite-file path="AccountAndSiteCreation.xml"/>
