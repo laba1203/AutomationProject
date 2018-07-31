@@ -99,7 +99,7 @@ public class HtmlEditorPage extends AbstractEditorPage{
     }
 
     public void waitTillCssSectionLoaded(){
-        WaitFactory.getCustomWait(15, 500)
+        waitFactory().getCustomWait(15, 500)
                 .until(ExpectedConditions.invisibilityOfElementWithText(firstCssRowLctr, ""));
     }
 
