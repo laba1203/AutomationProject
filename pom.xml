@@ -42,11 +42,11 @@
                         <test.environment>${env.NAME}</test.environment>
                     </systemPropertyVariables>
 
-                    <forkCount>3</forkCount>
+                    <forkCount>2</forkCount>
                     <reuseForks>true</reuseForks>
                     <perCoreThreadCount>false</perCoreThreadCount>
                     <parallel>classes</parallel>
-                    <threadCount>3</threadCount>
+                    <threadCount>2</threadCount>
 
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                     <suiteXmlFiles>

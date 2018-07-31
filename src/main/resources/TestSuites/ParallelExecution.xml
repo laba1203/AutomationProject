@@ -1,4 +1,4 @@
-<suite name="All Test In Parallel" parallel="tests" thread-count="3">
+<suite name="All Test In Parallel" parallel="tests" thread-count="2">
 
     <listeners>
         <listener class-name="util.Listeners"/>
