@@ -52,10 +52,39 @@
 
         </classes>
     </test>
-
     <test name="Site Settings Contacts Tab" preserve-order="true" >
         <classes>
             <class name="execution.site.settings.SiteSettingsContactsTab"/>
+        </classes>
+    </test>
+    <test name="Non PII access to sites" preserve-order="true" >
+        <classes>
+            <class name="execution.access.management.NonPiiAccessRequestTesting"/>
+        </classes>
+    </test>
+    <test name="PII access to sites" preserve-order="true" >
+        <classes>
+            <class name="execution.access.management.PiiAccessRequestTesting"/>
+        </classes>
+    </test>
+    <test name="Previous Customer Report" preserve-order="true" >
+        <classes>
+            <class name="execution.reports.previous.customer.upload.PreviousCustomerUploadTesting_v2"/>
+        </classes>
+    </test>
+    <test name="Coupon Codes List Report" preserve-order="true" >
+        <classes>
+            <class name="execution.reports.coupon.codes.upload.UploadCouponCodesTests"/>
+        </classes>
+    </test>
+    <test name="Shopify Integration" preserve-order="true" >
+        <classes>
+            <class name="execution.integration.shopify.ShopifyIntegrationTest"/>
+        </classes>
+    </test>
+    <test name="Multi-campaign editor" preserve-order="true" group-by-instances="true">
+        <classes>
+            <class name="execution.editor.mce.MceTests_ShortVersion"/>
         </classes>
     </test>
 
