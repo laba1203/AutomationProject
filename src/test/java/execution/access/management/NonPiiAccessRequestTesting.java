@@ -3,7 +3,6 @@ package execution.access.management;
 import common.cases.CommonScenarios;
 import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.EnvFactory;
@@ -20,7 +19,10 @@ import static talkable.access.managment.access.request.AccessRequestPage.TermOfA
     * 3. Login under STAFF user with no PII access
     * 4. Open the site.
     * 5. Request non PII access for 1 day to the site.
-    * 6. Verify that following reports are not accessible:
+    *
+    * Scenario#2
+    * 1. Open site from Scenario1.
+    * 2. Verify that following reports are not accessible:
     *       1.People
             2.Purchases
             3.Events
@@ -30,13 +32,15 @@ import static talkable.access.managment.access.request.AccessRequestPage.TermOfA
             7.Referrals
             8.Rewards
             9.Customer email letters
-    * 7. Verify that Reports (Reports block:Top Advocates) are not accessible.
-    * 8. Verify that Reports (Staff Only Reports block:Previous customers) are not accessible.
-    * 9. Verify that other reports are accessible.
+
+    * Scenario3#
+    * 1. Verify that Reports (Reports block:Top Advocates) are not accessible.
+    * 2. Verify that Reports (Staff Only Reports block:Previous customers) are not accessible.
+    * 3. Verify that other reports are accessible.
     * */
 
 
-public class NonPiiAccessRequestTestsing extends BaseTest{
+public class NonPiiAccessRequestTesting extends BaseTest{
     private static final String adminUser = "maxim.laba+auto.admin."+ TestDataGenerator.getRandomId() +"@talkable.com";
     private static final String staffUser = PropertyLoader.loadProperty("talkable.user.access.management.staff");
     private static final String pswrd = EnvFactory.getPassword();
