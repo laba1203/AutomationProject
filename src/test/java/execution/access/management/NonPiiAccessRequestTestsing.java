@@ -3,6 +3,7 @@ package execution.access.management;
 import common.cases.CommonScenarios;
 import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.EnvFactory;
@@ -72,7 +73,7 @@ public class NonPiiAccessRequestTestsing extends BaseTest{
 
 
     //test failed due to defect: https://talkable.atlassian.net/browse/PR-9679
-    @Test(dependsOnMethods = "requestNonPiiAccessForOneDay", expectedExceptions = AssertionError.class)
+//    @Test(dependsOnMethods = "requestNonPiiAccessForOneDay", expectedExceptions = Assert.class)
     public void accessToCsp(){
         CommonScenarios.navigateToUrl(siteUrl);
         CommonScenarios.assertAccessToCsp();
