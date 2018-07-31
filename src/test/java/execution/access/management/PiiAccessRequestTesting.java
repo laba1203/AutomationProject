@@ -33,7 +33,7 @@ public class PiiAccessRequestTesting extends BaseTest {
 
     /*Scenario1*/
     @Test
-    public void requestNonPiiAccessForOneDay() {
+    public void requestPiiAccessForOneDay() {
         CommonScenarios.acceptCookiesUsage();
         CommonScenarios.loginAndCreateNewSite(adminUser, pswrd);
         siteUrl = CommonScenarios.getCurrentUrl();
