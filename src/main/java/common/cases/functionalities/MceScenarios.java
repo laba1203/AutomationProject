@@ -9,6 +9,7 @@ import talkable.talkableSite.campaign.pages.multiCampaignEditor.previewScreen.Pr
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.headerFrame.Header;
+import util.logging.Log;
 
 import static common.cases.functionalities.MceScenarios.State.INELIGIBLE;
 import static common.cases.functionalities.MceScenarios.State.SELECTED;
@@ -18,6 +19,7 @@ import static common.cases.functionalities.MceScenarios.State.UNSELECTED;
 public class MceScenarios extends CommonScenarios{
 
     public enum State{ SELECTED, UNSELECTED, INELIGIBLE }
+
 
     /*Scenarios to open Multi-Campaign Editor page for some campaign.
      * Precondition: Page with header should opened. Campaign with @campaignName should exist with defined @status.
@@ -35,20 +37,18 @@ public class MceScenarios extends CommonScenarios{
                                                                       String pageViewName,
                                                                       String localizationName,
                                                                       SimpleEditorPage.LocalizationType contentType) {
-        CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
-        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
-
-        editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
-        editor.switchTo(contentType);
-        return editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
+        PageMultiCampaignEditor page = new Header()
+                .openCampaignsPage()
+                .openCampaignByName(campaignName, status)
+                .campaignNavigationMenu
+                .openEditorPage()
+                .switchViewByNameOnSimpleEditor(pageViewName)
+                .switchTo(contentType)
+                .clickCopyToOtherCampaigns(contentType, localizationName + "#")
+                ;
+        Log.logRecord("Multi-Campaign Editor page is opened for campaign = <" + campaignName + ">, localization = <" + contentType + " --> " + localizationName + ">.");
+        return page;
     }
-
-//    public static void openMultiCampaignEditor(String campaignName, Table.Status campaignStatus, SimpleEditorPage.LocalizationType localizationType, String localizationName){
-//        CampaignDetailsPage detailsPage = new Header().openCampaignsPage()
-//                .openCampaignByName(campaignName, campaignStatus);
-//        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
-//        editor.clickCopyToOtherCampaigns(localizationType, localizationName + "#");
-//    }
 
     public static void selectCampaignOnMceScreen(SimpleEditorPage.LocalizationType localizationType, String campaignName){
         new PageMultiCampaignEditor(localizationType).selectCampaign(campaignName);

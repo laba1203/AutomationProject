@@ -3,13 +3,28 @@ package common.cases.functionalities;
 import common.cases.CommonScenarios;
 import org.openqa.selenium.NotFoundException;
 import org.testng.Assert;
+import talkable.common.elements.pagination.Pagination;
+import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.reports.ReportsPage;
+import talkable.talkableSite.reports.couponLists.CouponListPage;
+import talkable.talkableSite.reports.couponLists.CouponListsReportPage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.referrals.PageReferralsReport;
 import talkable.talkableSite.reports.rewards.RewardsReportPage;
+import util.DriverConfig;
+import util.Util;
 import util.logging.Log;
 
 public class ReportsScenarios extends CommonScenarios {
+
+    /* Scenarios for Previous Customers report */
+
+    public static void openExistingCustomersReport(){
+        new Header()
+                .clickReportsButton()
+                .openExistingCustomerReport();
+    }
 
     /*Scenario to test uploading of Previous Customers list
     * Precondition:
@@ -24,17 +39,58 @@ public class ReportsScenarios extends CommonScenarios {
         previousCustomersReport.uploadFile(fileName);
         previousCustomersReport.waitTillFileProcessed();
 
-        String actualFileName = previousCustomersReport.getRowWithCsv(1).getFileName();
-        String actualProgress = previousCustomersReport.getRowWithCsv(1).getProgress();
-        String actualUploadedEmails = previousCustomersReport.getRowWithCsv(1).getEmailsUploaded();
-        String actualStatus = previousCustomersReport.getRowWithCsv(1).getStatus();
+        String actualFileName = previousCustomersReport.getFirstRowWithCsv().getFileName();
+        String actualProgress = previousCustomersReport.getFirstRowWithCsv().getProgress();
+        String actualUploadedEmails = previousCustomersReport.getFirstRowWithCsv().getEmailsUploaded();
+        String actualStatus = previousCustomersReport.getFirstRowWithCsv().getStatus();
 
         Assert.assertEquals(actualFileName, fileName, "FAILED: Incorrect FileName");
         Assert.assertEquals(actualProgress, expectedProgress, "FAILED: Incorrect Progress");
         Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails, "FAILED: Incorrect UploadedEmails");
         Assert.assertEquals(actualStatus, expectedStatus, "FAILED: Incorrect Status");
-
     }
+
+    public static void uploadPreviousCustomersCsvFile(String fileName){
+        PreviousCustomersReportPage previousCustomersReport = new PreviousCustomersReportPage();
+        previousCustomersReport.uploadFile(fileName);
+        previousCustomersReport.waitTillFileProcessed();
+        String actualFileName = new PreviousCustomersReportPage().getFirstRowWithCsv().getFileName();
+        Assert.assertEquals(actualFileName, fileName, "FAILED: Incorrect FileName");
+        Log.logRecord("Previous Customers file <" + fileName + "> was successfully uploaded.");
+    }
+
+    public static void assertRowInPreviousCustomersReport(String expectedProgress, String expectedUploadedEmails, String expectedStatus){
+        String actualProgress = new PreviousCustomersReportPage().getFirstRowWithCsv().getProgress();
+        String actualUploadedEmails = new PreviousCustomersReportPage().getFirstRowWithCsv().getEmailsUploaded();
+        String actualStatus = new PreviousCustomersReportPage().getFirstRowWithCsv().getStatus();
+
+        Assert.assertEquals(actualProgress, expectedProgress, "FAILED: Incorrect Progress for file <"+new PreviousCustomersReportPage().getFirstRowWithCsv().getFileName()+">.");
+        Assert.assertEquals(actualUploadedEmails, expectedUploadedEmails, "FAILED: Incorrect UploadedEmails for file <" +new PreviousCustomersReportPage().getFirstRowWithCsv().getFileName()+">.");
+        Assert.assertEquals(actualStatus, expectedStatus, "FAILED: Incorrect Status for file <"+new PreviousCustomersReportPage().getFirstRowWithCsv().getFileName()+">");
+    }
+
+    public static String getFirstEmailFromPreviousCustomerReport(){
+        return new PreviousCustomersReportPage().getFirstEmailValue();
+    }
+
+    public static void searchEmailInPreviousCustomerReport(String email){
+        new PreviousCustomersReportPage().searchEmail(email);
+    }
+
+    public static String getTotalEmailsCountFromPreviousCustomerReport(){
+        return new PreviousCustomersReportPage().getTotalValue();
+    }
+
+    public static Pagination getPaginationForCsvListTableInPreviousCustomer(){
+        return new PreviousCustomersReportPage()
+                .getUpperPaginationForCsvListsTable();
+    }
+
+    public static Pagination getPaginationForEmailsListTableInPreviousCustomer(){
+        return new PreviousCustomersReportPage()
+                .getUpperPaginationForCustomersList();
+    }
+
     /* End of scenarios for Previous Customers Upload */
 
 
@@ -111,4 +167,173 @@ public class ReportsScenarios extends CommonScenarios {
 
 
     /* End of scenarios for Rewards report*/
+
+    /*  --- Scenairios for Coupon Codes Report ---   */
+
+    public static void openCouponCodesReport(){
+        new Header().clickReportsButton().openCouponsListReport();
+    }
+
+    public static void createCouponsListViaCsv(
+            String couponsListName,
+            String expirationDate,
+            int amount,
+            PageCampaignRules.DiscountType discount,
+            String fileName){
+        new CouponListsReportPage()
+                .clickCreateNewList()
+                .populateFields(couponsListName, expirationDate, amount)
+                .selectDiscountType(discount)
+                .uploadCcvFile(fileName)
+                .saveChanges();
+    }
+
+
+    public static void createCouponsListManually(
+            String couponsListName,
+            String expirationDate,
+            int amount,
+            PageCampaignRules.DiscountType discount,
+            String[] couponList)
+    {
+        String coupons = Util.stringArrayToString(couponList);
+        new CouponListsReportPage()
+                .clickCreateNewList()
+                .populateFields(couponsListName, expirationDate, amount)
+                .selectDiscountType(discount)
+                .populateCouponCodesManually(coupons)
+                .saveChanges();
+    }
+
+    public static void addCouponsToTheListManually(String couponListName, String[] couponList){
+        String coupons = Util.stringArrayToString(couponList);
+        openCouponList(couponListName)
+                .addCouponsManually(coupons);
+    }
+
+    public static CouponListPage openCouponList(String couponListName){
+        return new CouponListsReportPage()
+                .openCouponList(couponListName);
+    }
+
+    public static void editCouponList(String newCouponListName, int newAmount, PageCampaignRules.DiscountType discountType){
+        new CouponListPage()
+                .edit()
+                .populateFields(newCouponListName, newAmount)
+                .selectDiscountType(discountType)
+                .saveChanges();
+    }
+
+    public static void assertCouponsListValues(String expectedName, int expectedAmount, PageCampaignRules.DiscountType expectedDiscount){
+        Assert.assertEquals(
+                new CouponListPage().getListName(),
+                expectedName,
+                "Incorrect Coupon List Name on the Coupon List page.");
+        Assert.assertEquals(
+                new CouponListPage().getAmount(),
+                String.valueOf(expectedAmount),
+                "Incorrect Coupon List amount on the Coupon List page.");
+        Assert.assertEquals(
+                new CouponListPage().getDiscountType(),
+                expectedDiscount,
+                "Incorrect Coupon List discount type on the Coupon List page.");
+    }
+
+    public static void assertTotalCouponCountOnCouponListPage(String expectedCouponsCount){
+        try {
+            assertCouponCodes(expectedCouponsCount);
+            Log.logRecord("Coupon codes Total count is not refreshed on the Coupon List page.");
+        }
+        catch (AssertionError e){
+            Log.logRecord("Coupon codes Total count is not refreshed on the Coupon List page.");
+            Log.logRecord("Refreshing the page...");
+            DriverConfig.getDriver().navigate().refresh();
+            assertCouponCodes(expectedCouponsCount);
+        }
+    }
+
+    private static void assertCouponCodes(String expectedCouponsCount){
+        Assert.assertEquals(
+                new CouponListPage().getCouponsTotalCount(),
+                expectedCouponsCount,
+                "Incorrect Coupon codes count on Coupon List page for <" + new CouponListPage().getListName() + ">."
+        );
+    }
+
+    public static String getCouponsListStatusFromCouponListPage(){
+        return new CouponListPage().getStatus();
+    }
+
+    public static boolean isCouponCodePresentInTheList(String couponCode){
+        return new CouponListPage().isCouponPreset(couponCode);
+    }
+
+    public static String getNameFromCouponsList(){
+        return new CouponListPage().getListName();
+    }
+    /* End of scenarios for Coupon Codes Report*/
+
+
+    /* Access Management scenarios */
+    public static void assertAccessAbsenceToReport(String reportName){
+        new Header()
+                .clickReportsButton()
+                .openReportWithPiiDataUnderNonPiiAccess(reportName);
+    }
+
+    public static void assertAvailableAccessToReport(String reportName){
+        ReportsPage reportsPage = new Header().clickReportsButton();
+        switch (reportName){
+            default:
+                Assert.fail("Unknown report name <" + reportName + "> was passed to assertAvailableAccessToReport()");
+                break;
+            case "Static Assets":
+                reportsPage.openStaticAssetsReport();
+                break;
+            case "CouponLists":
+                reportsPage.openCouponsListReport();
+                break;
+            case "Locale entries":
+                reportsPage.openLocaleEntriesReport();
+                break;
+            case "Settings Changes":
+                reportsPage.openSettingsChangesReport();
+                break;
+            case "Performance by Channel":
+                reportsPage.openPerformanceByChannelReport();
+                break;
+            case "Weekly Stats":
+                reportsPage.openWeeklyStatsReport();
+                break;
+            case "Summary Report":
+                reportsPage.openSummaryReport();
+                break;
+            case "Email Performance":
+                reportsPage.openEmailPerformanceReport();
+                break;
+            case "Performance Over Time":
+                reportsPage.openPerformanceOverTimeReport();
+                break;
+            case "Metrics Aggregation":
+                reportsPage.openMetricsAggregationReport();
+                break;
+            case "A/B Tests":
+                reportsPage.openAbTestsReport();
+                break;
+            case "Referrals Over Time":
+                reportsPage.openReferralsOverTimeReport();
+                break;
+            case "Email Conversion":
+                reportsPage.openEmailConversionReport();
+                break;
+            case "Page Snapshots":
+                reportsPage.openPageSnapshotsReport();
+                break;
+        }
+    }
+
+
+    /* End of Access Management scenarios */
+
+
 }

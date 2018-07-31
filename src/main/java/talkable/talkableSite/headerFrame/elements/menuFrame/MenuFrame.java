@@ -11,11 +11,13 @@ import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.fraud.settings.FraudSettingsPage;
 import talkable.talkableSite.integrationPage.IntegrationPage;
 import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
+import talkable.talkableSite.usersAndPrivileges.UsersAndPrivilegesPage;
 
 public class MenuFrame extends AbstractElementsContainer {
 
     private static final By integrationBtnLctr = By.xpath("//ul[contains(@class, 'base-dropdown')]//*[contains(text(),'Integration')]");
     private static final By menuIsOpenedElement = By.cssSelector(".dropdown.open");
+    private static final By usersAndPrivilegesLctr = By.xpath("//*[text()='Users & Privileges']");
     private ElmntLogoutButton logoutButton;
 
 
@@ -65,6 +67,15 @@ public class MenuFrame extends AbstractElementsContainer {
     public IntegrationPage clickIntegration(){
         new Element(integrationBtnLctr, "Integration button").click();
         return new IntegrationPage();
+    }
+
+    public void clickToUsersAndPrivileges(){
+        new Element(usersAndPrivilegesLctr, "'User & Privileges' button.").click();
+    }
+
+    public UsersAndPrivilegesPage openUserAndPrivilegesPage(){
+        clickToUsersAndPrivileges();
+        return new UsersAndPrivilegesPage();
     }
 
 

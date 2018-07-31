@@ -7,32 +7,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import talkable.common.elements.pagination.Pagination;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class SectionUploadedCsvList extends AbstractElementsContainer{
 
     private static final String sectionXpath = "//*[@class='App-container-inner']/*[contains(@class, 'App-layout-container')][1]";
+    private static final String tableXpath = sectionXpath + "//table";
+    private static final By tableLctr = By.xpath(tableXpath);
     private static final By firstPaginationLctr = By.xpath(sectionXpath + "//div[@class = 'pagination '][1]/ul");
     private static final By secondPaginationLctr = By.xpath(sectionXpath + "//div[@class = 'pagination '][2]/ul");
 
-    private Element sectionElement = new Element(By.xpath(sectionXpath));
-    private ArrayList<Row> table = new ArrayList<>();
-
 
     SectionUploadedCsvList(){
-        Element tableElemnt = new Element(sectionElement.getWebElement().findElement(By.xpath(".//table")));
-        List<WebElement> allRows = tableElemnt.getWebElement().findElements(By.xpath("./tbody/tr"));
-
-        //initialize all Rows in the table
-        for (WebElement webElement :
-                allRows) {
-            this.table.add(new Row(webElement));
-        }
+        new Element(tableLctr);
     }
 
-    Row getFirstRow(){
-        return table.get(0);
+    FirstRow getFirstRow(){
+        return new FirstRow();
     }
 
     public Pagination getTopPagination(){
@@ -43,20 +32,25 @@ public class SectionUploadedCsvList extends AbstractElementsContainer{
         return new Pagination(secondPaginationLctr);
     }
 
-    public class Row {
-        Element fileName;
-        Element progress;
-        Element emailsUploaded;
-        Element status;
-        Element errorMessage;
+    public class FirstRow {
 
-        Row(WebElement rowElement){
-            fileName = new Element(rowElement.findElement(By.xpath("./td[contains(@class, 'datagrid-file-name')]/div")));
-            progress = new Element(rowElement.findElement(By.xpath("./td[contains(@class, 'datagrid-progress')]/div")));
-            emailsUploaded = new Element(rowElement.findElement(By.xpath("./td[contains(@class, 'datagrid-uploaded')]")));
-            status = new Element(rowElement.findElement(By.xpath("./td[contains(@class, 'datagrid-status')]/div")));
-            errorMessage = new Element(rowElement.findElement(By.xpath("./td[contains(@class, 'datagrid-error-message')]")));
-        }
+//        private final By progressLctr = By.xpath("./td[contains(@class, 'datagrid-progress')]/div");
+        private final By progressLctr = By.xpath(tableXpath + "//tr[1]/td[contains(@class, 'datagrid-progress')]/div");
+//        private final By fileNameLctr = By.xpath("./td[contains(@class, 'datagrid-file-name')]/div");
+        private final By fileNameLctr = By.xpath(tableXpath + "//tr[1]/td[contains(@class, 'datagrid-file-name')]/div");
+//        private final By emailsUploadedLctr = By.xpath("./td[contains(@class, 'datagrid-uploaded')]");
+        private final By emailsUploadedLctr = By.xpath(tableXpath + "//tr[1]/td[contains(@class, 'datagrid-uploaded')]");
+//        private final By statusLctr = By.xpath("./td[contains(@class, 'datagrid-status')]/div");
+        private final By statusLctr = By.xpath(tableXpath + "//tr[1]/td[contains(@class, 'datagrid-status')]/div");
+//        private final By errorMsgLctr = By.xpath("./td[contains(@class, 'datagrid-error-message')]");
+        private final By errorMsgLctr = By.xpath(tableXpath + "//tr[1]/td[contains(@class, 'datagrid-error-message')]");
+
+        private Element fileName = new Element(fileNameLctr);
+        private Element progress = new Element(progressLctr);
+        private Element emailsUploaded = new Element(emailsUploadedLctr);
+        private Element status = new Element(statusLctr);
+        private Element errorMsg = new Element(errorMsgLctr);
+
 
         public String getFileName() {
             return fileName.getText();
@@ -75,10 +69,8 @@ public class SectionUploadedCsvList extends AbstractElementsContainer{
         }
 
         public String getErrorMessage() {
-            return errorMessage.getText();
+            return errorMsg.getText();
         }
-
-
 
     }
 

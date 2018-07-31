@@ -106,7 +106,7 @@ public class CspScenarios extends CommonScenarios{
         return new ReferralsPage().getPendingReferralsCount();
     }
 
-    @Deprecated
+
     public static void clickSeeDetailsForActionedRowOnRendingReferrals(){
         new ReferralsPage().clickSeeDetailsForActionedReferral();
     }

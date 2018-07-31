@@ -90,7 +90,7 @@ public class EditorScenarios extends CommonScenarios{
 
     public static String getSelectedView(){
         String selectedView = new AbstractEditorPage().getSelectedViewName();
-        Log.logRecord("Selected view <" + selectedView + ">.");
+//        Log.logRecord("Selected view <" + selectedView + ">.");
         return selectedView;
     }
 
@@ -104,6 +104,31 @@ public class EditorScenarios extends CommonScenarios{
 
     public static String getEmailSubjectFromPreview(){
         return new AbstractEditorPage().getEmailSubjectFromPreview();
+    }
+
+    @Deprecated
+    public static void clearCssSection(){
+        new HtmlEditorPage().clearCSS();
+    }
+
+    public static void addNewHtmlCode(String html){
+        new HtmlEditorPage().clearAndAddHtml(html);
+    }
+
+    public static void addNewCssCode(String css){
+        new HtmlEditorPage().addCSS(css);
+    }
+
+    public static String getFirstCssRow(){
+        return new HtmlEditorPage().getFirstCssRow();
+    }
+
+    public static void assertFirstCssRow(String expectedCssCode){
+        new HtmlEditorPage().waitTillCssSectionLoaded();
+        Assert.assertEquals(
+                EditorScenarios.getFirstCssRow(),
+                expectedCssCode,
+                "CSS code was not updated in the row#1 on the HTML Editor page. <" + getSelectedView() + "> view.");
     }
 
 

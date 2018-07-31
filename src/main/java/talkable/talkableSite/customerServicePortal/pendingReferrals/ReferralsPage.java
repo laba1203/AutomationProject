@@ -3,7 +3,6 @@ package talkable.talkableSite.customerServicePortal.pendingReferrals;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.talkableSite.customerServicePortal.AbstractCustomerServicePortalPage;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonInfoSection;
@@ -36,7 +35,7 @@ public class ReferralsPage extends AbstractCustomerServicePortalPage{
         }
         new Element(approveAllBtnLctr, "'Approve All' button").click();
         new ConfirmationPopup().confirm();
-        waitFactory().waitUntilTextToBePresentInElement(
+        WaitFactory.waitUntilTextToBePresentInElement(
                 pendingReferralsCountLctr,
                 "Pending Referrals — 0",
                 5);
@@ -45,8 +44,9 @@ public class ReferralsPage extends AbstractCustomerServicePortalPage{
     }
 
     public String getPendingReferralsCount(){
-        return pendingReferralsCount.getText().substring(20);
+        return pendingReferralsCount.getText().substring(13);
     }
+
 
     public PersonInfoSection clickSeeDetailsForActionedReferral(){
         new Element(seeDetailsForActionedReferralLctr, "'See Details' link").click();
@@ -76,28 +76,24 @@ public class ReferralsPage extends AbstractCustomerServicePortalPage{
 
 
     public ReferralsPage approveReferral(String advocateEmail){
-        String referralsCount = pendingReferralsCount.getText();
         findRowBy(advocateEmail).approve();
-        waitFactory().getCustomWait(5, 500).until(
-                ExpectedConditions.invisibilityOfElementWithText(pendingReferralsCountLctr, referralsCount));
+        waitSaving();
         Log.logRecord("Referral was approved. Advocate email <" + advocateEmail + ">.");
         return new ReferralsPage();
     }
 
     public ReferralsPage voidReferral(String advocateEmail){
-        String referralsCount = pendingReferralsCount.getText();
         findRowBy(advocateEmail).voidReferral();
-        waitFactory().getCustomWait(5, 500).until(
-                ExpectedConditions.invisibilityOfElementWithText(pendingReferralsCountLctr, referralsCount));
-        Log.logRecord("Referral was approved. Advocate email <" + advocateEmail + ">.");
+        waitSaving();
+        Log.logRecord("Referral was voided. Advocate email <" + advocateEmail + ">.");
         return new ReferralsPage();
     }
 
 
 
     class ReferralRow{
-        private final By adEmailLctr = By.xpath("./td[1]/a");
-        private final By frEmailLctr = By.xpath("./td[2]/a");
+        private final By adEmailLctr = By.xpath("./td[2]/span");
+        private final By frEmailLctr = By.xpath("./td[3]/span");
         private final By apprroveActionBtnLctr = By.xpath(".//div[@class='CSP-row-actions-buttons']/div[1]/button");
         private final By voidActionBtnLctr = By.xpath(".//div[@class='CSP-row-actions-buttons']/div[2]/button");
 

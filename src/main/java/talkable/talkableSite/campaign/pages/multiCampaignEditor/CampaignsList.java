@@ -15,20 +15,17 @@ public class CampaignsList extends AbstractElementsContainer
     private static final String selectedCampaignsXpath = "//strong[contains(text(), 'Selected campaigns')]/../../../..";
     private static final String unselectedCampaignsXpath = "//strong[contains(text(), 'Unselected campaigns')]/../../../..";
     private static final String ineligibleCampaignsXpath = "//strong[contains(text(), 'Ineligible campaigns')]/../../../..";
-    private static final String campaignRecordXpath = "./li[@class = 'is-editMandatoryFields']";
+    private static final String campaignRecordXpath = "./li[@class = 'is-edit']";
+    private static final By countLctr = By.xpath(".//h4/span/span");
 
     private WebElement ownElement;
-    private ArrayList<CampaignRecord> campaigns = new ArrayList<>();
     private boolean eligible;
-    private Element count;
 
 
     enum State {SELECTED, UNSELECTED, INELIGIBLE}
 
-    public CampaignsList(State state){
+    CampaignsList(State state){
         ownElement = getWebElement(state);
-        count = new Element(ownElement.findElement(By.xpath(".//h4/span/span")));
-        setCampaignRecords();
     }
 
     private WebElement getWebElement(State state){
@@ -49,35 +46,37 @@ public class CampaignsList extends AbstractElementsContainer
     }
 
     public String getCampaignCount(){
-        return count.getText();
+        return new Element(ownElement.findElement(countLctr)).getText();
     }
 
-    private void setCampaignRecords(){
-        if(!isCountZero()) {
+
+    private boolean countIsNotZero(){
+        return !getCampaignCount().equals("0");
+    }
+
+    private ArrayList<CampaignRecord> getCampaignsList(){
+        ArrayList<CampaignRecord> cRecords = new ArrayList<>();
+        if(countIsNotZero()) {
             List<WebElement> records = ownElement.findElements(By.xpath(campaignRecordXpath));
             for (WebElement el :
                     records) {
-                campaigns.add(new CampaignRecord(el, eligible));
+                cRecords.add(new CampaignRecord(el, eligible));
             }
         }
-    }
-
-    private boolean isCountZero(){
-        return count.getText().equals("0");
-    }
-
-    public ArrayList<CampaignRecord> getCampaignsList(){
-        return campaigns;
+        return cRecords;
     }
 
     CampaignRecord findCampaign(String campaignName){
+        ArrayList<String> availableCampaigns = new ArrayList<>();
         for (CampaignRecord campaign :
-                campaigns) {
-            if (campaign.getName().equals(campaignName)){
+                getCampaignsList()) {
+            String cName = campaign.getName();
+            availableCampaigns.add(cName);
+            if (cName.equals(campaignName)){
                 return campaign;
             }
         }
-        Assert.fail("FAILED: Campaign with name: <" + campaignName + "> is not found");
+        Assert.fail("FAILED: Campaign with name: <" + campaignName + "> is not found. List of available campaigns: \n" + availableCampaigns.toString());
         return null;
     }
 

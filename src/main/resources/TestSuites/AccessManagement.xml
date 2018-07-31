@@ -1,0 +1,14 @@
+<suite name="Access Management Suite" preserve-order="true" group-by-instances="true">
+    <test name="Non PII access to sites" preserve-order="true" >
+        <classes>
+            <class name="execution.access.management.NonPiiAccessRequestTesting"/>
+        </classes>
+    </test>
+    <test name="PII access to sites" preserve-order="true" >
+        <classes>
+            <class name="execution.access.management.PiiAccessRequestTesting"/>
+        </classes>
+    </test>
+
+</suite>
+

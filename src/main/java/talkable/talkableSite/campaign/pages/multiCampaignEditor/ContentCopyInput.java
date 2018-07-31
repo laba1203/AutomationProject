@@ -7,23 +7,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 class ContentCopyInput extends AbstractElementsContainer implements ContentValueRecord{
 
-    private Element value;
-    private Element text;
+    private static final By valueLctr = By.xpath("//textarea");
+    private static final By textLctr = By.xpath("//div[@class = 'code-area']");
 
-    ContentCopyInput(){
-        value = new Element(driver.findElement(By.xpath("//textarea")));
-        text = new Element(driver.findElement(By.xpath("//div[@class = 'code-area']")));
-    }
+    private Element value = new Element(valueLctr);
+    private Element text = new Element(textLctr);
 
     @Override
     public void update(String text){
-//        value = new Element(wait.until(ExpectedConditions.elementToBeClickable(value.getWebElement())));
-//        value.click();
-//        value.clear();
-//        value.sendKeys(text);
         this.text = new Element(wait.until(ExpectedConditions.elementToBeClickable(this.text.getWebElement())));
         this.text.click();
-        value = new Element(driver.findElement(By.xpath("//textarea")));
         value.clear();
         value.sendKeys(text);
     }

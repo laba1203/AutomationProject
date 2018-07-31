@@ -2,6 +2,7 @@ package common.cases;
 
 import api.objects.Site;
 import org.testng.Assert;
+import talkable.access.managment.access.request.AccessRequestPage;
 import talkable.common.elements.WeUseCookieMsg;
 import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
@@ -11,12 +12,11 @@ import talkable.common.CampaignType;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenu;
-import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
-import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.integrationPage.IntegrationPage;
+import talkable.talkableSite.reports.ReportsPage;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchases.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
@@ -29,6 +29,7 @@ import talkable.talkableSite.siteSettings.ElmntUnsavedChangesPopup;
 import talkable.talkableSite.siteSettings.SiteSettingsPage;
 import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 import talkable.talkableSite.siteSettings.contacts.SiteSettingsContactsTab;
+import talkable.talkableSite.usersAndPrivileges.UsersAndPrivilegesPage;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.DriverConfig;
@@ -60,6 +61,7 @@ public class CommonScenarios {
         homePage.clickLoginButton();
         return submitLoginForm(email, password);
     }
+
 
     /***
      *Scenario to login and create new Site. And create test account If it is not yet created on the env.
@@ -101,6 +103,7 @@ public class CommonScenarios {
         return new Header();
     }
 
+
     public static Header submitLoginForm(String email, String password){
         Header header = new LoginPage().submitLoginForm(email, password);
         Log.logRecord("User logged into Talkable. Email = <" + email + ">");
@@ -134,6 +137,15 @@ public class CommonScenarios {
         DriverConfig.getDriver().navigate().to(EnvFactory.getAdminUrl());
         new Header();
         Log.logRecord("Navigated to admin URL");
+    }
+
+    public static void navigateToUrl(String url){
+        DriverConfig.getDriver().navigate().to(url);
+        Log.logRecord("Navigated to URL: " + url);
+    }
+
+    public static String getCurrentUrl(){
+        return DriverConfig.getDriver().getCurrentUrl();
     }
 
     public static SiteDashboardPage switchToIntegratedSiteByVisibleText(String siteName) {
@@ -180,6 +192,10 @@ public class CommonScenarios {
         return page;
     }
 
+    public static UsersAndPrivilegesPage openUsersAndPrivilegesPage(){
+        return new Header().openMenu().openUserAndPrivilegesPage();
+    }
+
     public static SiteDashboardPage openDashboardPageForNonIntegratedSite(){
         new Header()
                 .openSiteDashboardForNonIntegratedSite()
@@ -190,13 +206,13 @@ public class CommonScenarios {
     //method modified as temp workaround for old CSP:
     public static PersonLookupPage openCustomerServicePortal(){
         PersonLookupPage page = new Header().openCustomerServicePortal();
-//        new Header().openOldCustomerServicePortal();
-//        String oldCspUrl = DriverConfig.getDriver().getCurrentUrl();
-//        String newCspUrl = oldCspUrl + "_portal";
-//        DriverConfig.getDriver().navigate().to(newCspUrl);
-//        PersonLookupPage page = new PersonLookupPage();
         Log.logRecord("New Customer Service Portal is opened. (Person Lookup page is displayed)");
         return page;
+    }
+
+    public static void assertAccessToCsp(){
+        new Header().clickToCspTab();
+        assertAccessRequestPage();
     }
 
     //correct method with method for
@@ -547,6 +563,10 @@ public class CommonScenarios {
         return new CampaignDetailsPage();
     }
 
+    public static void deactivateCampaignFromCampaignNavigationMenu(){
+        new CampaignDetailsPage().campaignNavigationMenu.deactivateCampaign();
+    }
+
     public static void reactivateCampaignFromCampaignsPage(String campaignName){
         new PageCampaigns()
                 .openCampaignByName(campaignName, DISABLED)
@@ -556,37 +576,9 @@ public class CommonScenarios {
     }
 
 
-
-    /*Scenarios to open Multi-Campaign Editor page for some campaign.
-     * Precondition: Page with header should opened. Campaign with @campaignName should exist with defined @status.
-     * 1. Navigate to Campaigns page
-     * 2. Search campaign by @campaignName and @status
-     * 3. Select campaign
-     * 4. Navigate to Editor page.
-     * 5. Select view by @pageViewName
-     * 6. Select localization type by @contentType (COPY, IMAGE, CONFIGURATION or COLOR)
-     * 7. Find localization by @localizationName and click 'Copy to Other Campaigns' button
-     * @Returns: Multi-Campaign Editor page for mentioned parameters.
-     * */
-    public static PageMultiCampaignEditor openMultiCampaignEditorPage(String campaignName,
-                                                                      Table.Status status,
-                                                                      String pageViewName,
-                                                                      String localizationName,
-                                                                      SimpleEditorPage.LocalizationType contentType) {
-        CampaignDetailsPage detailsPage = new Header().openCampaignsPage().openCampaignByName(campaignName, status);
-        SimpleEditorPage editor = detailsPage.campaignNavigationMenu.openEditorPage();
-        editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
-        editor.switchTo(contentType);
-        PageMultiCampaignEditor mceEditor =  editor.clickCopyToOtherCampaigns(contentType, localizationName + "#");
-        Log.logRecord("Multi-Campaign Editor page is opened for campaign = <" + campaignName + ">, localization = <" + contentType + " --> " + localizationName + ">.");
-        return mceEditor;
-    }
-
     public static String getCampaignStatusFromMenu(){
         return new CampaignNavigationMenu().getCampaignStatus();
     }
-
-
 
 
     public static void verifyPagination(Pagination pagination) {
@@ -693,7 +685,7 @@ public class CommonScenarios {
     public static void saveUnsavedchanges(){
     new ElmntUnsavedChangesPopup().saveChanges();
     }
-    public static void canselUnsavedchanges(){
+    public static void cancelUnsavedchanges(){
         new ElmntUnsavedChangesPopup().cancelChanges();
     }
     public static SiteSettingsContactsTab discardUnsavedchanges(){
@@ -734,6 +726,29 @@ public class CommonScenarios {
         Log.logRecord("Shopify App is installed.");
         return page;
     }
+
+
+    /* Access Management scenarios */
+
+    public static AccessRequestPage assertAccessRequestPage(){
+        AccessRequestPage page = new AccessRequestPage();
+        Log.logRecord("Access Request page is opened.");
+        return page;
+    }
+
+    public static void assertAccessToUsersAndPrivileges(){
+        new Header().openMenu().clickToUsersAndPrivileges();
+        assertAccessRequestPage();
+    }
+
+    public static void requestAccessWithAutoApproval(AccessRequestPage.TermOfAccess term , AccessRequestPage.PiiAccess piiType){
+        assertAccessRequestPage()
+                .requestAccessWithAutoApproval(term, piiType);
+
+    }
+
+
+    /* End of Access Management scenarios */
 
 
 

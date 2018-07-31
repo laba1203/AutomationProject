@@ -6,20 +6,21 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import util.logging.Log;
 
 public abstract class AbstractTalkableFrame extends AbstractElementsContainer{
-    private WebElement frameElement;
-
+    private By frameLctr;
 
     protected void setWebElement(By locator){
-        frameElement = driver.findElement(locator);
+        frameLctr = locator;
+        getFrameWebElement();
     }
 
-    protected WebElement getFrameWebElement() {
-        return frameElement;
+    protected WebElement getFrameWebElement(){
+        return driver.findElement(frameLctr);
     }
 
     protected void switchToThisFrame(){
-        wait.until(ExpectedConditions.visibilityOf(frameElement));
-        driver.switchTo().frame(frameElement);
+        wait.until(ExpectedConditions.visibilityOf(getFrameWebElement()));
+        driver.switchTo().frame(getFrameWebElement());
+
         Log.frameSwitchedMsg(this);
     }
 

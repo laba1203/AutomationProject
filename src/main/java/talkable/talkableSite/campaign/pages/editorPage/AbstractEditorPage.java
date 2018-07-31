@@ -16,19 +16,21 @@ public class AbstractEditorPage extends AbstractTkblSitePageWithoutHeader
 //    private static final By previewFrameLctr = By.xpath("//iframe[contains(@class, 'cover-iframe')]");
     private static final By selectedViewFieldLctr = By.cssSelector(".editor-view-setup-switcher span");
     private static final By emailSubjectInPreview = By.xpath("//*[@class ='editor-preview-data-bottom-part']//*[contains(text(), 'Subject')]/following::span[contains(@class, 'preview-data-text')]");
+    private static final By saveBtnLctr = By.xpath("//div[contains(text(), 'save changes')]");
 
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
     Element elmntSelectedViewField = new Element(selectedViewFieldLctr, "Selected View field");
     private PreviewFrame previewFrame = new PreviewFrame();
 //    private Element previewIFrame = new Element(previewFrameLctr);
+    private Element saveButton = new Element(saveBtnLctr, "Save Changes button");
 
     void switchViewByName(String name){
         if(isViewSelected(name)) {
-            System.out.println("DEBAG: View <" + name + "> is already selected");
+            Log.logRecord("View <" + name + "> is already selected");
         }else{
             openViewList().selectViewByText(name);
-            System.out.println("DEBAG: View changed to : " + name);
+            Log.logRecord("View changed to : " + name);
         }
     }
 
@@ -67,8 +69,6 @@ public class AbstractEditorPage extends AbstractTkblSitePageWithoutHeader
     public void clickToPresetDropDown(){
         new Element(presetDropDownBtnLctr, "Preset Dropdown").click();
     }
-
-
 
     public String getSelectedPresetName(){
         return new Element(presetDropDownBtnLctr, "Preset Dropdown").getText();
@@ -123,5 +123,10 @@ public class AbstractEditorPage extends AbstractTkblSitePageWithoutHeader
 
     public String getEmailSubjectFromPreview(){
         return new Element(emailSubjectInPreview).getText();
+    }
+
+    protected void saveChanges(){
+        saveButton.click();
+        waitSaving();
     }
 }

@@ -1,10 +1,25 @@
 <suite name="MultiCampaignEditor" preserve-order="true" group-by-instances="true">
     <test name="Multi-campaign editor" preserve-order="true" group-by-instances="true">
         <classes>
-            <class name="execution.editor.mce.MultiCampaignEditorTesting_all">
+            <class name="execution.editor.mce.MceTests_ShortVersion">
+                <!--<groups>-->
+                    <!--<run>-->
+                        <!--<exclude name = "copyUpdate"/>-->
+                        <!--<exclude name = "colorUpdate"/>-->
+                        <!--<exclude name = "configurationUpdate"/>-->
+                        <!--<exclude name = "imageUpdate"/>-->
+
+                    <!--</run>-->
+                <!--</groups>-->
             </class>
         </classes>
     </test>
+    <!--<test name="MCE Additional cases" preserve-order="true">-->
+        <!--<classes>-->
+            <!--<class name="execution.editor.mce.MceAdditionalScenarios">-->
+            <!--</class>-->
+        <!--</classes>-->
+    <!--</test>-->
 
 
 </suite>

@@ -1,17 +1,15 @@
 package talkable.talkableSite.reports.previousCustomersReport;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import talkable.common.elements.pagination.Pagination;
-import talkable.talkableSite.AbstractTalkableSitePage;
+import talkable.talkableSite.reports.AbstractReportPage;
 import util.TestArtifactsProvider;
 import util.logging.Log;
 
-public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
+public class PreviousCustomersReportPage extends AbstractReportPage {
 
-
-    private final static By bottomCSVListsPaginationLctr = By.xpath("");
+//    private final static By bottomCSVListsPaginationLctr = By.xpath("");
 
 //    private UploadedCSVListsTable uploadedCSVLists;
     private ElmntUploadNewCSVButton elmntUploadNewCSVButton = new ElmntUploadNewCSVButton();
@@ -89,7 +87,7 @@ public class PreviousCustomersReportPage extends AbstractTalkableSitePage {
 
 
 
-    public SectionUploadedCsvList.Row getRowWithCsv(int rowNumber){
+    public SectionUploadedCsvList.FirstRow getFirstRowWithCsv(){
         return new SectionUploadedCsvList().getFirstRow();
     }
 

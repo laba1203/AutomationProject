@@ -27,10 +27,6 @@ public class CampaignActionsTesting extends BaseTest{
     public void login(){
         CommonScenarios.acceptCookiesUsage();
         CommonScenarios.loginAndCreateNewSite(user, pswrd);
-//        CommonScenarios.login(
-//                PropertyLoader.loadProperty("talkable.user.campaignActionsTest"),
-//                EnvFactory.getPassword()
-//        );
     }
 
     @Test(dependsOnMethods = "login")
@@ -39,7 +35,6 @@ public class CampaignActionsTesting extends BaseTest{
         String campaignDesc = "Some campaign description";
 
         CommonScenarios.openCampaignsPage();
-//        CommonScenarios.deleteAllCampaignsWithStatus(LIVE);
         CommonScenarios.createNewCampaignFromCampaignsPage(AdvocateDashboard, FloatingWidget);
         CommonScenarios.openCampaignRulesPage();
         CommonScenarios.setCampaignNameOnRulesPage(campaignName);
@@ -88,7 +83,6 @@ public class CampaignActionsTesting extends BaseTest{
 
         CommonScenarios.navigateToAdminUrl();
         CommonScenarios.openCampaignsPage();
-//        CommonScenarios.deleteAllCampaignsWithStatus(TEST);
         CommonScenarios.createNewCampaignFromCampaignsPage(Invite, PostPurchase);
         CommonScenarios.openCampaignRulesPage();
         CommonScenarios.setCampaignNameOnRulesPage(campName);
@@ -97,12 +91,7 @@ public class CampaignActionsTesting extends BaseTest{
         CommonScenarios.createTestOfferNewPurchase();
         CommonScenarios.assertAdvocateOffersCountOnCampaignDetailsPage("Total: 1");
 
-        //todo: temp solution till new CSP will be deployed on Prod
-        CommonScenarios.openDashboardPage();
-        String newCspUrl = driver.getCurrentUrl() + "/customer_service_portal";
-        driver.navigate().to(newCspUrl);
-        //end
-
+        CommonScenarios.openCustomerServicePortal();
         CspScenarios.createNewReferral(advocate, 177, campName);
         CommonScenarios.openCampaignDetailsPageFor(campName, TEST);
         CommonScenarios.flushCampaignDataFromDetailsPage();

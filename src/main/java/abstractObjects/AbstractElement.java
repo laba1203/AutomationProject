@@ -27,7 +27,7 @@ public abstract class AbstractElement implements DrivenElement{
             this.locator = locator;
         }
         catch (NoSuchElementException e){
-            Assert.fail( "Element <" +this.getClass().getName() + "> was not found on the page. \r\n"+ e.getMessage());
+            Assert.fail( "Element <" +this.getClass().getName() + "> was not found on the page. \r\n" + e.getMessage());
         }
     }
 
@@ -81,7 +81,13 @@ public abstract class AbstractElement implements DrivenElement{
 
     public String getText(){
         initializeWebElement();
-        return this.webElement.getText();
+        try {
+            return this.webElement.getText();
+        }catch (StaleElementReferenceException e){
+            Log.debagRecord("Catch  StaleElementReferenceException during getText() for the element <" + this.getClass().getName() + ">. Trying to get Text once again...");
+            initializeWebElement();
+            return this.webElement.getText();
+        }
     }
 
     public boolean isEnabled(){
