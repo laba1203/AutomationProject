@@ -11,6 +11,7 @@ import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.fraud.settings.FraudSettingsPage;
 import talkable.talkableSite.integrationPage.IntegrationPage;
 import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
+import talkable.talkableSite.usersAndPrivileges.UsersAndPrivilegesPage;
 
 public class MenuFrame extends AbstractElementsContainer {
 
@@ -70,6 +71,11 @@ public class MenuFrame extends AbstractElementsContainer {
 
     public void clickToUsersAndPrivileges(){
         new Element(usersAndPrivilegesLctr, "'User & Privileges' button.").click();
+    }
+
+    public UsersAndPrivilegesPage openUserAndPrivilegesPage(){
+        clickToUsersAndPrivileges();
+        return new UsersAndPrivilegesPage();
     }
 
 

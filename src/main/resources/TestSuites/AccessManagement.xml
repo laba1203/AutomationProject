@@ -4,6 +4,11 @@
             <class name="execution.access.management.NonPiiAccessRequestTesting"/>
         </classes>
     </test>
+    <test name="PII access to sites" preserve-order="true" >
+        <classes>
+            <class name="execution.access.management.PiiAccessRequestTesting"/>
+        </classes>
+    </test>
 
 </suite>
 
