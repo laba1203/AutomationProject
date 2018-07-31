@@ -40,6 +40,9 @@ public class DriverConfig {
 
     }
 
+    public static boolean isDriverCreated(){
+        return tlDriver.get() != null;
+    }
 
 
     private static void setNewRemoteDriver(){
@@ -74,10 +77,10 @@ public class DriverConfig {
     }
 
     public static WebDriver getDriver(){
-        if(tlDriver.get() != null){
+        if(isDriverCreated()){
             return tlDriver.get();
         }else {
-            Assert.fail("FAILED in DriverConfig. getting browser when it was not created. Thread <" + Thread.currentThread().getId() + ">");
+            Assert.fail("FAILED in DriverConfig. Getting driver when it was not created. Thread <" + Thread.currentThread().getId() + ">");
             return null;
         }
     }
