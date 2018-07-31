@@ -6,6 +6,7 @@ import org.testng.Assert;
 import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.reports.ReportsPage;
 import talkable.talkableSite.reports.couponLists.CouponListPage;
 import talkable.talkableSite.reports.couponLists.CouponListsReportPage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
@@ -271,5 +272,68 @@ public class ReportsScenarios extends CommonScenarios {
         return new CouponListPage().getListName();
     }
     /* End of scenarios for Coupon Codes Report*/
+
+
+    /* Access Management scenarios */
+    public static void assertAccessAbsenceToReport(String reportName){
+        new Header()
+                .clickReportsButton()
+                .openReportWithPiiDataUnderNonPiiAccess(reportName);
+    }
+
+    public static void assertAvailableAccessToReport(String reportName){
+        ReportsPage reportsPage = new Header().clickReportsButton();
+        switch (reportName){
+            default:
+                Assert.fail("Unknown report name <" + reportName + "> was passed to assertAvailableAccessToReport()");
+                break;
+            case "Static Assets":
+                reportsPage.openStaticAssetsReport();
+                break;
+            case "CouponLists":
+                reportsPage.openCouponsListReport();
+                break;
+            case "Locale entries":
+                reportsPage.openLocaleEntriesReport();
+                break;
+            case "Settings Changes":
+                reportsPage.openSettingsChangesReport();
+                break;
+            case "Performance by Channel":
+                reportsPage.openPerformanceByChannelReport();
+                break;
+            case "Weekly Stats":
+                reportsPage.openWeeklyStatsReport();
+                break;
+            case "Summary Report":
+                reportsPage.openSummaryReport();
+                break;
+            case "Email Performance":
+                reportsPage.openEmailPerformanceReport();
+                break;
+            case "Performance Over Time":
+                reportsPage.openPerformanceOverTimeReport();
+                break;
+            case "Metrics Aggregation":
+                reportsPage.openMetricsAggregationReport();
+                break;
+            case "A/B Tests":
+                reportsPage.openAbTestsReport();
+                break;
+            case "Referrals Over Time":
+                reportsPage.openReferralsOverTimeReport();
+                break;
+            case "Email Conversion":
+                reportsPage.openEmailConversionReport();
+                break;
+            case "Page Snapshots":
+                reportsPage.openPageSnapshotsReport();
+                break;
+        }
+    }
+
+
+    /* End of Access Management scenarios */
+
 
 }

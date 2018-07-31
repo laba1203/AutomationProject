@@ -6,11 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
+import talkable.talkableSite.reports.AbstractReportPage;
 
 import java.util.ArrayList;
 
-public class CouponListPage extends AbstractTalkableSitePage{
-
+public class CouponListPage extends AbstractReportPage{
+    private static final String header = "Coupon Lists";
     private static final By discountAmountLctr = By.xpath("//dt[text()='Discount Amount']/following::dd[1]");
     private static final By totalCouponsLctr = By.xpath("//dt[text()='Total Coupons']/following::dd[1]");
     private static final By statusLctr = By.xpath("//dt[text()='Status']/following::dd[1]/div");
@@ -25,6 +26,10 @@ public class CouponListPage extends AbstractTalkableSitePage{
     private Element status = new Element(statusLctr);
     private Element addCouponsBtn = new Element(addCouponsBtnLctr, "Add coupons button");
     private Element listName = new Element(listNameLctr);
+
+    public CouponListPage(){
+        verifyHeader(header);
+    }
 
     public String getCouponsTotalCount(){
         return totalCoupons.getText();
