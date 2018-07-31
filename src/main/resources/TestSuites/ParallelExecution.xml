@@ -4,48 +4,52 @@
         <listener class-name="util.Listeners"/>
     </listeners>
 
+
     <test name="Smoke Test" preserve-order="true" >
         <classes>
             <class name="execution.smoke.SmokeTest_v2"/>
         </classes>
     </test>
-
     <test name="Simple Test" preserve-order="true" >
         <classes>
             <class name="execution.integration.custom.CustomIntegrationTestForAllCampaignTypes"/>
         </classes>
     </test>
-
+    <test name="Multi-campaign editor" preserve-order="true" group-by-instances="true">
+        <classes>
+            <class name="execution.editor.mce.MceTests_ShortVersion"/>
+        </classes>
+    </test>
     <test name="Simple Editor" preserve-order="true" >
         <classes>
             <class name="execution.editor.SimpleEditorTesting_v2"/>
         </classes>
     </test>
-
     <test name="HTML Editor tests" preserve-order="true" >
         <classes>
             <class name="execution.editor.HtmlEditorTesting"/>
         </classes>
     </test>
-
+    <test name="Shopify Integration" preserve-order="true" >
+        <classes>
+            <class name="execution.integration.shopify.ShopifyIntegrationTest"/>
+        </classes>
+    </test>
     <test name="Fraud Settings tests" preserve-order="true" >
         <classes>
             <class name="execution.fraud.settings.FraudSettingsTesting"/>
         </classes>
     </test>
-
     <test name="Campaign Actions" preserve-order="true" >
         <classes>
             <class name="execution.campaign.actions.CampaignActionsTesting"/>
         </classes>
     </test>
-
     <test name="New user registration. Positive case" preserve-order="true" >
         <classes>
             <class name="execution.registration.CreateNewUserWithSite"/>
         </classes>
     </test>
-
     <test name="Site Settings Basic Tab tests" preserve-order="true" >
         <classes>
             <class name="execution.site.settings.SiteSettingsBasicTab"/>
@@ -75,16 +79,6 @@
     <test name="Coupon Codes List Report" preserve-order="true" >
         <classes>
             <class name="execution.reports.coupon.codes.upload.UploadCouponCodesTests"/>
-        </classes>
-    </test>
-    <test name="Shopify Integration" preserve-order="true" >
-        <classes>
-            <class name="execution.integration.shopify.ShopifyIntegrationTest"/>
-        </classes>
-    </test>
-    <test name="Multi-campaign editor" preserve-order="true" group-by-instances="true">
-        <classes>
-            <class name="execution.editor.mce.MceTests_ShortVersion"/>
         </classes>
     </test>
 
