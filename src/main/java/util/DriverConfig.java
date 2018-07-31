@@ -4,6 +4,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
@@ -60,11 +61,13 @@ public class DriverConfig {
             System.err.println("Exception found");
             e.printStackTrace();
         }
-        WebDriver driver = new RemoteWebDriver(
+
+        RemoteWebDriver rDriver = new RemoteWebDriver(
                     url,
                     capabilities
             );
-        tlDriver.set(driver);
+        rDriver.setFileDetector(new LocalFileDetector());
+        tlDriver.set(rDriver);
         resizeBrowser(tlDriver.get());
 
         System.out.println("LOG - Util: New Remote WebDriver created. Thread ID: <" + Thread.currentThread().getId() + ">");
