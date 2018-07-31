@@ -29,6 +29,7 @@ import talkable.talkableSite.siteSettings.ElmntUnsavedChangesPopup;
 import talkable.talkableSite.siteSettings.SiteSettingsPage;
 import talkable.talkableSite.siteSettings.basic.SiteSettingsBasicTab;
 import talkable.talkableSite.siteSettings.contacts.SiteSettingsContactsTab;
+import talkable.talkableSite.usersAndPrivileges.UsersAndPrivilegesPage;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 import talkable.userRegistration.createAccountPage.CreateAccountPage;
 import util.DriverConfig;
@@ -101,7 +102,6 @@ public class CommonScenarios {
         }
         return new Header();
     }
-
 
 
     public static Header submitLoginForm(String email, String password){
@@ -190,6 +190,10 @@ public class CommonScenarios {
         SiteDashboardPage page = new Header().openSiteDashboard();
         Log.logRecord("Site Dashboard page is opened.");
         return page;
+    }
+
+    public static UsersAndPrivilegesPage openUsersAndPrivilegesPage(){
+        return new Header().openMenu().openUserAndPrivilegesPage();
     }
 
     public static SiteDashboardPage openDashboardPageForNonIntegratedSite(){
