@@ -47,7 +47,7 @@ class ExistingCustomersListSection extends AbstractElementsContainer{
         filterButton.click();
 
         try {
-            WaitFactory.getExplicitWait().until(ExpectedConditions.invisibilityOfElementWithText(totalLctr, initialTotal));
+            waitFactory().getExplicitWait().until(ExpectedConditions.invisibilityOfElementWithText(totalLctr, initialTotal));
         }catch (TimeoutException e){
             Assert.fail("FAILED: Total value is not changed after filtering. \r\nFull log: " + e.getMessage());
         }

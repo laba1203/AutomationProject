@@ -35,7 +35,7 @@ class ViewPresetFrame extends AbstractElementsContainer{
     }
 
     CreateNewPresetPage clickCreateNewPreset(){
-        WaitFactory.waitUntilVisibilityOfElementLocated(createNewPresetBtn.getLocator(), 5);
+        waitFactory().waitUntilVisibilityOfElementLocated(createNewPresetBtn.getLocator(), 5);
         createNewPresetBtn.click();
 
         return new CreateNewPresetPage();

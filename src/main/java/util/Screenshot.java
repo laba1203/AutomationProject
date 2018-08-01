@@ -21,14 +21,21 @@ public class Screenshot {
     
     public String makeScreenshot(){
         deleteExistingScreenshots();
-        File srcFile = ((TakesScreenshot) DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
-        copyFile(srcFile);
+        if(DriverConfig.isDriverCreated()) {
+            File srcFile = ((TakesScreenshot) DriverConfig.getDriver()).getScreenshotAs(OutputType.FILE);
+            copyFile(srcFile);
+            return "file://" + absoluteFilePath;
+        }
+        else {
+            Log.debagRecord("Screenshot is not available since Driver is null.");
+            return "";
+        }
 
 
 //        String pathToScreenshot = "file://" + absoluteFilePath;
 //        Log.getScreenshotMsg("<a href=\"" + pathToScreenshot + "\">"+fileName+"</a>");
 
-        return "file://" + absoluteFilePath;
+//        return "file://" + absoluteFilePath;
     }
     private void deleteExistingScreenshots(){
         if(previousFiles) {
