@@ -14,6 +14,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <env.NAME>BASTION</env.NAME>
+        <execution.threads>2</execution.threads>
     </properties>
 
 
@@ -40,13 +42,14 @@
                 <configuration>
                     <systemPropertyVariables>
                         <test.environment>${env.NAME}</test.environment>
+
                     </systemPropertyVariables>
 
-                    <forkCount>2</forkCount>
+                    <forkCount>${execution.threads}</forkCount>
                     <reuseForks>true</reuseForks>
                     <perCoreThreadCount>false</perCoreThreadCount>
                     <parallel>classes</parallel>
-                    <threadCount>2</threadCount>
+                    <threadCount>${execution.threads}</threadCount>
 
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                     <suiteXmlFiles>
@@ -55,7 +58,6 @@
                         <suiteXmlFile>.\src\main\resources\TestSuites\ParallelExecution.xml</suiteXmlFile>
 
                     </suiteXmlFiles>
-
                 </configuration>
             </plugin>
 
