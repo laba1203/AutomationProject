@@ -18,7 +18,9 @@ public abstract class AbstractElementsContainer
 {
     protected WebDriver driver = DriverConfig.getDriver();
     private Screenshot screenshot;
-    protected WebDriverWait wait = WaitFactory.getExplicitWait();
+    private WaitFactory waitFactory = new WaitFactory();
+    protected WebDriverWait wait = waitFactory.getExplicitWait();
+
     private String windowHandle;
 
 
@@ -27,6 +29,10 @@ public abstract class AbstractElementsContainer
             screenshot.makeScreenshot();
         }
         Assert.assertEquals(title, driver.getTitle(), Log.pageNotOpenedMsg(this));
+    }
+
+    protected WaitFactory waitFactory(){
+        return waitFactory;
     }
 
 

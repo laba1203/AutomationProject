@@ -31,14 +31,14 @@ public class FirstRow extends AbstractElementsContainer{
     public PageReferralsReport approve(){
         String oldStatus = getRowStatus();
         new Element(approvedButtonLctr).click();
-        WaitFactory.waitInvisibilityOfElementWithText(referralStatusLctr, oldStatus);
+        waitFactory().waitInvisibilityOfElementWithText(referralStatusLctr, oldStatus);
         return new PageReferralsReport();
     }
 
     public PageReferralsReport voidReferral(){
         String oldStatus = getRowStatus();
         new Element(voidButtonLctr).click();
-        WaitFactory.waitInvisibilityOfElementWithText(referralStatusLctr, oldStatus);
+        waitFactory().waitInvisibilityOfElementWithText(referralStatusLctr, oldStatus);
         return new PageReferralsReport();
     }
 

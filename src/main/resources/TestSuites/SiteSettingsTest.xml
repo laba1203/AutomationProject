@@ -1,15 +1,11 @@
 <suite name="Site Settings Suite" preserve-order="true" group-by-instances="true">
     <test name="Basic Tab" preserve-order="true" >
         <classes>
-
             <class name="execution.site.settings.SiteSettingsBasicTab"/>
-
         </classes>
     </test>
     <test name="Contacts Tab" preserve-order="true" >
         <classes>
-
-
             <class name="execution.site.settings.SiteSettingsContactsTab"/>
         </classes>
     </test>

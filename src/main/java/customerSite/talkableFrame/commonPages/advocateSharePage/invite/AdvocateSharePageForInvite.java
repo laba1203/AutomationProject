@@ -2,6 +2,7 @@ package customerSite.talkableFrame.commonPages.advocateSharePage.invite;
 
 import abstractObjects.AbstractTalkableFrame;
 import org.openqa.selenium.By;
+import util.WaitFactory;
 
 public class AdvocateSharePageForInvite extends AbstractTalkableFrame{
 
@@ -17,7 +18,7 @@ public class AdvocateSharePageForInvite extends AbstractTalkableFrame{
     private ElmntSubmitEmailButton submitEmailButton;
 
     public AdvocateSharePageForInvite(){
-
+        waitFactory().waitUntilVisibilityOfElementLocated(AdvocateSharePageForInvite.getFrameLocator(), 5);
         setWebElement(frameLocator);
         switchToThisFrame();
 
@@ -32,6 +33,7 @@ public class AdvocateSharePageForInvite extends AbstractTalkableFrame{
     }
 
     public AdvocateSharePageForInvite(By frameLocator){
+        waitFactory().waitUntilVisibilityOfElementLocated(AdvocateSharePageForInvite.getFrameLocator(), 5);
         setWebElement(frameLocator);
         switchToThisFrame();
 

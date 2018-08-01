@@ -32,7 +32,7 @@ public class Table extends AbstractElementsContainer {
         assert tableElement != null;
 
 //        List<WebElement> allRows = tableElement.findElements(rowsXpath);
-        List<WebElement> allRows = WaitFactory
+        List<WebElement> allRows = waitFactory()
                 .getCustomWait(2, 500)
                 .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(tableElement, rowsXpath));
 
@@ -51,17 +51,17 @@ public class Table extends AbstractElementsContainer {
         try {
             switch (status) {
                 case LIVE:
-                    return WaitFactory
+                    return waitFactory()
                             .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
                             .until(ExpectedConditions.visibilityOfElementLocated(liveLctr));
 //                return driver.findElement(liveLctr) ;
                 case TEST:
-                    return WaitFactory
+                    return waitFactory()
                             .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
                             .until(ExpectedConditions.visibilityOfElementLocated(testLctr));
 //                return driver.findElement(testLctr);
                 case DISABLED:
-                    return WaitFactory
+                    return waitFactory()
                             .getCustomWait(waitSecondsForElmntToBePresent, sleepMillis)
                             .until(ExpectedConditions.visibilityOfElementLocated(disabledLctr));
 //                return driver.findElement(disabledLctr);

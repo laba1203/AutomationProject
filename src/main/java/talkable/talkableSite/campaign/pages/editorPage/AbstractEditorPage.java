@@ -36,7 +36,7 @@ public class AbstractEditorPage extends AbstractTkblSitePageWithoutHeader
 
     public AbstractEditorPage switchView(String viewName){
         switchViewByName(viewName);
-        WaitFactory.waitUntilTextToBePresentInElement(selectedViewFieldLctr, viewName, 4);
+        waitFactory().waitUntilTextToBePresentInElement(selectedViewFieldLctr, viewName, 4);
         Log.logRecord("View switched to <" + viewName + ">.");
         return new AbstractEditorPage();
     }

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WaitFactory {
 
-    private static WebDriverWait wait;
+    private WebDriverWait wait;
 
     private static final long DEFAULT_TIME_OUT = 15;
     private static final long DEFAULT_PAGE_LOAD_TIME_OUT = 20;
@@ -22,7 +22,7 @@ public class WaitFactory {
         DriverConfig.getDriver().manage().timeouts().pageLoadTimeout(DEFAULT_PAGE_LOAD_TIME_OUT, TimeUnit.SECONDS);
     }
 
-    static void cleanWait(){
+    void cleanWait(){
         wait = null;
     }
 
@@ -30,18 +30,18 @@ public class WaitFactory {
         DriverConfig.getDriver().manage().timeouts().implicitlyWait(l, timeUnit);
     }
 
-    public static WebDriverWait getCustomWait(long timeOutInSeconds, long sleepInMillis) {
+    public WebDriverWait getCustomWait(long timeOutInSeconds, long sleepInMillis) {
         if(wait == null){
             wait = new WebDriverWait(DriverConfig.getDriver(), timeOutInSeconds, sleepInMillis);
         }
         return wait;
     }
 
-    public static WebDriverWait getExplicitWait(){
+    public WebDriverWait getExplicitWait(){
         return getCustomWait(10, 500);
     }
 
-    public static void waitInvisibilityOfElementWithText(By by, String text){
+    public void waitInvisibilityOfElementWithText(By by, String text){
         setImplicitWait(2, TimeUnit.SECONDS);
         try{
             wait.until(ExpectedConditions.invisibilityOfElementWithText(by, text));
@@ -51,7 +51,7 @@ public class WaitFactory {
         }
     }
 
-    public static void waitUntilTextToBePresentInElement(By by, String text, long timeoutInSeconds){
+    public void waitUntilTextToBePresentInElement(By by, String text, long timeoutInSeconds){
         setImplicitWait(2, TimeUnit.SECONDS);
         try {
             getCustomWait(timeoutInSeconds, 500)
@@ -66,7 +66,7 @@ public class WaitFactory {
         }
     }
 
-    public static void waitUntilVisibilityOfElementLocated(By by, long timeoutInSeconds){
+    public void waitUntilVisibilityOfElementLocated(By by, long timeoutInSeconds){
         setImplicitWait(2, TimeUnit.SECONDS);
         try{
             getCustomWait(timeoutInSeconds, 500).until(ExpectedConditions.visibilityOfElementLocated(by));

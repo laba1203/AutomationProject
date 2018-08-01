@@ -22,8 +22,8 @@ public class PageCreateReferral extends AbstractCustomerServicePortalPage {
         advocateEmailInput.sendKeys(advocateEmail);
         orderSubtotalInput.sendKeys(String.valueOf(orderSubtotal));
         searchCampaignField.sendKeys(campaignName);
-        WaitFactory.waitUntilVisibilityOfElementLocated(firstRowCampaignNameLctr, 3);
-        new Element(firstRowCampaignCheckBoxLctr, "First campaign from search result").click();
+        waitFactory().waitUntilVisibilityOfElementLocated(firstRowCampaignNameLctr, 3);
+        new Element(firstRowCampaignCheckBoxLctr).click();
         createReferralBtn.click();
 
         return new ReferralDetailsPage();

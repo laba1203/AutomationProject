@@ -13,6 +13,7 @@ import util.DriverConfig;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.TestDataGenerator;
+import util.logging.Log;
 
 
 import static talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules.DiscountType.FixedAmount;
@@ -68,6 +69,7 @@ public class UploadCouponCodesTests extends BaseTest{
 
     @BeforeMethod
     public void testSetup(){
+        Log.debagRecord("Before method starts execution in <" + getClass().getName() + ">.");
         DriverConfig.getDriver().navigate().to(siteUrl);
     }
 

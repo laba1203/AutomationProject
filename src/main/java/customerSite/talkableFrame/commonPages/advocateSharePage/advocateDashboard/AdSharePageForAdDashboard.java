@@ -1,6 +1,7 @@
 package customerSite.talkableFrame.commonPages.advocateSharePage.advocateDashboard;
 
 import abstractObjects.AbstractTalkableFrame;
+import customerSite.talkableFrame.commonPages.advocateSharePage.invite.AdvocateSharePageForInvite;
 import org.openqa.selenium.By;
 
 public class AdSharePageForAdDashboard extends AbstractTalkableFrame {
@@ -10,6 +11,7 @@ public class AdSharePageForAdDashboard extends AbstractTalkableFrame {
     ElmntEmailShareButton emailShareButton;
 
     public AdSharePageForAdDashboard(){
+        waitFactory().waitUntilVisibilityOfElementLocated(AdvocateSharePageForInvite.getFrameLocator(), 5);
         setWebElement(frameLocator);
         switchToThisFrame();
 
