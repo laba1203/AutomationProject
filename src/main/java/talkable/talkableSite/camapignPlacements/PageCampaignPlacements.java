@@ -82,7 +82,7 @@ public class PageCampaignPlacements extends AbstractTalkableSitePage{
         for (int i = 0; i < 60; i++){
             try{
                 new WaitTillChangesAppliedMsg();
-                WaitFactory.getCustomWait(10, 1000)
+                waitFactory().getCustomWait(10, 1000)
                         .until(ExpectedConditions.invisibilityOf(warning.getWebElement()));
                 break;
             }

@@ -35,7 +35,7 @@ public class ReferralsPage extends AbstractCustomerServicePortalPage{
         }
         new Element(approveAllBtnLctr, "'Approve All' button").click();
         new ConfirmationPopup().confirm();
-        WaitFactory.waitUntilTextToBePresentInElement(
+        waitFactory().waitUntilTextToBePresentInElement(
                 pendingReferralsCountLctr,
                 "Pending Referrals — 0",
                 5);

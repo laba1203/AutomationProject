@@ -14,7 +14,11 @@ import util.PropertyLoader;
 import util.TestDataGenerator;
 import util.logging.Log;
 
+import static talkable.common.CampaignPlacement.FloatingWidget;
 import static talkable.common.CampaignPlacement.PostPurchase;
+import static talkable.common.CampaignPlacement.Standalone;
+import static talkable.common.CampaignType.AdvocateDashboard;
+import static talkable.common.CampaignType.Invite;
 
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1FLkr-T2s-mVnG770gLh4imwMnoO0vFtduYquM_49zzQ/edit#gid=0
@@ -35,8 +39,39 @@ public class CustomIntegrationTestForAllCampaignTypes extends BaseTest{
         CommonScenarios.login(EnvFactory.getCommonUser(), EnvFactory.getPassword());
     }
 
-    @Test(dataProvider = "getTestData", dependsOnMethods = "login")
-    public void createCampaign(CampaignType campaignType, CampaignPlacement campaignPlacement){
+    @Test(dependsOnMethods = "login")
+    public void createInviteFloatingWidget(){
+        createCampaign(Invite, FloatingWidget);
+    }
+
+    @Test(dependsOnMethods = "login")
+    public void createInviteStandalone(){
+        createCampaign(Invite, Standalone);
+    }
+
+    @Test(dependsOnMethods = "login")
+    public void createAdvocateDashboardFloatingWidget(){
+        createCampaign(AdvocateDashboard, FloatingWidget);
+    }
+
+    @Test(dependsOnMethods = "login")
+    public void createAdvocateDashboardStandalone(){
+        createCampaign(AdvocateDashboard, Standalone);
+    }
+
+    @Test(dependsOnMethods = "login")
+    public void createInvitePostPurchase(){
+        createCampaign(Invite, PostPurchase);
+    }
+
+    @Test(dependsOnMethods = "login")
+    public void createAdvocateDashboardPostPurchase(){
+        createCampaign(AdvocateDashboard, PostPurchase);
+    }
+
+
+//    @Test(dataProvider = "getTestData", dependsOnMethods = "login", threadPoolSize = 1)
+    private void createCampaign(CampaignType campaignType, CampaignPlacement campaignPlacement){
         String campaignName = "AUTO_TEST_" + TestDataGenerator.getRandomId();
 
         //open Talkable admin site:
@@ -74,19 +109,19 @@ public class CustomIntegrationTestForAllCampaignTypes extends BaseTest{
         }
     }
 
-    @DataProvider
-    private Object[][] getTestData(){
-        return new Object[][]{
-                {CampaignType.Invite, CampaignPlacement.FloatingWidget},
-                {CampaignType.Invite, CampaignPlacement.Standalone},
-                {CampaignType.AdvocateDashboard, CampaignPlacement.FloatingWidget},
-                {CampaignType.AdvocateDashboard, CampaignPlacement.Standalone},
-                {CampaignType.Invite, PostPurchase},
-                {CampaignType.AdvocateDashboard, PostPurchase}
-//                {CampaignType.RewardGleam, CampaignPlacement.Gleam}
-                //TODO: separate test should be added for Gleam
-        };
-    }
+//    @DataProvider
+//    private Object[][] getTestData(){
+//        return new Object[][]{
+//                {Invite, FloatingWidget},
+//                {Invite, CampaignPlacement.Standalone},
+//                {CampaignType.AdvocateDashboard, FloatingWidget},
+//                {CampaignType.AdvocateDashboard, CampaignPlacement.Standalone},
+//                {Invite, PostPurchase},
+//                {CampaignType.AdvocateDashboard, PostPurchase}
+////                {CampaignType.RewardGleam, CampaignPlacement.Gleam}
+//                //TODO: separate test should be added for Gleam
+//        };
+//    }
 
     private String getCustomerSiteUrl(CampaignPlacement placement){
         if(placement == PostPurchase){

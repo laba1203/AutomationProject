@@ -10,7 +10,7 @@ public class Alert extends AbstractElementsContainer {
     private org.openqa.selenium.Alert alert;
 
     public Alert(){
-        alert = WaitFactory
+        alert = waitFactory()
                 .getCustomWait(3, 500)
                 .until(ExpectedConditions.alertIsPresent()
                 );

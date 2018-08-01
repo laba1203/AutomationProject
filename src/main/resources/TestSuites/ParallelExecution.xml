@@ -1,0 +1,88 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="All Test In Parallel" parallel="tests" thread-count="2">
+
+    <listeners>
+        <listener class-name="util.Listeners"/>
+    </listeners>
+
+
+    <test name="Smoke Test" >
+        <classes>
+            <class name="execution.smoke.SmokeTest_v2"/>
+        </classes>
+    </test>
+    <test name="Simple Test" >
+        <classes>
+            <class name="execution.integration.custom.CustomIntegrationTestForAllCampaignTypes"/>
+        </classes>
+    </test>
+    <test name="Multi-campaign editor" group-by-instances="true">
+        <classes>
+            <class name="execution.editor.mce.MceTests_ShortVersion"/>
+        </classes>
+    </test>
+    <test name="Simple Editor"  >
+        <classes>
+            <class name="execution.editor.SimpleEditorTesting_v2"/>
+        </classes>
+    </test>
+    <test name="HTML Editor tests" >
+        <classes>
+            <class name="execution.editor.HtmlEditorTesting"/>
+        </classes>
+    </test>
+    <test name="Shopify Integration"  >
+        <classes>
+            <class name="execution.integration.shopify.ShopifyIntegrationTest"/>
+        </classes>
+    </test>
+    <test name="Fraud Settings tests" >
+        <classes>
+            <class name="execution.fraud.settings.FraudSettingsTesting"/>
+        </classes>
+    </test>
+    <test name="Campaign Actions" >
+        <classes>
+            <class name="execution.campaign.actions.CampaignActionsTesting"/>
+        </classes>
+    </test>
+    <test name="New user registration" >
+        <classes>
+            <class name="execution.registration.CreateNewUserWithSite"/>
+        </classes>
+    </test>
+    <test name="Site Settings Basic Tab tests" >
+        <classes>
+            <class name="execution.site.settings.SiteSettingsBasicTab"/>
+
+        </classes>
+    </test>
+    <test name="Site Settings Contacts Tab" >
+        <classes>
+            <class name="execution.site.settings.SiteSettingsContactsTab"/>
+        </classes>
+    </test>
+    <test name="Non PII access to sites" >
+        <classes>
+            <class name="execution.access.management.NonPiiAccessRequestTesting"/>
+        </classes>
+    </test>
+    <test name="PII access to sites" >
+        <classes>
+            <class name="execution.access.management.PiiAccessRequestTesting"/>
+        </classes>
+    </test>
+    <test name="Previous Customer Report" >
+        <classes>
+            <class name="execution.reports.previous.customer.upload.PreviousCustomerUploadTesting_v2"/>
+        </classes>
+    </test>
+    <test name="Coupon Codes List Report" >
+        <classes>
+            <class name="execution.reports.coupon.codes.upload.UploadCouponCodesTests"/>
+        </classes>
+    </test>
+
+</suite>
+
+

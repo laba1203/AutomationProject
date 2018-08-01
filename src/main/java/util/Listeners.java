@@ -22,7 +22,7 @@ public class Listeners implements IInvokedMethodListener, ITestListener {
                 String screenshotUrl = new Screenshot().makeScreenshot();
                 String newMessage = "FAILED: " + originalMessage +
                         "\r\n *** Test artifacts  *** " +
-                        "\r\nTest failed on URL: " + DriverConfig.getDriver().getCurrentUrl() + "\r\n" +
+                        "\r\nTest failed on URL: " + getURL() + "\r\n" +
 //                    "<a href=\"" + DriverConfig.getDriver().getCurrentUrl() + "\">Link to the failed page</a>\r\n" +
                         "Screenshot: " + screenshotUrl + "\r\n"
 //                    "Screenshot: <a href=\"" + screenshotUrl + "\">" + screenshotUrl + "</a>" + "\r\n"
@@ -40,6 +40,16 @@ public class Listeners implements IInvokedMethodListener, ITestListener {
 
         if(method.isTestMethod() && ITestResult.SUCCESS == result.getStatus()){
             Log.testPassed("Test method: " + method.getTestMethod().getMethodName());
+        }
+    }
+
+    private String getURL(){
+        if(DriverConfig.isDriverCreated()) {
+            return DriverConfig.getDriver().getCurrentUrl();
+        }
+        else {
+            Log.debagRecord("URL is not available since Driver is null.");
+            return "URL is not available since Driver is null.";
         }
     }
 

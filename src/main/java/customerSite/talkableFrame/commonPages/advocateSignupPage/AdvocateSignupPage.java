@@ -3,6 +3,7 @@ package customerSite.talkableFrame.commonPages.advocateSignupPage;
 import abstractObjects.AbstractTalkableFrame;
 import customerSite.talkableFrame.floatingWidget.advocateSharePage.AdvocateSharePageFW;
 import org.openqa.selenium.By;
+import util.WaitFactory;
 
 public class AdvocateSignupPage extends AbstractTalkableFrame{
     private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
@@ -13,6 +14,7 @@ public class AdvocateSignupPage extends AbstractTalkableFrame{
     private ClosePopupButton closePopup;
 
     public AdvocateSignupPage(){
+        waitFactory().waitUntilVisibilityOfElementLocated(frameLocator, 5);
         setWebElement(frameLocator);
         switchToThisFrame();
 
@@ -21,6 +23,7 @@ public class AdvocateSignupPage extends AbstractTalkableFrame{
     }
 
     public AdvocateSignupPage(By frameLocator){
+        waitFactory().waitUntilVisibilityOfElementLocated(frameLocator, 5);
         setWebElement(frameLocator);
         switchToThisFrame();
 

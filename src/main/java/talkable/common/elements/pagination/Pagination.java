@@ -42,14 +42,14 @@ public class Pagination extends AbstractElementsContainer{
     public void next(){
         String currentPageText = getCurrentPage();
         new Element(getOwnElement(), nextLctr).click();
-        WaitFactory.waitInvisibilityOfElementWithText(currentPageLctr, currentPageText);
+        waitFactory().waitInvisibilityOfElementWithText(currentPageLctr, currentPageText);
         System.out.println("LOG: Pagination --> The Next page is opened.");
     }
 
     public void last(){
         String currentPageText = getCurrentPage();
         new Element(getOwnElement(), lastLctr).click();
-        WaitFactory.waitInvisibilityOfElementWithText(currentPageLctr, currentPageText);
+        waitFactory().waitInvisibilityOfElementWithText(currentPageLctr, currentPageText);
         System.out.println("LOG: Pagination --> The Last page is opened.");
     }
 
@@ -57,14 +57,14 @@ public class Pagination extends AbstractElementsContainer{
         String currentPageText = getCurrentPage();
         new Element(getOwnElement(), firstLctr).click();
 
-        WaitFactory.waitInvisibilityOfElementWithText(currentPageLctr, currentPageText);
+        waitFactory().waitInvisibilityOfElementWithText(currentPageLctr, currentPageText);
         System.out.println("LOG: Pagination --> The First page is opened.");
     }
 
     public void previous(){
         String currentPageText = getCurrentPage();
         new Element(getOwnElement(), previousLctr).click();
-        WaitFactory.waitInvisibilityOfElementWithText(currentPageLctr, currentPageText);
+        waitFactory().waitInvisibilityOfElementWithText(currentPageLctr, currentPageText);
         System.out.println("LOG: Pagination --> The Previous page is opened.");
     }
 
