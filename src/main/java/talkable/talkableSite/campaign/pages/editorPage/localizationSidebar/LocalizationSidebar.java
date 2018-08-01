@@ -1,6 +1,7 @@
 package talkable.talkableSite.campaign.pages.editorPage.localizationSidebar;
 
 import abstractObjects.AbstractElementsContainer;
+import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,46 +14,45 @@ import java.util.List;
 public class LocalizationSidebar extends AbstractElementsContainer{
 
     private static final String localizationItemsXpath = "//div[contains(@class, 'Locale-entries-localizations-item')]";
+    private static final By firstRecordLctr = By.xpath("//div[@class='Locale-entries-localizations-list']/div[contains(@class, 'Locale-entries-localizations-item')][1]");
+    private static final By searchCustomSettingsLctr = By.xpath("//input[@placeholder = 'Search Custom Settings']");
     private SimpleEditorPage.LocalizationType mode;
-    private ArrayList<RecordFactory> copyRecords = new ArrayList<>();
-    private ArrayList<RecordFactory> colorRecords = new ArrayList<>();
-    private ArrayList<RecordFactory> imagesRecords = new ArrayList<>();
-    private ArrayList<RecordFactory> configRecords = new ArrayList<>();
+
+    private ArrayList<RecordFactory> records = new ArrayList<>();
+    private Element searchCustomSettingsField = new Element(searchCustomSettingsLctr, "Search Custom Settings field");
 
     public LocalizationSidebar(SimpleEditorPage.LocalizationType mode){
-        setRecords(mode);
         this.mode = mode;
+        setRecords(mode);
+    }
+
+    public RecordFactory getFirstRecord(){
+        return createNewRecord(mode, firstRecordLctr);
     }
 
     private void setRecords(SimpleEditorPage.LocalizationType mode){
+        verifyMode(mode);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(localizationItemsXpath)));
         List<WebElement> items = driver.findElements(By.xpath(localizationItemsXpath));
         for (WebElement webElement :
                 items) {
-            addRecord(mode, webElement);
+            records.add(createNewRecord(mode, webElement));
         }
     }
 
-
-    public void updateRecord(SimpleEditorPage.LocalizationType mode, String localizationName, String newValue){
-        getRecord(mode, localizationName).update(newValue);
+    public SimpleEditorPage search(String name, SimpleEditorPage.LocalizationType mode){
+        searchCustomSettingsField.sendKeys(name);
+        return new SimpleEditorPage(mode);
     }
 
-    public RecordFactory getRecord(SimpleEditorPage.LocalizationType mode, String localizationName){
-        verifyMode(mode);
-        switch (mode){
-            case CONFIGURATION:
-                return findRecord(configRecords, localizationName);
-            case IMAGES:
-                return findRecord(imagesRecords, localizationName);
-            case COLOR:
-                return findRecord(colorRecords, localizationName);
-            case COPY:
-                return findRecord(copyRecords, localizationName);
-            default:
-                assetFail(localizationName);
-                return null;
-        }
+
+    public void updateRecord(String localizationName, String newValue){
+        findRecord(records, localizationName)
+                .update(newValue);
+    }
+
+    public RecordFactory getRecord(String localeName){
+        return findRecord(records, localeName);
     }
 
     private RecordFactory findRecord(ArrayList<RecordFactory> records, String recordName){
@@ -73,23 +73,24 @@ public class LocalizationSidebar extends AbstractElementsContainer{
         Assert.fail("FAILED: There is no view copyRecords with name : <" + localizationName + ">");
     }
 
-    private void addRecord(SimpleEditorPage.LocalizationType mode, WebElement webElement){
+    private RecordFactory createNewRecord(SimpleEditorPage.LocalizationType mode, By locator){
+        WebElement parentWebElement = driver.findElement(locator);
+        return createNewRecord(mode, parentWebElement);
+    }
+
+    private RecordFactory createNewRecord(SimpleEditorPage.LocalizationType mode, WebElement webElement){
         switch (mode){
             case COPY:
-                copyRecords.add(new LocalizationCopyRecord(webElement));
-                break;
+                return new LocalizationCopyRecord(webElement);
             case COLOR:
-                colorRecords.add(new LocalizationColorRecord(webElement));
-                break;
+                return new LocalizationColorRecord(webElement);
             case IMAGES:
-                imagesRecords.add(new LocalizationImagesRecord(webElement));
-                break;
+                return new LocalizationImagesRecord(webElement);
             case CONFIGURATION:
-                configRecords.add(new LocalizationConfigRecord(webElement));
-                break;
+                return new LocalizationConfigRecord(webElement);
             default:
-                Assert.fail("FAILED: Unknown localization mode: <" + mode.toString() + ">");
-                break;
+                Assert.fail("Unknown localization mode:" + mode);
+                return null;
         }
     }
 }

@@ -13,6 +13,7 @@ public class AbstractEditorPage extends AbstractTkblSitePageWithoutHeader
     private static final By presetDropDownBtnLctr = By.xpath("//*[@data-editor-toggle = 'presets']");
     private static final By presetWasRemovedMsg = By.xpath("//*[contains(text(), 'Preset was removed')]");
     private static final By htmlEditorBtnLctr = By.xpath("//li[@class='subnav-actions-toggler']//a[contains(text(), 'HTML')]");
+    private static final By simpleEditorBtnLctr = By.xpath("//li[@class='subnav-actions-toggler']//a[text() = 'Editor']");
 //    private static final By previewFrameLctr = By.xpath("//iframe[contains(@class, 'cover-iframe')]");
     private static final By selectedViewFieldLctr = By.cssSelector(".editor-view-setup-switcher span");
     private static final By emailSubjectInPreview = By.xpath("//*[@class ='editor-preview-data-bottom-part']//*[contains(text(), 'Subject')]/following::span[contains(@class, 'preview-data-text')]");
@@ -51,6 +52,13 @@ public class AbstractEditorPage extends AbstractTkblSitePageWithoutHeader
     public HtmlEditorPage openHtmlEditor(){
         new Element(htmlEditorBtnLctr, "HTML & CSS tab").click();
         return new HtmlEditorPage();
+    }
+
+    public SimpleEditorPage openSimpleEditor(){
+        new Element(simpleEditorBtnLctr, "Simple Editor tab").click();
+        SimpleEditorPage page = new SimpleEditorPage(SimpleEditorPage.LocalizationType.COPY);
+        Log.logRecord("Switched to Simple Editor tab.");
+        return page;
     }
 
     private boolean isViewSelected(String toBeSelected){

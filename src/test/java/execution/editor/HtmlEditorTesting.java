@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import talkable.common.elements.alert.Alert;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
+import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.Screenshot;
@@ -17,6 +18,7 @@ import util.logging.Log;
 import static talkable.common.CampaignPlacement.FloatingWidget;
 import static talkable.common.CampaignPlacement.Standalone;
 import static talkable.common.CampaignType.Invite;
+import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.COPY;
 
 
 /** Common Precondition:
@@ -69,6 +71,7 @@ import static talkable.common.CampaignType.Invite;
 
 	/*Link to test scenario: https://docs.google.com/spreadsheets/d/148sQEgtaeSuPrwor1s5HIFFqrgG4QEFR2_Gi2K3-r5k/edit#gid=0
      * */
+	@Listeners(util.Listeners.class)
 public class HtmlEditorTesting extends BaseTest {
 
     private String user = PropertyLoader.loadProperty("talkable.user.editor");
@@ -162,7 +165,7 @@ public class HtmlEditorTesting extends BaseTest {
 //        </button>
 
         //test data:
-        String copyVariable = "copy_localization1";
+        String copyVariable = "localization1";
         String copyValue = "TEXT";
         String copyVarClass = "copy-field-autotest";
         String configVariable = "config_localization1";
@@ -197,6 +200,9 @@ public class HtmlEditorTesting extends BaseTest {
                 configValue1,
                 "Incorrect value in the Config localization (xPath = '" + xpathOfConfigLocale + "')."
         );
+        //search new localization in simple editor
+        EditorScenarios.switchToSimpleEditor();
+        EditorScenarios.searchLocalization(copyVariable, COPY);
 
     }
 

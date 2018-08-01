@@ -16,8 +16,6 @@ public class SimpleEditorPage extends AbstractEditorPage{
     private static final By selectedLocalizationModeLctr = By.xpath("//div[contains( @class, 'localizations-filters')]/div[contains(@class, 'is-active')]/span");
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
-//    private LocalizationSidebar localizationSidebar;
-//    private ElmntSelectedViewField elmntSelectedViewField = new ElmntSelectedViewField();
     private ElmntCopyButton copyButton = new ElmntCopyButton();
     private ElmntImagesButton imagesButton = new ElmntImagesButton();
     private ElmntColorButton colorButton = new ElmntColorButton();
@@ -28,17 +26,11 @@ public class SimpleEditorPage extends AbstractEditorPage{
 
     public SimpleEditorPage(){
         Log.debagRecord("Initiated Simple Editor with default mode: " + getMode());
-//        switchTo(mode);
     }
 
     public SimpleEditorPage(LocalizationType mode){
         switchTo(mode);
     }
-
-//    private void setLocalizationSidebar(LocalizationType mode){
-//        localizationSidebar = new LocalizationSidebar(mode);
-//        setMode(mode);
-//    }
 
     private void setMode(LocalizationType mode){
         this.mode = mode;
@@ -65,18 +57,30 @@ public class SimpleEditorPage extends AbstractEditorPage{
 
     public SimpleEditorPage updateLocalization(LocalizationType type, String localizationName, String newValue){
         verifyLocalizationMode(type);
-        getLocalizationSidebar().updateRecord(type, localizationName, newValue);
-        saveChangesInSimpleEditor();
-        return new SimpleEditorPage(type);
+        getLocalizationSidebar().updateRecord(localizationName, newValue);
+        return saveChangesInSimpleEditor();
     }
 
     private LocalizationSidebar getLocalizationSidebar(){
         return new LocalizationSidebar(getMode());
     }
 
+    public SimpleEditorPage searchLocale(String name, LocalizationType mode){
+        switchTo(mode);
+        return getLocalizationSidebar().search(name, mode);
+    }
 
-    public String getLocalizationValue(LocalizationType type, String localizationName){
-        return getLocalizationSidebar().getRecord(type, localizationName).getValueText();
+    public String getFirstLocaleName(){
+        return getLocalizationSidebar()
+                .getFirstRecord()
+                .getNameText();
+    }
+
+
+    public String getLocalizationValue(String localizationName){
+        return getLocalizationSidebar()
+                .getRecord(localizationName)
+                .getValueText();
     }
 
     private void verifyLocalizationMode(LocalizationType mode){
@@ -98,22 +102,18 @@ public class SimpleEditorPage extends AbstractEditorPage{
                 case COPY:
                     wait.until(ExpectedConditions.elementToBeClickable(copyButton.getWebElement()));
                     copyButton.moveToElementAndClick();
-//                setLocalizationSidebar(COPY);
                     break;
                 case COLOR:
                     wait.until(ExpectedConditions.elementToBeClickable(colorButton.getWebElement()));
                     colorButton.moveToElementAndClick();
-//                setLocalizationSidebar(COLOR);
                     break;
                 case IMAGES:
                     wait.until(ExpectedConditions.elementToBeClickable(imagesButton.getWebElement()));
                     imagesButton.moveToElementAndClick();
-//                setLocalizationSidebar(IMAGES);
                     break;
                 case CONFIGURATION:
                     wait.until(ExpectedConditions.elementToBeClickable(configurationButton.getWebElement()));
                     configurationButton.moveToElementAndClick();
-//                setLocalizationSidebar(CONFIGURATION);
                     break;
                 default:
                     Assert.fail("FAILED: Unknown localization type: <" + mode + ">");
@@ -125,7 +125,7 @@ public class SimpleEditorPage extends AbstractEditorPage{
     }
 
     public PageMultiCampaignEditor clickCopyToOtherCampaigns(LocalizationType type, String localizationName){
-        getLocalizationSidebar().getRecord(type, localizationName).copyToOtherCampaigns();
+        getLocalizationSidebar().getRecord(localizationName).copyToOtherCampaigns();
         return new PageMultiCampaignEditor(getMode());
     }
 
@@ -151,7 +151,7 @@ public class SimpleEditorPage extends AbstractEditorPage{
     }
 
     public void clickCreateABTest(LocalizationType type, String localizationName){
-        getLocalizationSidebar().getRecord(type, localizationName).createABTest();
+        getLocalizationSidebar().getRecord(localizationName).createABTest();
         //TODO: Return action to be added after implementation of AB Test editor page
     }
 }
