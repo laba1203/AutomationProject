@@ -16,6 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <env.NAME>BASTION</env.NAME>
         <execution.threads>2</execution.threads>
+        <execution.suite.name>ParallelExecution.xml</execution.suite.name>
     </properties>
 
 
@@ -55,7 +56,7 @@
                     <suiteXmlFiles>
                         <!--&lt;!&ndash;<suiteXmlFile>.\src\main\resources\TestSuites\AllTestSuites.xml</suiteXmlFile>&ndash;&gt;-->
                         <!--&lt;!&ndash;<suiteXmlFile>.\src\main\resources\TestSuites\SmokeTest.xml</suiteXmlFile>&ndash;&gt;-->
-                        <suiteXmlFile>.\src\main\resources\TestSuites\ParallelExecution.xml</suiteXmlFile>
+                        <suiteXmlFile>.\src\main\resources\TestSuites\${execution.suite.name}</suiteXmlFile>
 
                     </suiteXmlFiles>
                 </configuration>
