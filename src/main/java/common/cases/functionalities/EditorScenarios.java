@@ -30,6 +30,10 @@ public class EditorScenarios extends CommonScenarios{
         Log.logRecord("HTML & CSS Editor page is opened.");
     }
 
+    public static void switchToSimpleEditor(){
+        new HtmlEditorPage().openSimpleEditor();
+    }
+
     public static void createNewView(String viewType){
         new HtmlEditorPage()
                 .clickCreateNewView()
@@ -60,7 +64,8 @@ public class EditorScenarios extends CommonScenarios{
     }
 
     public static String getLocalizationValue(SimpleEditorPage.LocalizationType type, String localizationName){
-        return new SimpleEditorPage(type).getLocalizationValue(type, localizationName);
+        return new SimpleEditorPage(type)
+                .getLocalizationValue(localizationName);
     }
 
     public static void createNewPreset(String presetName, String jsonVariables){
@@ -129,6 +134,16 @@ public class EditorScenarios extends CommonScenarios{
                 EditorScenarios.getFirstCssRow(),
                 expectedCssCode,
                 "CSS code was not updated in the row#1 on the HTML Editor page. <" + getSelectedView() + "> view.");
+    }
+
+    public static void searchLocalization(String localeName, SimpleEditorPage.LocalizationType mode){
+        SimpleEditorPage page = new SimpleEditorPage().searchLocale(localeName, mode);
+
+        Assert.assertEquals(
+                page.getFirstLocaleName().toLowerCase(),
+                localeName + "#",
+                "Incorrect locale is returned in localization grid when Search of Custom Settings was done. "
+        );
     }
 
 

@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Not Stable Tests" parallel="tests" thread-count="2">
+
+    <listeners>
+        <listener class-name="util.Listeners"/>
+    </listeners>
+
+    <!--Tests related to PII requests can be executed only once a week because of auto-approval limitations.-->
+    <test name="Non PII access to sites" >
+        <classes>
+            <class name="execution.access.management.NonPiiAccessRequestTesting"/>
+        </classes>
+    </test>
+    <!--Tests related to PII requests can be executed only once a week because of auto-approval limitations.-->
+    <test name="PII access to sites" >
+        <classes>
+            <class name="execution.access.management.PiiAccessRequestTesting"/>
+        </classes>
+    </test>
+
+</suite>
+
+
