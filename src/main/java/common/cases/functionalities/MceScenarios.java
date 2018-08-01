@@ -90,7 +90,7 @@ public class MceScenarios extends CommonScenarios{
     public static void returnToSimpleEditorAndAssertContentValue(SimpleEditorPage.LocalizationType localizationType, String localizationName, String expectedContentValue){
         SimpleEditorPage editor = new PageMultiCampaignEditor(localizationType).backToEditor();
         editor.switchTo(localizationType);
-        String value = editor.getLocalizationValue(localizationType, localizationName + "#");
+        String value = editor.getLocalizationValue(localizationName + "#");
         Assert.assertEquals(
                 value,
                 expectedContentValue,
@@ -119,7 +119,7 @@ public class MceScenarios extends CommonScenarios{
         editor = editor.switchViewByNameOnSimpleEditor(pageViewName);
         editor.switchTo(localizationType);
         // Verify value in Editor:
-        String value = editor.getLocalizationValue(localizationType, localizationName + "#");
+        String value = editor.getLocalizationValue(localizationName + "#");
         Assert.assertEquals(value, expectedContentValue,
                 "FAILED: Incorrect new content value in Simple Editor when it was updated in MCE for campaign: <" + campaignName + ">");
     }

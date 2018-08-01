@@ -62,16 +62,6 @@
             <class name="execution.site.settings.SiteSettingsContactsTab"/>
         </classes>
     </test>
-    <test name="Non PII access to sites" >
-        <classes>
-            <class name="execution.access.management.NonPiiAccessRequestTesting"/>
-        </classes>
-    </test>
-    <test name="PII access to sites" >
-        <classes>
-            <class name="execution.access.management.PiiAccessRequestTesting"/>
-        </classes>
-    </test>
     <test name="Previous Customer Report" >
         <classes>
             <class name="execution.reports.previous.customer.upload.PreviousCustomerUploadTesting_v2"/>
@@ -82,6 +72,20 @@
             <class name="execution.reports.coupon.codes.upload.UploadCouponCodesTests"/>
         </classes>
     </test>
+
+    <!--Below tests were moved to NotStableTests.xml-->
+    <!--
+    <test name="Non PII access to sites" >
+        <classes>
+            <class name="execution.access.management.NonPiiAccessRequestTesting"/>
+        </classes>
+    </test>
+    <test name="PII access to sites" >
+        <classes>
+            <class name="execution.access.management.PiiAccessRequestTesting"/>
+        </classes>
+    </test>
+    -->
 
 </suite>
 
