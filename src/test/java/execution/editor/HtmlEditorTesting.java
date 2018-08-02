@@ -2,17 +2,21 @@ package execution.editor;
 
 import common.cases.CommonScenarios;
 import common.cases.functionalities.EditorScenarios;
+import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnhandledAlertException;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import sun.jvm.hotspot.ui.Editor;
 import talkable.common.elements.alert.Alert;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
+import talkable.talkableSite.reports.staticAssets.StaticAssetsReportPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.Screenshot;
+import util.TestDataGenerator;
 import util.logging.Log;
 
 import static talkable.common.CampaignPlacement.FloatingWidget;
@@ -238,7 +242,6 @@ public class HtmlEditorTesting extends BaseTest {
     /*Scenario#6*/
     @Test(groups = {"ui-actions"})
     public void uploadImage(){
-        //todo: to be tested
         String imageName = "test.png";
 
         EditorScenarios.openHtmlEditor();
@@ -249,8 +252,30 @@ public class HtmlEditorTesting extends BaseTest {
                 imageName,
                 "Incorrect first image name in the Files popup when new image was uploaded."
         );
+    }
+
+    @Test(groups = {"ui-actions"})
+    public void uploadFont(){
+        //test data:
+        String fontName = "AutomationFont";
+        String woffFile = "KalishaScript.woff";
+        String woff2File = "KalishaScript.woff2";
+
+        ReportsScenarios.openStaticAssetsReport();
+        ReportsScenarios.filterByNameInStaticAssets(fontName);
+        ReportsScenarios.deleteAllRowsFromStaticAssetsReport();
+        CommonScenarios.navigateToUrl(standaloneCampaignDetailsPageUrl);
+
+        EditorScenarios.openHtmlEditor();
+        EditorScenarios.uploadFont(fontName, woffFile, woff2File);
+        ReportsScenarios.openStaticAssetsReport();
+        ReportsScenarios.filterByNameInStaticAssets(woffFile);
+        ReportsScenarios.assertRowsCountFromReport("1", new StaticAssetsReportPage());
+        ReportsScenarios.filterByNameInStaticAssets(woff2File);
+        ReportsScenarios.assertRowsCountFromReport("1", new StaticAssetsReportPage());
 
     }
+
 
 
 }

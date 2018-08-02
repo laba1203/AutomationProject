@@ -151,6 +151,10 @@ public class EditorScenarios extends CommonScenarios{
                 .getFirstImageNameFromFiles();
     }
 
+    public static void uploadFont(String fontName, String woffFile, String woff2File){
+        new HtmlEditorPage().uploadFont(fontName, woffFile, woff2File);
+    }
+
 
 
 

@@ -123,6 +123,15 @@ public class HtmlEditorPage extends AbstractEditorPage{
                 .getFirstFileName();
     }
 
+    public SimpleEditorPage uploadFont(String fontName, String woffFile, String woff2File){
+        return openFilesPopup()
+                .clickUploadNewFont()
+                .populateFields(fontName, woffFile, woff2File)
+                .createFont()
+                .switchToEditor();
+
+    }
+
 
     private class FilesPopup {
         private final By firstFileNameFromFilesLctr = By.xpath("//ul[@class='editor-asset-list']/li[1]/*[@class='editor-asset-name']");
@@ -143,6 +152,14 @@ public class HtmlEditorPage extends AbstractEditorPage{
             new Element(fileUploaderInputLctr, "Upload file input")
                     .sendKeys(fileName);
         }
+
+        private CreateNewFontPopup clickUploadNewFont(){
+            uploadNewFontBtn.click();
+            return new CreateNewFontPopup();
+        }
+
+
+
 
     }
 
