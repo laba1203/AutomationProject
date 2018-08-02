@@ -2,10 +2,10 @@ package talkable.talkableSite.campaign.pages.editorPage;
 
 import abstractObjects.Element;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import talkable.common.elements.alert.Alert;
-import util.WaitFactory;
+import util.TestArtifactsProvider;
 import util.logging.Log;
 
 public class HtmlEditorPage extends AbstractEditorPage{
@@ -18,10 +18,14 @@ public class HtmlEditorPage extends AbstractEditorPage{
     private static final By htmlTextAreaLctr = By.xpath("//div[@id='ace-template']/textarea[@class='ace_text-input']");
     private static final By cssTextAreaLctr = By.xpath("//div[@id='ace-css']/textarea[@class='ace_text-input']");
     private static final By firstCssRowLctr = By.xpath("//div[@id='ace-css']//div[contains(@class, 'ace_text-layer')]/div[@class='ace_line_group'][1]");
+    private static final By fileUploaderLctr = By.xpath("//*[@data-editor-toggle='file-uploader']");
+    private static final By fileUploaderInputLctr = By.xpath("//input[@type='file']");
+
 
     private Element extraBtn = new Element(extraBtnLctr, "Extra button");
     private Element htmlTextArea = new Element(htmlTextAreaLctr, "HTML Text field");
     private Element cssTextArea = new Element(cssTextAreaLctr, "CSS Text field");
+    private Element fileUploaderBtn = new Element(fileUploaderLctr, "Files button");
 
     public HtmlEditorPage(){
         //elements initiation to make sure that Html Editor is opened.
@@ -74,16 +78,6 @@ public class HtmlEditorPage extends AbstractEditorPage{
         return new HtmlEditorPage();
     }
 
-    @Deprecated
-    public HtmlEditorPage clearCSS(){
-        //todo: it doesn't work correctly
-        String selectAll = Keys.chord(Keys.CONTROL, "a");
-        cssTextArea.sendKeys(selectAll);
-        String delete = Keys.chord(Keys.DELETE);
-        cssTextArea.sendKeys(delete);
-        return saveChangesInHtmlEditor();
-    }
-
     public HtmlEditorPage clearAndAddHtml(String html){
         htmlTextArea.clearAndSendKeys(html);
         return saveChangesInHtmlEditor();
@@ -101,6 +95,55 @@ public class HtmlEditorPage extends AbstractEditorPage{
     public void waitTillCssSectionLoaded(){
         waitFactory().getCustomWait(15, 500)
                 .until(ExpectedConditions.invisibilityOfElementWithText(firstCssRowLctr, ""));
+    }
+
+    public HtmlEditorPage uploadNewImage(String name){
+        String filePath = TestArtifactsProvider.getImagesFilePath(name);
+        openFilesPopup()
+                .uploadFile(filePath);
+        try {
+            return new HtmlEditorPage();
+        }catch (UnhandledAlertException e){
+            new Alert()
+                    .verifyAlertMsg(
+                            "A file with the name \"" + name + "\" already exists on the server.\n" +
+                            "Would you like to replace the existing file?")
+                    .confirm();
+            return new HtmlEditorPage();
+        }
+    }
+
+    private FilesPopup openFilesPopup(){
+        fileUploaderBtn.click();
+        return new FilesPopup();
+    }
+
+    public String getFirstImageNameFromFiles(){
+        return openFilesPopup()
+                .getFirstFileName();
+    }
+
+
+    private class FilesPopup {
+        private final By firstFileNameFromFilesLctr = By.xpath("//ul[@class='editor-asset-list']/li[1]/*[@class='editor-asset-name']");
+        private final By uploadNewImageLctr = By.xpath("//div[contains(@class, 'ac-editor-widget-file-uploader')]//div[contains(@class, 'asset-uploader')]/div[1]");
+        private final By uploadNewFontLctr = By.xpath("//div[contains(@class, 'ac-editor-widget-file-uploader')]//div[contains(@class, 'asset-uploader')]/div[1]");
+
+
+
+        private Element firstFileName = new Element(firstFileNameFromFilesLctr);
+        private Element uploadNewImageBtn = new Element(uploadNewImageLctr, "Upload New Image");
+        private Element uploadNewFontBtn = new Element(uploadNewFontLctr, "Upload fonts");
+
+        private String getFirstFileName(){
+            return firstFileName.getText();
+        }
+
+        private void uploadFile(String fileName){
+            new Element(fileUploaderInputLctr, "Upload file input")
+                    .sendKeys(fileName);
+        }
+
     }
 
 

@@ -111,11 +111,6 @@ public class EditorScenarios extends CommonScenarios{
         return new AbstractEditorPage().getEmailSubjectFromPreview();
     }
 
-    @Deprecated
-    public static void clearCssSection(){
-        new HtmlEditorPage().clearCSS();
-    }
-
     public static void addNewHtmlCode(String html){
         new HtmlEditorPage().clearAndAddHtml(html);
     }
@@ -144,6 +139,16 @@ public class EditorScenarios extends CommonScenarios{
                 localeName + "#",
                 "Incorrect locale is returned in localization grid when Search of Custom Settings was done. "
         );
+    }
+
+    public static void uploadNewImage(String name){
+        new HtmlEditorPage()
+                .uploadNewImage(name);
+    }
+
+    public static String getFirstImageNameFromFiles(){
+        return new HtmlEditorPage()
+                .getFirstImageNameFromFiles();
     }
 
 

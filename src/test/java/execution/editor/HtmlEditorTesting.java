@@ -66,6 +66,12 @@ import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.L
  *    5. Verify that the row is preset.
  *    6. Open some Friend view.
  *    7. Verify that the row is not preset.
+ *
+ *    Scenario#6. Edit CSS
+ *    1. Open campaign details.
+ *    2. Open HTML Editor.
+ *    3. Upload new image
+ *    4. Verify image in the Files list.
  *    */
 
 
@@ -226,6 +232,23 @@ public class HtmlEditorTesting extends BaseTest {
                 EditorScenarios.getFirstCssRow(),
                 cssCode,
                 "CSS code was updated in the row#1 on the HTML Editor page for <" + friendView + "> view when it was added on Advocate View.");
+
+    }
+
+    /*Scenario#6*/
+    @Test(groups = {"ui-actions"})
+    public void uploadImage(){
+        //todo: to be tested
+        String imageName = "test.png";
+
+        EditorScenarios.openHtmlEditor();
+        EditorScenarios.uploadNewImage(imageName);
+
+        Assert.assertEquals(
+                EditorScenarios.getFirstImageNameFromFiles(),
+                imageName,
+                "Incorrect first image name in the Files popup when new image was uploaded."
+        );
 
     }
 
