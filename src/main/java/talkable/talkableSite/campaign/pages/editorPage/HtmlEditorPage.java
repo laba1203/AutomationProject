@@ -136,7 +136,7 @@ public class HtmlEditorPage extends AbstractEditorPage{
     private class FilesPopup {
         private final By firstFileNameFromFilesLctr = By.xpath("//ul[@class='editor-asset-list']/li[1]/*[@class='editor-asset-name']");
         private final By uploadNewImageLctr = By.xpath("//div[contains(@class, 'ac-editor-widget-file-uploader')]//div[contains(@class, 'asset-uploader')]/div[1]");
-        private final By uploadNewFontLctr = By.xpath("//div[contains(@class, 'ac-editor-widget-file-uploader')]//div[contains(@class, 'asset-uploader')]/div[1]");
+        private final By uploadNewFontLctr = By.xpath("//div[contains(@class, 'ac-editor-widget-file-uploader')]//div[contains(@class, 'asset-uploader')]/div[2]");
 
 
 

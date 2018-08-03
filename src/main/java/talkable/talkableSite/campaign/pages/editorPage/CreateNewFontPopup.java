@@ -4,7 +4,6 @@ import abstractObjects.AbstractElementsContainer;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import util.TestArtifactsProvider;
-import util.TestDataGenerator;
 import util.logging.Log;
 
 class CreateNewFontPopup extends AbstractElementsContainer{

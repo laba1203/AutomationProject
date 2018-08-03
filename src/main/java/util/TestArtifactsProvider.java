@@ -28,7 +28,7 @@ public class TestArtifactsProvider {
     }
 
     public static String getFontsFilePath(String fileName){
-        return getAbsolutePath(couponCodesListsPath, fileName);
+        return getAbsolutePath(fontPath, fileName);
     }
 
 }

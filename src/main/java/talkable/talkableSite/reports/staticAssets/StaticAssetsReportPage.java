@@ -37,6 +37,10 @@ public class StaticAssetsReportPage extends AbstractReportPage implements Counta
 
     public StaticAssetsReportPage deleteAllRows(){
         int rowsCount = getRows().size();
+        if(getTotalCount().equals("0")){
+            Log.logRecord("Report is empty.");
+            return new StaticAssetsReportPage();
+        }
         for (Row row :
                 getRows()) {
             row.selectDeleteCheckbox();

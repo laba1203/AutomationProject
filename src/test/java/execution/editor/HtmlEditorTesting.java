@@ -262,17 +262,18 @@ public class HtmlEditorTesting extends BaseTest {
         String woff2File = "KalishaScript.woff2";
 
         ReportsScenarios.openStaticAssetsReport();
-        ReportsScenarios.filterByNameInStaticAssets(fontName);
+        ReportsScenarios.filterByNameInStaticAssets("KalishaScript");
         ReportsScenarios.deleteAllRowsFromStaticAssetsReport();
         CommonScenarios.navigateToUrl(standaloneCampaignDetailsPageUrl);
 
         EditorScenarios.openHtmlEditor();
         EditorScenarios.uploadFont(fontName, woffFile, woff2File);
+        EditorScenarios.openCampaignDetailsFromEditor();
         ReportsScenarios.openStaticAssetsReport();
         ReportsScenarios.filterByNameInStaticAssets(woffFile);
-        ReportsScenarios.assertRowsCountFromReport("1", new StaticAssetsReportPage());
-        ReportsScenarios.filterByNameInStaticAssets(woff2File);
-        ReportsScenarios.assertRowsCountFromReport("1", new StaticAssetsReportPage());
+        ReportsScenarios.assertRowsCountFromReport("2", new StaticAssetsReportPage());
+//        ReportsScenarios.filterByNameInStaticAssets(woff2File);
+//        ReportsScenarios.assertRowsCountFromReport("1", new StaticAssetsReportPage());
 
     }
 

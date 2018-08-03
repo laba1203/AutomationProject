@@ -13,6 +13,14 @@ import util.logging.Log;
 
 public class EditorScenarios extends CommonScenarios{
 
+
+    public static void openCampaignDetailsFromEditor(){
+        new AbstractEditorPage()
+                .campaignNavigationMenu
+                .openDetailsPage();
+        Log.logRecord("Campaign Details page is opened.");
+    }
+
     public static void openSimpleEditorForCampaign(String campaignName, Table.Status campaignStatus){
         openCampaignDetailsPageFor(campaignName, campaignStatus);
         openSimpleEditor();
