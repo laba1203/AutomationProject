@@ -3,12 +3,19 @@
     <classes>
         <class name="execution.reports.previous.customer.upload.PreviousCustomerUploadTesting_v2"/>
     </classes>
-</test>
+   </test>
     <test name="Coupon Codes List Report" preserve-order="true" >
         <classes>
             <class name="execution.reports.coupon.codes.upload.UploadCouponCodesTests"/>
         </classes>
     </test>
+    <test name="Settings Changes Report" preserve-order="true" >
+        <classes>
+            <class name="execution.reports.settingsChanges.SettingsChangesReport"/>
+        </classes>
+    </test>
+
+
 
 </suite>
 
