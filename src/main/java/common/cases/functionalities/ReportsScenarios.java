@@ -11,6 +11,7 @@ import talkable.talkableSite.reports.FilterableReport;
 import talkable.talkableSite.reports.ReportsPage;
 import talkable.talkableSite.reports.couponLists.CouponListPage;
 import talkable.talkableSite.reports.couponLists.CouponListsReportPage;
+import talkable.talkableSite.reports.peopleReport.PeopleReportPage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.referrals.PageReferralsReport;
 import talkable.talkableSite.reports.rewards.RewardsReportPage;
@@ -404,7 +405,24 @@ public class ReportsScenarios extends CommonScenarios {
         );
         Log.logRecord("Successfully verified first row in Settings Changes report.");
     }
-
     /* End of Settings Changes report scenarios */
 
+    /* People report scenarios */
+    public static void openPeopleReport(){
+        openReportsPage()
+                .openPeopleReport();
+    }
+
+    public static void searchPersonInPeopleReport(String email){
+        new PeopleReportPage()
+                .search(email);
+    }
+
+    public static String getEmailFromFirstRowInPeopleReport(){
+        return new PeopleReportPage().getEmailFromFirstRow();
+    }
+
+
+
+    /* End of People report scenarios */
 }
