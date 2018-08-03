@@ -100,7 +100,9 @@ public class CommonScenarios {
                     OTHER
             );
         }
-        return new Header();
+        Header header = new Header();
+        Log.logRecord("User logged to site: " + getCurrentUrl());
+        return header;
     }
 
 

@@ -78,6 +78,11 @@
             <class name="execution.reports.settingsChanges.SettingsChangesReport"/>
         </classes>
     </test>
+    <test name = "People Report">
+        <classes>
+            <class name = "execution.reports.people.PeopleReport"/>
+        </classes>
+    </test>
 
     <!--Below tests were moved to NotStableTests.xml-->
     <!--

@@ -1,6 +1,16 @@
 package talkable.talkableSite.reports;
 
-public interface CountableReport {
+import abstractObjects.Element;
+import org.openqa.selenium.By;
 
-    String getTotalCount();
+public interface CountableReport {
+    By totalLctr = By.xpath("//*[@class='base-form-label']");
+
+    default String getTotalCount(){
+        String value = new Element(totalLctr).getText();
+        if(value.equals("Not found")){
+            return "0";
+        }
+        return value.substring(7);
+    }
 }

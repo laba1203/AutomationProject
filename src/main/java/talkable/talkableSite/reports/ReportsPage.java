@@ -12,6 +12,7 @@ import talkable.talkableSite.reports.emailPerformance.EmailPerformanceReportPage
 import talkable.talkableSite.reports.localeEntries.LocaleEntriesReportPage;
 import talkable.talkableSite.reports.metricsAggregation.MetricsAggregationReportPage;
 import talkable.talkableSite.reports.pageSnapshots.PageSnapshotsReportPage;
+import talkable.talkableSite.reports.peopleReport.PeopleReportPage;
 import talkable.talkableSite.reports.performanceByChannel.PerformanceByChannelReportPage;
 import talkable.talkableSite.reports.performanceOverTime.PerformanceOverTimeReportPage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
@@ -188,6 +189,13 @@ public class ReportsPage extends AbstractTalkableSitePage{
         new Element(pageSnapshotsLctr, "Page Snapshots").click();
         PageSnapshotsReportPage page = new PageSnapshotsReportPage();
         logReportOpened("Page Snapshots");
+        return page;
+    }
+
+    public PeopleReportPage openPeopleReport(){
+        peopleBtn.click();
+        PeopleReportPage page = new PeopleReportPage();
+        logReportOpened("People");
         return page;
     }
 
