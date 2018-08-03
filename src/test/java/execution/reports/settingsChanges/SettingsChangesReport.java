@@ -4,7 +4,6 @@ import common.cases.CommonScenarios;
 import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import talkable.talkableSite.reports.settingsChanges.SettingsChangesReportPage;
 import util.EnvFactory;
@@ -12,7 +11,6 @@ import util.PropertyLoader;
 import util.TestDataGenerator;
 import util.Util;
 
-@Listeners(util.Listeners.class)
 public class SettingsChangesReport extends BaseTest{
     private static final String user = PropertyLoader.loadProperty("talkable.user.reports");
     private static final String pswrd = EnvFactory.getPassword();

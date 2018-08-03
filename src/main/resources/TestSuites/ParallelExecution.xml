@@ -62,6 +62,7 @@
             <class name="execution.site.settings.SiteSettingsContactsTab"/>
         </classes>
     </test>
+            <!--Reports-->
     <test name="Previous Customer Report" >
         <classes>
             <class name="execution.reports.previous.customer.upload.PreviousCustomerUploadTesting_v2"/>
@@ -70,6 +71,11 @@
     <test name="Coupon Codes List Report" >
         <classes>
             <class name="execution.reports.coupon.codes.upload.UploadCouponCodesTests"/>
+        </classes>
+    </test>
+    <test name="Settings Changes Report">
+        <classes>
+            <class name="execution.reports.settingsChanges.SettingsChangesReport"/>
         </classes>
     </test>
 
