@@ -2,17 +2,21 @@ package execution.editor;
 
 import common.cases.CommonScenarios;
 import common.cases.functionalities.EditorScenarios;
+import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnhandledAlertException;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import sun.jvm.hotspot.ui.Editor;
 import talkable.common.elements.alert.Alert;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
+import talkable.talkableSite.reports.staticAssets.StaticAssetsReportPage;
 import util.EnvFactory;
 import util.PropertyLoader;
 import util.Screenshot;
+import util.TestDataGenerator;
 import util.logging.Log;
 
 import static talkable.common.CampaignPlacement.FloatingWidget;
@@ -66,6 +70,20 @@ import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.L
  *    5. Verify that the row is preset.
  *    6. Open some Friend view.
  *    7. Verify that the row is not preset.
+ *
+ *    Scenario#6. Upload image
+ *    1. Open campaign details.
+ *    2. Open HTML Editor.
+ *    3. Upload new image
+ *    4. Verify image in the Files list.
+ *
+ *    Scenario#7. Upload font
+ *    1. Open Static assets report
+ *    2. Delete fonts.
+ *    3. Open campaign details.
+ *    4. Open HTML Editor.
+ *    5. Upload font image
+ *    6. Verify image in the Files list.
  *    */
 
 
@@ -228,6 +246,44 @@ public class HtmlEditorTesting extends BaseTest {
                 "CSS code was updated in the row#1 on the HTML Editor page for <" + friendView + "> view when it was added on Advocate View.");
 
     }
+
+    /*Scenario#6*/
+    @Test(groups = {"ui-actions"})
+    public void uploadImage(){
+        String imageName = "test.png";
+
+        EditorScenarios.openHtmlEditor();
+        EditorScenarios.uploadNewImage(imageName);
+
+        Assert.assertEquals(
+                EditorScenarios.getFirstImageNameFromFiles(),
+                imageName,
+                "Incorrect first image name in the Files popup when new image was uploaded."
+        );
+    }
+
+    /*Scenario#7*/
+    @Test(groups = {"ui-actions"})
+    public void uploadFont(){
+        //test data:
+        String fontName = "AutomationFont";
+        String woffFile = "KalishaScript.woff";
+        String woff2File = "KalishaScript.woff2";
+
+        ReportsScenarios.openStaticAssetsReport();
+        ReportsScenarios.filterByNameInStaticAssets("KalishaScript");
+        ReportsScenarios.deleteAllRowsFromStaticAssetsReport();
+        CommonScenarios.navigateToUrl(standaloneCampaignDetailsPageUrl);
+
+        EditorScenarios.openHtmlEditor();
+        EditorScenarios.uploadFont(fontName, woffFile, woff2File);
+        EditorScenarios.openCampaignDetailsFromEditor();
+        ReportsScenarios.openStaticAssetsReport();
+        ReportsScenarios.filterByNameInStaticAssets(woffFile);
+        ReportsScenarios.assertRowsCountFromReport("2", new StaticAssetsReportPage());
+
+    }
+
 
 
 }

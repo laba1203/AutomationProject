@@ -14,12 +14,19 @@ import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.L
 public class SimpleEditorPage extends AbstractEditorPage{
 
     private static final By selectedLocalizationModeLctr = By.xpath("//div[contains( @class, 'localizations-filters')]/div[contains(@class, 'is-active')]/span");
+    private static final By copyBtnLctr = By.cssSelector(".Locale-entries-localizations-filters div:nth-of-type(1)");
+    private static final By imageBtnLCtr = By.cssSelector(".Locale-entries-localizations-filters div:nth-of-type(2)");
+    private static final By colorBtnLctr = By.cssSelector(".Locale-entries-localizations-filters div:nth-of-type(3)");
+    private static final By configurationBtnLctr = By.cssSelector(".Locale-entries-localizations-filters div:nth-of-type(4)");
+
+
 
     public CampaignNavigationMenuOnEditor campaignNavigationMenu = new CampaignNavigationMenuOnEditor();
-    private ElmntCopyButton copyButton = new ElmntCopyButton();
-    private ElmntImagesButton imagesButton = new ElmntImagesButton();
-    private ElmntColorButton colorButton = new ElmntColorButton();
-    private ElmntConfigurationButton configurationButton = new ElmntConfigurationButton();
+
+    private Element copyButton = new Element(copyBtnLctr, "COPY button");
+    private Element imagesButton = new Element(imageBtnLCtr, "IMAGE button");
+    private Element colorButton = new Element(colorBtnLctr, "COLOR button");
+    private Element configurationButton = new Element(configurationBtnLctr, "CONFIGURATION button");
 
     public enum LocalizationType {COPY, IMAGES, COLOR, CONFIGURATION}
     private LocalizationType mode = COPY; //COPY is a default mode;

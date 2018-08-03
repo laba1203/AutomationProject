@@ -27,4 +27,9 @@ public class Element extends AbstractElement{
     public Element(Element parent, By by){
         setWebElement(parent.getWebElement().findElement(by));
     }
+
+    public Element(WebElement parent, By by, String elementName){
+        setWebElement(parent.findElement(by));
+        setElementNameForLog(elementName);
+    }
 }
