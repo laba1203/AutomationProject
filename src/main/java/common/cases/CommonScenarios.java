@@ -622,7 +622,11 @@ public class CommonScenarios {
     public static void updateSiteSettingsBasicTab(String siteName, String siteID, String siteURL, String platform, String currency ){
         new SiteSettingsBasicTab().updateAll(siteName, siteID, siteURL, platform, currency);
         Log.logRecord("Site Settings Basic Tab updated");
+    }
 
+    public static void updateSiteNameOnSiteSettings(String newName){
+        new SiteSettingsBasicTab()
+                .updateName(newName);
     }
 
     public static void setUrlAndPlatformOnSiteSettings(String url, String platform){
@@ -645,6 +649,7 @@ public class CommonScenarios {
 
         Log.logRecord("Site Settings Basic Tab populated");
     }
+
     public static void assertErrorMsgSiteSettigsBasicTab(String siteName, String siteID, String siteURL){
         Assert.assertEquals(
                 new SiteSettingsBasicTab().getSiteName(),
@@ -659,6 +664,7 @@ public class CommonScenarios {
                 siteURL,
                 "FAILED: Site settings/basic tab/Incorect Site URL");
     }
+
     public static void assertErrorMsgSiteSettigsBasicTab(String expectedErrorMsg){
         Assert.assertEquals(
                 new SiteSettingsBasicTab().getErrorMsg(),
@@ -666,6 +672,7 @@ public class CommonScenarios {
                 "FAILED: Site settings/basic tab/Validation Failed"+expectedErrorMsg);
         new SiteSettingsBasicTab().clickCancel();
     }
+
 // updateSiteSettingsContactTab
     public static void populateSiteSettingsContactsTab(String csEmail){
     new SiteSettingsContactsTab().populate(csEmail);

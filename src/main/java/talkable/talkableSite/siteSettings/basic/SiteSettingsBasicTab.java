@@ -4,6 +4,7 @@ import abstractObjects.Element;
 import abstractObjects.SelectElement;
 import org.openqa.selenium.By;
 import talkable.talkableSite.siteSettings.SiteSettingsPage;
+import util.logging.Log;
 
 public class SiteSettingsBasicTab extends SiteSettingsPage{
     //ELEMENTS
@@ -72,6 +73,14 @@ public class SiteSettingsBasicTab extends SiteSettingsPage{
         selectPlatform(platform);
         new SelectElement(elmntSiteCurrency).selectByVisibleText(currency);
         updateChanges();
+        return new SiteSettingsBasicTab();
+    }
+
+    public SiteSettingsBasicTab updateName(String newName){
+        new Element(elmntSiteName)
+                .clearAndSendKeys(newName);
+        updateChanges();
+        Log.logRecord("Site name changed to <" + newName + "> on Site Settings page > Basic tab.");
         return new SiteSettingsBasicTab();
     }
 

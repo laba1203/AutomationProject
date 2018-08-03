@@ -5,14 +5,12 @@ import common.cases.functionalities.ReportsScenarios;
 import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.testng.annotations.Listeners;
 import talkable.common.elements.pagination.Pagination;
 import util.*;
-import util.logging.Log;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1ONGHch4nOJ28fGgNG4Hz3THlX1NWn8KxwM74fBSLngM/
  * */
-@Listeners(util.Listeners.class)
+
 public class PreviousCustomerUploadTesting_v2 extends BaseTest{
 
     private String siteUrl;

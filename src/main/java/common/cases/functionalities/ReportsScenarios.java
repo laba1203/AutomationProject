@@ -7,12 +7,14 @@ import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.CountableReport;
+import talkable.talkableSite.reports.FilterableReport;
 import talkable.talkableSite.reports.ReportsPage;
 import talkable.talkableSite.reports.couponLists.CouponListPage;
 import talkable.talkableSite.reports.couponLists.CouponListsReportPage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.referrals.PageReferralsReport;
 import talkable.talkableSite.reports.rewards.RewardsReportPage;
+import talkable.talkableSite.reports.settingsChanges.SettingsChangesReportPage;
 import talkable.talkableSite.reports.staticAssets.StaticAssetsReportPage;
 import util.DriverConfig;
 import util.Util;
@@ -31,6 +33,18 @@ public class ReportsScenarios extends CommonScenarios {
                 expectedCount,
                 "Incorrect Total count in the <" + report.getClass().getName() + "> report."
         );
+    }
+
+    public static void filterReportByDate(FilterableReport report, String startDate, String endDate){
+        report
+                .enterFilterDates(startDate, endDate)
+                .generate();
+        try {
+            report.getClass().newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        Log.logRecord("Report <" + report.getClass().getName() + "> was filtered.");
     }
 
     /* Scenarios for Previous Customers report */
@@ -366,5 +380,31 @@ public class ReportsScenarios extends CommonScenarios {
                 .deleteAllRows();
     }
     /* End  StaticAssetsReport scenarios */
+    /* Settings Changes report scenarios */
+    public static void openSettingsChangesReport(){
+        openReportsPage()
+                .openSettingsChangesReport();
+    }
+
+    public static void assertFirstRowInSettingsChangesReport(String updatedField, String oldValue, String newValue){
+        Assert.assertEquals(
+                new SettingsChangesReportPage().getUpdatedFieldFromFirstRow(),
+                updatedField,
+                "Incorrect updated field in the first row of Settings Changes report."
+        );
+        Assert.assertEquals(
+                new SettingsChangesReportPage().getOldValueFromFirstRow(),
+                oldValue,
+                "Incorrect Old value in the first row of Settings Changes report."
+        );
+        Assert.assertEquals(
+                new SettingsChangesReportPage().getNewValueFromFirstRow(),
+                newValue,
+                "Incorrect New Value in the first row of Settings Changes report."
+        );
+        Log.logRecord("Successfully verified first row in Settings Changes report.");
+    }
+
+    /* End of Settings Changes report scenarios */
 
 }
