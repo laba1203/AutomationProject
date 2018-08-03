@@ -16,6 +16,7 @@ import talkable.talkableSite.reports.peopleReport.PeopleReportPage;
 import talkable.talkableSite.reports.performanceByChannel.PerformanceByChannelReportPage;
 import talkable.talkableSite.reports.performanceOverTime.PerformanceOverTimeReportPage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
+import talkable.talkableSite.reports.purchases.report.PurchasesReportPage;
 import talkable.talkableSite.reports.referrals.PageReferralsReport;
 import talkable.talkableSite.reports.referralsOverTime.ReferralsOverTimeReportPage;
 import talkable.talkableSite.reports.rewards.RewardsReportPage;
@@ -195,6 +196,13 @@ public class ReportsPage extends AbstractTalkableSitePage{
     public PeopleReportPage openPeopleReport(){
         peopleBtn.click();
         PeopleReportPage page = new PeopleReportPage();
+        logReportOpened("People");
+        return page;
+    }
+
+    public PurchasesReportPage openPurchasesReport(){
+        purchasesBtn.click();
+        PurchasesReportPage page = new PurchasesReportPage();
         logReportOpened("People");
         return page;
     }

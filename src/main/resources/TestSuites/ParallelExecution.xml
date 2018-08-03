@@ -83,6 +83,11 @@
             <class name = "execution.reports.people.PeopleReport"/>
         </classes>
     </test>
+    <test name = "Purchases Report">
+        <classes>
+            <class name="execution.reports.purchases.PurchasesReport"/>
+        </classes>
+    </test>
 
     <!--Below tests were moved to NotStableTests.xml-->
     <!--
