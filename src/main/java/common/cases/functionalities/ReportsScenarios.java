@@ -13,6 +13,7 @@ import talkable.talkableSite.reports.couponLists.CouponListPage;
 import talkable.talkableSite.reports.couponLists.CouponListsReportPage;
 import talkable.talkableSite.reports.peopleReport.PeopleReportPage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
+import talkable.talkableSite.reports.purchases.report.PurchasesReportPage;
 import talkable.talkableSite.reports.referrals.PageReferralsReport;
 import talkable.talkableSite.reports.rewards.RewardsReportPage;
 import talkable.talkableSite.reports.settingsChanges.SettingsChangesReportPage;
@@ -421,8 +422,20 @@ public class ReportsScenarios extends CommonScenarios {
     public static String getEmailFromFirstRowInPeopleReport(){
         return new PeopleReportPage().getEmailFromFirstRow();
     }
-
-
-
     /* End of People report scenarios */
+
+    /* Purchases report scenarios */
+    public static void openPurchasesReport(){
+        openReportsPage().openPurchasesReport();
+    }
+
+    public static void searchPurchaseInPurchasesReport(String email){
+        new PurchasesReportPage().searchByEmail(email);
+    }
+
+    public static String getEmailFromFirstRowInPurchasesReport(){
+        return new PurchasesReportPage().getEmailFromFirstRow();
+    }
+
+    /* End of Purchases report scenarios */
 }
