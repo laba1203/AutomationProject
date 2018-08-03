@@ -71,11 +71,19 @@ import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.L
  *    6. Open some Friend view.
  *    7. Verify that the row is not preset.
  *
- *    Scenario#6. Edit CSS
+ *    Scenario#6. Upload image
  *    1. Open campaign details.
  *    2. Open HTML Editor.
  *    3. Upload new image
  *    4. Verify image in the Files list.
+ *
+ *    Scenario#7. Upload font
+ *    1. Open Static assets report
+ *    2. Delete fonts.
+ *    3. Open campaign details.
+ *    4. Open HTML Editor.
+ *    5. Upload font image
+ *    6. Verify image in the Files list.
  *    */
 
 
@@ -254,6 +262,7 @@ public class HtmlEditorTesting extends BaseTest {
         );
     }
 
+    /*Scenario#7*/
     @Test(groups = {"ui-actions"})
     public void uploadFont(){
         //test data:
