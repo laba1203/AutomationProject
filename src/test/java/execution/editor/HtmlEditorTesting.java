@@ -8,18 +8,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.UnhandledAlertException;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import sun.jvm.hotspot.ui.Editor;
 import talkable.common.elements.alert.Alert;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
-import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.reports.staticAssets.StaticAssetsReportPage;
 import util.EnvFactory;
 import util.PropertyLoader;
-import util.Screenshot;
-import util.TestDataGenerator;
 import util.logging.Log;
 
-import static talkable.common.CampaignPlacement.FloatingWidget;
 import static talkable.common.CampaignPlacement.Standalone;
 import static talkable.common.CampaignType.Invite;
 import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.LocalizationType.COPY;
