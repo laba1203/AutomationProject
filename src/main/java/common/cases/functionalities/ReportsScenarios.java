@@ -6,17 +6,32 @@ import org.testng.Assert;
 import talkable.common.elements.pagination.Pagination;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 import talkable.talkableSite.headerFrame.Header;
+import talkable.talkableSite.reports.CountableReport;
 import talkable.talkableSite.reports.ReportsPage;
 import talkable.talkableSite.reports.couponLists.CouponListPage;
 import talkable.talkableSite.reports.couponLists.CouponListsReportPage;
 import talkable.talkableSite.reports.previousCustomersReport.PreviousCustomersReportPage;
 import talkable.talkableSite.reports.referrals.PageReferralsReport;
 import talkable.talkableSite.reports.rewards.RewardsReportPage;
+import talkable.talkableSite.reports.staticAssets.StaticAssetsReportPage;
 import util.DriverConfig;
 import util.Util;
 import util.logging.Log;
 
 public class ReportsScenarios extends CommonScenarios {
+
+    public static ReportsPage openReportsPage(){
+        return new Header()
+                .clickReportsButton();
+    }
+
+    public static void assertRowsCountFromReport(String expectedCount, CountableReport report){
+        Assert.assertEquals(
+                report.getTotalCount(),
+                expectedCount,
+                "Incorrect Total count in the <" + report.getClass().getName() + "> report."
+        );
+    }
 
     /* Scenarios for Previous Customers report */
 
@@ -335,5 +350,21 @@ public class ReportsScenarios extends CommonScenarios {
 
     /* End of Access Management scenarios */
 
+    /*  StaticAssetsReport scenarios */
+    public static StaticAssetsReportPage openStaticAssetsReport(){
+        return openReportsPage()
+                .openStaticAssetsReport();
+    }
+
+    public static void filterByNameInStaticAssets(String name){
+        new StaticAssetsReportPage()
+                .filterByName(name);
+    }
+
+    public static void deleteAllRowsFromStaticAssetsReport(){
+        new StaticAssetsReportPage()
+                .deleteAllRows();
+    }
+    /* End  StaticAssetsReport scenarios */
 
 }

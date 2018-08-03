@@ -13,6 +13,14 @@ import util.logging.Log;
 
 public class EditorScenarios extends CommonScenarios{
 
+
+    public static void openCampaignDetailsFromEditor(){
+        new AbstractEditorPage()
+                .campaignNavigationMenu
+                .openDetailsPage();
+        Log.logRecord("Campaign Details page is opened.");
+    }
+
     public static void openSimpleEditorForCampaign(String campaignName, Table.Status campaignStatus){
         openCampaignDetailsPageFor(campaignName, campaignStatus);
         openSimpleEditor();
@@ -111,11 +119,6 @@ public class EditorScenarios extends CommonScenarios{
         return new AbstractEditorPage().getEmailSubjectFromPreview();
     }
 
-    @Deprecated
-    public static void clearCssSection(){
-        new HtmlEditorPage().clearCSS();
-    }
-
     public static void addNewHtmlCode(String html){
         new HtmlEditorPage().clearAndAddHtml(html);
     }
@@ -144,6 +147,20 @@ public class EditorScenarios extends CommonScenarios{
                 localeName + "#",
                 "Incorrect locale is returned in localization grid when Search of Custom Settings was done. "
         );
+    }
+
+    public static void uploadNewImage(String name){
+        new HtmlEditorPage()
+                .uploadNewImage(name);
+    }
+
+    public static String getFirstImageNameFromFiles(){
+        return new HtmlEditorPage()
+                .getFirstImageNameFromFiles();
+    }
+
+    public static void uploadFont(String fontName, String woffFile, String woff2File){
+        new HtmlEditorPage().uploadFont(fontName, woffFile, woff2File);
     }
 
 
