@@ -272,8 +272,6 @@ public class HtmlEditorTesting extends BaseTest {
         ReportsScenarios.openStaticAssetsReport();
         ReportsScenarios.filterByNameInStaticAssets(woffFile);
         ReportsScenarios.assertRowsCountFromReport("2", new StaticAssetsReportPage());
-//        ReportsScenarios.filterByNameInStaticAssets(woff2File);
-//        ReportsScenarios.assertRowsCountFromReport("1", new StaticAssetsReportPage());
 
     }
 
