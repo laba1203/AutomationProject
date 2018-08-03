@@ -2,6 +2,9 @@ package util;
 
 import org.testng.Assert;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 //**Class create to collect different technical methods
 // *//
 
@@ -78,6 +81,11 @@ public class Util {
             out.append(str).append("\r\n");
         }
         return out.toString();
+    }
+
+    public static String getCurrentDate(){
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        return formatter.format(new Date());
     }
 
 }
