@@ -37,7 +37,7 @@ public class AdvocateOffers extends BaseTest{
     }
 
     @Test(groups = "api-usage")
-    public void makePurchasesAndVerifyPeopleReport(){
+    public void makeOfferAndVerifyAdvocateOffers(){
         String email = "automation.email" + TestDataGenerator.getRandomId() + "@gmail.com";
         ViaAPI.makePurchaseWithRandomUUID(site, email);
         ViaAPI.makePurchaseWithRandomUUID(site,"autotest@gmail.com");
