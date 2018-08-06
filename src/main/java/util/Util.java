@@ -88,4 +88,23 @@ public class Util {
         return formatter.format(new Date());
     }
 
+    public static String generateItegratedPageCode(String tkblIntegrationScript){
+        return "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "  <head>\n" +
+                "    <title>Automation Site</title>\n" +
+                "    <script type=\"text/javascript\" src=\"//code.jquery.com/jquery-1.10.2.min.js\"></script>\n" +
+                "\n" +
+                tkblIntegrationScript + "\n" +
+                "  </head>\n" +
+                "  <body>\n" +
+                "    <div id=\"talkable-offer\"></div>\n" +
+                "    <pre>\n" +
+                "      Automation Site generated on "+getCurrentDate()+"\n" +
+                "    </pre>\n" +
+                "  </body>\n" +
+                "</html>"
+                ;
+    }
+
 }

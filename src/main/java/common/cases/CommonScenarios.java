@@ -512,8 +512,9 @@ public class CommonScenarios {
         return new CampaignNavigationMenu().getCampaignPlacement();
     }
 
-    public static void openSiteIntegrationPage(){
+    public static IntegrationPage openSiteIntegrationPage(){
         new Header().openMenu().clickIntegration();
+        return new IntegrationPage();
     }
 
 
@@ -735,7 +736,6 @@ public class CommonScenarios {
         Log.logRecord("Shopify App is installed.");
         return page;
     }
-
 
     /* Access Management scenarios */
 
