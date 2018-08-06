@@ -6,6 +6,7 @@ import org.testng.Assert;
 import talkable.access.managment.access.request.AccessRequestPage;
 import talkable.talkableSite.AbstractTalkableSitePage;
 import talkable.talkableSite.reports.abTests.AbTestsReportPage;
+import talkable.talkableSite.reports.advocateOffers.AdvocateOffersReportPage;
 import talkable.talkableSite.reports.couponLists.CouponListsReportPage;
 import talkable.talkableSite.reports.emailConversion.EmailConversionReportPage;
 import talkable.talkableSite.reports.emailPerformance.EmailPerformanceReportPage;
@@ -204,6 +205,13 @@ public class ReportsPage extends AbstractTalkableSitePage{
         purchasesBtn.click();
         PurchasesReportPage page = new PurchasesReportPage();
         logReportOpened("People");
+        return page;
+    }
+
+    public AdvocateOffersReportPage openAdvocateOffersReport(){
+        advocateOffersBtn.click();
+        AdvocateOffersReportPage page = new AdvocateOffersReportPage();
+        logReportOpened("Advocate Offers");
         return page;
     }
 

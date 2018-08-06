@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public class PageCampaignRules extends AbstractCampaignPage{
 
     private static final By incentiveNamesFromDropDownLctr = By.cssSelector(".Rules-incentives-dropdown a>div:nth-of-type(1)");
+    private static final By tagInputLctr = By.xpath("//input[contains(@class, 'tag')]");
+    private static final By addTagBtnLctr = By.xpath("//div[contains(@class, 'tag')]/div[@class='btn']");
 
     private Element redirectOnExpiredClaimCheckbox = new Element(By.xpath("//label/input[@name='redirect_on_expired_claim']/.."), "'RedirectOnExpiredClaim' Checkbox");
     private Element redirectOnExpiredClaimCheckboxValue = new Element(By.xpath("//label/input[@name='redirect_on_expired_claim']"));
@@ -140,6 +142,13 @@ public class PageCampaignRules extends AbstractCampaignPage{
 
     public PageCampaignRules setDeadlineDates(String advocateOfferDeadlineDate, String adEndTime, String friendOfferDeadlineDate, String frEndTime) {
         return setDeadlineDates(advocateOfferDeadlineDate, adEndTime.substring(0,2), adEndTime.substring(3), friendOfferDeadlineDate, frEndTime.substring(0,2), frEndTime.substring(3));
+    }
+
+    public PageCampaignRules addTag(String tag){
+        new Element(tagInputLctr, "Tag input field").sendKeys(tag);
+        new Element(addTagBtnLctr, "Add tag button").moveToElementAndClick();
+        waitSaving();
+        return new PageCampaignRules();
     }
 
     private PopupIncentiveFactory selectIncentive(IncentiveType incentiveType){
