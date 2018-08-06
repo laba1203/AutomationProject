@@ -84,7 +84,7 @@ import static talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage.L
 
 	/*Link to test scenario: https://docs.google.com/spreadsheets/d/148sQEgtaeSuPrwor1s5HIFFqrgG4QEFR2_Gi2K3-r5k/edit#gid=0
      * */
-	@Listeners(util.Listeners.class)
+
 public class HtmlEditorTesting extends BaseTest {
 
     private String user = PropertyLoader.loadProperty("talkable.user.editor");
