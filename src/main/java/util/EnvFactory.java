@@ -18,7 +18,7 @@ public class EnvFactory {
     private static final String registrationPath = "/register?object_or_array";
     private static final String baseApiPath = "/api/v2";
     private static final String gitHubProjectLink = "https://github.com/tkbl-automation-account/tkbl-automation-account.github.io/edit/master/";
-    private static final String siteFromGitHub = "https://tkbl-automation-account.github.io/";
+    private static final String siteFromGitHub = "http://tkbl-automation-account.github.io/";
     //prod/scenario/index.html
 
     private static EnvType envType;

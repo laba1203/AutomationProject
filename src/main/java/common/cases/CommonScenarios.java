@@ -77,10 +77,17 @@ public class CommonScenarios {
         //data:
         String defaultSite = "automation-site-" + TestDataGenerator.getRandomId();
         String defaultUrl = "www." + defaultSite + ".com";
+        return loginAndCreateNewSite(email, password, defaultUrl);
+    }
+
+    public static Header loginAndCreateNewSite(String email, String password, String siteUrl){
+        //data:
+        String defaultSite = "automation-site-" + TestDataGenerator.getRandomId();
+//        String defaultUrl = "www." + defaultSite + ".com";
 
         try{
             login(email, password);
-            createNewSite(defaultSite, defaultUrl);
+            createNewSite(defaultSite, siteUrl);
         }catch (AssertionError e){
             //verify error message:
             Assert.assertEquals(
@@ -96,7 +103,7 @@ public class CommonScenarios {
                     email,
                     password,
                     defaultSite,
-                    defaultUrl,
+                    siteUrl,
                     OTHER
             );
         }

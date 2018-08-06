@@ -4,7 +4,7 @@ import abstractObjects.AbstractElement;
 import org.openqa.selenium.By;
 
 class FirstName extends AbstractElement{
-    private By locator = By.cssSelector("input[name='affiliate_member[first_name]']");
+    private static final By locator = By.xpath("//input[@name='affiliate_member[first_name]']");
 
     FirstName(){
         setWebElement(locator);

@@ -150,6 +150,10 @@ public class FraudRulesScenarios extends CommonScenarios{
         Log.logRecord("Fraud Setting have been updated for Friend");
     }
 
+    public static void setMatchingCookiesOnFriendClaimPageValue(String value){
+        new FraudSettingsPage().setMatchingCookiesOnFriendClaimPage(value);
+    }
+
 
     public static void setAdvocateLimitReferralRewards(String limitValue){
         String updatedValue = new FraudSettingsPage()

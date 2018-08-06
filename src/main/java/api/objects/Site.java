@@ -51,11 +51,11 @@ public class Site {
             case PROD:
                 return "";
             case BASTION:
-                return ", server: \"http://bastion.talkable.com\"";
+                return ", server: \"//bastion.talkable.com\"";
             case VOID:
-                return ", server: \"http://void.talkable.com\"";
+                return ", server: \"//void.talkable.com\"";
             case BART:
-                return ", server: \"http://bast.talkable.com\"";
+                return ", server: \"//bast.talkable.com\"";
             default:
                 return "";
         }

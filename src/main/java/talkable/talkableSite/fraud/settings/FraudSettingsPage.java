@@ -63,21 +63,6 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
     }
 
     public FraudSettingsPage setApprovalMode(ApprovalMode mode){
-//        AbstractElement option = null;
-//        switch (mode){
-//            case MANUAL:
-//                option = new ElmntManualReferralApproval();
-//                break;
-//            case AUTOMATIC:
-//                option = new ElmntAutomaticReferralApproval();
-//                break;
-//            default:
-//                Assert.fail("Unknown referral approval mode <" + mode.toString() + ">");
-//
-//        }
-//        option.click();
-        //        return updateChanges();
-
         return selectApprovalMode(mode)
                 .saveChanges();
 
@@ -149,10 +134,11 @@ public class FraudSettingsPage extends AbstractTalkableSitePage{
         getRulesForFriend().setIpAddressOnly(matchingByIpOnly);
         getRulesForFriend().setMatchingCookieValue(matchingCookies);
 
+        return saveChanges();
+    }
 
-
-
-
+    public FraudSettingsPage setMatchingCookiesOnFriendClaimPage(String value){
+        getRulesForFriend().setMatchingCookieValue(value);
         return saveChanges();
     }
 
