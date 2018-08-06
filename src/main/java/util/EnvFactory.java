@@ -17,10 +17,13 @@ public class EnvFactory {
     private static final String password = PropertyLoader.loadProperty("talkable.password");
     private static final String registrationPath = "/register?object_or_array";
     private static final String baseApiPath = "/api/v2";
+    private static final String gitHubProjectLink = "https://github.com/tkbl-automation-account/tkbl-automation-account.github.io/edit/master/";
+    private static final String siteFromGitHub = "http://tkbl-automation-account.github.io/";
+    //prod/scenario/index.html
 
     private static EnvType envType;
 
-    enum EnvType{PROD, VOID, BASTION, BART}
+    public enum EnvType{PROD, VOID, BASTION, BART}
 
 
 
@@ -109,6 +112,36 @@ public class EnvFactory {
             return "https://www." + getUrl() + baseApiPath;
         }else {
             return getEnvUrl() + baseApiPath;
+        }
+    }
+
+    public static String getGitHubEditLink(){
+        switch (getEnvType()){
+            default:
+                return "";
+            case PROD:
+                return gitHubProjectLink + "prod/";
+            case BART:
+                return gitHubProjectLink + "bart/";
+            case BASTION:
+                return gitHubProjectLink + "bastion/";
+            case VOID:
+                return gitHubProjectLink + "void/";
+        }
+    }
+
+    public static String getGitHubSiteLink(){
+        switch (getEnvType()){
+            default:
+                return "";
+            case PROD:
+                return siteFromGitHub + "prod/";
+            case BART:
+                return siteFromGitHub + "bart/";
+            case BASTION:
+                return siteFromGitHub + "bastion/";
+            case VOID:
+                return siteFromGitHub + "void/";
         }
     }
 

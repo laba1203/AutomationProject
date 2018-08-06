@@ -5,7 +5,7 @@ import customerSite.talkableFrame.floatingWidget.advocateSharePage.AdvocateShare
 import org.openqa.selenium.By;
 
 public class AdvocateSignupPageFW extends AdvocateSignupPage{
-    private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe-overlay']");
+    private static final By frameLocator = By.xpath("//iframe[contains(@name,'talkable-offer-iframe-popup')]");
 
 //    private FirstName firstNameInput;
 //    private Email email;
@@ -16,30 +16,6 @@ public class AdvocateSignupPageFW extends AdvocateSignupPage{
         super(frameLocator);
     }
 
-//    public AdvocateSignupPageFW(){
-//        setWebElement(frameLocator);
-//        switchToThisFrame();
-//
-//        //elements inside frame:
-//        firstNameInput = new FirstName();
-//        email = new Email();
-//        inviteFriendsButton = new InviteFriendsButton();
-//        closePopup = new ClosePopupButton();
-//    }
-//
-//    public AdvocateSharePageFW submitForm(String firstName, String email){
-//        firstNameInput.sendKeys(firstName);
-//        this.email.sendKeys(email);
-//        inviteFriendsButton.click();
-//        switchToParentFrame();
-//        return new AdvocateSharePageFW();
-//
-//    }
-//
-//    public void closePopup(){
-//        closePopup.click();
-//        switchToParentFrame();
-//    }
 
 
 

@@ -11,7 +11,7 @@
             <class name="execution.smoke.SmokeTest_v2"/>
         </classes>
     </test>
-    <test name="Simple Test" >
+    <test name="Custom Integration" >
         <classes>
             <class name="execution.integration.custom.CustomIntegrationTestForAllCampaignTypes"/>
         </classes>
@@ -29,6 +29,11 @@
     <test name="HTML Editor tests" >
         <classes>
             <class name="execution.editor.HtmlEditorTesting"/>
+        </classes>
+    </test>
+    <test name="Share offer" >
+        <classes>
+            <class name="execution.integration.custom.ShareOffer"/>
         </classes>
     </test>
     <test name="Shopify Integration"  >

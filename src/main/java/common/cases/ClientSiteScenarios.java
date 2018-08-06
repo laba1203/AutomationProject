@@ -3,6 +3,7 @@ package common.cases;
 import customerSite.talkableFrame.commonPages.advocateSharePage.advocateDashboard.AdSharePageForAdDashboard;
 import customerSite.talkableFrame.commonPages.advocateSharePage.invite.AdvocateSharePageForInvite;
 import customerSite.talkableFrame.commonPages.advocateSignupPage.AdvocateSignupPage;
+import customerSite.talkableFrame.commonPages.friendSignupPage.FriendSignupPage;
 import customerSite.talkableFrame.floatingWidget.advocateSharePage.AdvocateSharePageFW;
 import customerSite.talkableFrame.floatingWidget.advocateSignupPage.AdvocateSignupPageFW;
 import customerSite.talkableFrame.floatingWidget.advocateTrigerWidget.AdvocateTriggerWidgetFrame;
@@ -32,10 +33,10 @@ public class ClientSiteScenarios {
      * Returns: Share link.
       * */
     public static String completeAdvocateOfferForFloatingWidget(String advocateName, String advocateEmail){
-        AdvocateTriggerWidgetFrame advocateTriggerWidget = new AdvocateTriggerWidgetFrame();
-        AdvocateSignupPageFW advocateSignupPageFW = advocateTriggerWidget.click();
-        AdvocateSharePageFW advocateSharePageFW = advocateSignupPageFW.submitForm(advocateName, advocateEmail);
-        return advocateSharePageFW.getShareLink();
+        return new AdvocateTriggerWidgetFrame()
+                .click()
+                .submitForm(advocateName, advocateEmail)
+                .getShareLink();
     }
 
     /*Technical method to setup new driver instace with clean cookies.
@@ -43,7 +44,6 @@ public class ClientSiteScenarios {
     public static WebDriver setupDriverWithCleanCookies(WebDriver driver){
         driver.manage().deleteAllCookies();
         DriverConfig.quitAndRemoveWebDriver();
-
         return DriverConfig.getDriver();
     }
 
@@ -52,7 +52,7 @@ public class ClientSiteScenarios {
     * 2. Check campaign.
     */
     public static boolean isCampaignOnCustomerSite(CampaignType campaignType, CampaignPlacement placement, String siteLink){
-        DriverConfig.getDriver().navigate().to(siteLink);
+        CommonScenarios.navigateToUrl(siteLink);
         switch (placement){
             case FloatingWidget:
                 return isFloatingPresent(placement);
@@ -71,7 +71,6 @@ public class ClientSiteScenarios {
     private static boolean isFloatingPresent(CampaignPlacement placement){
         try{
             waitFactory().waitUntilVisibilityOfElementLocated(AdvocateTriggerWidgetFrame.getFrameLocator(), CAMPAIGN_WAIT_TIME);
-//            new AdvocateTriggerWidgetFrame();
             return true;
         }catch(TimeoutException e){
             return false;
@@ -80,7 +79,6 @@ public class ClientSiteScenarios {
 
     private static boolean isStandalonePresent(CampaignPlacement placement){
         try{
-//            new AdvocateSignupPage();
             waitFactory().waitUntilVisibilityOfElementLocated(AdvocateSignupPage.getFrameLocator(), CAMPAIGN_WAIT_TIME);
             return true;
         }catch(TimeoutException e){
@@ -92,12 +90,10 @@ public class ClientSiteScenarios {
         try {
             switch (campaignType){
                 case Invite:
-//                    new AdvocateSharePageForInvite();
                     waitFactory().waitUntilVisibilityOfElementLocated(AdvocateSharePageForInvite.getFrameLocator(), CAMPAIGN_WAIT_TIME);
                     return true;
                 case AdvocateDashboard:
                     waitFactory().waitUntilVisibilityOfElementLocated(AdSharePageForAdDashboard.getFrameLocator(), CAMPAIGN_WAIT_TIME);
-//                    new AdSharePageForAdDashboard();
                     return true;
                 case RewardGleam:
                     Assert.fail("FAILED: Post Purc hase placement is not applicable for Gleam Campaign type.");
@@ -116,5 +112,11 @@ public class ClientSiteScenarios {
     private static boolean isGleamPresent(CampaignPlacement placement){
         Assert.fail("Gleam verification is not yet implemented");
         return false;
+    }
+
+    public static String getDiscountFromFrindSignUpPage(String email){
+        return new FriendSignupPage()
+                .signup(email)
+                .getCouponCode();
     }
 }

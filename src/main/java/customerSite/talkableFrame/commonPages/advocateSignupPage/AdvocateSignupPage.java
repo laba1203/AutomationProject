@@ -1,17 +1,19 @@
 package customerSite.talkableFrame.commonPages.advocateSignupPage;
 
 import abstractObjects.AbstractTalkableFrame;
+import abstractObjects.Element;
 import customerSite.talkableFrame.floatingWidget.advocateSharePage.AdvocateSharePageFW;
 import org.openqa.selenium.By;
 import util.WaitFactory;
 
 public class AdvocateSignupPage extends AbstractTalkableFrame{
-    private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
+    private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe-popup']");
+    private static final By firstNameLctr = By.xpath("//input[@name='affiliate_member[first_name]']");
 
-    private FirstName firstNameInput;
+//    private FirstName firstNameInput;
     private Email email;
     private InviteFriendsButton inviteFriendsButton;
-    private ClosePopupButton closePopup;
+//    private ClosePopupButton closePopup;
 
     public AdvocateSignupPage(){
         waitFactory().waitUntilVisibilityOfElementLocated(frameLocator, 5);
@@ -32,14 +34,14 @@ public class AdvocateSignupPage extends AbstractTalkableFrame{
     }
 
     private void setElementsInFrame(){
-        firstNameInput = new FirstName();
+//        firstNameInput = new FirstName();
         email = new Email();
         inviteFriendsButton = new InviteFriendsButton();
-        closePopup = new ClosePopupButton();
+//        closePopup = new ClosePopupButton();
     }
 
     public AdvocateSharePageFW submitForm(String firstName, String email){
-        firstNameInput.sendKeys(firstName);
+        new Element(firstNameLctr, "First Name field").sendKeys(firstName);
         this.email.sendKeys(email);
         inviteFriendsButton.click();
         switchToParentFrame();
@@ -47,10 +49,10 @@ public class AdvocateSignupPage extends AbstractTalkableFrame{
 
     }
 
-    public void closePopup(){
-        closePopup.click();
-        switchToParentFrame();
-    }
+//    public void closePopup(){
+//        closePopup.click();
+//        switchToParentFrame();
+//    }
 
     public static By getFrameLocator(){
         return frameLocator;
