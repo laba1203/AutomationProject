@@ -16,7 +16,6 @@ import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.campaignsPage.Table;
 import talkable.talkableSite.customerServicePortal.personLookup.PersonLookupPage;
 import talkable.talkableSite.integrationPage.IntegrationPage;
-import talkable.talkableSite.reports.ReportsPage;
 import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchases.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
@@ -278,6 +277,12 @@ public class CommonScenarios {
         PageCampaignRules page = new CampaignNavigationMenu().openRulesPage();
         Log.logRecord("Campaign Rules page is opened");
         return page;
+    }
+
+    public static PageCampaignRules addTagOnCampaignRulesPage(String tag){
+        return new CampaignNavigationMenu()
+                .openRulesPage()
+                .addTag(tag);
     }
 
     public static PageCampaignRules setCampaignNameOnRulesPage(String campaignName) {

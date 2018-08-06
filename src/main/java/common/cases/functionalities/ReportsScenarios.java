@@ -9,6 +9,7 @@ import talkable.talkableSite.headerFrame.Header;
 import talkable.talkableSite.reports.CountableReport;
 import talkable.talkableSite.reports.FilterableReport;
 import talkable.talkableSite.reports.ReportsPage;
+import talkable.talkableSite.reports.advocateOffers.AdvocateOffersReportPage;
 import talkable.talkableSite.reports.couponLists.CouponListPage;
 import talkable.talkableSite.reports.couponLists.CouponListsReportPage;
 import talkable.talkableSite.reports.peopleReport.PeopleReportPage;
@@ -438,4 +439,19 @@ public class ReportsScenarios extends CommonScenarios {
     }
 
     /* End of Purchases report scenarios */
+    /* Advocate Offers report scenarios */
+    public static AdvocateOffersReportPage openAdvocateOffersReport(){
+        return openReportsPage()
+                .openAdvocateOffersReport();
+    }
+
+    public static void searchAdvocateInAdvocateOffersReport(String email){
+        new AdvocateOffersReportPage().searchByEmail(email);
+    }
+
+    public static String  getEmailFromFirstRowInAdvocateOffersReport(){
+        return new AdvocateOffersReportPage().getEmailFromFirstRow();
+    }
+    /* End of Advocate Offers report scenarios */
+
 }

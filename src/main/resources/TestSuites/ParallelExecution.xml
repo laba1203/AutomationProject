@@ -93,6 +93,11 @@
             <class name="execution.reports.purchases.PurchasesReport"/>
         </classes>
     </test>
+    <test name = "Advocate Offers">
+        <classes>
+            <class name="execution.reports.advocateOffers.AdvocateOffers"/>
+        </classes>
+    </test>
 
     <!--Below tests were moved to NotStableTests.xml-->
     <!--
