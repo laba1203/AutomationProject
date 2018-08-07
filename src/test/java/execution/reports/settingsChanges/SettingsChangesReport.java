@@ -12,7 +12,7 @@ import util.TestDataGenerator;
 import util.Util;
 
 public class SettingsChangesReport extends BaseTest{
-    private static final String user = PropertyLoader.loadProperty("talkable.user.reports");
+    private static final String user = PropertyLoader.loadProperty("talkable.user.reports.siteSettingsReport");
     private static final String pswrd = EnvFactory.getPassword();
 
     @BeforeClass
