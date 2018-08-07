@@ -14,7 +14,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <env.NAME>BASTION</env.NAME>
+        <!--<env.NAME>BASTION</env.NAME>-->
         <execution.threads>2</execution.threads>
         <execution.suite.name>ParallelExecution.xml</execution.suite.name>
     </properties>
