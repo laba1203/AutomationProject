@@ -26,7 +26,7 @@ public class IntegrationPage extends AbstractTalkableSitePage{
     }
 
     public String getScriptSourceFromGeneralIntegration(){
-        return new Element(scriptSourceLinkLctr).getText();
+        return new Element(scriptSourceLinkLctr).getText() + "</script> \n";
     }
 
 

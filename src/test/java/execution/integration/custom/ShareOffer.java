@@ -42,6 +42,8 @@ public class ShareOffer extends BaseTest{
         tkblIntegrationScript = CommonScenarios
                 .getSiteIntegrationValues()
                 .getTalkableIntegrationScript();
+        String jsLibResource = CommonScenarios.getJSLibResourceFromIntegrationPage();
+        tkblIntegrationScript += jsLibResource;
         ExternalScenarios.editGiHubFile(
                 gitHubEditorPage,
                 gitHubUserName,
