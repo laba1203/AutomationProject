@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="All Test In Parallel" parallel="tests" thread-count="2">
+<suite name="All Test In Parallel" parallel="tests" thread-count="4">
 
     <listeners>
         <listener class-name="util.Listeners"/>
