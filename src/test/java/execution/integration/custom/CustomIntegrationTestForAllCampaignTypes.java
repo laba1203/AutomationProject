@@ -6,6 +6,7 @@ import execution.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import talkable.common.CampaignPlacement;
 import talkable.common.CampaignType;
@@ -23,6 +24,7 @@ import static talkable.common.CampaignType.Invite;
 
 /*Link to test scenario: https://docs.google.com/spreadsheets/d/1FLkr-T2s-mVnG770gLh4imwMnoO0vFtduYquM_49zzQ/edit#gid=0
 * */
+@Listeners(util.Listeners.class)
 public class CustomIntegrationTestForAllCampaignTypes extends BaseTest{
 
     private static final String customerSiteUrl = PropertyLoader.loadEnvProperty("test.sites.simpleTestForAllCampaigns");

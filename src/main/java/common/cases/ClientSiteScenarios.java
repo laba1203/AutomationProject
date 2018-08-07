@@ -55,9 +55,9 @@ public class ClientSiteScenarios {
         CommonScenarios.navigateToUrl(siteLink);
         switch (placement){
             case FloatingWidget:
-                return isFloatingPresent(placement);
+                return isFloatingPresent();
             case Standalone:
-                return isStandalonePresent(placement);
+                return isStandalonePresent();
             case PostPurchase:
                 return isPostPurchasePresent(campaignType, placement);
             case Gleam:
@@ -68,7 +68,7 @@ public class ClientSiteScenarios {
         }
     }
 
-    private static boolean isFloatingPresent(CampaignPlacement placement){
+    private static boolean isFloatingPresent(){
         try{
             waitFactory().waitUntilVisibilityOfElementLocated(AdvocateTriggerWidgetFrame.getFrameLocator(), CAMPAIGN_WAIT_TIME);
             return true;
@@ -77,7 +77,7 @@ public class ClientSiteScenarios {
         }
     }
 
-    private static boolean isStandalonePresent(CampaignPlacement placement){
+    private static boolean isStandalonePresent(){
         try{
             waitFactory().waitUntilVisibilityOfElementLocated(AdvocateSignupPage.getFrameLocator(), CAMPAIGN_WAIT_TIME);
             return true;
