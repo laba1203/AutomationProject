@@ -41,8 +41,10 @@ public class Site {
                 "  }]);\n" +
                 "\n" +
                 "  window._talkableq.push(['register_affiliate', {}]);\n" +
-                "</script>\n" +
-                "<script async src=\"//di6re4dxelnn2.cloudfront.net/integration/clients/" + getSiteSlug() + ".min.js\" type=\"text/javascript\"></script>\n"
+                "</script>\n"
+//                "<script async src=\"//di6re4dxelnn2.cloudfront.net/integration/clients/" + getSiteSlug() + ".min.js\" type=\"text/javascript\"></script>\n"
+//                "<script async src=\"//curebit.s3.amazonaws.com/integration/clients/" + getSiteSlug() + ".min.js\" type=\"text/javascript\"></script>\n"
+
                 ;
     }
 

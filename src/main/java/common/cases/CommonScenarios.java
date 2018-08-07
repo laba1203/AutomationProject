@@ -529,6 +529,11 @@ public class CommonScenarios {
         return new IntegrationPage();
     }
 
+    public static String getJSLibResourceFromIntegrationPage(){
+        return openSiteIntegrationPage()
+                .getScriptSourceFromGeneralIntegration();
+    }
+
 
     /**
      * Scenarios to create Test Offer for campaign with non Post Purchase placement (FW, SA, GR).
@@ -767,7 +772,6 @@ public class CommonScenarios {
                 .requestAccessWithAutoApproval(term, piiType);
 
     }
-
 
     /* End of Access Management scenarios */
 
