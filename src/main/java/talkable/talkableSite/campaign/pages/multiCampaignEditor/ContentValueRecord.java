@@ -1,6 +1,6 @@
 package talkable.talkableSite.campaign.pages.multiCampaignEditor;
 
-interface ContentValueRecord {
+public interface ContentValueRecord {
 
     void update(String text);
 

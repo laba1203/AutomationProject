@@ -1,0 +1,9 @@
+<suite name="A/B Tests">
+    <test name="New A/B Test">
+        <classes>
+            <class name="execution.ab.tests.LocalesAbTests"/>
+        </classes>
+    </test>
+
+</suite>
+
