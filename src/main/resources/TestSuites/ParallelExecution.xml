@@ -67,11 +67,11 @@
             <class name="execution.site.settings.SiteSettingsContactsTab"/>
         </classes>
     </test>
-    <!--<test name="CSP Tests" > commented due to a defect-->
-        <!--<classes>-->
-            <!--<class name="execution.csp.CspTesting"/>-->
-        <!--</classes>-->
-    <!--</test>-->
+    <test name="CSP Tests" >
+        <classes>
+            <class name="execution.csp.CspTesting"/>
+        </classes>
+    </test>
             <!--Reports-->
     <test name="Previous Customer Report" >
         <classes>

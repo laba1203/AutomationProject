@@ -64,7 +64,6 @@ import util.logging.Log;
     * */
 
 
-@Listeners(util.Listeners.class)
 public class CspTesting extends BaseTest{
 
     private Site site;
