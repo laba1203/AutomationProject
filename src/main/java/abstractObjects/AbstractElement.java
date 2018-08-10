@@ -23,7 +23,7 @@ public abstract class AbstractElement implements DrivenElement{
             this.locator = locator;
         }
         catch (NoSuchElementException e){
-            Assert.fail( "Element <" + elementName + "> was not found on the page. \r\n");
+            Assert.fail( "Element <" + elementName + "> was not found on the page. \r\n" + e.getMessage());
         }
     }
 

@@ -4,6 +4,7 @@ import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import talkable.talkableSite.campaign.pages.ab.tests.newAbTest.AbTestPage;
 import talkable.talkableSite.campaign.pages.editorPage.localizationSidebar.LocalizationSidebar;
 import talkable.talkableSite.campaign.pages.campaignNavigationMenu.CampaignNavigationMenuOnEditor;
 import talkable.talkableSite.campaign.pages.multiCampaignEditor.PageMultiCampaignEditor;
@@ -83,6 +84,11 @@ public class SimpleEditorPage extends AbstractEditorPage{
                 .getNameText();
     }
 
+    public AbTestTileInEditor getFirstLocaleWithAbTest(){
+        return getLocalizationSidebar()
+                .getFirstLocaleWithAbTest();
+    }
+
 
     public String getLocalizationValue(String localizationName){
         return getLocalizationSidebar()
@@ -157,8 +163,8 @@ public class SimpleEditorPage extends AbstractEditorPage{
         }
     }
 
-    public void clickCreateABTest(LocalizationType type, String localizationName){
+    public AbTestPage clickCreateABTest(String localizationName){
         getLocalizationSidebar().getRecord(localizationName).createABTest();
-        //TODO: Return action to be added after implementation of AB Test editor page
+        return new AbTestPage();
     }
 }

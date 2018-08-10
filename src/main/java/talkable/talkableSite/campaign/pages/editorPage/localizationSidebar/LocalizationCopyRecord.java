@@ -17,6 +17,7 @@ public class LocalizationCopyRecord extends AbstractLocalizationRecord{
 
     }
 
+
     public Element getValue() {
         return value;
     }
