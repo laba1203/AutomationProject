@@ -16,6 +16,9 @@ import talkable.common.CampaignType;
 import util.DriverConfig;
 import util.WaitFactory;
 
+import static talkable.common.CampaignPlacement.Standalone;
+import static talkable.common.CampaignType.Invite;
+
 public class ClientSiteScenarios {
 
     private static final long CAMPAIGN_WAIT_TIME = 3;
@@ -118,5 +121,14 @@ public class ClientSiteScenarios {
         return new FriendSignupPage()
                 .signup(email)
                 .getCouponCode();
+    }
+
+    public static void assertCampaignOnCustomerSite(CampaignType campaignType, CampaignPlacement placement, String siteLink){
+        Assert.assertEquals(
+                ClientSiteScenarios.isCampaignOnCustomerSite(campaignType, placement, siteLink),
+                true,
+                "FAILED: <"+campaignType+"."+placement+">Campaign is not displayed on site  <" + siteLink + ">."
+        );
+
     }
 }

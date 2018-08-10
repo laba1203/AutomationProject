@@ -1,12 +1,16 @@
 package talkable.talkableSite.campaign.pages.campaignNavigationMenu;
 
 import abstractObjects.AbstractElementsContainer;
+import abstractObjects.Element;
+import org.openqa.selenium.By;
+import talkable.talkableSite.campaign.pages.ab.tests.newAbTest.campaign.menu.CampaignAbTestsPage;
 import talkable.talkableSite.campaign.pages.detailsPage.CampaignDetailsPage;
 import talkable.talkableSite.campaign.pages.editorPage.SimpleEditorPage;
 import talkable.talkableSite.campaign.pages.campaignRulesPage.PageCampaignRules;
 
 public class CampaignNavigationMenuOnLaunchCampaignPage extends AbstractElementsContainer{
 
+    private static final By abTestsTab = By.xpath("//a[text()='A/B Tests']");
     private ElmntDetailsButton elmntDetailsButton;
     private ElmntRulesButton rulesButton;
     private ElmntPreviewButton elmntPreviewButton;
@@ -35,6 +39,12 @@ public class CampaignNavigationMenuOnLaunchCampaignPage extends AbstractElements
     public PageCampaignRules openRulesPage(){
         rulesButton.click();
         return new PageCampaignRules();
+    }
+
+    public CampaignAbTestsPage openAbTestsPage(){
+        new Element(abTestsTab, "A/B Tests tab").click();
+        return new CampaignAbTestsPage();
+
     }
 
 

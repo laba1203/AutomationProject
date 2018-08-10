@@ -1,6 +1,7 @@
 package abstractObjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import util.logging.Log;
@@ -18,7 +19,13 @@ public abstract class AbstractTalkableFrame extends AbstractElementsContainer{
     }
 
     protected void switchToThisFrame(){
-        wait.until(ExpectedConditions.visibilityOf(getFrameWebElement()));
+        try {
+            wait.until(ExpectedConditions.visibilityOf(getFrameWebElement()));
+        }catch (StaleElementReferenceException e){
+            Log.debagRecord("StaleElementReferenceException was catch during execution of AbstractTalkableFrame.switchToThisFrame() in class " + this.getClass().getName() + ". " +
+                    "Trying to getFrameWebElement() once again...");
+            wait.until(ExpectedConditions.visibilityOf(getFrameWebElement()));
+        }
         driver.switchTo().frame(getFrameWebElement());
 
         Log.frameSwitchedMsg(this);
