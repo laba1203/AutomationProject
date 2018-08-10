@@ -12,10 +12,6 @@ public class WeUseCookieMsg extends AbstractElementsContainer{
     private static final By gdprContent = By.xpath("//*[@class = 'Gdpr-policy-desktop-content']");
 
     public WeUseCookieMsg(){
-//        WaitFactory.getCustomWait(5, 500)
-//                .until(
-//                        ExpectedConditions
-//                                .visibilityOfElementLocated(acceptBtnLctr));
         new Element(gdprContent);
     }
 
