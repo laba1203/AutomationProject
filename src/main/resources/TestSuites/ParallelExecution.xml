@@ -72,6 +72,11 @@
             <class name="execution.csp.CspTesting"/>
         </classes>
     </test>
+    <test name="New A/B Test">
+        <classes>
+            <class name="execution.ab.tests.LocalesAbTests"/>
+        </classes>
+    </test>
             <!--Reports-->
     <test name="Previous Customer Report" >
         <classes>
