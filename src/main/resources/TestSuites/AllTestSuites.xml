@@ -5,20 +5,20 @@
         <listener class-name="util.Listeners"/>
     </listeners>
 
-    <suite-file path="SmokeTest.xml"/>
-    <suite-file path="CustomIntegration.xml"/>
-    <suite-file path="EditorSuite.xml"/>
-    <suite-file path="FraudRulesTestSuite.xml"/>
-    <suite-file path="CampaignActions.xml"/>
-    <suite-file path="ReportsSuite.xml"/>
-    <suite-file path="MultiCampaignEditorSuite.xml"/>
-    <!--<suite-file path="AccessManagement.xml"/> commented for PROD due to absence of permissions on Prod-->
+    <suite-file path="features/SmokeTest.xml"/>
+    <suite-file path="features/CustomIntegration.xml"/>
+    <suite-file path="features/EditorSuite.xml"/>
+    <suite-file path="features/FraudRulesTestSuite.xml"/>
+    <suite-file path="features/CampaignActions.xml"/>
+    <suite-file path="features/ReportsSuite.xml"/>
+    <suite-file path="features/MultiCampaignEditorSuite.xml"/>
+    <!--<suite-file path="features/AccessManagement.xml"/> commented for PROD due to absence of permissions on Prod-->
 
     <!--Please note: Below suite will create new site-->
-    <suite-file path="AccountAndSiteCreation.xml"/>
-    <suite-file path="SiteSettingsTest.xml"/>
+    <suite-file path="features/AccountAndSiteCreation.xml"/>
+    <suite-file path="features/SiteSettingsTest.xml"/>
     <!--<suite-file path="CspTests.xml"/> commented due to the defect https://talkable.atlassian.net/browse/PR-9622  -->
-    <suite-file path="IntegrationTests.xml"/>
+    <suite-file path="features/IntegrationTests.xml"/>
 
 </suite>
 
