@@ -20,7 +20,7 @@ import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchases.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.headerFrame.Header;
-import talkable.homePage.HomePage;
+import talkable.site.homePage.HomePage;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.loginPage.LoginPage;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
@@ -56,8 +56,7 @@ public class CommonScenarios {
      * Post-condition: User logged to Talkable. Header should be available for further actions
      * */
     public static Header login(String email, String password) {
-        HomePage homePage = new HomePage();
-        homePage.clickLoginButton();
+        new HomePage().clickLoginButton();
         return submitLoginForm(email, password);
     }
 
