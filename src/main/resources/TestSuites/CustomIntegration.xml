@@ -1,5 +1,5 @@
 <suite name="Custom Integration" preserve-order="true" group-by-instances="true">
-    <test name="Custom Integration" preserve-order="true" >
+    <test name="Custom Integration for all campaigns types" preserve-order="true" >
         <classes>
             <class name="execution.integration.custom.CustomIntegrationTestForAllCampaignTypes"/>
         </classes>
