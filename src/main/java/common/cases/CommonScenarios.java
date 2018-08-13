@@ -5,6 +5,8 @@ import org.testng.Assert;
 import talkable.access.managment.access.request.AccessRequestPage;
 import talkable.common.elements.WeUseCookieMsg;
 import talkable.common.elements.pagination.Pagination;
+import talkable.site.TlkblSiteFooter;
+import talkable.site.contact.us.ContactUsPage;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
 import talkable.common.CampaignPlacement;
@@ -20,7 +22,7 @@ import talkable.talkableSite.reports.newAffiliateMember.PageNewAffiliateMember;
 import talkable.talkableSite.reports.purchases.createNewPurchasePage.CreateNewPurchasePage;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.headerFrame.Header;
-import talkable.site.homePage.HomePage;
+import talkable.site.homePage.TkblHomePage;
 import talkable.talkableSite.campaign.pages.launchCampaignPage.LaunchCampaignPage;
 import talkable.loginPage.LoginPage;
 import talkable.talkableSite.siteDashboardPage.SiteDashboardPage;
@@ -56,7 +58,7 @@ public class CommonScenarios {
      * Post-condition: User logged to Talkable. Header should be available for further actions
      * */
     public static Header login(String email, String password) {
-        new HomePage().clickLoginButton();
+        new TkblHomePage().clickLoginButton();
         return submitLoginForm(email, password);
     }
 
@@ -773,6 +775,17 @@ public class CommonScenarios {
     }
 
     /* End of Access Management scenarios */
+    /*Talkable site scenarios*/
+
+    public static ContactUsPage openContactUsPage(TlkblSiteFooter initialPage) {
+        return initialPage.openContactUsPage();
+    }
+
+    public static ContactUsPage submitContactUsForm(String firstName, String lastName, String company, String email, String phone, String question){
+        return new ContactUsPage()
+                .populateForm(firstName, lastName, company, email, phone, question)
+                .submit();
+    }
 
 
 
