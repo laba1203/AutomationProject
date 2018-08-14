@@ -1,9 +1,7 @@
 package talkable.talkableSite.headerFrame;
 
 import abstractObjects.AbstractElementsContainer;
-import abstractObjects.Element;
-import org.openqa.selenium.By;
-import talkable.homePage.HomePage;
+import talkable.site.homePage.TkblHomePage;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.talkableSite.campaignsPage.PageCampaigns;
 import talkable.talkableSite.customerServicePortal.OldCspPage;
@@ -89,7 +87,7 @@ public class Header extends AbstractElementsContainer{
         return new OldCspPage();
     }
 
-    public HomePage logout(){
+    public TkblHomePage logout(){
         return openMenu().clickLogout();
     }
 

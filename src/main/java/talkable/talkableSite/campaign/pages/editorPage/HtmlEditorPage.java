@@ -113,6 +113,18 @@ public class HtmlEditorPage extends AbstractEditorPage{
         }
     }
 
+    public HtmlEditorPage uploadNewImageWhichExistsOnServer(String name){
+        String filePath = TestArtifactsProvider.getImagesFilePath(name);
+        openFilesPopup()
+                .uploadFile(filePath);
+        new Alert()
+                .verifyAlertMsg(
+                        "A file with the name \"" + name + "\" already exists on the server.\n" +
+                                "Would you like to replace the existing file?")
+                .confirm();
+        return new HtmlEditorPage();
+    }
+
     private FilesPopup openFilesPopup(){
         fileUploaderBtn.click();
         return new FilesPopup();

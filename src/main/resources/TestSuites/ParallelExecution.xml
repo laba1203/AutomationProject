@@ -31,7 +31,7 @@
             <class name="execution.editor.HtmlEditorTesting"/>
         </classes>
     </test>
-    <!--<test name="Share offer" > Commented die to defect: https://talkable.atlassian.net/browse/PR-9742 -->
+    <!--<test name="Share offer" > Commented due to defect: https://talkable.atlassian.net/browse/PR-9742 -->
         <!--<classes>-->
             <!--<class name="execution.integration.custom.ShareOffer"/>-->
         <!--</classes>-->

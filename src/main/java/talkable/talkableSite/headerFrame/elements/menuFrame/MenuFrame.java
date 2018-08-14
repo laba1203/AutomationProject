@@ -5,7 +5,7 @@ import abstractObjects.Element;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import talkable.addYourSitePage.AddSitePage;
-import talkable.homePage.HomePage;
+import talkable.site.homePage.TkblHomePage;
 import talkable.talkableSite.camapignPlacements.PageCampaignPlacements;
 import talkable.talkableSite.createNewCampaignPage.CreateNewCampaignPage;
 import talkable.talkableSite.fraud.settings.FraudSettingsPage;
@@ -48,10 +48,10 @@ public class MenuFrame extends AbstractElementsContainer {
         return new PageCampaignPlacements();
     }
 
-    public HomePage clickLogout(){
+    public TkblHomePage clickLogout(){
         logoutButton = new ElmntLogoutButton();
         logoutButton.click();
-        return new HomePage();
+        return new TkblHomePage();
     }
 
     public FraudSettingsPage clickFraudSettingsButton(){

@@ -140,10 +140,10 @@ public class EditorScenarios extends CommonScenarios{
     }
 
     public static void searchLocalization(String localeName, SimpleEditorPage.LocalizationType mode){
-        SimpleEditorPage page = new SimpleEditorPage().searchLocale(localeName, mode);
+        new SimpleEditorPage().searchLocale(localeName, mode);
 
         Assert.assertEquals(
-                page.getFirstLocaleName().toLowerCase(),
+                new SimpleEditorPage(mode).getFirstLocaleName().toLowerCase(),
                 localeName + "#",
                 "Incorrect locale is returned in localization grid when Search of Custom Settings was done. "
         );
@@ -152,6 +152,11 @@ public class EditorScenarios extends CommonScenarios{
     public static void uploadNewImage(String name){
         new HtmlEditorPage()
                 .uploadNewImage(name);
+    }
+
+    public static void uploadNewImageWhichExistsOnServer(String name){
+        new HtmlEditorPage()
+                .uploadNewImageWhichExistsOnServer(name);
     }
 
     public static String getFirstImageNameFromFiles(){
