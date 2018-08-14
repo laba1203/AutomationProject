@@ -248,7 +248,7 @@ public class HtmlEditorTesting extends BaseTest {
         String imageName = "test.png";
 
         EditorScenarios.openHtmlEditor();
-        EditorScenarios.uploadNewImage(imageName);
+        EditorScenarios.uploadNewImageWhichExistsOnServer(imageName);
 
         Assert.assertEquals(
                 EditorScenarios.getFirstImageNameFromFiles(),
