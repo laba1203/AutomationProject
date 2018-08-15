@@ -7,6 +7,9 @@ import talkable.common.elements.WeUseCookieMsg;
 import talkable.common.elements.pagination.Pagination;
 import talkable.site.TlkblSiteFooter;
 import talkable.site.contact.us.ContactUsPage;
+import talkable.site.handbook.DownloadHandbookPage;
+import talkable.site.handbook.GetHandbookPage;
+import talkable.site.resourcesPage.TkblSiteResourcesPage;
 import talkable.talkableSite.IntegrationInstructionPage.IntegrationInstructionPage;
 import talkable.addYourSitePage.AddSitePage;
 import talkable.common.CampaignPlacement;
@@ -785,6 +788,24 @@ public class CommonScenarios {
         return new ContactUsPage()
                 .populateForm(firstName, lastName, company, email, phone, question)
                 .submit();
+    }
+
+    public static GetHandbookPage openGetHandbookPage(){
+        return new TkblHomePage()
+                .openResourcesPage()
+                .clickGetHandBookNow();
+    }
+
+    public static DownloadHandbookPage submitGetBookForm(String firstName, String lastName, String webSiteUrl, String email, String averageMonthlyWebsiteViews){
+        return new GetHandbookPage().submitForm(firstName, lastName, webSiteUrl, email, averageMonthlyWebsiteViews);
+    }
+
+    public static String getMessageHeaderFromDownloadHandBookPage(){
+        return new DownloadHandbookPage().getMessageHeader();
+    }
+
+    public static String getMessageTextFromDownloadHandBookPage(){
+        return new DownloadHandbookPage().getMessageText();
     }
 
 
