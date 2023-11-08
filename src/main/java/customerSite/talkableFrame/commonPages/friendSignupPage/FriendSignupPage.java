@@ -1,11 +1,10 @@
 package customerSite.talkableFrame.commonPages.friendSignupPage;
 
-import abstractObjects.AbstractTalkableFrame;
+import abstractObjects.AbstractTkblFrame;
 import abstractObjects.Element;
-import customerSite.talkableFrame.commonPages.advocateSharePage.invite.*;
 import org.openqa.selenium.By;
 
-public class FriendSignupPage extends AbstractTalkableFrame{
+public class FriendSignupPage extends AbstractTkblFrame {
 
     private static final By emailGatingLctr = By.xpath("//input[@name='person[email]']");
     private static final By getMyDiscountBtn = By.xpath("//button[@type='submit']");

@@ -1,11 +1,10 @@
 package customerSite.talkableFrame.floatingWidget.advocateTrigerWidget;
 
-import abstractObjects.AbstractTalkableFrame;
+import abstractObjects.AbstractTkblFrame;
 import customerSite.talkableFrame.floatingWidget.advocateSignupPage.AdvocateSignupPageFW;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 
-public class AdvocateTriggerWidgetFrame extends AbstractTalkableFrame{
+public class AdvocateTriggerWidgetFrame extends AbstractTkblFrame {
     private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
     private FloatingWidgetButton button;
 

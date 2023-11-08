@@ -1,7 +1,7 @@
 package util.logging;
 
 import abstractObjects.AbstractElement;
-import abstractObjects.AbstractTalkableFrame;
+import abstractObjects.AbstractTkblFrame;
 import org.openqa.selenium.support.ui.Select;
 import talkable.userRegistration.chosePlatformPage.ChosePlatformPage;
 
@@ -108,7 +108,7 @@ public class Log {
         return msg;
     }
 
-    public static String frameSwitchedMsg(AbstractTalkableFrame frame){
+    public static String frameSwitchedMsg(AbstractTkblFrame frame){
         String msg = "LOG: Switched to iFrame " + frame.getClass().getName();
         System.out.println(msg);
         return msg;

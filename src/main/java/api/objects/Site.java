@@ -25,11 +25,11 @@ public class Site {
     }
 
 
-    public String getTalkableIntegrationScript() {
+    public String getIntegrationScript() {
         if(siteSlug == null){
             Assert.fail("Site Slug is not defined in the object of api.objects.Site.class");
         }
-        String talkableServer = getTalkableServer();
+        String talkableServer = getServer();
         return "<script>\n" +
                 "  window._talkableq = window._talkableq || [];\n" +
                 "  _talkableq.push(['init', { site_id: \"" + getSiteSlug() + "\"" + talkableServer + " }]);\n" +
@@ -48,7 +48,7 @@ public class Site {
                 ;
     }
 
-    private String getTalkableServer(){
+    private String getServer(){
         switch (EnvFactory.getEnvType()){
             case PROD:
                 return "";

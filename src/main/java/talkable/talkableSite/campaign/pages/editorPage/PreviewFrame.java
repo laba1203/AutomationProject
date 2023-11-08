@@ -1,11 +1,11 @@
 package talkable.talkableSite.campaign.pages.editorPage;
 
-import abstractObjects.AbstractTalkableFrame;
+import abstractObjects.AbstractTkblFrame;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
 import util.logging.Log;
 
-class PreviewFrame extends AbstractTalkableFrame{
+class PreviewFrame extends AbstractTkblFrame {
 
     private static final By frameLocator = By.xpath("//iframe");
     private int frameLevel = 0;

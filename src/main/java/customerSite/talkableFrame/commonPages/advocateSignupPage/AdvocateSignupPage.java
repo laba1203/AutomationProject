@@ -1,11 +1,11 @@
 package customerSite.talkableFrame.commonPages.advocateSignupPage;
 
-import abstractObjects.AbstractTalkableFrame;
+import abstractObjects.AbstractTkblFrame;
 import abstractObjects.Element;
 import customerSite.talkableFrame.floatingWidget.advocateSharePage.AdvocateSharePageFW;
 import org.openqa.selenium.By;
 
-public class AdvocateSignupPage extends AbstractTalkableFrame{
+public class AdvocateSignupPage extends AbstractTkblFrame {
 //    private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe-popup']");
     private static final By frameLocator = By.xpath("//iframe[contains(@name,'talkable-offer-iframe')]");
     private static final By firstNameLctr = By.xpath("//input[@name='affiliate_member[first_name]']");

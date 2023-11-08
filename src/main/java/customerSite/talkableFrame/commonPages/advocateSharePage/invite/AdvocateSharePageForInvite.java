@@ -1,11 +1,10 @@
 package customerSite.talkableFrame.commonPages.advocateSharePage.invite;
 
-import abstractObjects.AbstractTalkableFrame;
+import abstractObjects.AbstractTkblFrame;
 import abstractObjects.Element;
 import org.openqa.selenium.By;
-import util.WaitFactory;
 
-public class AdvocateSharePageForInvite extends AbstractTalkableFrame{
+public class AdvocateSharePageForInvite extends AbstractTkblFrame {
 
     private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
     private static final By shareViaEmailBtn = By.cssSelector(".ac-share-via-email");

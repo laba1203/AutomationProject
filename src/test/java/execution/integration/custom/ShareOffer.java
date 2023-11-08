@@ -41,7 +41,7 @@ public class ShareOffer extends BaseTest{
         tkblSiteUrl = CommonScenarios.getCurrentUrl();
         tkblIntegrationScript = CommonScenarios
                 .getSiteIntegrationValues()
-                .getTalkableIntegrationScript();
+                .getIntegrationScript();
         String jsLibResource = CommonScenarios.getJSLibResourceFromIntegrationPage();
         tkblIntegrationScript += jsLibResource;
         ExternalScenarios.editGiHubFile(

@@ -8,7 +8,7 @@ import org.testng.Assert;
 import util.DriverConfig;
 import util.logging.Log;
 
-public abstract class AbstractTalkableFrame extends AbstractElementsContainer{
+public abstract class AbstractTkblFrame extends AbstractElementsContainer{
     private By frameLctr;
 
     protected void setWebElement(By locator){
@@ -31,7 +31,7 @@ public abstract class AbstractTalkableFrame extends AbstractElementsContainer{
                             .visibilityOf(getFrameWebElement())
             );
         }catch (StaleElementReferenceException e){
-            Log.debagRecord("StaleElementReferenceException was catch during execution of AbstractTalkableFrame.switchToThisFrame() in class " + this.getClass().getName() + ". " +
+            Log.debagRecord("StaleElementReferenceException was catch during execution of AbstractTkblFrame.switchToThisFrame() in class " + this.getClass().getName() + ". " +
                     "Trying to getFrameWebElement() once again...");
             wait.until(ExpectedConditions.visibilityOf(getFrameWebElement()));
         }

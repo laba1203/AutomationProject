@@ -1,10 +1,10 @@
 package customerSite.talkableFrame.commonPages.advocateSharePage.advocateDashboard;
 
-import abstractObjects.AbstractTalkableFrame;
+import abstractObjects.AbstractTkblFrame;
 import customerSite.talkableFrame.commonPages.advocateSharePage.invite.AdvocateSharePageForInvite;
 import org.openqa.selenium.By;
 
-public class AdSharePageForAdDashboard extends AbstractTalkableFrame {
+public class AdSharePageForAdDashboard extends AbstractTkblFrame {
     private static final By frameLocator = By.cssSelector("iframe[name='talkable-offer-iframe']");
 
     //Elements:
