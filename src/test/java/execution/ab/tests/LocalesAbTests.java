@@ -26,6 +26,7 @@ public class LocalesAbTests extends BaseTest{
     private String sitePage = "index.html";
     private String gitHubEditorPage = EnvFactory.getGitHubEditLink() + siteLocation + sitePage;
     private String customerSiteUrl = EnvFactory.getGitHubSiteLink() + siteLocation;
+    //test
 
     private String tkblSiteUrl;
     private String campaignUrl;
